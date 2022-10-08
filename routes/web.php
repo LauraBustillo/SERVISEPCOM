@@ -81,6 +81,10 @@ Route::post('/Empleado',[EmpleadoController::class, 'index'])->name('empleado.in
  ->name('empleado.mostrar')
  ->where('id', '[0-9]+');
 
+ /*Para editar el empleado*/
+Route::get('/empleado/{id}/editar', [EmpleadoController::class, 'actualizar']) -> name('empleado.editar');
+Route::put('/empleado/{id}/editar', [EmpleadoController::class, 'actu']) -> name('empleado.update');
+
 
 
 
