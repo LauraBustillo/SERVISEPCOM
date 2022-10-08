@@ -25,6 +25,12 @@ class EmpleadoController extends Controller
         return view('Empleados.ListadoEmpleados')->with('empleados', $empleado)->with('buscar',$buscar);
     }
    
+      /*Funcion para mostrar mas informacion del empleado */ 
+      public function show($id){
+        $ver = Empleado::findOrFail($id);
+        return view('Empleados.InformacionEmpleado')->with('ver', $ver);
+      }
+
          /*Funcion para guardar empleado*/
         public function guardar(){
            return view ('Empleados.RegistroEmpleados');
