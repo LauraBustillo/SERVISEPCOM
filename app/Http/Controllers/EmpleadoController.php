@@ -7,6 +7,23 @@ use DB;
 
 class EmpleadoController extends Controller
 {
+
+      /*Funcion para ver el listado y buscar empleado */
+      public function index(Request $request){
+        $empleado = [];
+        $buscar = '';
+        if($request->buscar != null && $request->buscar != ''){
+          $buscar = $request->buscar;
+          $empleado =  Empleado::where(DB::raw("LOWER(concat(Primer_nombre,'',Primer_apellido))"),"like","%".strtolower($request->buscar)."%")
+          ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
+          ->paginate(10); 
+        }else{
+          $buscar = '';
+          $empleado = Empleado::paginate(10);
+        }
+  
+        return view('Empleados.ListadoEmpleados')->with('empleados', $empleado)->with('buscar',$buscar);
+    }
    
          /*Funcion para guardar empleado*/
         public function guardar(){
