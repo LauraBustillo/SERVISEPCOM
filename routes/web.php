@@ -68,12 +68,13 @@ Route::get('/registroempleados', function () {
     return view('RegistroEmpleados');
 })->name('show.registroEmpleado');
 
-
-
 /*Registro empleado*/
 Route::get('/registroempleados', [EmpleadoController::class, 'guardar'])  ->name('show.registroEmpleado');
 Route::post('/registroempleados', [EmpleadoController::class, 'agg'])->name('datos');
 
+/*Funcion del listado y buscador del empleado. */
+Route::get('/Empleado',[EmpleadoController::class, 'index'])->name('empleado.index');
+Route::post('/Empleado',[EmpleadoController::class, 'index'])->name('empleado.index');
 
 
 
