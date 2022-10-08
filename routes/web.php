@@ -40,6 +40,8 @@ Route::get('/products', function () {
 Route::get('/Cliente',[ClienteController::class, 'index'])->name('cliente.index');
 Route::post('/Cliente',[ClienteController::class, 'index'])->name('cliente.index');
 
+/*Para mostrar la infomarcion de cada cliente*/
+Route::get('/Clientes/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar')->where('id', '[0-9]+');
 
 /*Registro cliente*/
 Route::get('/registroclientes', [ClienteController::class, 'guardar'])  ->name('show.registroCliente');
