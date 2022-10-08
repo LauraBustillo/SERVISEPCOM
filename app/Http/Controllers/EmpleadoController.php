@@ -114,6 +114,51 @@ class EmpleadoController extends Controller
         }
 
     }
+
+    /*Funcion para  actualizar empleado */
+    public function actualizar($id){
+      $modificar = Empleado::find($id);
+       return view('Empleados.EditarEmpleado')->with('modificar', $modificar);
+       
+  }
+  
+      public function actu (Request $request, $id){
+
+      $request->validate([
+          'Primer_nombre' =>'required',
+          'Segundo_nombre',
+          'Primer_apellido' =>'required',
+          'Segundo_apellido',
+          'Numero_identidad' =>'required|numeric',
+          'Fecha_nacimiento' =>'required|date',
+          'Numero_telefono' => 'required|numeric',
+          'Salrio' => 'required|numeric',
+          'Fecha_contrato' => 'required|date',
+          'Direccion' =>'required',
+        ]); 
+              
+        $actu = Empleado::find($id);
+
+        $actu -> Primer_nombre = $request -> input('Primer_nombre');
+        $actu -> Segundo_nombre = $request -> input('Segundo_nombre');
+        $actu -> Primer_apellido = $request -> input('Primer_apellido');
+        $actu -> Segundo_apellido = $request -> input('Segundo_apellido');
+        $actu -> Numero_identidad= $request -> input('Numero_identidad');
+        $actu -> Fecha_nacimiento= $request -> input('Fecha_nacimiento');
+        $actu -> Numero_telefono = $request -> input('Numero_telefono');
+        $actu -> Salrio = $request -> input('Salrio');
+        $actu -> Fecha_contrato= $request -> input('Fecha_contrato');
+        $actu -> Direccion= $request -> input('Direccion');
+
+
+      $agregar =  $actu -> save();
+
+      if ($agregar){
+          return redirect()->route('empleado.index')->with('mensaje', 'Se edito exitosamente') ;
+        } else {
+          //nada por ahorita
+        }
+      }
      
 }
 
