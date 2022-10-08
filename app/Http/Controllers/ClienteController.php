@@ -82,4 +82,37 @@ class ClienteController extends Controller
         
       }
    }
+
+   /*Funcion para  actualizar(editar) */
+   public function actualizar($id){
+    $modificar = Cliente::find($id);
+     return view('Clientes.EditarCliente')->with('modificar', $modificar);    
+}
+
+public function actu (Request $request, $id){
+
+$request->validate([
+    'Nombre' =>'required',
+    'Apellido' =>'required',
+    'Numero_identidad' =>'required|numeric',
+    'Numero_telefono' => 'required|numeric',
+    'Direccion' =>'required',
+  ]); 
+        
+  $actu = Cliente::find($id);
+
+  $actu -> Nombre = $request -> input('Nombre');
+  $actu -> Apellido = $request -> input('Apellido');
+  $actu -> Numero_identidad = $request -> input('Numero_identidad');
+  $actu -> Numero_telefono = $request -> input('Numero_telefono');
+  $actu -> Direccion = $request -> input('Direccion');
+ 
+ $agregar = $actu -> save();
+
+if ($agregar){
+    return redirect()->route('cliente.index')->with('mensaje', 'Se edito exitosamente') ;
+  } else {
+    
+  }
+}
 }
