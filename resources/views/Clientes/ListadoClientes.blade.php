@@ -1,0 +1,64 @@
+@extends('main')
+@section('extra-content')
+
+
+@if (session('mensaje'))
+<div class="alert alert-success">
+  {{session('mensaje')}}
+</div>
+@endif
+
+<div>
+
+{{-- Boton nuevo cliente --}}
+<a   class="btn-detalles " style="float:right" href="{{route('show.registroCliente')}}" >
+  <i class="bi bi-person-plus-fill"> Nuevo cliente </i>
+</a>
+
+{{-- Buscador--}}
+<form  id="ablescroll" method="POST" action="Cliente">
+@csrf
+<div class="input-group mb-3" style="width: 40%">
+  <span class="input-group-text" id="inputGroup-sizing-default"> <i class="bi bi-search"></i></span>
+  <input type="text" class="form-control" aria-label="Sizing example input" name="buscar" value="{{$buscar}}" placeholder="Nombre, apellido, o identidad">
+</div>
+</form>
+</div>
+
+<h1 class="titulo" style="text-align:center">Listado de clientes</h1> 
+<div>    
+
+    <table class="table table-hover" id="tabla">
+        <thead>
+        <tr>
+        <th scope="col">id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Número de identidad</th>
+        <th scope="col">Detalles del cliente</th>
+        <th scope="col">Editar cliente</th>
+        </tr>
+        </thead>
+
+     <tbody>   
+        @forelse($clientes as $cl)
+        <tr>
+        <td scope="row">{{ $cl->id}}</td>
+        <td>{{ $cl->Nombre }}</td>
+        <td>{{ $cl->Apellido }}</td>
+        <td>{{ $cl->Numero_identidad }}</td>
+
+        {{-- Botones --}}
+       <td><a class="btn-detalles" href="{{route('cliente.mostrar' , ['id' => $cl->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+       <td><a class="btn-detalles" href="{{route('cliente.editar' , ['id' => $cl->id]) }}"> <i class="bi bi-pen-fill"> Editar </i> </a></td>
+       </tr>
+       @empty
+       @endforelse
+    </tbody>
+    </table>
+  </div>
+
+
+{{ $clientes->links() }}
+@endsection
+@include('common')
