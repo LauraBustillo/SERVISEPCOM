@@ -45,6 +45,9 @@ Route::post('/Cliente',[ClienteController::class, 'index'])->name('cliente.index
 Route::get('/registroclientes', [ClienteController::class, 'guardar'])  ->name('show.registroCliente');
 Route::POST('/registroclientes', [ClienteController::class, 'agg'])->name('datos');
 
+/*Para actualizar el cliente*/
+Route::get('/cliente/{id}/editar', [ClienteController::class, 'actualizar'])-> name('cliente.editar');
+Route::put('/cliente/{id}/editar', [ClienteController::class, 'actu'])-> name('cliente.update');
 
 /*Registro de cliente*/ 
 Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('cliente.crear');
