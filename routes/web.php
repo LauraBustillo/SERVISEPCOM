@@ -76,7 +76,10 @@ Route::post('/registroempleados', [EmpleadoController::class, 'agg'])->name('dat
 Route::get('/Empleado',[EmpleadoController::class, 'index'])->name('empleado.index');
 Route::post('/Empleado',[EmpleadoController::class, 'index'])->name('empleado.index');
 
-
+ /*Para mostrar la infomarcion de cada empleado*/
+ Route::get('/Empleados/{id}', [EmpleadoController::class, 'show'])
+ ->name('empleado.mostrar')
+ ->where('id', '[0-9]+');
 
 
 
