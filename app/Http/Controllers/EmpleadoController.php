@@ -7,84 +7,7 @@ use DB;
 
 class EmpleadoController extends Controller
 {
-    //
-
-        /*Funcion para el listado de empleado
-        public function index(){
-            $empleado = Empleado::paginate(10);
-            return view('Empleados.ListadoEmpleados')->with('empleados', $empleado);
-        } */
-
-        /* AQUI SUCE */
-        public function index(Request $request){
-          $empleado = [];
-          $buscar = '';
-          if($request->buscar != null && $request->buscar != ''){
-            $buscar = $request->buscar;
-            $empleado =  Empleado::where(DB::raw("LOWER(concat(Primer_nombre,'',Primer_apellido))"),"like","%".strtolower($request->buscar)."%")
-            ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
-            ->paginate(10); 
-          }else{
-            $buscar = '';
-            $empleado = Empleado::paginate(10);
-          }
-    
-          return view('Empleados.ListadoEmpleados')->with('empleados', $empleado)->with('buscar',$buscar);
-      }
-
-    
-        /*Funcion para mostrar mas informacion del empleado */ 
-        public function show($id){
-            $ver = Empleado::findOrFail($id);
-            return view('Empleados.InformacionEmpleado')->with('ver', $ver);
-        }
-    
-
-        /*Funcion para  actualizar */
-          public function actualizar($id){
-            $modificar = Empleado::find($id);
-             return view('Empleados.EditarEmpleado')->with('modificar', $modificar);
-             
-        }
-        
-            public function actu (Request $request, $id){
-    
-            $request->validate([
-                'Primer_nombre' =>'required',
-                'Segundo_nombre',
-                'Primer_apellido' =>'required',
-                'Segundo_apellido',
-                'Numero_identidad' =>'required|numeric',
-                'Fecha_nacimiento' =>'required|date',
-                'Numero_telefono' => 'required|numeric',
-                'Salrio' => 'required|numeric',
-                'Fecha_contrato' => 'required|date',
-                'Direccion' =>'required',
-              ]); 
-                    
-              $actu = Empleado::find($id);
-    
-              $actu -> Primer_nombre = $request -> input('Primer_nombre');
-              $actu -> Segundo_nombre = $request -> input('Segundo_nombre');
-              $actu -> Primer_apellido = $request -> input('Primer_apellido');
-              $actu -> Segundo_apellido = $request -> input('Segundo_apellido');
-              $actu -> Numero_identidad= $request -> input('Numero_identidad');
-              $actu -> Fecha_nacimiento= $request -> input('Fecha_nacimiento');
-              $actu -> Numero_telefono = $request -> input('Numero_telefono');
-              $actu -> Salrio = $request -> input('Salrio');
-              $actu -> Fecha_contrato= $request -> input('Fecha_contrato');
-              $actu -> Direccion= $request -> input('Direccion');
-    
-
-            $agregar =  $actu -> save();
-    
-            if ($agregar){
-                return redirect()->route('empleado.index')->with('mensaje', 'Se edito exitosamente') ;
-              } else {
-                //nada por ahorita
-              }
-            }
-
+   
          /*Funcion para guardar empleado*/
         public function guardar(){
            return view ('Empleados.RegistroEmpleados');
@@ -163,14 +86,11 @@ class EmpleadoController extends Controller
             return redirect()->route('empleado.index')
             ->with('mensaje', 'Se guardo exitosamente');
         }else{
-            //Todo retornar como mensaje de eeror 
+           
 
         }
 
     }
-
-  
-    
-            
+     
 }
 
