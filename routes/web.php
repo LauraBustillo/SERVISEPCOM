@@ -56,6 +56,24 @@ Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('clien
 
 
 
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA EMPLEADOS
+|--------------------------------------------------------------------------
+*/
+
+
+/*Empleado*/
+Route::get('/registroempleados', function () {
+    return view('RegistroEmpleados');
+})->name('show.registroEmpleado');
+
+
+
+/*Registro empleado*/
+Route::get('/registroempleados', [EmpleadoController::class, 'guardar'])  ->name('show.registroEmpleado');
+Route::post('/registroempleados', [EmpleadoController::class, 'agg'])->name('datos');
+
 
 
 
