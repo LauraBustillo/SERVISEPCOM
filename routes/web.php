@@ -36,6 +36,10 @@ Route::get('/products', function () {
 |--------------------------------------------------------------------------
 */
 
+/*Clientes y la ruta para el buscador*/
+Route::get('/Cliente',[ClienteController::class, 'index'])->name('cliente.index');
+Route::post('/Cliente',[ClienteController::class, 'index'])->name('cliente.index');
+
 
 /*Registro cliente*/
 Route::get('/registroclientes', [ClienteController::class, 'guardar'])  ->name('show.registroCliente');
