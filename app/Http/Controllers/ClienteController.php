@@ -26,6 +26,12 @@ class ClienteController extends Controller
       return view('Clientes.ListadoClientes')->with('clientes', $cliente)->with('buscar',$buscar);
   }
 
+          /*Funcion para mostrar mas informacion del cliente */ 
+          public function show($id){
+            $ver = Cliente::findOrFail($id);
+            return view('Clientes.InformacionCliente')->with('ver', $ver);
+        }
+
           /*Funcion para  guardar  */
             public function guardar(){
                return view('Clientes.RegistroClientes');
