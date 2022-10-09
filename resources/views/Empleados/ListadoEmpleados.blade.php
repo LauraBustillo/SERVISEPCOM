@@ -57,6 +57,13 @@
   }
 </style>
 
+{{-- Mensaje de confirmación --}}
+@if (session('mensaje'))
+<div class="alert alert-success">
+  {{session('mensaje')}}
+</div>
+@endif
+
 
 <div>
 {{-- Boton nuevo empleado --}}
