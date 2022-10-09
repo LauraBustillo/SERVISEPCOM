@@ -1,0 +1,10 @@
+/* card-1 */
+
+.card-1{
+    border-radius: 1rem;
+    border: solid 1px blueviolet;
+    width: fit-content;
+    background-color: rgb(207, 181, 232);
+    color: rgb(18, 209, 180);
+    padding: 1rem;
+}
