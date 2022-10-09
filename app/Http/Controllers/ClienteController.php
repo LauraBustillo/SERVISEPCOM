@@ -116,7 +116,7 @@ $request->validate([
  $agregar = $actu -> save();
 
 if ($agregar){
-    return redirect()->route('cliente.index')->with('mensaje', 'Se edito exitosamente') ;
+    return redirect()->route('cliente.index')->with('mensaje', 'se actualizó exitosamente') ;
   } else {
     
   }
