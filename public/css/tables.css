@@ -1,0 +1,21 @@
+/* table #1 */
+.table-1{
+    width: 100%;
+    color: rgb(64, 64, 64);
+    background-color: aliceblue;
+
+}
+.table-1 th{
+    background-color: #23abd9;
+    color: transparent;
+    padding: .2rem;
+    text-align: start;
+}
+.table-1 td{
+    padding: .2rem;
+    text-align: start;
+}
+
+
+/* table #2 */
+/* more cod */
