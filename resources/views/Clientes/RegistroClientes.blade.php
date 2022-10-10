@@ -64,7 +64,7 @@ a { color: aliceblue;
 <br>
 
 {{-- Título --}}
-<H1 class="titulo" >Registrar Cliente</H1>
+<H1 class="titulo" >Registrar cliente</H1>
 <br>
 <br>
 
