@@ -42,12 +42,12 @@
 
         <tbody>
             <tr>
-                <td>Nombre</td>
+                <td>Nombres</td>
                 <td>{{ $ver->Nombre }}</td>
             </tr>  
 
             <tr>
-                <td>Apellido</td>
+                <td>Apellidos</td>
                 <td>{{ $ver->Apellido }}</td> 
             </tr> 
 
@@ -57,7 +57,7 @@
             </tr> 
 
             <tr>
-                <td>Número de Teléfono</td>
+                <td>Número de teléfono</td>
                 <td>{{ $ver->Numero_telefono}}</td>
             </tr> 
 
