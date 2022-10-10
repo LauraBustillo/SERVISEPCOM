@@ -88,7 +88,7 @@ a { color: aliceblue;
 <div class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text" readonly minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required 
+  <input type="text"  minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required 
   title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
    placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
   
