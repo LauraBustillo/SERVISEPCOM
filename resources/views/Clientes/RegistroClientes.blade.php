@@ -103,7 +103,7 @@ a { color: aliceblue;
 
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
-  <textarea minlength="10" maxlength="150"  name="Direccion"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
+  <textarea minlength="10" maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
    rows="3" required  placeholder="Ingrese la dirección exacta de su domicilio" value="{{old('Direccion')}}" ></textarea>
 </div>
 
