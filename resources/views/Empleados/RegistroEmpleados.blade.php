@@ -71,11 +71,11 @@ a { color: aliceblue;
 {{-- Primer nombre , Segundo nombre --}}
 <div class="row g-3">
   <div class="col">
-    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre"  pattern="[A-Za-z]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Primer nombre" 
+    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre"  pattern="[A-Z a-z]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Primer nombre" 
     aria-label="First name" value="{{old('Primer_nombre')}}">
   </div>
   <div class="col">
-    <input type="text"  name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Za-z]+" class="form-control"   placeholder="Segundo nombre" 
+    <input type="text"  name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Z a-z]+" class="form-control"   placeholder="Segundo nombre" 
     aria-label="Last name" value="{{old('Primer_nombre')}}">
   </div>
 </div>
@@ -84,11 +84,11 @@ a { color: aliceblue;
 {{-- Primer apellido , Segundo apellido --}}
 <div class="row g-3">
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" pattern="[A-Za-z]+" class="form-control"   required title="Este campo solo debe de contener letras"
+    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" pattern="[A-Z a-z]+" class="form-control"   required title="Este campo solo debe de contener letras"
      placeholder="Primer apellido" aria-label="First name" value="{{old('Primer_apellido')}}">
   </div>
   <div class="col">
-    <input type="text"   name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Za-z]+"  class="form-control"   
+    <input type="text"   name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Z a-z]+"  class="form-control"   
     placeholder="Segundo apellido" aria-label="Last name" value="{{old('Segundo_apellido')}}">
   </div>
 </div>
