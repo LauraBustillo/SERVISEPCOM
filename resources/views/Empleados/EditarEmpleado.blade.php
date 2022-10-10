@@ -109,7 +109,7 @@ a { color: aliceblue;
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
   <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}">
-  <input type="number"  minlength="6" maxlength="6" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
+  <input type="number"  minlength="3" maxlength="6" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
 </div>
 <br>
 
