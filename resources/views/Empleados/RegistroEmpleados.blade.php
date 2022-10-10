@@ -122,7 +122,7 @@ a { color: aliceblue;
 {{-- Fecha de contrato, Salario --}}
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
-  <input type="date"  name="Fecha_contrato" id="Fecha_contrato" aria-label="First name" class="form-control" require  placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}">
+  <input type="date"  name="Fecha_contrato" id="fechaActual"  aria-label="First name" class="form-control" require  placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}">
   <input type="text" minlength="3" maxlength="6" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"  required   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
 </div>
 <br>
@@ -141,6 +141,21 @@ a { color: aliceblue;
   <a class="a"  href="{{route('empleado.index')}}"><i class="bi bi-x-circle-fill"> Cerrar </i></a></button>
 </form>
 
+<script>
+  //Funcion para establecer fecha actual en la fecha de contrato
+    window.onload = function(){
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+      dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('fechaActual').value=ano+"-"+mes+"-"+dia;
+  }
+  </script>
+  
 
 @endsection
 @include('common')
