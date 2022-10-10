@@ -53,7 +53,7 @@ a { color: aliceblue;
 <br>
 <br>
 {{-- Título --}}
-<H1 class="titulo"  style="font-size: 30px" >Editar Cliente</H1>
+<H1 class="titulo"  style="font-size: 30px" >Editar cliente</H1>
 <br>
 <br>
 
