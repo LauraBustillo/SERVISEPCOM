@@ -61,7 +61,7 @@ a { color: aliceblue;
 <br>
 <br>
 
-<form class="form-control" id="ablescroll" method="POST" style="text-align: center;">
+<form class="form-control" id="form_guardarE" name="form_guardarE"  method="POST" style="text-align: center;" onsubmit="confirmar()">
 @csrf
 <br>
 
@@ -156,6 +156,28 @@ a { color: aliceblue;
   }
   </script>
   
-
 @endsection
+{{--mensaje de confirmacion --}}
+@push('alertas')
+    <script>
+        function confirmar() {
+           var formul = document.getElementById("form_guardarE");
+           
+           Swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
+    </script>
+@endpush
 @include('common')
