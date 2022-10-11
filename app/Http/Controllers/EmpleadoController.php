@@ -154,7 +154,7 @@ class EmpleadoController extends Controller
       $agregar =  $actu -> save();
 
       if ($agregar){
-          return redirect()->route('empleado.index')->with('mensaje', 'Se edito exitosamente') ;
+          return redirect()->route('empleado.index')->with('mensaje', 'Se actualizó exitosamente') ;
         } else {
           //nada por ahorita
         }
