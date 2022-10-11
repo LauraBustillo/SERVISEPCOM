@@ -46,7 +46,7 @@ a { color: aliceblue;
 
 
 </style>
-<form class="form-control" id="Editar" name="Editar"  method="POST" style="text-align: center;" >
+<form class="form-control" id="form_editarC" name="form_editarC"  method="POST" style="text-align: center;" onsubmit="confirmar()" >
 @method('put')
 @csrf
 
@@ -106,4 +106,27 @@ a { color: aliceblue;
 </form>
 
 @endsection 
+{{--mensaje de confirmacion --}}
+@push('alertas')
+    <script>
+        function confirmar() {
+           var formul = document.getElementById("form_editarC");
+           
+           Swal.fire({
+                title: '¿Está seguro que desea guardar los cambios?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
+    </script>
+@endpush
 @include('common')
