@@ -105,7 +105,7 @@ a { color: aliceblue;
   {{-- Fecha de nacimiento --}}
   <div class="col" style="padding-left: 4%" > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
-  <input type="date" readonly  name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+  <input type="date"  name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
   required  placeholder="Fecha de nacimiento" value="{{old('Fecha_nacimiento')}}">
 </div>
 
