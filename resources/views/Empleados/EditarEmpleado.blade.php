@@ -61,7 +61,7 @@ a { color: aliceblue;
     Value="{{$modificar->Primer_nombre}}">
   </div>
   <div class="col">
-    <input type="text" minlength="3" maxlength="25" name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Za-z]+" class="form-control" name="Segundo_nombre" id="Segundo_nombre" title="Este campo solo debe de contener letras" required  placeholder="Segundo nombre" aria-label="Last name"
+    <input type="text" minlength="3" maxlength="25" name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Za-z]+" class="form-control" name="Segundo_nombre" id="Segundo_nombre" title="Este campo solo debe de contener letras" placeholder="Segundo nombre" aria-label="Last name"
     Value="{{$modificar->Segundo_nombre}}">
   </div>
 </div>
@@ -74,7 +74,7 @@ a { color: aliceblue;
     Value="{{$modificar->Primer_apellido}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Za-z]+" class="form-control" name="Segundo_apellido" id="Segundo_apellido"  title="Este campo solo debe de contener letras" required  placeholder="Segundo apellido" aria-label="Last name"
+    <input type="text" minlength="4" maxlength="25" name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Za-z]+" class="form-control" name="Segundo_apellido" id="Segundo_apellido"  title="Este campo solo debe de contener letras" placeholder="Segundo apellido" aria-label="Last name"
     Value="{{$modificar->Segundo_apellido}}">
   </div>
 </div>
