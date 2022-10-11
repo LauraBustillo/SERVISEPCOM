@@ -14,7 +14,8 @@
     {{-- scripts --}}
     <!-- <script src="./../js/navbar.js" crossorigin="anonymous" ></script>     -->
     <script  type="text/javascript"  src="{{ URL::asset('js/navbar.js') }}" ></script>    
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('alertas')
 
 
     {{-- icons --}}
