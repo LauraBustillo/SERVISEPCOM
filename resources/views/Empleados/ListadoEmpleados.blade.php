@@ -86,7 +86,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
-        <th scope="col">id</th>
+        <th scope="col">Id</th>
         <th scope="col">Primer nombre</th>
         <th scope="col">Primer apellido</th>
         <th scope="col">Número de identidad</th>
