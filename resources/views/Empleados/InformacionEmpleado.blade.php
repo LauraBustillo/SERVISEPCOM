@@ -82,7 +82,7 @@
 
             <tr>
                 <td>Salario</td>
-                <td>{{ $ver->Salrio}}</td>
+                <td>Lps. {{ $ver->Salrio}}</td>
             </tr> 
 
             <tr>
