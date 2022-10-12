@@ -86,7 +86,8 @@ a { color: aliceblue;
 
 <div class="col" style="padding-left:2%"  > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de teléfono</span>
-  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" name="Numero_telefono" id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required  title="Este campo solo debe contener numeros"  pattern="([9,8,3]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 0000-0000"
+  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" name="Numero_telefono" id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required 
+   title="Primer digito (3, 8 o 9) y solo debe contener números."  pattern="([9,8,3]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 0000-0000"
   Value="{{$modificar->Numero_telefono}}">
 </div>
 </div>
