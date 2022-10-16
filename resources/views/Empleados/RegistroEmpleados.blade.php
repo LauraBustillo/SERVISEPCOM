@@ -122,9 +122,9 @@ a { color: aliceblue;
 <br>
 {{-- Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
+<span class="input-group-text"  style="width: 70%">Ingrese la dirección exacta del domicilio</span>
   <textarea class="form-control" spellcheck="true"
-   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" required placeholder="Ingrese la dirección exacta de su domicilio"
- > {{old('Direccion')}}</textarea>
+   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" required > {{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
