@@ -38,30 +38,21 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Campo</th>
-                <th>Valor</th>
+                <th>Datos</th>
+                <th>Información</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>Primer nombre</td>
-                <td>{{ $ver->Primer_nombre }} </td>
+                <td>Nombres</td>
+                <td>{{ $ver->Nombres }} </td>
             </tr>  
 
-            <tr>
-                <td>Segundo nombre</td>
-                <td>{{ $ver->Segundo_nombre }} </td>
-            </tr> 
 
             <tr>
-                <td>Primer apellido</td>
-                <td>{{ $ver->Primer_apellido }}</td> 
-            </tr> 
-
-            <tr>
-                <td>Segundo apellido</td>
-                <td>{{ $ver->Segundo_apellido }}</td> 
+                <td>Apellidos</td>
+                <td>{{ $ver->Apellidos}}</td> 
             </tr> 
 
             <tr>
@@ -76,7 +67,7 @@
             </tr> 
 
             <tr>
-                <td>Número de teléfono</td>
+                <td>Teléfono fijo o celular </td>
                 <td>{{ $ver->Numero_telefono}}</td>
             </tr> 
 
