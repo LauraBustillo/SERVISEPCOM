@@ -70,24 +70,22 @@
 </div>
 @endif
 
-<div>
-
-{{-- Boton nuevo cliente --}}
-<a   class="btn-detalles " style="float:right" href="{{route('show.registroCliente')}}" >
-  <i class="bi bi-person-plus-fill"> Nuevo cliente </i>
-</a>
-
 {{-- Buscador--}}
-<form  id="ablescroll" method="POST" action="Cliente">
-@csrf
-<div class="input-group mb-3" style="width: 40%">
-  <span class="input-group-text" id="inputGroup-sizing-default"> <i class="bi bi-search"></i></span>
-  <input type="text" class="form-control" aria-label="Sizing example input" name="buscar" value="{{$buscar}}" placeholder="Nombre, apellido o identidad">
-</div>
-</form>
-</div>
-
 <h1 class="titulo" style="text-align:center">Listado de clientes</h1> 
+<br>
+<nav class="navbar navbar-nav bg-nav" >
+  <div class="container-fluid" >
+    <form class="d-flex" id="ablescroll" method="POST" action="Cliente">
+    @csrf
+      <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por nombres, apellidos o identidad" aria-label="Sizing example input">
+      <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
+      <a href="{{ route('cliente.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
+    </form>
+         <a    class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCliente')}}" >
+         <i class="bi bi-person-plus-fill"> Nuevo cliente </i></a>
+  </div>
+  </nav>
+<br>
 <div>    
 
     <table class="table table-hover" id="tabla">
