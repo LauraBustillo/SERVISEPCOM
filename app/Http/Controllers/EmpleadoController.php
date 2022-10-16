@@ -14,7 +14,7 @@ class EmpleadoController extends Controller
         $buscar = '';
         if($request->buscar != null && $request->buscar != ''){
           $buscar = $request->buscar;
-          $empleado =  Empleado::where(DB::raw("LOWER(concat(Primer_nombre,'',Primer_apellido))"),"like","%".strtolower($request->buscar)."%")
+          $empleado =  Empleado::where(DB::raw("LOWER(concat(Nombres,'',Apellidos))"),"like","%".strtolower($request->buscar)."%")
           ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
           ->paginate(10); 
         }else{
@@ -39,12 +39,11 @@ class EmpleadoController extends Controller
         public function agg (Request $request){
 
             $rules = ([
-            'Primer_nombre' =>'required|min:3|max:25',
-            'Primer_apellido' =>'required|min:4|max:25',
-
+            'Nombres' =>'required|min:3|max:25',
+            'Apellidos' =>'required|min:4|max:25',
             'Numero_identidad' =>'required|unique:empleados|regex:([0-1][0-8][0-2][0-9]{10})|max:13',
             'Fecha_nacimiento' =>'required',
-            'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3]{1}[0-9]{7}) |max:8',
+            'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
             'Salrio' => 'required|numeric',
             'Fecha_contrato' => 'required',
             'Direccion' =>'required',
@@ -52,14 +51,14 @@ class EmpleadoController extends Controller
 
            $mesaje=([
 
-            'Primer_nombre.required'=>'El primer nombre del empleado es obligatorio' ,
-            'Primer_nombre.min'=>'El primer nombre debe tener minimo 3 letras' ,
-            'Primer_nombre.max'=>'El nombre no debe de tener más de 25 letras' ,
+            'Nombres.required'=>'El primer nombre del empleado es obligatorio' ,
+            'Nombres.min'=>'El primer nombre debe tener minimo 3 letras' ,
+            'Nombres.max'=>'El nombre no debe de tener más de 25 letras' ,
 
 
-            'Primer_apellido.required'=>'El primer apellido del empleado es obligatorio' ,
-            'Primer_apellido.min'=>'El apellido debe tener minimo 4 letras' ,
-            'Primer_apellido.max'=>'El apellido  no debe de tener más de 25 letras' ,
+            'Apellidos.required'=>'El primer apellido del empleado es obligatorio' ,
+            'Apellidos.min'=>'El apellido debe tener minimo 4 letras' ,
+            'Apellidos.max'=>'El apellido  no debe de tener más de 25 letras' ,
 
             
             'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
@@ -91,10 +90,8 @@ class EmpleadoController extends Controller
 
         $nuevoEmpleado = new Empleado();
         //Formulario 
-        $nuevoEmpleado -> Primer_nombre = $request -> input('Primer_nombre');
-        $nuevoEmpleado -> Segundo_nombre = $request -> input('Segundo_nombre');
-        $nuevoEmpleado -> Primer_apellido = $request -> input('Primer_apellido');
-        $nuevoEmpleado -> Segundo_apellido = $request -> input('Segundo_apellido');
+        $nuevoEmpleado -> Nombres = $request -> input('Nombres');
+        $nuevoEmpleado -> Apellidos = $request -> input('Apellidos');
         $nuevoEmpleado -> Numero_identidad= $request -> input('Numero_identidad');
         $nuevoEmpleado -> Fecha_nacimiento= $request -> input('Fecha_nacimiento');
         $nuevoEmpleado -> Numero_telefono = $request -> input('Numero_telefono');
@@ -125,24 +122,23 @@ class EmpleadoController extends Controller
       public function actu (Request $request, $id){
 
       $request->validate([
-          'Primer_nombre' =>'required',
-          'Segundo_nombre',
-          'Primer_apellido' =>'required',
-          'Segundo_apellido',
-          'Numero_identidad' =>'required|numeric',
+          'Nombres' =>'required',
+          'Apellidos' =>'required',
+          'Numero_identidad' =>"required|numeric|unique:empleados,Numero_identidad, $id",
           'Fecha_nacimiento' =>'required|date',
-          'Numero_telefono' => 'required|numeric',
+          'Numero_telefono' => "required|numeric|unique:empleados,Numero_telefono, $id",
           'Salrio' => 'required|numeric',
           'Fecha_contrato' => 'required|date',
           'Direccion' =>'required',
         ]); 
+
+        
+       
               
         $actu = Empleado::find($id);
 
-        $actu -> Primer_nombre = $request -> input('Primer_nombre');
-        $actu -> Segundo_nombre = $request -> input('Segundo_nombre');
-        $actu -> Primer_apellido = $request -> input('Primer_apellido');
-        $actu -> Segundo_apellido = $request -> input('Segundo_apellido');
+        $actu -> Nombres = $request -> input('Nombres');
+        $actu -> Apellidos = $request -> input('Apellidos');
         $actu -> Numero_identidad= $request -> input('Numero_identidad');
         $actu -> Fecha_nacimiento= $request -> input('Fecha_nacimiento');
         $actu -> Numero_telefono = $request -> input('Numero_telefono');
@@ -156,7 +152,7 @@ class EmpleadoController extends Controller
       if ($agregar){
           return redirect()->route('empleado.index')->with('mensaje', 'Se actualizó exitosamente') ;
         } else {
-          //nada por ahorita
+          
         }
       }
      
