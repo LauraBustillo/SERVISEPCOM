@@ -16,10 +16,8 @@ class EmpleadoFactory extends Factory
     {
         return [
             //
-            'Primer_nombre'=> $this->faker->firstName,
-            'Segundo_nombre'=> $this->faker-> firstName,
-            'Primer_apellido'=> $this->faker->lastName,
-            'Segundo_apellido'=> $this->faker->lastName,
+            'Nombres'=> $this->faker->firstName,
+            'Apellidos'=> $this->faker->lastName,
             'Numero_identidad'=> $this->faker->ean8,
             'Fecha_nacimiento'=> $this->faker->date,
             'Numero_telefono'=> $this->faker->phoneNumber,
