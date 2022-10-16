@@ -71,13 +71,13 @@ a { color: aliceblue;
 {{-- Nombre , Apellidos --}}
 <div class="row g-3">
   <div class="col">
-  <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-Z a-z]+" class="form-control" 
+  <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
    required title="Este campo solo debe de contener letras" 
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
   <div class="col">
     <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido"  
-    pattern="[A-Z a-z]+" class="form-control" required title="Este campo solo debe de contener letras" 
+    pattern="[A-ZÑ a-zñ]+" class="form-control" required title="Este campo solo debe de contener letras" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
