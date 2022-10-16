@@ -74,42 +74,17 @@ a { color: aliceblue;
 {{-- Nombres y Apellido --}}
 <div class="row g-3">
   <div class="col">
-<<<<<<< HEAD
-    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre"  pattern="[A-ZÑ a-zñ]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Primer nombre" 
-    aria-label="First name" value="{{old('Primer_nombre')}}">
-  </div>
-  <div class="col">
-    <input type="text"  name="Segundo_nombre" id="Segundo_nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"   placeholder="Segundo nombre" 
-    aria-label="Last name" value="{{old('Primer_nombre')}}">
-=======
+
     <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  pattern="[A-ZÑ a-zñ]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Nombres" 
     aria-label="First name" value="{{old('Nombres')}}">
   </div>
   <div class="col">
     <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" pattern="[A-ZÑ a-zñ]+" class="form-control"   required title="Este campo solo debe de contener letras"
      placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
->>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
+
   </div>
 </div>
 <br>
-
-<<<<<<< HEAD
-{{-- Primer apellido , Segundo apellido --}}
-<div class="row g-3">
-  <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" 
-    pattern="[A-ZÑ a-zñ]+" class="form-control"   required title="Este campo solo debe de contener letras"
-     placeholder="Primer apellido" aria-label="First name" value="{{old('Primer_apellido')}}">
-  </div>
-  <div class="col">
-    <input type="text"   name="Segundo_apellido" id="Segundo_apellido" pattern="[A-ZÑ a-zñ]+"  class="form-control"   
-    placeholder="Segundo apellido" aria-label="Last name" value="{{old('Segundo_apellido')}}">
-  </div>
-</div>
-<br>
-=======
-
->>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
 
 {{-- Número de identidad--}}
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
@@ -130,7 +105,7 @@ a { color: aliceblue;
 <div class="col"style="padding-left: 4%"> 
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input"
-   aria-describedby="inputGroup-sizing-sm" required title="Primer digito (3, 8 o 9) y solo debe contener números."  pattern="([9,8,3]{1}[0-9]{7})" pattern="[0-9]+" 
+   aria-describedby="inputGroup-sizing-sm" required title="Primer digito (2, 3, 8 o 9) y solo debe contener números."  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+" 
     placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
