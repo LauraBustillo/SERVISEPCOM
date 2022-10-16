@@ -45,6 +45,19 @@ a { color: aliceblue;
 
 
 </style>
+<br><br>
+
+{{-- Mensaje de editar (error)--}}
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $mesaje)
+                <li>{{ $mesaje }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif 
+
 <form class="form-control" id="form_editarE" name="form_editarE" method="POST" style="text-align: center;" onsubmit="confirmar()">
 @method('put')
 @csrf
@@ -53,20 +66,32 @@ a { color: aliceblue;
 {{-- Título --}}
 <H1 class="titulo"  style="font-size: 30px" >Editar empleado</H1>
 <br>
+<br>
 
-{{-- Primer nombre , Segundo nombre --}}
+{{-- Nombres y Apellidos--}}
+
 <div class="row g-3">
   <div class="col">
+<<<<<<< HEAD
     <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Primer_nombre" id="Primer_nombre" title="Este campo solo debe de contener letras" required placeholder="Primer nombre" aria-label="First name" 
     Value="{{$modificar->Primer_nombre}}">
   </div>
   <div class="col">
     <input type="text" minlength="3" maxlength="25" name="Segundo_nombre" id="Segundo_nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Segundo_nombre" id="Segundo_nombre" title="Este campo solo debe de contener letras" placeholder="Segundo nombre" aria-label="Last name"
     Value="{{$modificar->Segundo_nombre}}">
+=======
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Nombres"  title="Este campo solo debe de contener letras" required placeholder="Nombres" aria-label="First name" 
+    Value="{{$modificar->Nombres}}">
+  </div>
+  <div class="col">
+    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos"  pattern="[A-ZÑ a-zñ]+" class="form-control"   required  title="Este campo solo debe de contener letras" required placeholder="Apellidos"  aria-label="First name"
+    Value="{{$modificar->Apellidos}}">
+>>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
   </div>
 </div>
 <br>
 
+<<<<<<< HEAD
 {{-- Primer apellido , Segundo apellido --}}
 <div class="row g-3">
   <div class="col">
@@ -79,19 +104,21 @@ a { color: aliceblue;
   </div>
 </div>
 <br>
+=======
+>>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
 
 {{-- Número de identidad --}}
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"  readonly minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres y solo numeros" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000"
+  <input type="text"   minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres y solo numeros" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000"
   Value="{{$modificar->Numero_identidad}}">
   </div> 
 
   {{-- Fecha de nacimiento--}}
   <div class="col" style="padding-left: 4%" > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
-  <input type="date" readonly  name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control"  name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de nacimiento"
+  <input type="date"   name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control"  name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de nacimiento"
   Value="{{$modificar->Fecha_nacimiento}}">
 </div>
 
@@ -110,7 +137,7 @@ a { color: aliceblue;
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
   <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}">
-  <input type="number"  minlength="3" maxlength="6" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
 </div>
 <br>
 
