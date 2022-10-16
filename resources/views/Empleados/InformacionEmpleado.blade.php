@@ -33,7 +33,7 @@
 
 
 <div>    
-    <div class="titulo" >  Información de {{ $ver->Primer_nombre }} {{ $ver->Primer_apellido}} </div>
+    <div class="titulo" >  Información de {{ $ver->Nombres }} {{ $ver->Apellidos}} </div>
 <br>
     <table class="table table-hover">
         <thead>
