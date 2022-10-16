@@ -46,6 +46,18 @@ a { color: aliceblue;
 
 
 </style>
+
+{{-- Mensaje de editar (error)--}}
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form class="form-control" id="form_editarC" name="form_editarC"  method="POST" style="text-align: center;" onsubmit="confirmar()" >
 @method('put')
 @csrf
@@ -60,12 +72,28 @@ a { color: aliceblue;
 {{-- Nombre , Apellido --}}
 <div class="row g-3">
     <div class="col">
+<<<<<<< HEAD
     <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control" id="Nombre" name="Nombre" aria-label="First name" 
+=======
+<<<<<<< HEAD
+    <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-Za-z]+" required title="Este campo solo debe de contener letras" class="form-control" id="Nombre" name="Nombre" aria-label="First name" placeholder="Nombres"
+=======
+    <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-Z a-z]+" required title="Este campo solo debe de contener letras" class="form-control" id="Nombre" name="Nombre" aria-label="First name" 
+>>>>>>> 07d582d1f2f923796a40b9cb5430586dde8ce518
+>>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
     Value="{{$modificar->Nombre}}">
 </div>
 
 <div class="col">
+<<<<<<< HEAD
     <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control"  aria-label="Last name"
+=======
+<<<<<<< HEAD
+    <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-Za-z]+" required title="Este campo solo debe de contener letras" class="form-control"  aria-label="Last name" placeholder="Apellidos"
+=======
+    <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-Z a-z]+" required title="Este campo solo debe de contener letras" class="form-control"  aria-label="Last name"
+>>>>>>> 07d582d1f2f923796a40b9cb5430586dde8ce518
+>>>>>>> 19d84e3051827ef9f6655c9a2bbf37fbc7d3462c
     Value="{{$modificar->Apellido}}">
     </div>
 </div>
@@ -80,14 +108,19 @@ a { color: aliceblue;
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
   <input type="text" minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" 
   class="form-control"  name="Numero_identidad" id="Numero_identidad" aria-label="Sizing example input" 
-  aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" placeholder="Eje. 0000-0000-00000"
-  readonly Value="{{$modificar->Numero_identidad}}">
+  aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" 
+  Value="{{$modificar->Numero_identidad}}">
 </div> 
 
 <div class="col" style="padding-left:2%"  > 
+<<<<<<< HEAD
+  <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
+  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" name="Numero_telefono" id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required  title="Este campo solo debe contener numeros"  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000"
+=======
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" name="Numero_telefono" id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required 
    title="Primer digito (3, 8 o 9) y solo debe contener números."  pattern="([9,8,3]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 0000-0000"
+>>>>>>> 07d582d1f2f923796a40b9cb5430586dde8ce518
   Value="{{$modificar->Numero_telefono}}">
 </div>
 </div>
