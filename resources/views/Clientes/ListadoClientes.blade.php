@@ -82,7 +82,7 @@
 @csrf
 <div class="input-group mb-3" style="width: 40%">
   <span class="input-group-text" id="inputGroup-sizing-default"> <i class="bi bi-search"></i></span>
-  <input type="text" class="form-control" aria-label="Sizing example input" name="buscar" value="{{$buscar}}" placeholder="Nombre, apellido, o identidad">
+  <input type="text" class="form-control" aria-label="Sizing example input" name="buscar" value="{{$buscar}}" placeholder="Nombre, apellido o identidad">
 </div>
 </form>
 </div>
@@ -93,7 +93,7 @@
     <table class="table table-hover" id="tabla">
         <thead>
         <tr>
-        <th scope="col">Id</th>
+        <th scope="col">#</th>
         <th scope="col">Nombre</th>
         <th scope="col">Apellido</th>
         <th scope="col">Número de identidad</th>
