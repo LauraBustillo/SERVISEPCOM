@@ -57,11 +57,11 @@ a { color: aliceblue;
 {{-- Primer nombre , Segundo nombre --}}
 <div class="row g-3">
   <div class="col">
-    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre" pattern="[A-Z a-z]+" class="form-control" name="Primer_nombre" id="Primer_nombre" title="Este campo solo debe de contener letras" required placeholder="Primer nombre" aria-label="First name" 
+    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Primer_nombre" id="Primer_nombre" title="Este campo solo debe de contener letras" required placeholder="Primer nombre" aria-label="First name" 
     Value="{{$modificar->Primer_nombre}}">
   </div>
   <div class="col">
-    <input type="text" minlength="3" maxlength="25" name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Z a-z]+" class="form-control" name="Segundo_nombre" id="Segundo_nombre" title="Este campo solo debe de contener letras" placeholder="Segundo nombre" aria-label="Last name"
+    <input type="text" minlength="3" maxlength="25" name="Segundo_nombre" id="Segundo_nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Segundo_nombre" id="Segundo_nombre" title="Este campo solo debe de contener letras" placeholder="Segundo nombre" aria-label="Last name"
     Value="{{$modificar->Segundo_nombre}}">
   </div>
 </div>
@@ -70,11 +70,11 @@ a { color: aliceblue;
 {{-- Primer apellido , Segundo apellido --}}
 <div class="row g-3">
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" pattern="[A-Z a-z]+" class="form-control"  name="Primer_apellido" id="Primer_apellido" required  title="Este campo solo debe de contener letras" required placeholder="Primer apellido" aria-label="First name"
+    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" pattern="[A-ZÑ a-zñ]+" class="form-control"  name="Primer_apellido" id="Primer_apellido" required  title="Este campo solo debe de contener letras" required placeholder="Primer apellido" aria-label="First name"
     Value="{{$modificar->Primer_apellido}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Z a-z]+" class="form-control" name="Segundo_apellido" id="Segundo_apellido"  title="Este campo solo debe de contener letras" placeholder="Segundo apellido" aria-label="Last name"
+    <input type="text" minlength="4" maxlength="25" name="Segundo_apellido" id="Segundo_apellido" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Segundo_apellido" id="Segundo_apellido"  title="Este campo solo debe de contener letras" placeholder="Segundo apellido" aria-label="Last name"
     Value="{{$modificar->Segundo_apellido}}">
   </div>
 </div>
