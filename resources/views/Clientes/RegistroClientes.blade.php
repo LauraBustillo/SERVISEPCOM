@@ -99,15 +99,16 @@ a { color: aliceblue;
   <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  required 
   title="Este campo solo debe contener numeros"   pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
-
 </div>
 </div>
 <br>
 
+
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
+<span class="input-group-text"  style="width: 70%">Ingrese la dirección exacta del domicilio</span>
   <textarea minlength="10" maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
-   rows="3" required  placeholder="Ingrese la dirección exacta de su domicilio"> {{old('Direccion')}} </textarea>
+   rows="3" required > {{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
