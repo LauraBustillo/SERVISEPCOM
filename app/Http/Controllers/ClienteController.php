@@ -44,7 +44,7 @@ class ClienteController extends Controller
               'Nombre' =>'required|min:3|max:25',
               'Apellido' =>'required|min:4|max:25',
               'Numero_identidad' =>'required|unique:clientes|regex:([0-1][0-8][0-2][0-9]{10})|max:13',
-              'Numero_telefono' => 'required|unique:clientes|regex:([9,8,3]{1}[0-9]{7}) |max:8',
+              'Numero_telefono' => 'required|unique:clientes|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
               'Direccion' =>'required',
 
             ]);
@@ -100,8 +100,8 @@ public function actu (Request $request, $id){
 $request->validate([
     'Nombre' =>'required',
     'Apellido' =>'required',
-    'Numero_identidad' =>'required|numeric',
-    'Numero_telefono' => 'required|numeric',
+    'Numero_identidad' =>"required|numeric|unique:clientes,Numero_identidad, $id",
+    'Numero_telefono' => "required|numeric|unique:clientes,Numero_telefono, $id",
     'Direccion' =>'required',
   ]); 
         
