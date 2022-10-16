@@ -61,38 +61,30 @@ a { color: aliceblue;
 <br>
 <br>
 
+
+
 <form class="form-control" id="form_guardarE" name="form_guardarE"  method="POST" style="text-align: center;" onsubmit="confirmar()">
 @csrf
-<br>
+<br><br>
 
 {{-- Título --}}
 <H1 class="titulo"  style="font-size: 30px" >Registrar empleado</H1>
 <br>
-{{-- Primer nombre , Segundo nombre --}}
+
+{{-- Nombres y Apellido --}}
 <div class="row g-3">
   <div class="col">
-    <input type="text"   minlength="3" maxlength="25" name="Primer_nombre" id="Primer_nombre"  pattern="[A-Z a-z]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Primer nombre" 
-    aria-label="First name" value="{{old('Primer_nombre')}}">
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  pattern="[A-ZÑ a-zñ]+" class="form-control"  required title="Este campo solo debe de contener letras" placeholder="Nombres" 
+    aria-label="First name" value="{{old('Nombres')}}">
   </div>
   <div class="col">
-    <input type="text"  name="Segundo_nombre" id="Segundo_nombre" pattern="[A-Z a-z]+" class="form-control"   placeholder="Segundo nombre" 
-    aria-label="Last name" value="{{old('Primer_nombre')}}">
+    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" pattern="[A-ZÑ a-zñ]+" class="form-control"   required title="Este campo solo debe de contener letras"
+     placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
   </div>
 </div>
 <br>
 
-{{-- Primer apellido , Segundo apellido --}}
-<div class="row g-3">
-  <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Primer_apellido" id="Primer_apellido" pattern="[A-Z a-z]+" class="form-control"   required title="Este campo solo debe de contener letras"
-     placeholder="Primer apellido" aria-label="First name" value="{{old('Primer_apellido')}}">
-  </div>
-  <div class="col">
-    <input type="text"   name="Segundo_apellido" id="Segundo_apellido" pattern="[A-Z a-z]+"  class="form-control"   
-    placeholder="Segundo apellido" aria-label="Last name" value="{{old('Segundo_apellido')}}">
-  </div>
-</div>
-<br>
+
 
 {{-- Número de identidad--}}
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
@@ -123,14 +115,16 @@ a { color: aliceblue;
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
   <input type="date"  name="Fecha_contrato" id="fechaActual"  aria-label="First name" class="form-control" require  placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}">
-  <input type="text" minlength="3" maxlength="6" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"  required   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"  required   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
 </div>
+
+
 <br>
 {{-- Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
   <textarea class="form-control" spellcheck="true"
    minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" required placeholder="Ingrese la dirección exacta de su domicilio"
-  value="{{old('Direccion')}}" ></textarea>
+ > {{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
@@ -152,7 +146,7 @@ a { color: aliceblue;
       dia='0'+dia; //agrega cero si el menor de 10
     if(mes<10)
       mes='0'+mes //agrega cero si el menor de 10
-    document.getElementById('fechaActual').value=ano+"-"+mes+"-"+dia;
+    document.getElementById('fechaActual').value= ano+"-"+mes+"-"+dia;
   }
   </script>
   
