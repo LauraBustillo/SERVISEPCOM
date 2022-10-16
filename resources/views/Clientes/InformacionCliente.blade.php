@@ -35,8 +35,8 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Campo</th>
-                <th>Valor</th>
+                <th>Datos</th>
+                <th>Información</th>
             </tr>
         </thead>
 
@@ -57,7 +57,7 @@
             </tr> 
 
             <tr>
-                <td>Número de teléfono</td>
+                <td>Teléfono fijo o celular</td>
                 <td>{{ $ver->Numero_telefono}}</td>
             </tr> 
 
