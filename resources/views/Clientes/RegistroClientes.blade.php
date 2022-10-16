@@ -56,6 +56,8 @@ a { color: aliceblue;
     </div>
 @endif
 
+
+
 <br>
 <br>
 <form class="form-control" id="form_guardarC" name="form_guardarC" method="POST" style="text-align: center;" onsubmit="confirmar()">
@@ -94,9 +96,9 @@ a { color: aliceblue;
   
 </div> 
   <div class="col" style="padding-left:2%"  > 
-  <span class="input-group-text" id="inputGroup-sizing-sm">Número de teléfono</span>
+  <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  required 
-  title="Este campo solo debe contener numeros"   pattern="([9,8,3]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+  title="Este campo solo debe contener numeros"   pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
 <br>
@@ -104,7 +106,7 @@ a { color: aliceblue;
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
   <textarea minlength="10" maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
-   rows="3" required  placeholder="Ingrese la dirección exacta de su domicilio" value="{{old('Direccion')}}" ></textarea>
+   rows="3" required  placeholder="Ingrese la dirección exacta de su domicilio"> {{old('Direccion')}} </textarea>
 </div>
 
 {{--Botones --}}
