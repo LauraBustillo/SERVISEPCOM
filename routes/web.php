@@ -101,6 +101,15 @@ Route::get('/registroproveedor', function () {
 Route::get('/registroproveedores', [ProveedorController::class, 'guardar'])  ->name('show.registroProveedor');
 Route::post('/registroproveedores', [ProveedorController::class, 'agg'])->name('datos');
 
+/*Funcion del listado y buscador del proveedor. */
+Route::get('/Proveedor',[ProveedorController::class, 'index'])->name('proveedor.index');
+Route::post('/Proveedor',[ProveedorController::class, 'index'])->name('proveedor.index');
+
+/*Para mostrar la infomarcion de cada proveedor*/
+Route::get('/Proveedores/{id}', [ProveedorController::class, 'show'])
+->name('proveedor.mostrar')
+->where('id', '[0-9]+');
+
 
 
 
