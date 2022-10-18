@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use DB;
 
 class ProveedorController extends Controller
 {
-    //
+    /*Funcion para el listado de proveedores y el buscador*/ 
+    public function index(Request $request){
+        $proveedor = [];
+        $buscar = '';
+  
+        if($request->buscar != null && $request->buscar != ''){
+          $buscar = $request->buscar;
+          $proveedor =  Proveedor::where(DB::raw ('Nombre_empresa' ), "like","%".strtolower($request->buscar)."%")->paginate(10); 
+        }else{
+          $buscar = '';
+          $proveedor = Proveedor::paginate(10);
+        }
+  
+        return view('Proveedores.ListadoProveedores')->with('proveedores', $proveedor)->with('buscar',$buscar);
+    }
 
-
-
-
-
-
+      /*Funcion para mostrar mas informacion del proveedor */ 
+      public function show($id){
+        $ver = Proveedor::findOrFail($id);
+        return view('Proveedores.InformacionProveedor')->with('ver', $ver);
+    }
 
 
      /*Funcion para guardar empleado*/
@@ -25,7 +40,7 @@ class ProveedorController extends Controller
          $rules = ([
          'Nombre_empresa'=>'required|min:3|max:25',
          'Direccion' =>'required',
-         'Correo'=>'required|email|unique:proveedors|regex:(#^[\w.-]+@[\w.-]+\.[a-zA-Z]$#)|max:30',
+         'Correo'=>'required|email|unique:proveedors|max:30',
          'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
          'Nombre_encargado' =>'required|min:3|max:25',
          'Apellido_encargado' =>'required|min:4|max:25',
@@ -73,20 +88,18 @@ class ProveedorController extends Controller
 
      $nuevoProveedor = new Proveedor();
      //Formulario 
-     $nuevoProveedor -> Nombres = $request -> input('Nombres');
-     $nuevoProveedor -> Apellidos = $request -> input('Apellidos');
-     $nuevoProveedor -> Numero_identidad= $request -> input('Numero_identidad');
-     $nuevoProveedor -> Fecha_nacimiento= $request -> input('Fecha_nacimiento');
-     $nuevoProveedor -> Numero_telefono = $request -> input('Numero_telefono');
-     $nuevoProveedor -> Salrio = $request -> input('Salrio');
-     $nuevoProveedor -> Fecha_contrato= $request -> input('Fecha_contrato');
-     $nuevoProveedor -> Direccion= $request -> input('Direccion');
-    
-    
+     $nuevoProveedor -> Nombre_empresa = $request -> input('Nombre_empresa');
+     $nuevoProveedor -> Direccion = $request -> input('Direccion');
+     $nuevoProveedor -> Correo= $request -> input('Correo');
+     $nuevoProveedor -> Telefono_empresa= $request -> input('Telefono_empresa');
+     $nuevoProveedor -> Nombre_encargado = $request -> input('Nombre_encargado');
+     $nuevoProveedor -> Apellido_encargado= $request -> input('Apellido_encargado');
+     $nuevoProveedor -> Telefono_encargado= $request -> input('Telefono_encargado');
+
      $creado = $nuevoProveedor->save();
 
      if ($creado){
-         return redirect()->route('Proveedor.index')
+         return redirect()->route('proveedor.index')
          ->with('mensaje', 'Se guardó exitosamente');
      }else{
         
