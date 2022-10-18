@@ -14,7 +14,7 @@ class ProveedorController extends Controller
   
         if($request->buscar != null && $request->buscar != ''){
           $buscar = $request->buscar;
-          $proveedor =  Proveedor::where(DB::raw ('Nombre_empresa' ), "like","%".strtolower($request->buscar)."%")->paginate(10); 
+          $proveedor =  Proveedor::where(DB::raw ('Nombre_empresa'), "like","%".strtolower($request->buscar)."%")->paginate(10); 
         }else{
           $buscar = '';
           $proveedor = Proveedor::paginate(10);
@@ -60,11 +60,11 @@ class ProveedorController extends Controller
          'Correo.unique'=>'El correo ya ha sido usado' ,
          'Correo.max'=>'El correo no debe tener más de 30 caracteres' ,
 
-         'Telefono_empresa.required'=>'El número de teléfono es obligatorio' ,
+         'Telefono_empresa.required'=>'El número de teléfono de la empresa es obligatorio' ,
          'Telefono_empresa.numeric'=>'El número de  teléfono solo debe contener números' ,
          'Telefono_empresa.min'=>'El número de teléfono debe  tener minimo 8 números' ,
          'Telefono_empresa.max'=>'El número de teléfono debe  tener máximo  8 números' ,
-         'Telefono_empresa.unique'=>'El número de teléfono ya ha sido usado' ,
+         'Telefono_empresa.unique'=>'El número de teléfono de la empresa ya ha sido usado' ,
          'Telefono_empresa.regex'=>'El teléfono debe de empezar con 9, 8 o 3' ,
 
          'Nombre_encargado.required'=>'El nombre del encargado es obligatorio' ,
@@ -76,11 +76,11 @@ class ProveedorController extends Controller
          'Apellido_encargado.min'=>'El apellido debe tener minimo 4 letras' ,
          'Apellido_encargado.max'=>'El apellido  no debe de tener más de 25 letras' ,
      
-         'Telefono_encargado.required'=>'El número de teléfono es obligatorio' ,
+         'Telefono_encargado.required'=>'El número de teléfono del encargado es obligatorio' ,
          'Telefono_encargado.numeric'=>'El número de  teléfono solo debe contener números' ,
          'Telefono_encargado.min'=>'El número de teléfono debe  tener minimo 8 números' ,
          'Telefono_encargado.max'=>'El número de teléfono debe  tener máximo  8 números' ,
-         'Telefono_encargado.unique'=>'El número de teléfono ya ha sido usado' ,
+         'Telefono_encargado.unique'=>'El número de teléfono del encargado ya ha sido usado' ,
          'Telefono_encargado.regex'=>'El teléfono debe de empezar con 9, 8 o 3' ,
          ]);
      
