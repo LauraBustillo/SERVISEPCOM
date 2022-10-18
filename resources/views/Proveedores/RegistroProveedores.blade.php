@@ -71,7 +71,7 @@
             <br><br>
             
             {{-- Título --}}
-            <H1 class="titulo"  style="font-size: 30px" >Registrar Proveedores</H1>
+            <H1 class="titulo"  style="font-size: 30px" >Registrar Proveedor</H1>
             <br>
             
             {{-- Nombre de la empresa --}}
