@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\ProveedorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,8 +87,19 @@ Route::get('/empleado/{id}/editar', [EmpleadoController::class, 'actualizar']) -
 Route::put('/empleado/{id}/editar', [EmpleadoController::class, 'actu']) -> name('empleado.update');
 
 
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA PROVEEDORES
+|--------------------------------------------------------------------------
+*/
+Route::get('/registroproveedor', function () {
+    return view('Proveedores/RegistroProveedores');
+})->name('show.registroProveedores');
 
 
+/*Registro empleado*/
+Route::get('/registroproveedores', [ProveedorController::class, 'guardar'])  ->name('show.registroProveedor');
+Route::post('/registroproveedores', [ProveedorController::class, 'agg'])->name('datos');
 
 
 
