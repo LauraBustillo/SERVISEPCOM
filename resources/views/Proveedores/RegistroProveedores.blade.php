@@ -65,13 +65,13 @@
     @endif
         <br>
         <br>
-
+    
     <form class="form-control" id="form_guardarP" name="form_guardarP"  method="POST" style="text-align: center;" onsubmit="confirmar()">
             @csrf
             <br><br>
             
             {{-- Título --}}
-            <H1 class="titulo"  style="font-size: 30px" >Registrar Proveedor</H1>
+            <H1 class="titulo"  style="font-size: 30px" >Registrar Proveedores</H1>
             <br>
             
             {{-- Nombre de la empresa --}}
@@ -82,7 +82,8 @@
                 aria-label="First name" value="{{old('Nombre_empresa')}}">
               </div>
               <div class="col">
-                <input type="text" minlength="4" maxlength="25" name="Correo" id="Correo"  class="form-control"   required pattern="[\w.-]+@[\w.-]+\.[a-zñA-ZÑ]"
+                <input type="text" minlength="4" maxlength="25" name="Correo" id="Correo"  class="form-control"   required pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
+
                  placeholder="Correo" aria-label="gmail" value="{{old('Correo')}}">
               </div>
             </div>
@@ -138,13 +139,6 @@
             
             <br>
     </form>        
-
-
-
-
-
-
-
 
 
 
