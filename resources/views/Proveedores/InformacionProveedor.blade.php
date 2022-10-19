@@ -51,8 +51,13 @@
 
 
             <tr>
-                <td>Dirección</td>
+                <td>Dirección exacta</td>
                 <td>{{ $ver->Direccion}}</td> 
+            </tr> 
+
+            <tr>
+                <td>Correo electrónico</td>
+                <td>{{ $ver->Correo}}</td> 
             </tr> 
 
             <tr>
@@ -62,12 +67,12 @@
 
 
             <tr>
-                <td>Nombre del encargado</td>
+                <td>Nombres del encargado</td>
                 <td>{{ $ver->Nombre_encargado}}</td>
             </tr> 
 
             <tr>
-                <td>Apellido del encargado</td>
+                <td>Apellidos del encargado</td>
                 <td>{{ $ver->Apellido_encargado}}</td>
             </tr> 
 
