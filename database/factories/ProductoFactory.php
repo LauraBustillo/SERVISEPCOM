@@ -14,7 +14,14 @@ class ProductoFactory extends Factory
     public function definition()
     {
         return [
-            //
+           'Proveedors_Id',
+           'Nombre_producto',
+           'Descripcion',
+           'Marca',
+           'Categorias_Id',
+           'Cantidad',
+           'Precio',
+           'Impuesto',
         ];
     }
 }
