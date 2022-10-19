@@ -113,7 +113,7 @@
         
         {{-- Botones --}}
        <td><a class="btn-detalles" href="{{route('proveedor.mostrar' , ['id' => $pro->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
-       <td><a class="btn-detalles"> <i class="bi bi-pen-fill"> Editar </i></a>  </td>
+       <td><a class="btn-detalles" href="{{route('proveedor.editar' , ['id' => $pro->id]) }}"> <i class="bi bi-pen-fill"> Editar </i></a></td>
        </tr>
        @empty
        @endforelse
