@@ -97,7 +97,7 @@ Route::get('/registroproveedor', function () {
 })->name('show.registroProveedores');
 
 
-/*Registro empleado*/
+/*Registro proveedor*/
 Route::get('/registroproveedores', [ProveedorController::class, 'guardar'])  ->name('show.registroProveedor');
 Route::post('/registroproveedores', [ProveedorController::class, 'agg'])->name('datos');
 
@@ -109,6 +109,10 @@ Route::post('/Proveedor',[ProveedorController::class, 'index'])->name('proveedor
 Route::get('/Proveedores/{id}', [ProveedorController::class, 'show'])
 ->name('proveedor.mostrar')
 ->where('id', '[0-9]+');
+
+/*Para actualizar el proveedor*/
+Route::get('/proveedor/{id}/editar', [ProveedorController::class, 'actualizar'])-> name('proveedor.editar');
+Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> name('proveedor.update');
 
 
 
