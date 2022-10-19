@@ -30,7 +30,7 @@ class ProveedorController extends Controller
     }
 
 
-     /*Funcion para guardar empleado*/
+     /*Funcion para guardar proveedor*/
      public function guardar(){
         return view ('Proveedores.RegistroProveedores');
         }
@@ -107,4 +107,44 @@ class ProveedorController extends Controller
      }
 
  }
+
+
+
+  /*Funcion para actualizar proveedor*/
+ public function actualizar($id){
+    $modificar = Proveedor::find($id);
+     return view('Proveedores.EditarProveedor')->with('modificar', $modificar);    
+}
+
+public function actu (Request $request, $id){
+
+$request->validate([
+
+   'Nombre_empresa'=>'required|min:3|max:25',
+    'Direccion' =>'required',
+    'Correo'=>"required|email|unique:proveedors,Correo, $id",
+    'Telefono_empresa' => "required|numeric|unique:proveedors,Telefono_empresa, $id",
+    'Nombre_encargado' =>'required|min:3|max:25',
+    'Apellido_encargado' =>'required|min:4|max:25',
+    'Telefono_encargado' => "required|numeric|unique:proveedors,Telefono_encargado, $id",
+  ]); 
+        
+  $actu = Proveedor::find($id);
+
+  $actu -> Nombre_empresa = $request -> input('Nombre_empresa');
+  $actu -> Direccion = $request -> input('Direccion');
+  $actu -> Correo = $request -> input('Correo');
+  $actu -> Telefono_empresa = $request -> input('Telefono_empresa');
+  $actu -> Nombre_encargado = $request -> input('Nombre_encargado');
+  $actu -> Apellido_encargado = $request -> input('Apellido_encargado');
+  $actu -> Telefono_encargado = $request -> input('Telefono_encargado');
+ 
+ $agregar = $actu -> save();
+
+if ($agregar){
+    return redirect()->route('proveedor.index')->with('mensaje', 'se actualizó exitosamente') ;
+  } else {
+    
+  }
+}
 }
