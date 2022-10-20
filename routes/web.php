@@ -114,7 +114,12 @@ Route::get('/Proveedores/{id}', [ProveedorController::class, 'show'])
 Route::get('/proveedor/{id}/editar', [ProveedorController::class, 'actualizar'])-> name('proveedor.editar');
 Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> name('proveedor.update');
 
-
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA PRODUCTOS
+|--------------------------------------------------------------------------
+*/
+Route::get('/registroproducto', [ProductoController::class, 'getcategorias'])-> name('show.registroProductos');
 
 
  
