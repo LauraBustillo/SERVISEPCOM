@@ -1,10 +1,9 @@
 @extends('main')
 @section('extra-content')
 
-  
+
 
 <style>
-
 /*Los titulos */ 
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
@@ -176,11 +175,3 @@ a { color: aliceblue;
 </form>
 @endsection
 @include('common')
-
-
-
-
-
-
-
-
