@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Empleado;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class EmpleadoController extends Controller
 {
@@ -28,6 +29,24 @@ class EmpleadoController extends Controller
       /*Funcion para mostrar mas informacion del empleado */ 
       public function show($id){
         $ver = Empleado::findOrFail($id);
+        $meses = ['Enero','Febrero','Marzo',
+        'Abril','Mayo','Junio',
+        'Julio','Agosto','Septiembre',
+        'Octubre','Noviembre','Diciembre'];
+
+          $f1 = $ver->Fecha_nacimiento;
+          $fechaN = Carbon::parse($f1)->format("m");  
+          $monthNac =  $meses[$fechaN -1];
+          $fechaNacimiento = Carbon::parse($f1)->format("d")." de ".$monthNac." de ".Carbon::parse($f1)->format("Y");  
+          $ver['fechaNacimiento'] = $fechaNacimiento;
+         
+          $f2 = $ver->Fecha_contrato;
+          $fechaC = Carbon::parse($f2)->format("m");  
+          $monthCon =  $meses[$fechaC -1];
+          $fechaContrato = Carbon::parse($f2)->format("d")." de ".$monthCon." de ".Carbon::parse($f2)->format("Y");
+          $ver['fechaContrato'] = $fechaContrato;
+
+
         return view('Empleados.InformacionEmpleado')->with('ver', $ver);
       }
 
