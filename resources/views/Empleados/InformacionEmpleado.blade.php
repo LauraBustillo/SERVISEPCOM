@@ -63,7 +63,7 @@
 
             <tr>
                 <td>Fecha de nacimiento</td>
-                <td>{{ $ver->Fecha_nacimiento}}</td>
+                <td>{{ $ver->fechaNacimiento }}</td>
             </tr> 
 
             <tr>
@@ -78,7 +78,7 @@
 
             <tr>
                 <td>Fecha de contrato</td>
-                <td>{{ $ver->Fecha_contrato}}</td>
+                <td>{{ $ver->fechaContrato}}</td>
             </tr> 
 
             <tr>
