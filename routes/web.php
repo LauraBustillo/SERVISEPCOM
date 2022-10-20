@@ -2,6 +2,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -113,6 +114,8 @@ Route::get('/Proveedores/{id}', [ProveedorController::class, 'show'])
 /*Para actualizar el proveedor*/
 Route::get('/proveedor/{id}/editar', [ProveedorController::class, 'actualizar'])-> name('proveedor.editar');
 Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> name('proveedor.update');
+
+
 
 
 
