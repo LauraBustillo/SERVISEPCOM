@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Categoria;
+use App\Models\Proveedor;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use DB;
@@ -14,5 +16,4 @@ class ProductoController extends Controller
 
         return view('Productos/RegistroProductos')->with('categorias',$categorias)->with('proveedores',$proveedores);
     }
-
 }
