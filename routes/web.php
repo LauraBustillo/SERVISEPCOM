@@ -2,6 +2,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,6 +121,8 @@ Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> nam
 |--------------------------------------------------------------------------
 */
 Route::get('/registroproducto', [ProductoController::class, 'getcategorias'])-> name('show.registroProductos');
+
+
 
 
  
