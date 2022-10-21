@@ -3,6 +3,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CompraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -124,5 +125,16 @@ Route::get('/registroproducto', [ProductoController::class, 'getcategorias'])-> 
 
 
 
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA COMPRAS
+|--------------------------------------------------------------------------
+*/
 
- 
+Route::get('/registrocompra', function () {
+    return view('Compras/RegistroCompras');
+})->name('show.registroCompras');
+
+/*Registro compras*/
+Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
+Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
