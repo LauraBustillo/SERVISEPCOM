@@ -86,7 +86,8 @@
   </div>
 
   {{--Botones pendiente rutas de los botone de editar --}}
-  <a class="btn btn-outline-dark" > <i class="bi bi-pen-fill"> Editar </i></a>
+  
+  <a class="btn btn-outline-dark" href="{{route('proveedor.editar', ['id'=>$ver->id])}}"> <i class="bi bi-pen-fill"> Editar </i></a>
   <a class="btn btn-outline-dark" href="{{route('proveedor.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
   
 @include('common')
