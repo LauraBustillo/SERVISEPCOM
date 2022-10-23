@@ -13,6 +13,11 @@ class CompraController extends Controller
         return view('Compras.RegistroCompras');
    }
 
+   /*Funcion para  guardar  */
+   public function show(){
+    return view('Compras.RegistroCompras');
+}
+
    /* Validar  guardar  */
    public function agg(Request $request){
 
