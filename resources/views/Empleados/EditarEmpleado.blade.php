@@ -113,7 +113,7 @@ a { color: aliceblue;
 {{-- Fecha de contrato,Salario --}}
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
-  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}">
+  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}" max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set();>
   <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
 </div>
 <br>
