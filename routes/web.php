@@ -124,6 +124,10 @@ Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> nam
 Route::get('/registroproductos', [ProductController::class, 'getcategorias', 'guardar'])-> name('show.registroProductos');
 Route::POST('/registroproductos', [ProductController::class, 'agg'])->name('datos');
 
+/*Funcion del listado y buscador del producto. */
+Route::get('/Producto',[ProductController::class, 'index'])->name('producto.index');
+Route::post('/Producto',[ProductController::class, 'index'])->name('producto.index');
+
 /*
 |--------------------------------------------------------------------------
 |  RUTAS PARA COMPRAS
