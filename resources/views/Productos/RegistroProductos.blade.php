@@ -113,7 +113,7 @@ a { color: aliceblue;
  <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent" >
     <option value="{{old('categoria_id')}}"[readonly]='true' required >Seleccione</option>
     @foreach ($categorias as $c)
-      <option value="{{$c->id}}"> {{$c->Descripcion}} </option>
+      <option value="{{$c->id}}"> {{$c->DescripcionC}} </option>
     @endforeach
   </select>
  </div> 
@@ -175,7 +175,7 @@ a { color: aliceblue;
             <button  class="btn btn-outline-dark" type="submit" ><i class="bi bi-folder-fill"> Guardar</i></button>
             <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
             <button type="button" class="btn btn-outline-dark">
-            <a class="a"  href="{{route('proveedor.index')}}"><i class="bi bi-x-circle-fill"> Cerrar </i></a></button>
+            <a class="a"  href="{{route('producto.index')}}"><i class="bi bi-x-circle-fill"> Cerrar </i></a></button>
             </div>
         </div>
     
