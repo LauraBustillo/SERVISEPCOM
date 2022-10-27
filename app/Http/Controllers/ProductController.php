@@ -33,7 +33,7 @@ class ProductController extends Controller
        'categoria_id'=>'required',
        'Cantidad' =>'required',
        'Precio_compra' =>'required',
-       'Precio_venta' =>'required',
+       'Precio_venta',
        'Impuesto' =>'required',
 
      ]);
@@ -45,7 +45,6 @@ class ProductController extends Controller
    ]);
 
    $this->validate($request, $rules, $mesaje);
-
   $agregar = new Product();
 
   $agregar -> proveedor_id = $request ->proveedor_id;
@@ -60,15 +59,17 @@ class ProductController extends Controller
 
   $agregar1=  $agregar->save();
 
-/*    if ($agregar1){
-      return redirect()->route('')->with('mensaje', 'Se guardó  con  éxito') ;} 
+  if ($agregar1){
+      return redirect()->route('producto.index')->with('mensaje', 'Se guardó  con  éxito') ;} 
     
       else {
  
            }
-   } */
+   } 
 
-}
+   
+
+
 
 /*Funcion para ver el listado y buscar el producto */
 public function index(Request $request){
@@ -78,14 +79,25 @@ public function index(Request $request){
 
   if($request->buscar != null && $request->buscar != ''){
     $buscar = $request->buscar;
-    $producto =  Product::where(DB::raw("LOWER(concat(Nombres,'',Apellidos))"),"like","%".strtolower($request->buscar)."%")
-    ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
+    $producto =  Product::  
+    
+    select('categorias.Descripcion as Categoria','products.*')
+    ->join('categorias', 'categorias.id', '=', 'products.categoria_id')
+    ->where('Nombre_producto', 'like','%'.strtolower($request->buscar).'%')
+    ->orwhere('Marca', 'like','%'.strtolower($request->buscar).'%')
     ->paginate(10); 
-  }else{
+  }
+  else{
     $buscar = '';
-    $producto = Product::paginate(10);
+    $producto = Product::
+
+    select('categorias.Descripcion as Categoria','products.*')
+
+    ->join('categorias', 'categorias.id', '=', 'products.categoria_id') 
+    ->paginate(10);
+    // return $producto;
   }
 
   return view('Productos.ListadoProductos')->with('producto', $producto)->with('buscar',$buscar)->with('categoria', $categoria);
 }
-}
+} 
