@@ -124,16 +124,29 @@ Route::put('/proveedor/{id}/editar', [ProveedorController::class, 'actu'])-> nam
 Route::get('/registroproductos', [ProductController::class, 'getcategorias', 'guardar'])-> name('show.registroProductos');
 Route::POST('/registroproductos', [ProductController::class, 'agg'])->name('datos');
 
+/*Funcion del listado y buscador del producto. */
+Route::get('/Producto',[ProductController::class, 'index'])->name('producto.index');
+Route::post('/Producto',[ProductController::class, 'index'])->name('producto.index');
+
 /*
 |--------------------------------------------------------------------------
 |  RUTAS PARA COMPRAS
 |--------------------------------------------------------------------------
 */
 
-Route::get('/registrocompra', function () {
-    return view('Compras/RegistroCompras');
-})->name('show.registroCompras');
 
+Route::get('/registrocompra', [CompraController::class, 'show'])->name('show.registroCompras');
 /*Registro compras*/
-Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
-Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
+// Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
+// Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
+
+
+
+Route::get('/facturacion', function () {
+    return view('Compras/facturacion');
+})->name('show.registroFacturacion');
+
+
+Route::get('/pruebas', function () {
+    return view('Compras/Prueba');
+});
