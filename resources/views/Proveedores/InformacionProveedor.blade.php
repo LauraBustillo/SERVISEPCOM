@@ -22,6 +22,16 @@
   color:black;
   font-family: 'Open Sans';
   font-size: 20px;
+ 
+}
+
+/*Los titulos */ 
+.titulo1 {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color:black;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  text-align: center;
 }
 </style>
 
@@ -31,9 +41,13 @@
 </div>
 @endif 
 
+ {{-- Título --}}
+ <H1 class="titulo1"  style="font-size: 30px text-aling:center"  > Información del proveedor</H1>
+ <br>
+ 
 
 <div>    
-    <div class="titulo" >  Información de {{ $ver->Nombre_empresa }} </div>
+    <div class="titulo" >  Proveedor: {{ $ver->Nombre_empresa }} </div>
 <br>
     <table class="table table-hover">
         <thead>
