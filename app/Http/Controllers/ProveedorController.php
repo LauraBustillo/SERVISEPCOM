@@ -7,6 +7,34 @@ use DB;
 
 class ProveedorController extends Controller
 {
+
+    /*Funcion para el listado de proveedores y el buscador*/ 
+    public function index(Request $request){
+        $proveedor = [];
+        $buscar = '';
+        
+        if($request->buscar != null && $request->buscar != ''){
+          $buscar = $request->buscar;
+          $proveedor =  Proveedor::where(DB::raw ('Nombre_empresa'), "like","%".strtolower($request->buscar)."%")
+          ->orwhere('Nombre_encargado', 'like','%'.strtolower($request->buscar).'%')->paginate(10); 
+         
+        }else{
+          $buscar = '';
+          $proveedor = Proveedor::paginate(10);
+        }
+  
+        return view('Proveedores.ListadoProveedores')->with('proveedores', $proveedor)->with('buscar',$buscar);
+    }
+
+
+
+    
+      /*Funcion para mostrar mas informacion del proveedor */ 
+      public function show($id){
+        $ver = Proveedor::findOrFail($id);
+        return view('Proveedores.InformacionProveedor')->with('ver', $ver);
+    }
+
    
 
    /*Funcion para guardar proveedor*/
