@@ -136,6 +136,9 @@ Route::post('/Producto',[ProductController::class, 'index'])->name('producto.ind
 
 
 Route::get('/registrocompra', [CompraController::class, 'show'])->name('show.registroCompras');
+Route::get('/guardarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'guardarFactura']);
+Route::get('/actualizarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'actualizarFactura']);
+Route::get('/comprasEdit/{id}', [CompraController::class, 'comprasEdit'])->name('comprasEdit');
 /*Registro compras*/
 // Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
 // Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
@@ -143,10 +146,14 @@ Route::get('/registrocompra', [CompraController::class, 'show'])->name('show.reg
 
 
 Route::get('/facturacion', function () {
-    return view('Compras/facturacion');
-})->name('show.registroFacturacion');
+    return view('Compras/facturacion');})->name('show.registroFacturacion');
 
 
-Route::get('/pruebas', function () {
-    return view('Compras/Prueba');
+Route::get('/listas', function () {
+    return view('Compras/Lista');
 });
+
+
+/*Funcion del listado y buscador compra. */
+Route::get('/Compra',[CompraController::class, 'index'])->name('compra.index');
+Route::post('/Compra',[CompraController::class, 'index'])->name('compra.index');
