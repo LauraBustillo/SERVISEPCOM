@@ -25,6 +25,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+
 </head>
 
 <style>
@@ -87,8 +90,11 @@ background-attachment: fixed, scroll;
                     
                         <span class="nav_name">Proveedor</span> 
                     </a> 
-                           
 
+                    {{-- Registro producto --}}
+                     <a href="{{ route('producto.index') }}" class="@if(Request::is('Product')) nav_link active @else nav_link @endif">                     
+                     <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M14.25 21.4q-.575.575-1.425.575-.85 0-1.425-.575l-8.8-8.8q-.275-.275-.437-.65Q2 11.575 2 11.15V4q0-.825.588-1.413Q3.175 2 4 2h7.15q.425 0 .8.162.375.163.65.438l8.8 8.825q.575.575.575 1.412 0 .838-.575 1.413ZM12.825 20l7.15-7.15L11.15 4H4v7.15ZM6.5 8q.625 0 1.062-.438Q8 7.125 8 6.5t-.438-1.062Q7.125 5 6.5 5t-1.062.438Q5 5.875 5 6.5t.438 1.062Q5.875 8 6.5 8ZM4 4Z"/></svg>                           
+                     <span class="nav_name">Productos</span> 
                     </a>                         
                 </div>
             </div> 
@@ -115,6 +121,8 @@ background-attachment: fixed, scroll;
 
 
     <!--Container Main end-->
+
+
 
 
     

@@ -43,6 +43,7 @@ a { color: aliceblue;
 
 
 
+
 </style>
 
 
@@ -58,7 +59,8 @@ a { color: aliceblue;
 
 <br>
 <br>
-<form class="form-control" id="form_guardarCo" name="form_guardarCo" method="POST" style="text-align: center;" onsubmit="confirmar()">
+
+<form class="form-control " id="form_guardarCo" name="form_guardarCo" method="POST" style="text-align: center;" onsubmit="confirmar()">
 @csrf
 <br>
 <br>
@@ -66,17 +68,9 @@ a { color: aliceblue;
        {{-- Título --}}
        <H1 class="titulo" >Registrar compra</H1>
        <br>
-       <br>
+  
 
-        {{--Número de  factura--}} 
-       <div class="input-group input-group-sm mb-1 " style="padding-right:4%"  style="width: 150%"> <br>
-        <div class="col" style="padding-left:6%" > 
-            <span class="input-group-text" style="width: 90%"  id="inputGroup-sizing-sm"> Número de factura </span>
-            <input type="text" style="width: 90%"   minlength="8" maxlength="8" name="Numero_factura" id="Numero_factura"
-             class="form-control" aria-label="Sizing example input"aria-describedby="inputGroup-sizing-sm" 
-             required title=" solo debe contener números."  pattern="[0-9]+"  placeholder="Ingrese el número de factura" 
-           value="{{old('Numero_factura')}}">
-        </div>
+
     
          {{-- Fecha de facturación --}}
         <div class="col" style="padding-left:10%">
@@ -85,15 +79,7 @@ a { color: aliceblue;
         require  placeholder="Fecha de facturación" value="{{old('Fecha_facturacion')}}">
         </div>
 
-        {{-- Total de la factura --}}
-        <div class="col" style="padding-left:10%" > 
-            <span class="input-group-text" style="width: 90%"  id="inputGroup-sizing-sm">Total de la factura </span>
-            <input type="text" style="width: 90%"   minlength="3" maxlength="5" name="Total_factura" id="Total_factura"
-             class="form-control" aria-label="Sizing example input"aria-describedby="inputGroup-sizing-sm"
-              required title=" solo debe contener números."  pattern="[0-9.]+"  placeholder="Ingrese el total de la factura"
-           value="{{old('Total_factura')}}">
-        </div>
-      </div>
+    
       <br>
       <br>
 
@@ -101,7 +87,8 @@ a { color: aliceblue;
       <button   class="btn btn-outline-dark"  type="submit" ><i class="bi bi-folder-fill"> Guardar</i></button>
       <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-file-text-fill"> Detalles de factura </i></button>
       <button type="button" class="btn btn-outline-dark">
-    <a class="a"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+          <a class="a"><i class="bi bi-x-circle-fill"> Cerrar</i> </a>
+       </button>
  
 </form>
 

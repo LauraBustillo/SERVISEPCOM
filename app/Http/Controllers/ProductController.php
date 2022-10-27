@@ -69,4 +69,23 @@ class ProductController extends Controller
    } */
 
 }
+
+/*Funcion para ver el listado y buscar el producto */
+public function index(Request $request){
+  $producto = [];
+  $categoria = [];
+  $buscar = '';
+
+  if($request->buscar != null && $request->buscar != ''){
+    $buscar = $request->buscar;
+    $producto =  Product::where(DB::raw("LOWER(concat(Nombres,'',Apellidos))"),"like","%".strtolower($request->buscar)."%")
+    ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
+    ->paginate(10); 
+  }else{
+    $buscar = '';
+    $producto = Product::paginate(10);
+  }
+
+  return view('Productos.ListadoProductos')->with('producto', $producto)->with('buscar',$buscar)->with('categoria', $categoria);
+}
 }
