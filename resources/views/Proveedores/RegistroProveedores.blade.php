@@ -71,7 +71,7 @@
             <br><br>
             
             {{-- Título --}}
-            <H1 class="titulo"  style="font-size: 30px" >Registrar Proveedores</H1>
+            <H1 class="titulo"  style="font-size: 30px" >Registrar proveedor</H1>
             <br>
             
             {{-- Nombre de la empresa --}}
@@ -101,9 +101,10 @@
                 
                 {{-- Direccion --}}
                 <div class="col" style="padding-left: 6%" > 
-                    <span class="input-group-text"  style="width: 109%">Ingrese la dirección exacta de la empresa proveedora</span>
-                    <textarea class="form-control ancho-alto" spellcheck="true"
-                    minlength="10" maxlength="150" name="Direccion" id="Direccion" id="exampleFormControlTextarea1"  required > {{old('Direccion')}}</textarea>
+                    <span class="input-group-text"  style="width: 109%">Dirección</span>
+                    <textarea class="form-control ancho-alto" spellcheck="true" 
+                    minlength="10" maxlength="150" name="Direccion" id="Direccion" id="exampleFormControlTextarea1" 
+                     required placeholder="Ingrese la dirección exacta de la empresa">{{old('Direccio')}}</textarea>
                 </div>
                 </div>
             {{-- Nombres y Apellidos del encargado--}}
@@ -140,4 +141,27 @@
             <br>
     </form>        
 @endsection
+{{--mensaje de confirmacion --}}
+@push('alertas')
+    <script>
+        function confirmar() {
+           var formul = document.getElementById("form_guardarP");
+           
+           Swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
+    </script>
+@endpush
 @include('common')
