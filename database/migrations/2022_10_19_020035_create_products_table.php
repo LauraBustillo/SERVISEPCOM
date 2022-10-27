@@ -26,7 +26,6 @@ class CreateProductsTable extends Migration
             $table->integer('Precio_compra');
             $table->integer('Precio_venta');
             $table->float('Impuesto');
-           
             $table->timestamps();
         });
     }

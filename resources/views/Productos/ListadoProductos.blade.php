@@ -79,7 +79,7 @@
   <div class="container-fluid" >
     <form class="d-flex" id="ablescroll" method="POST" action="Producto">
     @csrf
-      <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por nombres, apellidos o identidad" aria-label="Sizing example input">
+      <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por producto, marca o categoria" aria-label="Sizing example input">
       <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
       <a href="{{ route('producto.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
     </form>
@@ -94,13 +94,13 @@
     <table class="table table-hover">
         <thead>
         <tr>
-        <th scope="col">#</th>
+        
         <th scope="col">Producto</th>
         <th scope="col">Marca</th>
         <th scope="col">Categoria</th>
         <th scope="col">Detalles del producto</th>
         <th scope="col">Editar producto</th>  
-        <th scope="col">Historial de precios</th>
+  
         </tr>
         </thead>
 
@@ -112,16 +112,15 @@
         @forelse( $producto as $em)
 
         <tr>
-        <td scope="row">{{ $em->id}}</td>
-        <td>{{ $em->Nombre_producto }}</td>
+        <td scope="row">{{ $em->Nombre_producto }}</td>
         <td>{{ $em->Marca}}</td>
-        <td>{{ $em->categoria_id}}</td>
+        <td>{{ $em->Categoria}}</td>
         
         
         {{-- Botones --}}
        <td><a class="btn-detalles" > <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
        <td><a class="btn-detalles" > <i class="bi bi-pen-fill"> Editar </i></a>  </td>
-       <td><a class="btn-detalles" > <i class="bi bi-cash-coin"> Historial </i> </a></td>
+
 
     </tr>
        @empty

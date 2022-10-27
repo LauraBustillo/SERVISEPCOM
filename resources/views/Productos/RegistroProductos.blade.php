@@ -82,13 +82,14 @@ a { color: aliceblue;
  
  <div class="row g-3"  class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" >
   <div class="col" style="padding-left: 7%">
-    <input type="text"   minlength="3" maxlength="25" name="Nombre_producto" id="Nombre_producto"  
-    pattern="[A-ZÑ a-zñ]+" class="form-control"  required title="Este campo puede contener letras y números"   pattern="[0-9]+" 
+    <input type="text"   minlength="3" maxlength="25" name="Nombre_producto" id="Nombre_producto" pattern="[A-ZÑ a-zñ0-9]+"  
+
+   class="form-control"  required   title="Este campo puede contener letras y números"   
     placeholder="Nombre del producto"
     aria-label="First name" value="{{old('Nombre_producto')}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Marca" id="Marca" pattern="[A-ZÑ a-zñ]+"title="Este campo puede contener letras y números"   pattern="[0-9]+"  class="form-control"   required 
+    <input type="text" minlength="4" maxlength="25" name="Marca" id="Marca" pattern="[A-ZÑ a-zñ]+"      title="Este campo solo debe contener letras"   class="form-control"   required 
      placeholder="Marca del producto" aria-label="First name" value="{{old('Marca')}}">
     </div>
  </div>
@@ -100,7 +101,7 @@ a { color: aliceblue;
  {{-- Descripcion --}}
  <div class="input-group input-group-sm mb-1 " style="padding-right:4%"  style="width: 150%"> <br>
  <div class="col" style="padding-left: 6.4% " > 
- <textarea class="form-control ancho-alto" spellcheck="true" title="Este campo puede contener letras y números"   pattern="[0-9]+"  pattern="[A-ZÑ a-zñ]+"
+ <textarea class="form-control ancho-alto" spellcheck="true" title="Este campo puede contener letras y números"  pattern="[A-ZÑ a-zñ][0-9]+"
  minlength="5" maxlength="50" name="Descripcion" id="Descripcion" id="exampleFormControlTextarea1"
   placeholder="Ingrese la descripción del producto" required>{{old('Descripcion')}}</textarea>
  </div>
@@ -110,10 +111,10 @@ a { color: aliceblue;
 {{-- categorias--}}
  <div class="col" style="padding-left: 20%">
  <label for="Categorias">Categorias</label>
- <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent" >
-    <option value="{{old('categoria_id')}}"[readonly]='true' required >Seleccione</option>
+ <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent"  required >
+    <option value="{{old('categoria_id')}}"[readonly]='true' >Seleccione</option>
     @foreach ($categorias as $c)
-      <option value="{{$c->id}}"> {{$c->DescripcionC}} </option>
+      <option value="{{$c->id}}"> {{$c->Descripcion}} </option>
     @endforeach
   </select>
  </div> 
@@ -123,7 +124,7 @@ a { color: aliceblue;
  {{-- proveedores--}}
  <div class="col"  >
  <label for="Proveedores">Proveedores</label>
- <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent">
+ <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" required>
   <option value="{{old('proveedor_id')}}" required [readonly]='true'>Seleccione</option>
   @foreach($proveedores as $p)
     <option value="{{$p->id}}">{{$p->Nombre_empresa}}</option>
@@ -145,26 +146,30 @@ a { color: aliceblue;
          
             <div class="col" style="padding-left:1%" > 
                 <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Precio de compra</span>
-                <input type="text" style="width: 70%"   minlength="1" maxlength="4" name="Precio_compra" id="Precio_compra" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder=''value="{{old('Precio_compra')}}">
+                <input type="text" style="width: 70%"   minlength="1" maxlength="5" name="Precio_compra" id="Precio_compra" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder='Ingrese el precio'value="{{old('Precio_compra')}}">
             </div>
+
+
+            {{-- Impuesto--}}
+             <div class="col" > 
+                <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Impuesto</span>
+                <input type="text" style="width: 70%"   minlength="1" maxlength="2" name="Impuesto" id="Impuesto" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder='' value="15" readonly
+                value="{{old('Impuesto')}}">
+              </div>
+
+
 
             {{--Precio venta--}} 
          
          <div class="col" style="padding-left:1%" > 
-             <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Precio de venta</span>
-             <input type="text" style="width: 70%"   minlength="1" maxlength="4" name="Precio_venta" id="Precio_venta" class="form-control" aria-label="Sizing example input"
-             aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+"  placeholder='' value="{{old('Precio_venta')}}">
+             <input type="hidden" style="width: 70%"   minlength="1" maxlength="5" name="Precio_venta" id="Precio_venta" class="form-control" aria-label="Sizing example input"
+             aria-describedby="inputGroup-sizing-sm"  value="0" title=" solo debe contener números."   pattern="[0-9]+"  value="{{old('Precio_venta')}}">
          </div>
 
     
-            {{-- Impuesto--}}
-            <div class="col" > 
-                <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Impuesto</span>
-                <input type="text" style="width: 70%"   minlength="1" maxlength="2" name="Impuesto" id="Impuesto" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder=''
-               value="{{old('Impuesto')}}">
-            </div>
+
           </div>
         </div>
             <br>
@@ -182,4 +187,27 @@ a { color: aliceblue;
 
 </form>
 @endsection
+{{--mensaje de confirmacion --}}
+@push('alertas')
+    <script>
+        function confirmar() {
+           var formul = document.getElementById("form_guardarPr");
+           
+           Swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
+    </script>
+@endpush
 @include('common')
