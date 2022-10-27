@@ -72,7 +72,7 @@ a { color: aliceblue;
 <br>
 <br>
 {{-- Título --}}
-<H1 class="titulo"  style="font-size: 30px" >Editar Proveedor</H1>
+<H1 class="titulo"  style="font-size: 30px" >Editar proveedor</H1>
 <br>
 <br>
 
@@ -102,8 +102,9 @@ a { color: aliceblue;
                 
                 {{-- Direccion --}}
                 <div class="col" style="padding-left: 6%" > 
-                    <span class="input-group-text"  style="width: 109%">Ingrese la dirección exacta de la empresa proveedora</span>
-                    <textarea class="form-control ancho-alto" spellcheck="true" minlength="10" maxlength="150" name="Direccion" id="Direccion" id="exampleFormControlTextarea1"  required >{{$modificar->Direccion}}</textarea>
+                    <span class="input-group-text"  style="width: 109%">Dirección </span>
+                    <textarea class="form-control ancho-alto" spellcheck="true" minlength="10" maxlength="150" 
+                    name="Direccion" id="Direccion" id="exampleFormControlTextarea1"  required placeholder="Ingrese la dirección exacta de la empresa">{{$modificar->Direccion}}</textarea>
                 </div>
                 </div>
 
