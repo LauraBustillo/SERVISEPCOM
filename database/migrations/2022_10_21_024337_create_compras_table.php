@@ -18,6 +18,7 @@ class CreateComprasTable extends Migration
             $table->string('Numero_factura');
             $table->string('Fecha_facturacion');
             $table->double('Total_factura');
+            $table->string('Proveedor');
             $table->timestamps();
         });
     }

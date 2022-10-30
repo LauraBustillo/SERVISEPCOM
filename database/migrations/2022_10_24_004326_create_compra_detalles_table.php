@@ -15,7 +15,18 @@ class CreateCompraDetallesTable extends Migration
     {
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->id();
-            
+            $table->string("id_prov");
+            $table->string("id_product");
+            $table->string("nombre_producto");
+            $table->string("Numero_facturaform");
+            $table->string("Descripcion");
+            $table->string("Marca");
+            $table->string("id_cat");
+            $table->string("Categoria");
+            $table->string("Cantidad");
+            $table->string("Costo");
+            $table->string("Precio_venta");
+            $table->string("Impuesto");
             $table->timestamps();
         });
     }
