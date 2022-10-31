@@ -1,11 +1,8 @@
 @extends('main')
 @section('extra-content')
 
-
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"> --}}
-
 <style>
+
 
 
 /*Cajas de texto*/ 
@@ -104,8 +101,6 @@ a { color: aliceblue;
 
 </style>
 
-<div id="alert_factura">
-</div>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -151,7 +146,8 @@ a { color: aliceblue;
    {{-- proveedores--}}
     <div style="padding-left: 5%"   >
     <label for="Proveedores">Proveedor</label>
-    <select {{ $accion == 'guardar' ? '' : 'disabled' }} style="position:absolute; right:50%" name="Proveedor" id="Proveedor"  class="input ancho" style="background: transparent">
+    <select {{ $accion == 'guardar' ? '' : 'disabled' }} style="position:absolute; right:50%" name="Proveedor" id="Proveedor"  
+    class="input ancho buscador-select" style="background: transparent">
      <option value="" required [readonly]='true'>Seleccione</option>
      @foreach ($proveedores as $p)
      <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
@@ -159,6 +155,7 @@ a { color: aliceblue;
    </select> 
     </div> 
     <br>
+
 
   
     <br>
@@ -172,8 +169,12 @@ a { color: aliceblue;
       <br>
       <br>
 
-       <table class="table table-hover">
+    
+        
+          
+       <table class="table table-hover"  >
         <thead>
+            <h5 style="display:none" id="leyenda">Agregue datos a la factura</h5>
             <tr>
                 <th>Producto</th>
                 <th>Marca</th>
@@ -188,15 +189,17 @@ a { color: aliceblue;
             </tr>
         </thead>
         <tbody id="body_table_detallesFac">
-               
             </tbody>
     </table>
+
+
+
 
          {{--Botones guardar y actualizar --}}
          <form action=""  id="form_guardarCo" name="form_guardarCo" method="POST"  onsubmit="confirmar()" >
          <div style="text-align: center">
             @if ($accion == 'guardar')
-              <button  onclick="guardatFactura()" class="btn btn-outline-dark"  type="button" >
+              <button   class="btn btn-outline-dark"  type="button" onclick="guardatFactura()" >
               <i class="bi bi-folder-fill"> Guardar</i>
               </button>  
               <button class="btn btn-outline-dark"  type="button" >
@@ -230,8 +233,9 @@ a { color: aliceblue;
         <div class="modal-dialog  modal-xl" >
           <div class="modal-content">
             <div class="modal-header">
-              <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center"  > Agregar producto a la factura</h1>
-    
+                <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
+                    Agregar producto a la factura #<span id="numfact_form"></span> 
+                </h1>    
              <label >
                 <button type="submit" class="btn btn-outline-dark" href="{{route('show.registroProductos')}}" ><i class="bi bi-bag-plus"> Agregar producto</i></button>
     
@@ -246,28 +250,37 @@ a { color: aliceblue;
                         <option value="{{$p->id_product}}">{{$p->Nombre_producto}}</option>
                     @endforeach
                 </select> --}}
-                <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value="" style="width: 500px;"  
-                class="form-control me-2" placeholder="Buscar por nombre del producto">
-            
-                <div id="buscar_producto_proveedor">
-    
+
+                            
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value="" 
+                        class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
+                    <div class="col"></div>
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{-- tabla de buscar producto --}}
+                        <div id="buscar_producto_proveedor">    
+                        </div>
+                    </div>
+                    <div class="col">
+                        {{-- tabla de productosAgregados --}}
+                        <div id="body_table_detallesFacModal">    
+                        </div>
+                    </div>
+                </div>
+
+
+
      
                 <br>
     
                 <!-- Formulario de agregar producto-->
-                <form action="" >
-    
-                    <!-- Numero de factura --> 
-                <div class="container-fluid" id="main-content">
-                 <div class="container">
-                <div class="row">
-                    <div class="col1 group-text">Factura #:</div>
-                    <div class="col2  group-text" id="numfact_form"></div>
-                </div>
-                </div>
-                </div>
-                <br>
+                <form action="" >   
+                  
+        
                      <!-- Nombre producto --> 
                     <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
                     <div class="col" style="padding-left: 3%"  >
@@ -344,13 +357,19 @@ a { color: aliceblue;
       </div>
     
       <script>
+
+
+//siempre colocar para el select search en cada componente
+$(document).ready(function() {
+    $('.buscador-select').select2();
+});
     
         var detallefactura = {!! json_encode($detallefactura, JSON_HEX_TAG) !!}; 
         var factura = {!! json_encode($factura, JSON_HEX_TAG) !!}; 
         var products = {!! json_encode($products, JSON_HEX_TAG) !!}; 
         var productfiltersProveedor;
-        var totalFACTURA;
-    
+        var totalFACTURA;   
+
     
             document.getElementById("Numero_factura").value = factura.Numero_factura ;
             document.getElementById("Fecha_facturacion").value = factura.Fecha_facturacion;
@@ -362,6 +381,23 @@ a { color: aliceblue;
         dibujarTabla(detallefactura);
         
         function guardatFactura() {
+        
+       //validaciones
+       if (document.getElementById("Numero_factura").value == '') {
+            alertify.error("El numero de la factura es requerido");
+            return;
+       }
+       if (document.getElementById("Proveedor").value == '') {
+            alertify.error("El proveedor es requerido");
+            return;
+       }
+        if(detallefactura.length == 0 ){
+            alertify.error("Debe de agregar detalles");
+            return;
+        }
+
+
+
         var jsonFactura = {
             Numero_factura : document.getElementById("Numero_factura").value,
             Fecha_facturacion : document.getElementById("Fecha_facturacion").value,
@@ -369,10 +405,16 @@ a { color: aliceblue;
             Total_factura : totalFACTURA,
            
         };
+        
+       
+
+
+
         var stringarrayFactura = JSON.stringify(jsonFactura);
         var stringarrayDetalles = JSON.stringify(detallefactura);
         window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
         }
+            
     
         function actualizarFactura() {
             var jsonFactura = {
@@ -404,18 +446,12 @@ a { color: aliceblue;
     
     
                 }else{
-                    html = '<div class="alert alert-danger" style="position:absolute">Ingrese Proveedor</div>';
-                    document.getElementById('alert_factura').innerHTML = html;
-                    setTimeout(() => {
-                        document.getElementById('alert_factura').innerHTML = '';
-                    }, 2000);
+                alertify.error('Ingrese Factura')        
+
+             
                 }
-            }else{            
-                html = '<div class="alert alert-danger" style="position:absolute">Ingrese Factura</div>';
-                document.getElementById('alert_factura').innerHTML = html;
-                setTimeout(() => {
-                    document.getElementById('alert_factura').innerHTML = '';
-                }, 2000);
+            }else{    
+                alertify.error('Ingrese Factura')   
                 
             } 
         }
@@ -425,7 +461,7 @@ a { color: aliceblue;
             inputBuscarProveedor = document.getElementById('inputBuscarProveedor').value;
     
                     productfiltersBuscador = productfiltersProveedor.filter((x) => x.Nombre_producto.toLowerCase().includes(inputBuscarProveedor.toLowerCase()));
-                    html = '<table class="table table-hover" style="width: 45%";>';                
+                    html = '<table class="table table-hover" style="width: 100%";>';                
                     html += '<thead style="width: 100%;table-layout: fixed">';                
                     html += '<tr>';                
                     html += '<th>Productos</th>';                
@@ -433,7 +469,7 @@ a { color: aliceblue;
                     html += '</thead>';                
                     html += '<tbody  style="display: inline-block; height:10rem;overflow:auto; width: 100%">';              
                     productfiltersBuscador.forEach(element => {
-                    html += '<tr>';
+                    html += '<tr style="width:100%">';
                     html += '<td>' +element.Nombre_producto+'</td>';    
                     html += '<td>' +element.Marca+'</td>';    
                     html += '<td><button class="btn btn-outline-dark" onclick="cargarProducto('+element.id_product+')"><i class="bi bi-bag-plus"> Agregar</i></button></td>';   
@@ -485,30 +521,36 @@ a { color: aliceblue;
            var Precio_venta = document.getElementById("Precio_venta").value;
     
            if(Cantidad == '' ){
-            alert("La cantidad es requerida");
+            alertify.error("La cantidad es requerida");
             return;
-           }
-    
+           }    
            if(Cantidad == 0){
-            alert("La cantidad no debe ser cero");
+            alertify.error("La cantidad no debe ser cero");
             return;
            }
            if(Costo == ''){
-            alert("El precio de compra es requerido");
+            alertify.error("El precio de compra es requerido");
             return;
            }
            if(Costo == 0){
-            alert("El precio de compra no debe ser cero");
+            alertify.error("El precio de compra no debe ser cero");
             return;
-           }
-           
+           }           
            if(Precio_venta == ''){
-            alert("El precio de venta es requerida");
+            alertify.error("El precio de venta es requerida");
             return;
             }
             if(Precio_venta == 0){
-            alert("El precio de venta no debe ser cero");
+            alertify.error("El precio de venta no debe ser cero");
             return;
+           }
+
+           if(Precio_venta < Costo){            
+            alertify.error("El precio de venta no debe ser menor al costo");
+            return;
+           }else if(Precio_venta == Costo){
+            alertify.error("El precio de venta no debe ser igual al costo");  
+            return;          
            }
     
             var jsonproducto = {
@@ -537,6 +579,21 @@ a { color: aliceblue;
          function dibujarTabla(data){
             console.log(data);
             var html = '';
+            var htmlagregados = '';
+            htmlagregados +='<div><strong>Productos agregados</strong></div>'; 
+                              
+                              
+            htmlagregados +='<div>';                    
+            htmlagregados +='<div class="row" style="font-weight:bold">';               
+            htmlagregados +='<div class="col">Nombre Producto </div>';                    
+            htmlagregados +='<div class="col">Marca </div>';                    
+            htmlagregados +='<div class="col">Cantidad </div>';                    
+            htmlagregados +='</div>';        
+            htmlagregados +='</div>';                    
+                
+                
+            htmlagregados +='<div  style="height:10rem;overflow:auto">';                    
+
             totalFACTURA = 0;
             data.forEach(element => {
                 
@@ -553,16 +610,27 @@ a { color: aliceblue;
                 html += '<td>'+totalproducto.toFixed()+'</td>';
                 html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
                 html += '</tr>';
+
+                htmlagregados +='<div  class="row">';                    
+                htmlagregados += '<div class="col">'+element.nombre_producto+'</div>';
+                htmlagregados += '<div class="col">'+element.Marca+'</div>';
+                htmlagregados += '<div class="col">'+element.Cantidad+'</div>';
+                htmlagregados +='</div>';
     
                 totalFACTURA += totalproducto;
             });
-                html += '<tr>';
-               
+
+            htmlagregados +='</div>';                    
+
+
+
+                html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
                 html += '<td><strong>'+totalFACTURA.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
             document.getElementById('body_table_detallesFac').innerHTML = html;
+            document.getElementById('body_table_detallesFacModal').innerHTML = htmlagregados;
     
          }
     
@@ -581,7 +649,7 @@ a { color: aliceblue;
             document.getElementById("inputBuscarProveedor").value = '';
          }
     
-        // para no escribir numeros
+        //  {{-- para no escribir numeros --}}
          function ValidaSoloNumeros() {
         if ((event.keyCode < 48) || (event.keyCode > 57)) 
         event.returnValue = false;
@@ -602,7 +670,7 @@ a { color: aliceblue;
         if ((event.keyCode < 48) || (event.keyCode > 57)) 
         event.returnValue = false;
         }
-        
+    
     
             
      </script>
