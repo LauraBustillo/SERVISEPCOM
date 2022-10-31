@@ -73,13 +73,13 @@ a { color: aliceblue;
 <div class="row g-3">
     <div class="col">
     <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control" id="Nombre" name="Nombre" aria-label="First name" 
-    Value="{{$modificar->Nombre}}">
+    value="{{old('Nombre',$modificar->Nombre)}}">
 </div>
 
 <div class="col">
 
     <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control"  aria-label="Last name"
-    Value="{{$modificar->Apellido}}">
+    Value="{{old('Apellido',$modificar->Apellido)}}">
     </div>
 </div>
 <br>
@@ -93,22 +93,26 @@ a { color: aliceblue;
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
   <input type="text" minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" 
   class="form-control"  name="Numero_identidad" id="Numero_identidad" aria-label="Sizing example input" 
-  aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" 
-  Value="{{$modificar->Numero_identidad}}">
+  aria-describedby="inputGroup-sizing-sm" required title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" 
+  Value="{{old('Numero_identidad', $modificar->Numero_identidad)}}">
 </div> 
 
 <div class="col" style="padding-left:2%"  > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
-  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" name="Numero_telefono" id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required  title="Este campo solo debe contener numeros"  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000"
-  Value="{{$modificar->Numero_telefono}}">
+  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" 
+  id="Numero_telefono" class="form-control" name="Numero_telefono" 
+  id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+   required  title="Solo debe tener números"  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000"
+  Value="{{old('Numero_telefono',$modificar->Numero_telefono)}}">
 </div>
 </div>
 <br>
 
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
-  <textarea class="form-control" minlength="10" maxlength="150"  name="Direccion"  id="Direccion" style="width: 70%" id="exampleFormControlTextarea1" rows="3" placeholder="Dirección exacta">
-  {{$modificar->Direccion}} </textarea>
+  <textarea class="form-control" minlength="10" maxlength="150"  name="Direccion"  id="Direccion"
+   style="width: 70%" id="exampleFormControlTextarea1" rows="3" placeholder="Dirección exacta">
+  {{old('Direccion',$modificar->Direccion)}} </textarea>
 </div>
 
 {{--Botones --}}
