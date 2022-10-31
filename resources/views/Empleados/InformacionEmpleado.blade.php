@@ -23,6 +23,14 @@
   font-family: 'Open Sans';
   font-size: 20px;
 }
+/*Los titulos */ 
+.titulo1 {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color:black;
+  font-family: 'Open Sans';
+  font-size: 40px;
+  text-align: center;
+}
 </style>
 
 @if (session('mensaje'))
@@ -31,9 +39,10 @@
 </div>
 @endif 
 
-
+<H1 class="titulo1">Infromación del empleado</H1>
+<br>
 <div>    
-    <div class="titulo" >  Información de {{ $ver->Nombres }} {{ $ver->Apellidos}} </div>
+    <div class="titulo" >Empleado: {{ $ver->Nombres }} {{ $ver->Apellidos}} </div>
 <br>
     <table class="table table-hover">
         <thead>
