@@ -1,1 +1,3 @@
-
+.alertify .ajs-footer .ajs-buttons.ajs-primary .ajs-button.ajs-ok{
+      color: red !important;
+}
