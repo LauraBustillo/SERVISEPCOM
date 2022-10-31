@@ -143,11 +143,8 @@ Route::get('/comprasEdit/{id}', [CompraController::class, 'comprasEdit'])->name(
 // Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
 // Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
 
-
-
-Route::get('/facturacion', function () {
-    return view('Compras/facturacion');})->name('show.registroFacturacion');
-
+Route::get('/facturacion', function () { 
+return view('Compras/facturacion');})->name('show.registroFacturacion');
 
 Route::get('/listas', function () {
     return view('Compras/Lista');
