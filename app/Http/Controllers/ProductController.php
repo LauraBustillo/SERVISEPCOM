@@ -31,10 +31,10 @@ class ProductController extends Controller
        'Descripcion' =>'required',
        'Marca' => 'required',
        'categoria_id'=>'required',
-       'Cantidad' =>'required',
-       'Precio_compra' =>'required',
+       'Cantidad',
+       'Precio_compra',
        'Precio_venta',
-       'Impuesto' =>'required',
+       'Impuesto',
 
      ]);
      
