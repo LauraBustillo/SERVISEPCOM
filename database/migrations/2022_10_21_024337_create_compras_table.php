@@ -32,3 +32,7 @@ class CreateComprasTable extends Migration
         Schema::dropIfExists('compras');
     }
 }
+
+
+
+
