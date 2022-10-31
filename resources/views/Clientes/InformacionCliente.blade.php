@@ -24,13 +24,20 @@
   font-family: 'Open Sans';
   font-size: 20px;
 }
-
-.tabla{
-    
+/*Los titulos */ 
+.titulo1 {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color:black;
+  font-family: 'Open Sans';
+  font-size: 40px;
+  text-align: center;
 }
 </style>
+
+<h1 class="titulo1">Información del cliente</h1>
+<br>
 <div>    
-    <div class="titulo" > Información de {{ $ver->Nombre }} {{ $ver->Apellido}} </div>
+    <div class="titulo" >Cliente: {{ $ver->Nombre }} {{ $ver->Apellido}} </div>
 <br>
     <table class="table table-hover">
         <thead>
