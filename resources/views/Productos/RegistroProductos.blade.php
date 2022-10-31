@@ -84,12 +84,12 @@ a { color: aliceblue;
   <div class="col" style="padding-left: 7%">
     <input type="text"   minlength="3" maxlength="25" name="Nombre_producto" id="Nombre_producto" pattern="[A-ZÑ a-zñ0-9]+"  
 
-   class="form-control"  required   title="Este campo puede contener letras y números"   
+   class="form-control"  required   title="Puede tener letras y números"   
     placeholder="Nombre del producto"
     aria-label="First name" value="{{old('Nombre_producto')}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Marca" id="Marca" pattern="[A-ZÑ a-zñ]+"      title="Este campo solo debe contener letras"   class="form-control"   required 
+    <input type="text" minlength="1" maxlength="25" name="Marca" id="Marca" pattern="[A-ZÑ a-zñ]+"  title="Solo debe  tener letras"   class="form-control"   required 
      placeholder="Marca del producto" aria-label="First name" value="{{old('Marca')}}">
     </div>
  </div>
@@ -101,7 +101,7 @@ a { color: aliceblue;
  {{-- Descripcion --}}
  <div class="input-group input-group-sm mb-1 " style="padding-right:4%"  style="width: 150%"> <br>
  <div class="col" style="padding-left: 6.4% " > 
- <textarea class="form-control ancho-alto" spellcheck="true" title="Este campo puede contener letras y números"  pattern="[A-ZÑ a-zñ][0-9]+"
+ <textarea class="form-control ancho-alto" spellcheck="true" title="Puede tener letras y números"  pattern="[A-ZÑ a-zñ][0-9]+"
  minlength="5" maxlength="50" name="Descripcion" id="Descripcion" id="exampleFormControlTextarea1"
   placeholder="Ingrese la descripción del producto" required>{{old('Descripcion')}}</textarea>
  </div>
@@ -121,41 +121,41 @@ a { color: aliceblue;
  
 
                 
- {{-- proveedores--}}
- <div class="col"  >
- <label for="Proveedores">Proveedores</label>
- <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" required>
-  <option value="{{old('proveedor_id')}}" required [readonly]='true'>Seleccione</option>
-  @foreach($proveedores as $p)
+      {{-- proveedores--}}
+      <div class="col"  >
+      <label for="Proveedores">Proveedores</label>
+      <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" required>
+      <option value="{{old('proveedor_id')}}" required [readonly]='true'>Seleccione</option>
+      @foreach($proveedores as $p)
     <option value="{{$p->id}}">{{$p->Nombre_empresa}}</option>
   @endforeach
-</select> 
- </div> 
+  </select> 
+  </div> 
 
 
            {{--Cantidad--}} 
            <div class="input-group input-group-sm mb-1 " style="padding-right:4%"  style="width: 150%"> <br>
             <div class="col" style="padding-left:15%" > 
-                <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm"> Cantidad</span>
-                <input type="text" style="width: 70%"   minlength="1" maxlength="1" name="Cantidad" id="Cantidad" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  value="0"  readonly  pattern="[0-9]+" 
+                
+                <input type="hidden" style="width: 70%"   minlength="1" maxlength="1" name="Cantidad" id="Cantidad" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" required title=" Solo debe tener números."  value="0"  readonly  pattern="[0-9]+" 
                value="{{old('Cantidad')}}">
             </div>
         
               {{--Precio compra--}} 
          
             <div class="col" style="padding-left:1%" > 
-                <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Precio de compra</span>
-                <input type="text" style="width: 70%"   minlength="1" maxlength="5" name="Precio_compra" id="Precio_compra" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder='Ingrese el precio'value="{{old('Precio_compra')}}">
+                
+                <input type="hidden" style="width: 70%"  value="0"  minlength="1" maxlength="5" name="Precio_compra" id="Precio_compra" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" required title=" solo debe tener números."  pattern="[0-9]+" placeholder='Ingrese el precio'value="{{old('Precio_compra')}}">
             </div>
 
 
             {{-- Impuesto--}}
              <div class="col" > 
-                <span class="input-group-text" style="width: 70%"  id="inputGroup-sizing-sm">Impuesto</span>
-                <input type="text" style="width: 70%"   minlength="1" maxlength="2" name="Impuesto" id="Impuesto" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" solo debe contener números."  pattern="[0-9]+" placeholder='' value="15" readonly
+               
+                <input type="hidden" style="width: 70%"   minlength="1" maxlength="2" name="Impuesto" id="Impuesto" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" required title=" solo debe tener números."  pattern="[0-9]+" placeholder='' value="15" readonly
                 value="{{old('Impuesto')}}">
               </div>
 
@@ -165,7 +165,7 @@ a { color: aliceblue;
          
          <div class="col" style="padding-left:1%" > 
              <input type="hidden" style="width: 70%"   minlength="1" maxlength="5" name="Precio_venta" id="Precio_venta" class="form-control" aria-label="Sizing example input"
-             aria-describedby="inputGroup-sizing-sm"  value="0" title=" solo debe contener números."   pattern="[0-9]+"  value="{{old('Precio_venta')}}">
+             aria-describedby="inputGroup-sizing-sm"  value="0" title=" solo debe tener números."   pattern="[0-9]+"  value="{{old('Precio_venta')}}">
          </div>
 
     
