@@ -73,12 +73,16 @@ a { color: aliceblue;
 <div class="row g-3">
   <div class="col">
 
-    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres" pattern="[A-ZÑ a-zñ]+" class="form-control" name="Nombres"  title="Este campo solo debe de contener letras" required placeholder="Nombres" aria-label="First name" 
-    Value="{{$modificar->Nombres}}">
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres" pattern="[A-ZÑ a-zñ]+"
+     class="form-control" name="Nombres"  title="Solo debe de tener letras"
+      required placeholder="Nombres" aria-label="First name" 
+    Value="{{old('Nombres', $modificar->Nombres)}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos"  pattern="[A-ZÑ a-zñ]+" class="form-control"   required  title="Este campo solo debe de contener letras" required placeholder="Apellidos"  aria-label="First name"
-    Value="{{$modificar->Apellidos}}">
+    <input type="text" minlength="4" maxlength="25" name="Apellidos" 
+    id="Apellidos"  pattern="[A-ZÑ a-zñ]+" class="form-control"   required 
+     title="Solo debe de tener letras" required placeholder="Apellidos"  aria-label="First name"
+    Value="{{old('Apellidos',$modificar->Apellidos)}}">
 
   </div>
 </div>
@@ -88,15 +92,19 @@ a { color: aliceblue;
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"   minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required title="En este campo se debe comenzar con 0 o 1. Debe contener 13 caracteres y solo numeros" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000"
-  Value="{{$modificar->Numero_identidad}}">
+  <input type="text"   minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad"
+   class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+    required title="Debe comenzar con 0 o 1. Debe contener 13 caracteres y solo números" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000"
+  Value="{{old('Numero_identidad',$modificar->Numero_identidad)}}">
   </div> 
 
   {{-- Fecha de nacimiento--}}
   <div class="col" style="padding-left: 4%" > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
-  <input type="date"   name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control"  name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de nacimiento"
-  Value="{{$modificar->Fecha_nacimiento}}">
+  <input type="date"   name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control" 
+   name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input" 
+   aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de nacimiento"
+  Value="{{old('Fecha_nacimiento',$modificar->Fecha_nacimiento)}}">
 </div>
 
 
@@ -104,8 +112,9 @@ a { color: aliceblue;
 <div class="col"style="padding-left: 4%"> 
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required
-   title="Primer digito (2, 3, 8 o 9) y solo debe contener números."  pattern="([9,8,3,2]{1}[0-9]{7})"  pattern="[0-9]+"  placeholder="Eje. 00000000"
-  Value="{{$modificar->Numero_telefono}}">
+   title="Primer digito (2, 3, 8 o 9) y solo debe  números." 
+    pattern="([9,8,3,2]{1}[0-9]{7})"  pattern="[0-9]+"  placeholder="Eje. 00000000"
+  Value="{{old('Numero_telefono',$modificar->Numero_telefono)}}">
 </div>
 </div>
 <br>
@@ -113,15 +122,17 @@ a { color: aliceblue;
 {{-- Fecha de contrato,Salario --}}
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
-  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}" max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set();>
-  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+"  placeholder=" Salario Lps."  Value="{{$modificar->Salrio}}">
+  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" 
+  placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}" max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set();>
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  required  title="Este campo solo debe contener numeros"  pattern="[0-9]+" 
+   placeholder=" Salario Lps."  Value="{{old('Salario',$modificar->Salrio)}}">
 </div>
 <br>
 
 {{-- Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
   <textarea class="form-control" minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" required placeholder="Ingrese la dirección exacta de su domicilio" 
- >{{$modificar->Direccion}}</textarea>
+ >{{old('Direccion',$modificar->Direccion)}}</textarea>
 </div>
 
 
