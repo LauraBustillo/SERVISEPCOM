@@ -15,6 +15,7 @@ class CreateCompraDetallesTable extends Migration
     {
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->id();
+            
             $table->timestamps();
         });
     }
