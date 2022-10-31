@@ -30,7 +30,7 @@
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color:black;
   font-family: 'Open Sans';
-  font-size: 20px;
+  font-size: 40px;
   text-align: center;
 }
 </style>
@@ -42,7 +42,7 @@
 @endif 
 
  {{-- Título --}}
- <H1 class="titulo1"  style="font-size: 30px text-aling:center"  > Información del proveedor</H1>
+ <H1 class="titulo1"  style="font-size: 60px text-aling:center"  > Información del proveedor</H1>
  <br>
  
 
