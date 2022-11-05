@@ -4,6 +4,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CompraController;
+use App\Http\Controllers\CompraDetallesController;
 use Illuminate\Support\Facades\Route;
 
 /*
