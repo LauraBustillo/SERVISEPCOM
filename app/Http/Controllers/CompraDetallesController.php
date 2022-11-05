@@ -50,6 +50,11 @@ class CompraDetallesController extends Controller
            GROUP BY c.id_product;"));
 
 
+// qaqui da el sum
+CompraDetalles::groupBy('id_product')
+->selectRaw('sum(Cantidad) as sum, id_product')
+->pluck('sum','id_product');
+
 
         }
   

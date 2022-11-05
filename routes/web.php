@@ -140,8 +140,12 @@ Route::get('/registrocompra', [CompraController::class, 'show'])->name('show.reg
 
 Route::get('/guardarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'guardarFactura']);
 
-Route::get('/actualizarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'actualizarFactura']);
+Route::post('/actualizarFactura', [CompraController::class, 'actualizarFactura']);
 Route::get('/comprasEdit/{id}', [CompraController::class, 'comprasEdit'])->name('comprasEdit');
+Route::post('/editardetallepro', [CompraController::class, 'editardetallepro'])->name('editardetallepro');
+Route::post('/agregardetallepro', [CompraController::class, 'agregardetallepro'])->name('agregardetallepro'); 
+Route::post('/eliminardetallepro', [CompraController::class, 'eliminardetallepro'])->name('eliminardetallepro');
+
 
 Route::get('/facturacion', function () { 
 return view('Compras/facturacion');})->name('show.registroFacturacion');
@@ -177,11 +181,8 @@ Route::get('/Inventario/{id}', [CompraController::class, 'mirar'])->name('invent
 
 /*Historial de precio*/
 Route::get('/Historial', [CompraController::class, 'historial'])->name('historial.mostrar');
-/*
-|--------------------------------------------------------------------------
-|  Rutas para pedidos
-|--------------------------------------------------------------------------
-*/
+
+
 Route::get('/pedidos', function () {
     return view('Pedido.RegistroPedido');
 })->name('show.pedido');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Compra;
 use App\Models\CompraDetalles;
 use App\Models\Proveedor;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -97,47 +98,15 @@ public function guardarFactura($arrayFac,$arrayDet){
 
 
   //Funcion para actualizar
-
-
-
-public function actualizarFactura($arrayFac,$arrayDet){
-
-  $jsonFactura =  json_decode($arrayFac);
-  $arrayDetallesFac =  json_decode($arrayDet);
-  $actu = Compra::find($jsonFactura->id);
-  $actu -> Fecha_facturacion = $jsonFactura -> Fecha_facturacion;
-  $actu -> Numero_factura = $jsonFactura -> Numero_factura;
-  $actu -> Total_factura = $jsonFactura -> Total_factura;
-  $actu -> Proveedor = $jsonFactura -> Proveedor;
-  $agregar1=  $actu->save();
-
-  CompraDetalles::where('Numero_facturaform',$jsonFactura->Numero_factura)->delete();
-
-  foreach ($arrayDetallesFac as $detFact) {
-    $a = new CompraDetalles;
-    $a->id_detalle= $detFact ->id_detalle;
-    $a->Numero_facturaform = $jsonFactura -> Numero_factura;
-    $a->id_prov = $detFact->id_prov ;
-    $a->id_product = $detFact->id_product ;
-    $a->nombre_producto = $detFact->nombre_producto ;
-    $a->Descripcion = $detFact->Descripcion ;
-    $a->Marca = $detFact->Marca ;
-    $a->id_cat = $detFact->id_cat;
-    $a->Categoria = $detFact->Categoria ;
-    $a->Cantidad= $detFact->Cantidad ;
-    $a->Costo= $detFact->Costo; 
-    $a->Precio_venta= $detFact->Precio_venta; 
-    $a->Impuesto= $detFact->Impuesto;
-    $agregar1=  $a->save();
-  }
-
-  $ultimacompra = Compra::where('Numero_factura','=',$jsonFactura -> Numero_factura)->first();
-  return redirect()->route('comprasEdit', $ultimacompra->id);
-  // return redirect()->route('compra.index');
+public function actualizarFactura(Request $request){
+  $actu = Compra::find($request->data['id']);
+  $actu -> Total_factura = $request -> data['Total_factura'];
+  $agregar1 =  $actu->save();
+  return  $agregar1;
 }
 
-  //Funcion para editar
-    public function comprasEdit($id){
+//Funcion para editar
+public function comprasEdit($id){
 
     $query = 'SELECT p.id as id_product, cat.id as id_cat, prov.id as id_prov, p.Nombre_producto,p.Descripcion,p.Marca,p.Precio_compra,p.Precio_venta,p.Cantidad, p.Impuesto, prov.Nombre_empresa,cat.Descripcion as DescripcionC  FROM products AS p
     INNER JOIN proveedors  as prov ON p.proveedor_id = prov.id
@@ -149,15 +118,14 @@ public function actualizarFactura($arrayFac,$arrayDet){
     $proveedores = Proveedor::all();
     $accion = 'editar';
 
+    $saludo = 'hola laura';
     return view('Compras.RegistroCompras')
     ->with('products',$products)
     ->with('accion',$accion)
     ->with('proveedores',$proveedores)
     ->with('factura',$factura)
-    ->with('detallefactura',$detallefactura);
+    ->with('detallefactura',$detallefactura)->with('saludo',$saludo);
 }
-
-
 
 
 /*
@@ -167,7 +135,7 @@ public function actualizarFactura($arrayFac,$arrayDet){
 */
 
 /* Funcion para ver los detalles de la compra*/
-  public function detallecomp($id){
+public function detallecomp($id){
   $products= [];
   $products=DB::select(DB::raw("SELECT p.id as id_product, cat.id as id_cat, prov.id as id_prov, p.Nombre_producto,p.Descripcion,
   p.Marca,p.Precio_compra,p.Precio_venta,p.Cantidad, p.Impuesto, prov.Nombre_empresa,cat.Descripcion as DescripcionC 
@@ -180,8 +148,7 @@ public function actualizarFactura($arrayFac,$arrayDet){
   $detallefactura = CompraDetalles::where('Numero_facturaform','=',$factura->Numero_factura)->get();
   $proveedores = Proveedor::all();
 
-;
-  
+
   return view('Compras.InformacionCompras')
   ->with('products',$products)
   ->with('proveedores',$proveedores)
@@ -189,19 +156,59 @@ public function actualizarFactura($arrayFac,$arrayDet){
   ->with('detallefactura',$detallefactura);
  }
 
-
    /*Funcion para mostrar mas informacion  */ 
-   public function mirar($id){
-    $factura = Compra::findOrFail($id);
-    return view('Inventario.InformacionInventario')->with('factura', $factura);
+public function mirar($id){
+
+    $product = Product::
+    select('categorias.Descripcion as Categoria','proveedors.Nombre_empresa as Proveedor','products.*')
+    ->join('categorias', 'categorias.id', '=', 'products.categoria_id') 
+    ->join('proveedors', 'proveedors.id', '=', 'products.proveedor_id') 
+    ->where('products.id','=',$id)
+    ->first();
+
+  $historial = DB::table('historial_precio')->where('id_producto','=',$id)->get();
+  
+  return view('Inventario.InformacionInventario')->with('product', $product)->with('historial', $historial);
 }
 
 /*Funcion para mostar el historial de precios*/
 
   /*Funcion para mostrar mas informacion  */ 
-  public function historial(){
-    /*$his = Compra::findOrFail($id);*/
-    return view('HistorialPrecios.HistorialPrecios');
-}
+  public function editardetallepro(Request $request){
+   $actu =   DB::select(DB::raw("UPDATE compra_detalles SET
+     Cantidad = '".$request->data['Cantidad']."',
+     Costo = '".$request->data['Costo']."',
+     Precio_venta = '".$request->data['Precio_venta']."',
+     Impuesto = '".$request->data['Impuesto']."'
+     WHERE id_detalle = '".$request->data['id']."'
+    "));
+    return $actu;
+  }
 
-}
+  public function agregardetallepro(Request $request){
+    $a = new CompraDetalles;
+    $a->id_detalle= $request->data['id_detalle'];
+    $a->Numero_facturaform = $request->data['Numero_facturaform'];
+    $a->id_prov = $request->data['id_prov'];
+    
+    $a->id_product = $request->data['id_product'] ;
+    $a->nombre_producto = $request->data['nombre_producto'] ;
+    $a->Descripcion = $request->data['Descripcion'] ;
+    $a->Marca = $request->data['Marca'] ;
+    $a->id_cat = $request->data['id_cat'];
+    $a->Categoria = $request->data['Categoria'] ;
+    $a->Cantidad= $request->data['Cantidad'] ;
+    $a->Costo= $request->data['Costo']; 
+    $a->Precio_venta= $request->data['Precio_venta']; 
+    $a->Impuesto= $request->data['Impuesto'];
+    $agregar1=  $a->save();
+   }
+
+   public function eliminardetallepro(Request $request){
+    CompraDetalles::where('id_detalle',$request->data)->delete();  
+   }
+  
+
+
+
+  }

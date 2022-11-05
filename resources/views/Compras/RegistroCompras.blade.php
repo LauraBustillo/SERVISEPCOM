@@ -203,125 +203,126 @@
 
           <!-- Modal de dialogo de agregar producto --> 
         <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-xl" >
-          <div class="modal-content">
-            <div class="modal-header">
-                <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
-                    Agregar producto a la factura #<span id="numfact_form"></span> 
-                </h1>    
-             <label >
-                <button type="submit" class="btn btn-outline-dark" href="{{route('show.registroProductos')}}" ><i class="bi bi-bag-plus"> Agregar producto</i></button>
-    
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </label>
-            </div>
-         <div class="modal-body" >
-                      
-                <div class="row">
-                    <div class="col">
-                        <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value="" 
-                        class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
-                    <div class="col"></div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        {{-- tabla de buscar producto --}}
-                        <div id="buscar_producto_proveedor">    
-                        </div>
-                    </div>
-                    <div class="col">
-                        {{-- tabla de productosAgregados --}}
-                        <div id="body_table_detallesFacModal">    
-                        </div>
-                    </div>
-                </div>
-                <br>
-    
-                <!-- Formulario de agregar producto-->
-                <form action="" >   
-                  
+            <div class="modal-dialog  modal-xl" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
+                        Agregar producto a la factura #<span id="numfact_form"></span> 
+                    </h1>    
+                <label >
+                    <button type="submit" class="btn btn-outline-dark" href="{{route('show.registroProductos')}}" ><i class="bi bi-bag-plus"> Agregar producto</i></button>
         
-                     <!-- Nombre producto --> 
-                    <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
-                    <div class="col" style="padding-left: 3%"  >
-                    <label for="" class="group-text">Nombre producto</label>
-                    <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto"> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </label>
+                </div>
+            <div class="modal-body" >
+                        
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value="" 
+                            class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
+                        <div class="col"></div>
                     </div>
-    
-                    <!-- Marca producto -->
-                    <div class="col" style="padding-left: 5%"  >
-                    <label for="" class="group-text" >Marca producto</label>
-                    <input disabled type="text" value="" id="Marca" name="Marca">
+
+                    <div class="row">
+                        <div class="col">
+                            {{-- tabla de buscar producto --}}
+                            <div id="buscar_producto_proveedor">    
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{-- tabla de productosAgregados --}}
+                            <div id="body_table_detallesFacModal">    
+                            </div>
+                        </div>
                     </div>
-    
-                    <!-- Descripcion -->
-                    <div class="col" style="padding-left: 2%"  >
-                    <label for="" class="group-text" style="padding-right: 7%">Descripción</label>
-                    <input disabled type="text" value="" style="padding-right: 2%" id="Descripcion" name="Descripcion">
-                    </div>
-                    </div>
+                    <br>
+        
+                    <!-- Formulario de agregar producto-->
+                    <form action="" >   
                     
-                        <!-- Categorias -->
-                    <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width:150%" ><br>
-                    <div class="col" style="padding-left: 1.5%">
-                    <label for="" class="group-text" style="padding-right: 14%">Categoría</label>
-                    <input disabled type="text" value="" id="Categoria"  style="padding-left:25% width:30%"  name="Categoria">
-                    </div>                
-                    
-    
-                    <!-- Cantidad -->
-                    <div class="col" style="padding-left:2%"  >
-                    <label for="" class="group-text" style="padding-right: 14%">Cantidad</label>
-                    <input type="text" value="" id="Cantidad" style=" width:54.5%" name="Cantidad" onkeypress="ValidaSoloNumeros()"
-                    minlength="1" maxlength="4">
-                    </div>
-    
-                    <!--  Precio compra -->
-                    
-                        <div class="col" style="padding-right: 1.5%"  >
-                        <label for="" class="group-text" style="padding-right: 1.5%" >Precio compra</label>
-                        <input type="text" value="" id="Costo" style=" width:55.5%"  name="Costo" onkeypress="ValidaSoloNumeros1()"
+            
+                        <!-- Nombre producto --> 
+                        <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
+                        <div class="col" style="padding-left: 3%"  >
+                        <label for="" class="group-text">Nombre producto</label>
+                        <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto"> 
+                        </div>
+        
+                        <!-- Marca producto -->
+                        <div class="col" style="padding-left: 5%"  >
+                        <label for="" class="group-text" >Marca producto</label>
+                        <input disabled type="text" value="" id="Marca" name="Marca">
+                        </div>
+        
+                        <!-- Descripcion -->
+                        <div class="col" style="padding-left: 2%"  >
+                        <label for="" class="group-text" style="padding-right: 7%">Descripción</label>
+                        <input disabled type="text" value="" style="padding-right: 2%" id="Descripcion" name="Descripcion">
+                        </div>
+                        </div>
+                        
+                            <!-- Categorias -->
+                        <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width:150%" ><br>
+                        <div class="col" style="padding-left: 1.5%">
+                        <label for="" class="group-text" style="padding-right: 14%">Categoría</label>
+                        <input disabled type="text" value="" id="Categoria"  style="padding-left:25% width:30%"  name="Categoria">
+                        </div>                
+                        
+        
+                        <!-- Cantidad -->
+                        <div class="col" style="padding-left:2%"  >
+                        <label for="" class="group-text" style="padding-right: 14%">Cantidad</label>
+                        <input type="text" value="" id="Cantidad" style=" width:54.5%" name="Cantidad" onkeypress="ValidaSoloNumeros()"
+                        minlength="1" maxlength="4">
+                        </div>
+        
+                        <!--  Precio compra -->
+                        
+                            <div class="col" style="padding-right: 1.5%"  >
+                            <label for="" class="group-text" style="padding-right: 1.5%" >Precio compra</label>
+                            <input type="text" value="" id="Costo" style=" width:55.5%"  name="Costo" onkeypress="ValidaSoloNumeros1()"
+                            minlength="1" maxlength="5">
+                            </div>
+                        </div>
+        
+                        <!-- Precio Venta -->
+                        <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width: 150%" ><br>
+                        <div class="col" style="padding-left: 1.5%" >
+                        <label for="" class="group-text" style="padding-right: 8.5%" >Precio venta</label>
+                        <input type="text" value="" id="Precio_venta" style=" width:51%" name="Precio_venta" onkeypress="ValidaSoloNumeros2()"
                         minlength="1" maxlength="5">
                         </div>
-                    </div>
-    
-                     <!-- Precio Venta -->
-                    <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width: 150%" ><br>
-                    <div class="col" style="padding-left: 1.5%" >
-                    <label for="" class="group-text" style="padding-right: 8.5%" >Precio venta</label>
-                    <input type="text" value="" id="Precio_venta" style=" width:51%" name="Precio_venta" onkeypress="ValidaSoloNumeros2()"
-                    minlength="1" maxlength="5">
-                    </div>
-       
-                    <!-- Impuesto -->
-                    <div class="col"style="padding-right:31%"   >
-                    <label for="" class="group-text" style="padding-right:12.5%" >Impuesto</label>
-                    <input type="text" value="" id="Impuesto" style=" width:51%" name="Impuesto" onkeypress="ValidaSoloNumeros3()"
-                    minlength="1" maxlength="2">
-                    </div>
-                    </div>
-                   
-    
-                    <input type="text" hidden  value="" name="Numero_facturaform" id="Numero_facturaform" >
-                    <input type="text" hidden  value="" name="id_product" id="id_product" >
-                    <input type="text" hidden  value="" name="id_prov" id="id_prov" >
-                    <input type="text" hidden  value="" name="id_detalle" id="id_detalle" >
-                    <input type="text" hidden  value="" name="id_cat" id="id_cat" >
+        
+                        <!-- Impuesto -->
+                        <div class="col"style="padding-right:31%"   >
+                        <label for="" class="group-text" style="padding-right:12.5%" >Impuesto</label>
+                        <input type="text" value="" id="Impuesto" style=" width:51%" name="Impuesto" onkeypress="ValidaSoloNumeros3()"
+                        minlength="1" maxlength="2">
+                        </div>
+                        </div>
                     
-                </form>
+        
+                        <input type="text" hidden  value="" name="Numero_facturaform" id="Numero_facturaform" >
+                        <input type="text" hidden  value="" name="id_product" id="id_product" >
+                        <input type="text" hidden  value="" name="id_prov" id="id_prov" >
+                        <input type="text" hidden  value="" name="id_detalle" id="id_detalle" >
+                        <input type="text" hidden  value="" name="id_cat" id="id_cat" >
+                        
+                    </form>
+                </div>
+                
+                <!-- Botones -->
+                <div class="modal-footer" style="text-align: center">
+                <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" ><i class="bi bi-x-circle"> Cerrar</i></button>
+                <button id="AgregarDF" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()" ><i class="bi bi-bag-plus"> Agregar</i></button>
+                <button id="AgregarDFC" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x">Agregar y cerrar</i></button>
+                <button id="ActualizarDF" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()" ><i class="bi bi-bag-plus"> Actualizar</i></button>
+                <button id="ActualizarDFC" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x"> Actualizar y cerrar</i></button>
+                </div>
             </div>
-            <!-- Botones -->
-            <div class="modal-footer" style="text-align: center">
-              <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" ><i class="bi bi-x-circle"> Cerrar</i></button>
-              <button id="AgregarDF" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()" ><i class="bi bi-bag-plus"> Agregar</i></button>
-              <button id="AgregarDFC" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x">Agregar y cerrar</i></button>
-              <button id="ActualizarDF" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()" ><i class="bi bi-bag-plus"> Actualizar</i></button>
-              <button id="ActualizarDFC" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x"> Actualizar y cerrar</i></button>
             </div>
-          </div>
         </div>
-      </div>
     
 <script>
 
@@ -338,6 +339,7 @@
         var detallefactura = {!! json_encode($detallefactura, JSON_HEX_TAG) !!}; 
         var factura = {!! json_encode($factura, JSON_HEX_TAG) !!}; 
         var products = {!! json_encode($products, JSON_HEX_TAG) !!}; 
+        var accion = {!! json_encode($accion, JSON_HEX_TAG) !!}; 
 
         var productfiltersProveedor;
         var totalFACTURA;   
@@ -399,17 +401,24 @@
     
         function actualizarFactura() {
             //armamos el json con los campos de ls DB, ahora con el id de la base de datos que se hizo
-            var jsonFactura = {
-                Numero_factura : document.getElementById("Numero_factura").value,
-                Fecha_facturacion : document.getElementById("Fecha_facturacion").value,
-                Proveedor : document.getElementById("Proveedor").value,
+            var data = {
                 Total_factura : totalFACTURA,               
                 id:factura.id    
             };
-            //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
-            var stringarrayFactura = JSON.stringify(jsonFactura);
-            var stringarrayDetalles = JSON.stringify(detallefactura);
-            window.location.href = `{{URL::to('/actualizarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
+
+            $.ajax({
+                    type: "POST",
+                    url: '/actualizarFactura',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data":data
+                    },
+                    success: function() {
+                        console.log("detalle guardado");
+                    }
+                })
+
+
         }
     
         function openmodal(){
@@ -598,6 +607,20 @@
                 "Impuesto": document.getElementById("Impuesto").value,              
             };
 
+            if(accion == 'editar'){
+                $.ajax({
+                    type: "POST",
+                    url: '/agregardetallepro',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data":jsonproducto
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+            }
+
             detallefactura.push(jsonproducto);
             dibujarTabla(detallefactura);
             limpiarform()          
@@ -622,11 +645,14 @@
                 
             htmlagregados +='<div  style="height:10rem;overflow:auto">';                    
 
+            subtotalFACTURA = 0;
             totalFACTURA = 0;
+            totalInmpuesto = 0;
 
             data.forEach(element => {
                 
-                totalproducto = (( element.Cantidad * element.Costo) * (1+(element.Impuesto/100)))
+                totalproducto = ( element.Cantidad * element.Costo)
+                totalInmpuesto += (( element.Cantidad * element.Costo) * (element.Impuesto/100))
     
                 html += '<tr>';   
                 html += '<td>'+element.nombre_producto+'</td>';
@@ -655,15 +681,29 @@
                 htmlagregados +='</div>';
                 htmlagregados +='</table>'; 
     
-                totalFACTURA += totalproducto;
+                subtotalFACTURA += totalproducto;
             });
 
             htmlagregados +='</div>';      
 
+
+                html += '<tr>';               
+                html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+                html += '<td><strong >SubTotal</strong></td>';
+                html += '<td><strong>'+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<tr>';
+
+                html += '<tr>';               
+                html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+                html += '<td><strong >Impuesto</strong></td>';
+                html += '<td><strong>'+totalInmpuesto.toFixed()+'</strong></td><td></td>';
+                html += '<tr>';
+
+                    totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
-                html += '<td><strong>'+totalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>'+totalFACTURA.toFixed() +'</strong></td><td></td>';
                 html += '<tr>';
 
             //inyectando los dos variables a donde correspondan
@@ -677,9 +717,27 @@
         function(){
             // excluir el json del array, diciendole que el id sea diferente
             detallefactura = detallefactura.filter((x) => x.id_detalle != id_detalle)
+
+            //eliminar de la base de datos, solo si estamos en editar
+            if(accion == 'editar'){
+                $.ajax({
+                    type: "POST",
+                    url: '/eliminardetallepro',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data":id_detalle
+                    },
+                    success: function() {
+                        console.log("Valueadded");
+                    }
+                })                
+            }
+
+
             // volver a dibujar la tabla para que se note la diferencia
             dibujarTabla(detallefactura);
             alertify.success('Eliminado correctamemte')
+
         }
         , function(){ })
         }
@@ -768,6 +826,29 @@
            //obtener el id del detalle que vamos a actualizar, con los valores de las cajas
            var iddetalleinput = document.getElementById("id_detalle").value;
            //recooremos la varible global del la vista,(detallefactura)
+
+           let editdetpro = {
+            "id":iddetalleinput,
+            "Cantidad":Cantidad,
+            "Costo":Costo,
+            "Precio_venta":Precio_venta,
+            "Impuesto":document.getElementById("Impuesto").value,
+           }
+
+    
+           $.ajax({
+                type: "POST",
+                url: '/editardetallepro',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "data":editdetpro
+                },
+                success: function() {
+                    console.log("Valueadded");
+                }
+            })
+
+
            detallefactura.forEach(element => {      
             // y donde coincida, darle los mismos valores de la cajas al elemento
             if(element.id_detalle == iddetalleinput){
