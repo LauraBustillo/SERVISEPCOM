@@ -183,5 +183,5 @@ Route::get('/Historial', [CompraController::class, 'historial'])->name('historia
 |--------------------------------------------------------------------------
 */
 Route::get('/pedidos', function () {
-    return view('Pedidos.RegistroPedido');
+    return view('Pedido.RegistroPedido');
 })->name('show.pedido');
