@@ -177,3 +177,11 @@ Route::get('/Inventario/{id}', [CompraController::class, 'mirar'])->name('invent
 
 /*Historial de precio*/
 Route::get('/Historial', [CompraController::class, 'historial'])->name('historial.mostrar');
+/*
+|--------------------------------------------------------------------------
+|  Rutas para pedidos
+|--------------------------------------------------------------------------
+*/
+Route::get('/pedidos', function () {
+    return view('Pedidos.RegistroPedido');
+})->name('show.pedido');
