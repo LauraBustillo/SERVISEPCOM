@@ -16,7 +16,6 @@ class CompraController extends Controller
     $buscar = '';
     return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar);
     
-
 }
 
     /*Funcion para  guardar  */
@@ -184,4 +183,27 @@ public function comprasEdit($id){
  
 }
 } 
+
+/* Funcion para ver los detalles de la compra*/
+public function detallecomp($id){
+  $products= [];
+  $products=DB::select(DB::raw("SELECT p.id as id_product, cat.id as id_cat, prov.id as id_prov, p.Nombre_producto,p.Descripcion,
+  p.Marca,p.Precio_compra,p.Precio_venta,p.Cantidad, p.Impuesto, prov.Nombre_empresa,cat.Descripcion as DescripcionC 
+  FROM products AS p
+  INNER JOIN proveedors  as prov ON p.proveedor_id = prov.id
+  INNER JOIN categorias AS cat ON p.categoria_id = cat.id;"));
+  
+
+  $factura = Compra::where('id','=',$id)->first();
+  $detallefactura = CompraDetalles::where('Numero_facturaform','=',$factura->Numero_factura)->get();
+  $proveedores = Proveedor::all();
+
+;
+  
+  return view('Compras.InformacionCompras')
+  ->with('products',$products)
+  ->with('proveedores',$proveedores)
+  ->with('factura',$factura)
+  ->with('detallefactura',$detallefactura);
+ }
 }
