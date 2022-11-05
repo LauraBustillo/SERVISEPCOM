@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CompraDetalles extends Model
 {
     use HasFactory;
+
+
 }

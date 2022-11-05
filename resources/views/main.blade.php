@@ -127,6 +127,15 @@ background-attachment: fixed, scroll;
                             <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M11.025 20.75h-5.85q-.8 0-1.363-.562-.562-.563-.562-1.363V5.15q0-.825.55-1.375t1.25-.55h4.225q.25-.875 1.013-1.425.762-.55 1.662-.55.95 0 1.7.55t1 1.425h4.2q.825 0 1.375.55t.55 1.375v4.875H18.9V5.1h-2.05v2.875H7.175V5.1h-2.05v13.775h5.9Zm4.425-1.025L11.325 15.6l1.325-1.325 2.8 2.8 5.55-5.55 1.325 1.325ZM12.025 5q.375 0 .65-.275t.275-.675q0-.375-.275-.65t-.65-.275q-.4 0-.675.275t-.275.65q0 .4.275.675t.675.275Z"/></svg>
                             <span class="nav_name">Inventario</span> 
                            </a> 
+
+                           {{-- Registro pedido--}}
+                        <a href="{{ route('show.pedido') }}" class="@if(Request::is('Inventario')) nav_link active @else nav_link @endif">       
+                            <svg  style="fill: white" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M6 20q-1.25 0-2.125-.875T3 17H1V6q0-.825.588-1.412Q2.175 4 3 4h14v4h3l3 4v5h-2q0 1.25-.875 2.125T18 20q-1.25 0-2.125-.875T15 17H9q0 1.25-.875 2.125T6 20Zm0-2q.425 0 .713-.288Q7 17.425 7 17t-.287-.712Q6.425 16 6 16t-.713.288Q5 16.575 5 17t.287.712Q5.575 18 6 18Zm-3-3h.8q.425-.45.975-.725Q5.325 14 6 14t1.225.275q.55.275.975.725H15V6H3Zm15 3q.425 0 .712-.288Q19 17.425 19 17t-.288-.712Q18.425 16 18 16t-.712.288Q17 16.575 17 17t.288.712Q17.575 18 18 18Zm-1-5h4.25L19 10h-2Zm-8-2.5Z"/></svg>
+
+                            <span class="nav_name">Pedidos</span> 
+                           </a> 
+
+                    
                 </div>
             </div> 
 

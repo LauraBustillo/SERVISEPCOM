@@ -45,16 +45,15 @@ a { color: aliceblue;
 
 </style>
 
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $mesaje)
-                <li>{{ $mesaje }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<script>
+  var errores = []
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  if(errores.length > 0){
+    errores.forEach(element => {
+      alertify.error(element)
+    });   
+  }
+</script>
 
 
 
@@ -74,12 +73,12 @@ a { color: aliceblue;
 <div class="row g-3">
   <div class="col">
   <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-   required title="Solo debe tener letras" 
+  title="Solo debe tener letras" 
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
   <div class="col">
     <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido"  
-    pattern="[A-ZÑ a-zñ]+" class="form-control" required title="Solo debe tener letras" 
+    pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
@@ -90,15 +89,16 @@ a { color: aliceblue;
 <div class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"  minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control"   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required 
+  <input type="text"  minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control" 
+    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
   title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
    placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
   
 </div> 
   <div class="col" style="padding-left:2%"  > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
-  <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  required 
-  title="Solo debe tener numeros"   pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+  <input type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+  title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
 <br>
@@ -108,7 +108,7 @@ a { color: aliceblue;
 <div class="mb-3" style="padding-left: 22%">
 <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea minlength="10" maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
-   rows="3" required placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
+   rows="3" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
@@ -118,7 +118,56 @@ a { color: aliceblue;
 <a class="a"  href="{{route('cliente.index')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
 </form>
 
+
+ <script>
+/*var input = document.getElementById('Nombre');
+input.addEventListener('Nombre', function(evt) {
+  this.setCustomValidity('');
+});
+input.addEventListener('invalid', function(evt) {
+  // Required
+  if (this.validity.valueMissing) {
+    this.setCustomValidity('Por favor complete el nombre!');
+  }
+});*/
+
+
+      /*Validaciones*/
+      function confirmar() {
+
+        //validaciones     
+        if (document.getElementById("Nombre").value == '') {
+                alertify.error("El nombre es requerido");
+                return;
+        }    
+        
+        if (document.getElementById("Apellido").value == '' ) {
+                alertify.error("El apellido es requerido");
+                return;
+        } 
+
+
+        if (document.getElementById("Numero_identidad").value == '') {
+                alertify.error("El número de identidad es requerido");
+                return;
+        } 
+
+        if (document.getElementById("Numero_telefono").value == '') {
+                alertify.error("El número de teléfono es requerido");
+                return;
+        } 
+
+        if (document.getElementById("Direccion").value == '') {
+                alertify.error("La dirección es requerida");
+                return;
+        } 
+        
+        }
+
+
+ </script>
 @endsection
+
 {{--mensaje de confirmacion --}}
 @push('alertas')
     <script>

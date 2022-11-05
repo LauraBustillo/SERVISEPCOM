@@ -15,6 +15,7 @@ class CreateCompraDetallesTable extends Migration
     {
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->id();
+            $table->string("id_detalle"); 
             $table->string("id_prov");
             $table->string("id_product");
             $table->string("nombre_producto");

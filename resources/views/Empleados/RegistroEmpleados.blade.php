@@ -49,15 +49,17 @@ a { color: aliceblue;
 
 
 </style>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $mesaje)
-                <li>{{ $mesaje }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
+<script>
+  var errores = []
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  if(errores.length > 0){
+    errores.forEach(element => {
+      alertify.error(element)
+    });   
+  }
+</script>
+
 <br>
 <br>
 
@@ -76,12 +78,12 @@ a { color: aliceblue;
   <div class="col">
 
     <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  pattern="[A-ZÑ a-zñ]+" class="form-control" 
-     required title="Solo debe tener letras" placeholder="Nombres" 
+     title="Solo debe tener letras" placeholder="Nombres" 
     aria-label="First name" value="{{old('Nombres')}}">
   </div>
   <div class="col">
     <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-      required title="Solo debe tener letras"
+     title="Solo debe tener letras"
      placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
 
   </div>
@@ -93,7 +95,7 @@ a { color: aliceblue;
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
   <input type="text"  minlength="13"  maxlength="13" name="Numero_identidad" id="Numero_identidad"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  
-   required title="Debe comenzar con 0 o 1, debe tener 13 caracteres y solo numeros" 
+  title="Debe comenzar con 0 o 1, debe tener 13 caracteres y solo numeros" 
    pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
   </div> 
 
@@ -101,14 +103,14 @@ a { color: aliceblue;
   <div class="col" style="padding-left: 4%" > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
   <input type="date"  name="Fecha_nacimiento" id="Fecha_nacimiento"  max="2004-01-01" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-  required  placeholder="Fecha de nacimiento" value="{{old('Fecha_nacimiento')}}">
+  placeholder="Fecha de nacimiento" value="{{old('Fecha_nacimiento')}}">
 </div>
 
 {{-- Número de teléfono --}}
 <div class="col"style="padding-left: 4%"> 
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input"
-   aria-describedby="inputGroup-sizing-sm" required title="Primer digito (2, 3, 8 o 9) y solo debe tener números."  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+" 
+   aria-describedby="inputGroup-sizing-sm" title="Primer digito (2, 3, 8 o 9) y solo debe tener números."  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+" 
     placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
@@ -117,8 +119,8 @@ a { color: aliceblue;
 {{-- Fecha de contrato, Salario --}}
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
-  <input type="date"  name="Fecha_contrato" id="fechaActual"  aria-label="First name" class="form-control" require  placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}"  max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set(); >
-  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"  required   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
+  <input type="date"  name="Fecha_contrato" id="fechaActual"  aria-label="First name" class="form-control"   placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}"  max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set(); >
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
 </div>
 
 
@@ -127,7 +129,7 @@ a { color: aliceblue;
 <div class="mb-3" style="padding-left: 22%">
 <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea class="form-control" spellcheck="true"
-   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" required
+   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" 
    placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
 </div>
 
@@ -152,6 +154,46 @@ a { color: aliceblue;
       mes='0'+mes //agrega cero si el menor de 10
     document.getElementById('fechaActual').value= ano+"-"+mes+"-"+dia;
   }
+
+
+
+
+//validaciones     
+function confirmar() {
+if (document.getElementById("Nombres").value == '') {
+      alertify.error("El nombre es requerido");
+      return;
+}    
+
+if (document.getElementById("Apellidos").value == '' ) {
+      alertify.error("El apellido es requerido");
+      return;
+} 
+
+
+if (document.getElementById("Numero_identidad").value == '') {
+      alertify.error("El número de identidad es requerido");
+      return;
+} 
+
+if (document.getElementById("Fecha_nacimiento").value == '') {
+      alertify.error("La fecha de nacimiento es requerida");
+      return;
+} 
+
+if (document.getElementById("Numero_telefono").value == '') {
+      alertify.error("El número teléfono es requerido");
+      return;
+} 
+
+if (document.getElementById("Salrio").value == '') {
+      alertify.error("El salario es requerido");
+      return;
+}
+
+}
+
+
   </script>
   
 @endsection
