@@ -77,14 +77,14 @@
   <br>
   <nav class="navbar navbar-nav bg-nav" >
     <div class="container-fluid" >
-      <form class="d-flex" id="ablescroll" method="POST" action="Producto">
+      <form class="d-flex" id="ablescroll" method="POST" action="Compra">
       @csrf
         <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
-         placeholder="Buscar por número de factura" aria-label="Sizing example input">
+         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
         <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-        <a href="{{ route('producto.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
+        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
       </form>
-      <a    class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
+      <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
       <i class="bi bi-cart-plus"> Nueva compra  </i></a>
     </div>
     </nav>
@@ -99,6 +99,7 @@
         <th scope="col">Numero de factura</th>
         <th scope="col">Fecha de facturación</th>
         <th scope="col">Total de la factura </th>
+        <th scope="col"> Detalles</th>
         <th scope="col">Editar factura</th>  
         </tr>
         </thead>
@@ -112,6 +113,7 @@
         <td>{{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
+        <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
        <td><a class="btn-detalles" href="{{route('comprasEdit' , ['id' => $de->id]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>  </td>
        </tr>
        @empty
@@ -119,6 +121,25 @@
     </tbody>
     </table>
   </div>
+
+  
+  <Script>
+    function busquedaJQsimple() {
+      var filtro = $("#buscar").val().toUpperCase();
+    
+      $("#tabla tbody tr").each(function() {
+        texto = $(this).children("td:eq(0)").text().toUpperCase();
+        
+        if (texto.indexOf(filtro) < 0) {
+          $(this).hide();
+        } else{
+          $(this).show();
+        }
+        
+      });
+      
+    }
+    </Script>
 {{ $compras->links() }}
 
 @endsection
