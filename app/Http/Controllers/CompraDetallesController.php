@@ -1,86 +1,79 @@
 <?php
-
 namespace App\Http\Controllers;
-
+namespace App\Http\Controllers;
 use App\Models\CompraDetalles;
-use App\Http\Requests\StoreCompraDetallesRequest;
-use App\Http\Requests\UpdateCompraDetallesRequest;
+use App\Models\Proveedor;
+use Illuminate\Http\Request;
+use DB;
 
 class CompraDetallesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $inventario= [];
+        $buscar = '';
+
+  
+        if($request->buscar != null && $request->buscar != ''){
+          // $inventario = DB::select(DB::raw("SELECT SUM(c.Cantidad) AS cantidad,
+          // c.Marca,prov.Nombre_empresa,prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
+          // inner join proveedors AS prov ON prov.id = c.id_prov
+          // INNER JOIN products AS prod ON prod.id = c.id_product
+          // INNER JOIN categorias AS cat ON cat.id = c.id_cat
+          // GROUP BY c.id_cat,c.id_product
+          // where prod.Nombre_producto = '".$request->buscar."';")); 
+          
+        }else{
+          $buscar = '';
+//           $inventario = DB::table('compra_detalles as c')
+//           ->select('c.Marca',
+//           'prov.Nombre_empresa','prod.Nombre_producto',
+// 'cat.Descripcion AS Categoria')->pluck('sum','c.Cantidad')
+// ->join('proveedors as prov', 'prov.id', '=', 'c.id_prov')
+// ->join('products as prod', 'prod.id', '=', 'c.id_product')
+// ->join('categorias as cat', 'cat.id', '=', 'c.id_cat')
+// ->groupBy('c.id_cat','c.id_product')
+// ->paginate(10); 
+// ->where('prod.Nombre_producto', 'like','%'.strtolower($request->buscar).'%')
+ $inventario =
+//  CompraDetalles::select(DB::raw("SELECT c.id, SUM(c.Cantidad) AS Cantidad,c.Marca,prov.Nombre_empresa,prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
+//  inner join proveedors AS prov ON prov.id = c.id_prov
+//  INNER JOIN products AS prod ON prod.id = c.id_product
+//  INNER JOIN categorias AS cat ON cat.id = c.id_cat
+//  GROUP BY c.id_cat,c.id_product;"))
+//  ->paginate(10); 
+           DB::select(DB::raw("SELECT prod.id as id_producto, c.id, SUM(c.Cantidad) AS Cantidad,c.Marca,prov.Nombre_empresa,
+           prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
+           inner join proveedors AS prov ON prov.id = c.id_prov
+           INNER JOIN products AS prod ON prod.id = c.id_product
+           INNER JOIN categorias AS cat ON cat.id = c.id_cat
+           GROUP BY c.id_product;"));
+
+
+
+        }
+  
+        return view('Inventario.Inventario')->with('inventario', $inventario)->with('buscar',$buscar);
+
+        // $proveedor = DB::Table('proveedors')->
+        // join('compra_detalles', 'compra_
+        // detalles.id', '=' , 'proveedors.id')->
+        // select ('proveedors.Nombre_empresa', )-> get();
+
+        // dd($proveedor);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show()
     {
-        //
+        
+        $inventario = DB::select(DB::raw("SELECT prov.Nombre_empresa,
+        FROM compra_detalles AS c 
+        inner join proveedors AS prov ON prov.id = c.id_prov ;"));
+
+        $detalles = CompraDetalles::all();
+    
+        return view('show.Inventario')->with('inventario', $inventario)->with('detalles',$detalles);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCompraDetallesRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCompraDetallesRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CompraDetalles  $compraDetalles
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CompraDetalles $compraDetalles)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CompraDetalles  $compraDetalles
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CompraDetalles $compraDetalles)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCompraDetallesRequest  $request
-     * @param  \App\Models\CompraDetalles  $compraDetalles
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCompraDetallesRequest $request, CompraDetalles $compraDetalles)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CompraDetalles  $compraDetalles
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CompraDetalles $compraDetalles)
-    {
-        //
-    }
 }
