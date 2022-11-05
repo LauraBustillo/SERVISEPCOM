@@ -97,7 +97,11 @@ public function guardarFactura($arrayFac,$arrayDet){
 
 
   //Funcion para actualizar
-  public function actualizarFactura($arrayFac,$arrayDet){
+
+
+
+public function actualizarFactura($arrayFac,$arrayDet){
+
   $jsonFactura =  json_decode($arrayFac);
   $arrayDetallesFac =  json_decode($arrayDet);
   $actu = Compra::find($jsonFactura->id);
@@ -155,12 +159,35 @@ public function guardarFactura($arrayFac,$arrayDet){
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | IVENTARIO
 |--------------------------------------------------------------------------
 */
 
+/* Funcion para ver los detalles de la compra*/
+  public function detallecomp($id){
+  $products= [];
+  $products=DB::select(DB::raw("SELECT p.id as id_product, cat.id as id_cat, prov.id as id_prov, p.Nombre_producto,p.Descripcion,
+  p.Marca,p.Precio_compra,p.Precio_venta,p.Cantidad, p.Impuesto, prov.Nombre_empresa,cat.Descripcion as DescripcionC 
+  FROM products AS p
+  INNER JOIN proveedors  as prov ON p.proveedor_id = prov.id
+  INNER JOIN categorias AS cat ON p.categoria_id = cat.id;"));
+  
+
+  $factura = Compra::where('id','=',$id)->first();
+  $detallefactura = CompraDetalles::where('Numero_facturaform','=',$factura->Numero_factura)->get();
+  $proveedores = Proveedor::all();
+
+;
+  
+  return view('Compras.InformacionCompras')
+  ->with('products',$products)
+  ->with('proveedores',$proveedores)
+  ->with('factura',$factura)
+  ->with('detallefactura',$detallefactura);
+ }
 
 
    /*Funcion para mostrar mas informacion  */ 

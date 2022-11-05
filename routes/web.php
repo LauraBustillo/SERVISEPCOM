@@ -4,6 +4,9 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CompraController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\CompraDetallesController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,9 +70,7 @@ Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('clien
 
 
 /*Empleado*/
-Route::get('/registroempleados', function () {
-    return view('RegistroEmpleados');
-})->name('show.registroEmpleado');
+Route::get('/registroempleados', function () {return view('RegistroEmpleados');})->name('show.registroEmpleado');
 
 /*Registro empleado*/
 Route::get('/registroempleados', [EmpleadoController::class, 'guardar'])  ->name('show.registroEmpleado');
@@ -136,21 +137,43 @@ Route::post('/Producto',[ProductController::class, 'index'])->name('producto.ind
 
 
 Route::get('/registrocompra', [CompraController::class, 'show'])->name('show.registroCompras');
+
 Route::get('/guardarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'guardarFactura']);
+
 Route::get('/actualizarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'actualizarFactura']);
 Route::get('/comprasEdit/{id}', [CompraController::class, 'comprasEdit'])->name('comprasEdit');
-/*Registro compras*/
-// Route::get('/registrocompra', [CompraController::class, 'guardar'])->name('show.registroCompras');
-// Route::post('/registrocompra', [CompraController::class, 'agg'])->name('datos');
 
 Route::get('/facturacion', function () { 
 return view('Compras/facturacion');})->name('show.registroFacturacion');
 
-Route::get('/listas', function () {
-    return view('Compras/Lista');
+Route::get('/listas', function () {return view('Compras/Lista');
 });
-
 
 /*Funcion del listado y buscador compra. */
 Route::get('/Compra',[CompraController::class, 'index'])->name('compra.index');
 Route::post('/Compra',[CompraController::class, 'index'])->name('compra.index');
+
+/*Para mostrar la infomarcion */
+Route::get('/Compras/{id}', [CompraController::class, 'detallecomp'])->name('compra.mostrar')->where('id', '[0-9]+');
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA INVENTARIO
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/Inventario',[CompraDetallesController::class, 'index'])->name('inventario.index');
+Route::post('/Inventario',[CompraDetallesController::class, 'index'])->name('inventario.index');
+/*Route::get('/Inventario/{id}', [CompraDetallesController::class, 'show'])->name('show.Inventario')->where('id', '[0-9]+');*/
+
+
+
+Route::get('/Inventario/{id}', [CompraController::class, 'mirar'])->name('inventario.mostrar')->where('id', '[0-9]+');
+
+/*Historial de precio*/
+Route::get('/Historial', [CompraController::class, 'historial'])->name('historial.mostrar');
