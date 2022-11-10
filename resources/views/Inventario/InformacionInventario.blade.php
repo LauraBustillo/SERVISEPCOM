@@ -2,47 +2,57 @@
 @section('extra-content')
 
 <style>
-.input-group-text  {
-  background-color: #B8D7F9;
-  border: 1px solid #0319C4;
-}
+    .input-group-text  {
+      background-color: #B8D7F9;
+      border: 1px solid #0319C4;
+    }
+    
+    .form-control  {
+        background-color: transparent;
+        border: 1px solid #0319C4;
+    }
+    
+    .btn-info{
+        background-color: transparent;
+        border: 1px solid #0319C4;
+    }
+    
+    /*Los titulos */ 
+    .titulo {
+      font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+      color:black;
+      font-family: 'Open Sans';
+      font-size: 20px;
+    }
+    /*Los titulos */ 
+    .titulo1 {
+      font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+      color:black;
+      font-family: 'Open Sans';
+      font-size: 40px;
+      text-align: center;
+    }
 
-.form-control  {
-    background-color: transparent;
-    border: 1px solid #0319C4;
-}
+    .modal-content{
+        background-color: rgb(184, 234, 249)!important;   
+    }
 
-.btn-info{
-    background-color: transparent;
-    border: 1px solid #0319C4;
-}
+    .letra{
+        font-weight: bold;
+    }
+    </style>
 
-/*Los titulos */ 
-.titulo {
-  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-  color:black;
-  font-family: 'Open Sans';
-  font-size: 20px;
-}
-/*Los titulos */ 
-.titulo1 {
-  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-  color:black;
-  font-family: 'Open Sans';
-  font-size: 40px;
-  text-align: center;
-}
-</style>
 
 <h1 class="titulo1">Información del Producto</h1>
 <br>
 <div>    
 <br>
-    <table class="table table-hover">
+    <table class="table table-hover" >
 
-        <thead>
+        <thead class="letra">
               <tr>
                 <td>Datos Producto</td>
+                <td>Información</td>
             </tr>
         </thead>
 
@@ -81,33 +91,35 @@
   
   {{--Botones --}}
   
-  <button class="btn btn-outline-dark"  type="button" data-bs-toggle="modal" data-bs-target="#modalHistorial"> Historial precios </button>
+  
   <a class="btn btn-outline-dark" href="{{ route('inventario.index') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+  <button class="btn btn-outline-dark"  type="button" data-bs-toggle="modal" data-bs-target="#modalHistorial"> <i class="bi bi-cash-coin" > Historial precios</i> </button>
+ 
 
-
+ 
 <!-- Modal de dialogo de agregar producto --> 
 <div class="modal fade"  id="modalHistorial" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
         <div class="modal-content">
-            
             <div class="modal-header">
-                <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
+                <h1  class="group-texto titulo1 mx-auto" id="staticBackdropLabel" style="text-align: center">
+                    <br>
                     Historial de precios
                 </h1>              
             </div>
 
             <div class="modal-body" >
-                   
-
+                    
+ 
                 <table class="table table-hover" id="tabla">
                     <thead>
                         <tr>
                             <th scope="col">Número factura</th>
                             <th scope="col">Fecha modificación</th>
-                            <th scope="col">Costo anterior</th>
-                            <th scope="col">Costo modificado</th>
-                            <th scope="col">Precio anterior</th>
-                            <th scope="col">Precio modificado</th>
+                            <th scope="col">Precio compra anterior</th>
+                            <th scope="col">Precio compra actual</th>
+                            <th scope="col">Precio venta anterior</th>
+                            <th scope="col">Precio venta actual</th>
                         </tr>
                     </thead>
             
