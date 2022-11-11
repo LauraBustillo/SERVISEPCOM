@@ -51,6 +51,7 @@
 <div>    
     <div class="titulo" > Factura N° : {{ $factura->Numero_factura }} </div>
 <br>
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -67,7 +68,7 @@
 
             <tr>
                 <td>Proveedor</td>
-                <td id="Proveedor">{{ $factura->Proveedor }}</td> 
+                <td id="Proveedor">{{ $factura->proveedor }}</td> 
             </tr> 
 
 
@@ -97,7 +98,9 @@
     <tbody id="body_table_detallesFac">
         </tbody>
   </table>
-  
+
+  <a class="btn btn-outline-dark" href="{{route('compra.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+  <a class="btn btn-outline-dark" href="{{route('comprasEdit', ['id'=>$factura->id])}}"> <i class="bi bi-pen-fill"> Editar </i></a>
   
 
   <script>
@@ -120,11 +123,14 @@
 
         function dibujarTabla(data){
         var html = '';
+        subtotalFACTURA = 0;
         totalFACTURA = 0;
-  
+        totalInmpuesto = 0;
+
               data.forEach(element => {
-                  
-                  totalproducto = (( element.Cantidad * element.Costo) * (1+(element.Impuesto/100)))
+
+                totalproducto = ( element.Cantidad * element.Costo)
+                totalInmpuesto += (( element.Cantidad * element.Costo) * (element.Impuesto/100))
       
                   html += '<tr>';   
                   html += '<td>'+element.nombre_producto+'</td>';
@@ -137,15 +143,31 @@
                   html += '<td>'+totalproducto.toFixed()+'</td>';
                   html += '</tr>';
   
-                  totalFACTURA += totalproducto;
+                  subtotalFACTURA += totalproducto;
+
+
               });
   
   
-              html += '<tr>';               
+                html += '<tr>';               
+                html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+                html += '<td><strong >SubTotal</strong></td>';
+                html += '<td><strong>'+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<tr>';
+                html += '<tr>';               
+                html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+                html += '<td><strong >Impuesto</strong></td>';
+                html += '<td><strong>'+totalInmpuesto.toFixed()+'</strong></td><td></td>';
+                html += '<tr>';
+                totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
+                html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
-                html += '<td><strong>'+totalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>'+totalFACTURA.toFixed() +'</strong></td><td></td>';
                 html += '<tr>';
+    
+
+
   
             //inyectando los dos variables a donde correspondan
             document.getElementById('body_table_detallesFac').innerHTML = html;
