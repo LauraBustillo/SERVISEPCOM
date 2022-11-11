@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class CompraController extends Controller
 {
-  /*Funcion para  guardar  */
+/*Funcion para  guardar  */
 public function index(Request $request){
   $compras = [];
   $buscar = '';
@@ -34,8 +34,11 @@ public function index(Request $request){
 
     return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar);
   }
-    
 
+  /*Funcion para  guardar  */
+  // public function guardar(){
+  //     return view('Compras.RegistroCompras');
+  // }
 
 
 /*Funcion para  guardar  */
@@ -63,6 +66,8 @@ public function show(){
 }
 
 public function guardarFactura($arrayFac,$arrayDet){
+
+
  
   // pasamos los string parametros a arreglos
   $jsonFactura =  json_decode($arrayFac);
@@ -92,13 +97,16 @@ public function guardarFactura($arrayFac,$arrayDet){
     $a->Precio_venta= $detFact->Precio_venta; 
     $a->Impuesto= $detFact->Impuesto;
     $agregar1=  $a->save();
+
   }
 
-  // $ultimacompra = Compra::where('Numero_factura','=',$jsonFactura -> Numero_factura)->first();
-  // return redirect()->route('comprasEdit', $ultimacompra->id);
-  return redirect()->route('compra.index');
+  if ($agregar1){
+    return redirect()->route('compra.index')->with('mensaje', 'Se guardó  con  éxito') ;
+ } else {
+ 
 }
-
+ 
+}
 
   //Funcion para actualizar
 public function actualizarFactura(Request $request){
@@ -154,7 +162,21 @@ public function detallecomp($id){
   ->with('detallefactura',$detallefactura);
  }
 
-   
+
+   /*Funcion para mostrar mas informacion  */ 
+public function mirar($id){
+
+    $product = Product::
+    select('categorias.Descripcion as Categoria','proveedors.Nombre_empresa as Proveedor','products.*')
+    ->join('categorias', 'categorias.id', '=', 'products.categoria_id') 
+    ->join('proveedors', 'proveedors.id', '=', 'products.proveedor_id') 
+    ->where('products.id','=',$id)
+    ->first();
+
+  $historial = DB::table('historial_precios')->where('id_producto','=',$id)->get();
+  
+  return view('Inventario.InformacionInventario')->with('product', $product)->with('historial', $historial);
+}
 
 /*Funcion para mostar el historial de precios*/
 
