@@ -366,19 +366,7 @@
                     </div>
 
                     <div style="display: flex;margin-top:1rem">
-                        <select id="proveedor_form" class="form-control">
-                            <option value="0" selected disabled>Seleccione un proveedor</option>
-                            @foreach ($proveedores as $pro)
-                                <option value="{{$pro->id}}">{{$pro->Nombre_empresa}}</option>
-                            @endforeach
-                        </select> &nbsp;
-
-                        <select id="categoria_form" class="form-control">
-                            <option value="0" selected disabled>Seleccione una categoria</option>
-                            @foreach ($categorias as $cat)
-                                <option value="{{$cat->id}}">{{$cat->Descripcion}}</option>
-                            @endforeach
-                        </select>
+                        
                     </div>
                 </div>
 
@@ -414,8 +402,7 @@
         var factura = {!! json_encode($factura, JSON_HEX_TAG) !!}; 
         var products = {!! json_encode($products, JSON_HEX_TAG) !!}; 
         var accion = {!! json_encode($accion, JSON_HEX_TAG) !!}; 
-        // var categorias = {!! json_encode($categorias, JSON_HEX_TAG) !!}; 
-        // var proveedores = {!! json_encode($proveedores, JSON_HEX_TAG) !!}; 
+        
 
         var productfiltersProveedor;
         var totalFACTURA;   
