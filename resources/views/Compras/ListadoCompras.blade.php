@@ -80,7 +80,7 @@
       <form class="d-flex" id="ablescroll" method="POST" action="Compra">
       @csrf
         <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
-         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
+         placeholder="Buscar por número de factura, fecha de facuración y proveedor" aria-label="Sizing example input">
         <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
         <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
       </form>
@@ -98,6 +98,7 @@
         
         <th scope="col">Numero de factura</th>
         <th scope="col">Fecha de facturación</th>
+        <th scope="col">Proveedor </th>
         <th scope="col">Total de la factura </th>
         <th scope="col"> Detalles</th>
         <th scope="col">Editar factura</th>  
@@ -108,13 +109,14 @@
         @forelse($compras as $de)
 
         <tr>
-        <td scope="row">{{ $de->Numero_factura}}</td>
+       <td scope="row">{{ $de->Numero_factura}}</td>
         <td>{{ $de->Fecha_facturacion }}</td>
-        <td>{{ $de->Total_factura }}</td>
+        <td>{{ $de->Nombre_empresa}}</td>
+       <td>{{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
-        <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
-       <td><a class="btn-detalles" href="{{route('comprasEdit' , ['id' => $de->id]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>  </td>
+      <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+       <td><a class="btn-detalles" href="{{route('comprasEdit' , ['id' => $de->compras]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>  </td>
        </tr>
        @empty
        @endforelse
