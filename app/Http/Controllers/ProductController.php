@@ -60,14 +60,37 @@ class ProductController extends Controller
   $agregar1=  $agregar->save();
 
   if ($agregar1){
-      return redirect()->route('producto.index')->with('mensaje', 'Se guardó  con  éxito') ;} 
+      return redirect()->route('show.registroProductos')->with('mensaje', 'Se guardó  con  éxito') ;} 
     
       else {
  
            }
    } 
 
+public function guardarProductoModal(Request $request){
    
+  $agregar = new Product();
+  $agregar->proveedor_id = $request->data['proveedor'];
+  $agregar->Nombre_producto =  $request->data['nombre'];
+  $agregar->Descripcion =  $request->data['descripcion'];
+  $agregar->Marca = $request->data['marca'];
+  $agregar->categoria_id =  $request->data['categoria'];
+  $agregar->Cantidad = 0;
+  $agregar->Precio_compra= 0;
+  $agregar->Precio_venta= 0;
+  $agregar->Impuesto = 0;
+  $agregar1=  $agregar->save();
+
+  $query = 'SELECT p.id as id_product, cat.id as id_cat, prov.id as id_prov, p.Nombre_producto,p.Descripcion,
+  p.Marca,p.Precio_compra,p.Precio_venta,p.Cantidad, p.Impuesto, prov.Nombre_empresa, 
+  cat.Descripcion as DescripcionC  
+  FROM products AS p
+  INNER JOIN proveedors  as prov ON p.proveedor_id = prov.id
+  INNER JOIN categorias AS cat ON p.categoria_id = cat.id;';
+  $productos = DB::select(DB::raw($query));
+
+  return $productos;
+}
 
 
 
