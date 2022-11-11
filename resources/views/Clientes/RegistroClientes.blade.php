@@ -59,7 +59,7 @@ a { color: aliceblue;
 
 <br>
 <br>
-<form class="form-control" id="form_guardarC" name="form_guardarC" method="POST" style="text-align: center;" onsubmit="confirmar()">
+<form class="form-control" id="form_guardarCL" name="form_guardarCL" method="POST" style="text-align: center;" onsubmit="guardarcliente()">
 @csrf
 <br>
 <br>
@@ -171,8 +171,8 @@ input.addEventListener('invalid', function(evt) {
 {{--mensaje de confirmacion --}}
 @push('alertas')
     <script>
-        function confirmar() {
-           var formul = document.getElementById("form_guardarC");
+        function guardarcliente() {
+           var formul = document.getElementById("form_guardarCL");
            
            Swal.fire({
                 title: '¿Está seguro que desea guardar los datos?',

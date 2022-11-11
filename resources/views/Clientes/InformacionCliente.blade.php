@@ -16,7 +16,7 @@
     background-color: transparent;
     border: 1px solid #0319C4;
 }
-
+ 
 /*Los titulos */ 
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
