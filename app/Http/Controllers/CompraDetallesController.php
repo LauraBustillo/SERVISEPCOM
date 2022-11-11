@@ -8,13 +8,38 @@ use DB;
 
 class CompraDetallesController extends Controller
 {
-    public function index(Request $request)
+
+  public function index(Request $request)
     {
         $inventario= [];
         $buscar = '';
-
   
         if($request->buscar != null && $request->buscar != ''){
+          $buscar = $request->buscar;          
+        }
+
+
+        $inventario =  DB::table('compra_detalles')
+        ->join('proveedors','proveedors.id','=','compra_detalles.id_prov')
+        ->join('products','products.id','=','compra_detalles.id_product')
+        ->join('categorias','categorias.id','=','compra_detalles.id_cat')
+        ->select('products.id as id_producto','products.Nombre_producto',DB::raw('SUM(compra_detalles.Cantidad) as Cantidad'),
+        'categorias.id','compra_detalles.Marca','categorias.Descripcion AS Categoria','proveedors.Nombre_empresa')
+        ->where("products.Nombre_producto","like","%".$buscar."%")
+        ->orWhere("categorias.Descripcion","like","%".$buscar."%")
+        ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")
+        ->orWhere("compra_detalles.Marca","like","%".$buscar."%")
+        ->groupBy("products.id")
+        ->paginate(10);
+  
+        return view('Inventario.Inventario')->with('inventario', $inventario)->with('buscar',$buscar);
+    }
+  
+   
+      
+
+  
+        
           // $inventario = DB::select(DB::raw("SELECT SUM(c.Cantidad) AS cantidad,
           // c.Marca,prov.Nombre_empresa,prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
           // inner join proveedors AS prov ON prov.id = c.id_prov
@@ -23,8 +48,7 @@ class CompraDetallesController extends Controller
           // GROUP BY c.id_cat,c.id_product
           // where prod.Nombre_producto = '".$request->buscar."';")); 
           
-        }else{
-          $buscar = '';
+        
 //           $inventario = DB::table('compra_detalles as c')
 //           ->select('c.Marca',
 //           'prov.Nombre_empresa','prod.Nombre_producto',
@@ -35,38 +59,20 @@ class CompraDetallesController extends Controller
 // ->groupBy('c.id_cat','c.id_product')
 // ->paginate(10); 
 // ->where('prod.Nombre_producto', 'like','%'.strtolower($request->buscar).'%')
- $inventario =
+
 //  CompraDetalles::select(DB::raw("SELECT c.id, SUM(c.Cantidad) AS Cantidad,c.Marca,prov.Nombre_empresa,prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
 //  inner join proveedors AS prov ON prov.id = c.id_prov
 //  INNER JOIN products AS prod ON prod.id = c.id_product
 //  INNER JOIN categorias AS cat ON cat.id = c.id_cat
 //  GROUP BY c.id_cat,c.id_product;"))
 //  ->paginate(10); 
-           DB::select(DB::raw("SELECT prod.id as id_producto, c.id, SUM(c.Cantidad) AS Cantidad,c.Marca,prov.Nombre_empresa,
-           prod.Nombre_producto,cat.Descripcion AS Categoria FROM compra_detalles AS c 
-           inner join proveedors AS prov ON prov.id = c.id_prov
-           INNER JOIN products AS prod ON prod.id = c.id_product
-           INNER JOIN categorias AS cat ON cat.id = c.id_cat
-           GROUP BY c.id_product;"));
-
-
-// qaqui da el sum
-CompraDetalles::groupBy('id_product')
-->selectRaw('sum(Cantidad) as sum, id_product')
-->pluck('sum','id_product');
-
-
-        }
-  
-        return view('Inventario.Inventario')->with('inventario', $inventario)->with('buscar',$buscar);
-
+          
         // $proveedor = DB::Table('proveedors')->
         // join('compra_detalles', 'compra_
         // detalles.id', '=' , 'proveedors.id')->
         // select ('proveedors.Nombre_empresa', )-> get();
 
         // dd($proveedor);
-    }
 
     public function show()
     {
