@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\CompraDetallesController;
+use App\Http\Controllers\PedidoController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -183,6 +184,21 @@ Route::get('/Inventario/{id}', [CompraController::class, 'mirar'])->name('invent
 Route::get('/Historial', [CompraController::class, 'historial'])->name('historial.mostrar');
 
 
-Route::get('/pedidos', function () {
-    return view('Pedido.RegistroPedido');
-})->name('show.pedido');
+
+//PEDIDO
+Route::get('/createpedidos',[PedidoController::class, 'create'])->name('create.pedido');
+Route::get('/pedidos',[PedidoController::class, 'index'])->name('index.pedido');
+Route::post('/pedidos',[PedidoController::class, 'index'])->name('index.pedido');
+Route::get('/pedidos/{id}',[PedidoController::class, 'show'])->name('editar.pedido');
+Route::post('/getProductosProv',[PedidoController::class, 'getProductosProv'])->name('getProductosProv.pedido');
+Route::post('/getProductosDB',[PedidoController::class, 'getProductosDB'])->name('getProductosDB.pedido');
+Route::post('/guardarPedido',[PedidoController::class, 'guardarPedido'])->name('guardarPedido.pedido');
+Route::post('/guardarDetallePedido',[PedidoController::class, 'guardarDetallePedido'])->name('guardarDetallePedido.pedido');
+Route::post('/eliminarDetallePedido',[PedidoController::class, 'eliminarDetallePedido'])->name('eliminarDetallePedido.pedido');
+Route::post('/actualizarPedido',[PedidoController::class, 'actualizarPedido'])->name('actualizarPedido.pedido');
+Route::get('/pedido/{id}', [PedidoController::class, 'detallepedido'])->name('pedido.mostrar')->where('id', '[0-9]+');
+
+
+
+Route::post('/guardarProductoModal', [ProductController::class, 'guardarProductoModal'])->name('guardarProductoModal.store');
+
