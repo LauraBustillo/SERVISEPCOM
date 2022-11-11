@@ -18,21 +18,24 @@ public function index(Request $request){
   
   if($request->buscar != null && $request->buscar != ''){
     $buscar = $request->buscar;
-    $compras =  Compra::where(DB::raw ('Numero_factura'), "like","%".strtolower($request->buscar)."%")
-    ->orwhere('Fecha_facturacion', 'like','%'.strtolower($request->buscar).'%')->paginate(10); 
+    //$compras =  Compra::where(DB::raw ('Numero_factura'), "like","%".strtolower($request->buscar)."%")
+    //->orwhere('Fecha_facturacion', 'like','%'.strtolower($request->buscar).'%')->paginate(10); --}}
    
-  }else{
-    $buscar = '';
-    $compras = Compra::paginate(10);
   }
+   // $buscar = '';
+    //$compras = Compra::paginate(10);
+
+    $compras= DB::table('Compras')
+    ->join('proveedors','proveedors.id','=','Compras.proveedor')
+    ->select('Compras.id as compras','Compras.Numero_factura','Compras.Fecha_facturacion','proveedors.Nombre_empresa', 'Compras.Total_factura')
+    ->where('Numero_factura',"like","%".$buscar."%")
+    ->orWhere("Fecha_facturacion","like","%".$buscar."%")
+    ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")->paginate(10);
 
     return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar);
-}
+  }
+    
 
-  /*Funcion para  guardar  */
-  // public function guardar(){
-  //     return view('Compras.RegistroCompras');
-  // }
 
 
 /*Funcion para  guardar  */
@@ -118,13 +121,12 @@ public function comprasEdit($id){
     $proveedores = Proveedor::all();
     $accion = 'editar';
 
-    $saludo = 'hola laura';
     return view('Compras.RegistroCompras')
     ->with('products',$products)
     ->with('accion',$accion)
     ->with('proveedores',$proveedores)
     ->with('factura',$factura)
-    ->with('detallefactura',$detallefactura)->with('saludo',$saludo);
+    ->with('detallefactura',$detallefactura);
 }
 
 
@@ -152,24 +154,10 @@ public function detallecomp($id){
   ->with('detallefactura',$detallefactura);
  }
 
-   /*Funcion para mostrar mas informacion  */ 
-public function mirar($id){
-
-    $product = Product::
-    select('categorias.Descripcion as Categoria','proveedors.Nombre_empresa as Proveedor','products.*')
-    ->join('categorias', 'categorias.id', '=', 'products.categoria_id') 
-    ->join('proveedors', 'proveedors.id', '=', 'products.proveedor_id') 
-    ->where('products.id','=',$id)
-    ->first();
-
-  $historial = DB::table('historial_precio')->where('id_producto','=',$id)->get();
-  
-  return view('Inventario.InformacionInventario')->with('product', $product)->with('historial', $historial);
-}
+   
 
 /*Funcion para mostar el historial de precios*/
 
-  /*Funcion para mostrar mas informacion  */ 
   public function editardetallepro(Request $request){
    $actu =   DB::select(DB::raw("UPDATE compra_detalles SET
      Cantidad = '".$request->data['Cantidad']."',
