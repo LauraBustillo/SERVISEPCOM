@@ -85,25 +85,43 @@
         border: 1.8px solid #000000;
         width: 25.8%;
     }   
+    .box{
+                display:flex;
+            }
+
+    .select, option{
+        color:rgb(0, 0, 0);
+
+    }
+    .select{
+        width: 20%;
+        height: 15%;
+        margin-left:0.3%;
+        border: 1.8px solid #000000;
+       border-radius: 0%; 
+
+    }
 </style>
 
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $mesaje)
-                <li>{{ $mesaje }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<script>
+    var errores = []
+    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+    if(errores.length > 0){
+      errores.forEach(element => {
+        alertify.error(element)
+      });   
+    }
+
+  </script>
 
 
 <br>
 <br>
 
-<form  class="form-control">
-<br>
+
+<form  class="form-control"    name="form_guardarCompra" id="form_guardarCompra" method="POST" onsubmit="guardarcompra()" >
+    <br>
        {{-- Título --}}
        <H1 class="titulo" style="text-align: center;">
         @if ($accion == 'guardar')Registrar @endif
@@ -113,37 +131,40 @@
         <br>
         
         {{-- Numero de facturación --}}
-        <div style="padding-left:2%"  >
-        <label  style="padding-left:3% " >Número de factura</label> 
-        <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text" style="position:absolute;
-         right:50% " name="Numero_factura" id="Numero_factura"  aria-label="Sizing example input" onkeypress="ValidaSoloNumeros4()"
+       
+        <div style="padding-left:0% ">
+        <label class="col-md-2">Número de factura</label> 
+        <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  style="display:flex padding-right:50%" name="Numero_factura" id="Numero_factura"  aria-label="Sizing example input" onkeypress="ValidaSoloNumeros4()"
          aria-describedby="inputGroup-sizing-sm" class="input ancho" required 
          title="Solo debe contener números" value="{{old('Numero_factura')}}" minlength="11" maxlength="11" >
         </div>
+        
         <br>
 
         {{-- Fecha de facturación --}}
-        <div style="padding-left: 5%"  >
-        <label >Fecha de facturación</label>
-        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="position:absolute; right:50%"  name="Fecha_facturacion" id="Fecha_facturacion" 
+        <div style="padding-left: 5%  display: flex">
+        <label  class="col-md-2" >Fecha de facturación</label>
+        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%"  name="Fecha_facturacion" id="Fecha_facturacion" 
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  class="input ancho"
         required  placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
         </div>
         <br>
+
+       
   
         {{-- proveedores--}}
-        <div style="padding-left: 5%"    >
-        <label for="Proveedores"  style="padding-right:12% ">Proveedor</label>
-        <label class="anchoo" >
-        <select {{ $accion == 'guardar' ? '' : 'disabled' }} style="position:absolute; right:30%" name="Proveedor" id="Proveedor"  
-        class="buscador-select ancho" style="border:black">
-        <option value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
-        @foreach ($proveedores as $p)
-        <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
-        @endforeach
+    <div   style="display: flex">
+         <label class="col-md-2" for="Proveedores" >Proveedor</label>
+        <select class="form-control select" style=" width:20%" {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor"  
+          class="buscador-select" style="display:flex">
+          <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
+          @foreach ($proveedores as $p)
+            <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
+          @endforeach
         </select> 
-        </label>
-        </div> 
+    </div>
+       
+   
         <br>
         <br>
 
@@ -152,54 +173,55 @@
         <button  onclick="openmodal()"  class="btn btn-outline-dark" type="button">
             <i class="bi bi-file-text-fill"> Agregar Detalle </i>
         </button>
-        <button hidden type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="openoriginalmodal"></button>
+        {{-- <button hidden type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="openoriginalmodal"></button> --}}
         </div>
         <br>
         <br>
 
         <table class="table table-hover"  >
-         <thead>
-            <h5 style="display:none" id="leyenda">Agregue datos a la factura</h5>
-            <tr>
-                <th>Producto</th>
-                <th>Marca</th>
-                <th>Categoria</th>
-                <th>Cantidad</th>
-                <th>Precio de compra</th>
-                <th>Precio de venta</th>
-                <th>Impuesto</th>
-                <th>Total Producto</th>
-                <th>Eliminar</th>  
-            </tr>
-         </thead>
-         <tbody id="body_table_detallesFac">
-            </tbody>
-         </table>
+            <thead>
+                <h5 style="display:none" id="leyenda">Agregue datos a la factura</h5>
+                <tr>
+                    <th>Producto</th>
+                    <th>Marca</th>
+                    <th>Categoria</th>
+                    <th>Cantidad</th>
+                    <th>Precio de compra</th>
+                    <th>Precio de venta</th>
+                    <th>Impuesto</th>
+                    <th>Total Producto</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="body_table_detallesFac">
+                </tbody>
+        </table>
 
          {{--Botones guardar y actualizar --}}
-         <form action=""  id="form_guardarCo" name="form_guardarCo" method="POST"  onsubmit="confirmar()" >
-         <div style="text-align: center">
-            @if ($accion == 'guardar')
-              <button   class="btn btn-outline-dark"  type="button" onclick="guardatFactura()" >
-              <i class="bi bi-folder-fill"> Guardar</i>
-              </button>  
-              <button class="btn btn-outline-dark"  type="button" >
-              <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-            </button>       
-            @endif
-        
-               {{--Botones --}}
-            @if ($accion == 'editar')
-               <button  onclick="actualizarFactura()" class="btn btn-outline-dark"  type="button" >
-               <i class="bi bi-folder-fill"> Actualizar</i>
-               </button>         
-               <button class="btn btn-outline-dark"  type="button" >
+        <form action=""  id="form_guardarCo" name="form_guardarCo" method="POST"  onsubmit="confirmar()" >
+            <div style="text-align: center">
+                @if ($accion == 'guardar')
+                <button   class="btn btn-outline-dark"  type="submit" onclick="guardatFactura()" >
+                <i class="bi bi-folder-fill"> Guardar</i>
+                </button>  
+                <button class="btn btn-outline-dark"  type="button" >
                 <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-              </button>  
-            @endif
-        </div>
+                </button>       
+                @endif
+            
+                {{--Botones --}}
+                @if ($accion == 'editar')
+                <button  onclick="actualizarFactura()"  class="btn btn-outline-dark"  type="button" > 
+                <a class="a"  href="{{route('compra.index')}}">
+                <i class="bi bi-folder-fill"> Actualizar</i></a>
+                </button>         
+                <button class="btn btn-outline-dark"  type="button" >
+                    <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
+                </button>  
+                @endif
+            </div>
         </form>
-        </form>
+    </form>
 
           <!-- Modal de dialogo de agregar producto --> 
         <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -210,8 +232,8 @@
                         Agregar producto a la factura #<span id="numfact_form"></span> 
                     </h1>    
                 <label >
-                    <button type="submit" class="btn btn-outline-dark" href="{{route('show.registroProductos')}}" ><i class="bi bi-bag-plus"> Agregar producto</i></button>
-        
+
+                <button class="btn btn-outline-dark" onclick="openmodalproduct()" type="button"> <i class="bi bi-bag-plus"></i>Agregar producto</button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </label>
                 </div>
@@ -311,7 +333,7 @@
                         
                     </form>
                 </div>
-                
+
                 <!-- Botones -->
                 <div class="modal-footer" style="text-align: center">
                 <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" ><i class="bi bi-x-circle"> Cerrar</i></button>
@@ -323,8 +345,60 @@
             </div>
             </div>
         </div>
+      
+        <!-- Modal de dialogo de agregar producto --> 
+        <div class="modal fade"  id="modalagregarproductos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-xl" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    Agregar Productos
+                </div>
+                <div class="modal-body" >
+                    <div style="display: flex">
+                        <input type="text" minlength="3" maxlength="25"  id="Nombre_producto_form" pattern="[A-ZÑ a-zñ0-9]+"  
+                        class="form-control"  required placeholder="Nombre del producto"> &nbsp;
+
+                        <input type="text" minlength="1" maxlength="25" id="Marca_form" pattern="[A-ZÑ a-zñ]+"  class="form-control" required 
+                        placeholder="Marca del producto" > &nbsp;
+
+                        <textarea class="form-control" rows="1" pattern="[A-ZÑ a-zñ][0-9]+"
+                        minlength="5" maxlength="50" id="Descripcion_form" placeholder="Ingrese la descripción del producto" required></textarea>
+                    </div>
+
+                    <div style="display: flex;margin-top:1rem">
+                        <select id="proveedor_form" class="form-control">
+                            <option value="0" selected disabled>Seleccione un proveedor</option>
+                            @foreach ($proveedores as $pro)
+                                <option value="{{$pro->id}}">{{$pro->Nombre_empresa}}</option>
+                            @endforeach
+                        </select> &nbsp;
+
+                        <select id="categoria_form" class="form-control">
+                            <option value="0" selected disabled>Seleccione una categoria</option>
+                            @foreach ($categorias as $cat)
+                                <option value="{{$cat->id}}">{{$cat->Descripcion}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="modal-footer" style="text-align: center">
+                <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalproductos()"><i class="bi bi-x-circle"> Volver</i></button>
+                <button type="button" class="btn btn-outline-dark" style="display:block" onclick="guardarProductoaBASE()" ><i class="bi bi-bag-plus"> Agregar</i></button>
+                    </div>
+            </div>
+            </div>
+        </div>
+
     
 <script>
+
+    // declaramos los dos modales para acceder a ellos con los metodos de javascript
+    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    var myModalProd = new bootstrap.Modal(document.getElementById('modalagregarproductos'));
+
+
 
         // TODO LO QUENO ESTA EN UNA FUNCION, SE EJECUTA CUANDO SE INICIA LA VISTA
 
@@ -340,6 +414,8 @@
         var factura = {!! json_encode($factura, JSON_HEX_TAG) !!}; 
         var products = {!! json_encode($products, JSON_HEX_TAG) !!}; 
         var accion = {!! json_encode($accion, JSON_HEX_TAG) !!}; 
+        // var categorias = {!! json_encode($categorias, JSON_HEX_TAG) !!}; 
+        // var proveedores = {!! json_encode($proveedores, JSON_HEX_TAG) !!}; 
 
         var productfiltersProveedor;
         var totalFACTURA;   
@@ -358,6 +434,116 @@
 
         // INICIO DE LAS FUNCIONES        
         
+        function openmodalproduct(){
+        myModal.hide();
+        myModalProd.show();
+        }
+
+        function cerrarmodalproductos(){
+            myModalProd.hide();
+            myModal.show();
+        }
+        function guardarProductoaBASE() {
+            // inputs del form
+            var nombre = document.getElementById('Nombre_producto_form').value
+            var marca = document.getElementById('Marca_form').value
+            var descripcion = document.getElementById('Descripcion_form').value
+            var proveedor = document.getElementById('proveedor_form').value
+            var categoria = document.getElementById('categoria_form').value
+
+            var re = /^[a-zA-Z0-9 ]+$/;
+            if(nombre == ""){
+
+                alertify.error("El nombre del producto es requerido")
+                return;
+
+                
+            }else if (!re.test(nombre)) {
+                alertify.error('No se aceptan signos especiales')
+                return;
+
+            }else if(nombre.length > 25){
+                alertify.error('El maximo es de 25 caracteres')
+                return;
+            }else if(nombre.length < 3){
+                alertify.error('El minimo es de 3 caracteres')
+                return;
+            }
+            
+            if(marca == ""){
+              alertify.error("La marca del producto es requerida")
+                return;
+            }
+            
+            else if (!re.test(marca)) {
+                alertify.error('No se aceptan signos especiales')
+                return;
+
+            }
+             else if(marca.length > 25){
+                alertify.error('El maximo es de 25 caracteres')
+                return;
+             }
+             else if(marca.length < 2){
+                alertify.error('El minimo es de 2 letras')
+                return;
+            }
+            if(descripcion == ""){
+              alertify.error("La descripción del producto es requerida")
+                return;
+
+            }
+            else if (!re.test(descripcion)) {
+                alertify.error('No se aceptan signos especiales')
+                return;
+
+            }
+            else if(descripcion.length > 25){
+                alertify.error('El maximo es de 25 caracteres')
+                return;
+             }
+             else if(descripcion.length < 3){
+                alertify.error('El minimo es de 3 caracteres')
+                return;
+            }
+            //hacer los otros dos campos
+
+            if(proveedor == '0'){
+                alertify.error('Seleccione un proveedor')
+                return;
+            }
+
+            if(categoria == '0'){
+                alertify.error('Seleccione una categoria')
+                return;
+            }
+
+            datosaguardar = {
+                "nombre":nombre,
+                "marca":marca,
+                "descripcion":descripcion,
+                "proveedor":proveedor,
+                "categoria":categoria
+            }
+            $.ajax({
+                    type: "POST",
+                    url: '/guardarProductoModal',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data":datosaguardar
+                    },
+                    success: function(data) {
+                        // actualizamos la variable con el nuevo producto
+                        products = data
+                        var proveedor = document.getElementById('Proveedor').value;                        
+                        productfiltersProveedor =  products.filter((x) => x.id_prov == proveedor);
+                        buscarydibujarProductos();
+                        alertify.success("Producto guardado");
+                        cerrarmodalproductos();
+                    }
+                })
+        }
+
         function guardatFactura() {
         
             //validaciones     
@@ -435,8 +621,9 @@
                                   
                     buscarydibujarProductos();
                     cargarNumeroFactura();
-                    // para abrir el modal con el boton oculto
-                    document.getElementById('openoriginalmodal').click();
+                    // para abrir el modal detalles
+                    myModal.show();
+
 
                     limpiarform();  
                     
@@ -494,14 +681,12 @@
         }    
     
         function cargarProducto(select) {
-            //pasamos la variable de productos a javascrippr
-            var productos = {!! json_encode($products, JSON_HEX_TAG) !!}; 
 
             if (select == '') {
                 limpiarform();
             }else{
                 // buscar el producto por el value del input,(id_producto)
-                pro = productos.filter((x)=> x.id_product == select)
+                pro = products.filter((x)=> x.id_product == select)
 
                 //asignamos los valores a las cajas del modal, y alas las hidden tambien
                 document.getElementById("id_product").value = pro[0].id_product;
@@ -630,7 +815,7 @@
             var html = '';
             var htmlagregados = '';
 
-            htmlagregados +='<div style="text-align: center"><strong>Productos agregados</strong></div>';                               
+            htmlagregados +='<div style="text-align:center "><strong>Productos agregados</strong></div>';                               
                               
             htmlagregados +='<div>';                    
             htmlagregados +='<div class="row" style="font-weight:bold">';               
@@ -638,7 +823,7 @@
             htmlagregados +='<div class="col">Marca </div>';                    
             htmlagregados +='<div class="col">Cantidad </div>';                    
             htmlagregados +='<div class="col">Editar</div>';  
-            htmlagregados +='<div class="col">Eliminar</div>';                   
+            //htmlagregados +='<div class="col">Eliminar</div>';                   
             htmlagregados +='</div>';        
             htmlagregados +='</div>';                  
                 
@@ -648,12 +833,14 @@
             subtotalFACTURA = 0;
             totalFACTURA = 0;
             totalInmpuesto = 0;
-
+            
+            
+           //TABLA GRANDE AFUERA
             data.forEach(element => {
                 
                 totalproducto = ( element.Cantidad * element.Costo)
                 totalInmpuesto += (( element.Cantidad * element.Costo) * (element.Impuesto/100))
-    
+                html += '<div class= "box">'; 
                 html += '<tr>';   
                 html += '<td>'+element.nombre_producto+'</td>';
                 html += '<td>'+element.Marca+'</td>';
@@ -663,8 +850,9 @@
                 html += '<td>'+element.Precio_venta+'</td>';
                 html += '<td>'+element.Impuesto+'</td>';
                 html += '<td>'+totalproducto.toFixed()+'</td>';
-                html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
+                //html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
                 html += '</tr>';
+                html += '</div';
 
                 htmlagregados +='<table class="table table-hover">'; 
                 htmlagregados +='<div  class="row">';                    
@@ -917,4 +1105,28 @@
      </script>  
     
     @endsection    
+
+    {{--mensaje de confirmacion --}}
+@push('alertas')
+<script>
+    function guardarcompra() {
+       var formul = document.getElementById("form_guardarCompra");
+       
+       Swal.fire({
+            title: '¿Está seguro que desea guardar los datos?',
+            icon: 'question',
+            confirmButtonColor: '#3085d6',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                formul.submit();
+            }
+        })
+        event.preventDefault()
+    }
+</script>
+@endpush
     @include('common')       
