@@ -54,15 +54,23 @@ a { color: aliceblue;
     }
 </style>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $mesaje)
-                <li>{{ $mesaje }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<script>
+  var errores = []
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  if(errores.length > 0){
+    errores.forEach(element => {
+      alertify.error(element)
+    });   
+  }
+</script>
+
+
+@if (session('mensaje'))
+  <script>
+    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
+    alertify.success(mensaje);
+  </script> 
+@endif 
 <br>
 <br>
 
@@ -177,7 +185,7 @@ a { color: aliceblue;
           
             {{--Botones falta cerrar--}}
             <div class="col" >
-            <button  class="btn btn-outline-dark" type="submit" ><i class="bi bi-folder-fill"> Guardar</i></button>
+            <button  class="btn btn-outline-dark" type="submit" ><i class="bi bi-folder-fill"> Guardar </i></button>
             <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
             
             </div>
