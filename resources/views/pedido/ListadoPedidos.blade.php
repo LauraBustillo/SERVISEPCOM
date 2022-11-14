@@ -93,7 +93,7 @@
     <table class="table table-hover" id="tabla">
         <thead>
         <tr>
-            <th scope="col">Numero pedido</th>
+            <th scope="col">Número pedido</th>
             <th scope="col">Fecha pedido</th>
             <th scope="col">Fecha recibido</th>
             <th scope="col">Estado</th>

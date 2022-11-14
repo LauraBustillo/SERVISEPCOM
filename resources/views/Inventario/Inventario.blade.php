@@ -78,7 +78,7 @@
    <div class="container-fluid" >
      <form class="d-flex" id="ablescroll" method="POST" action="Inventario">
      @csrf
-       <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por nombre del producto, marca o categoria" aria-label="Sizing example input">
+       <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por nombre del producto, marca o categoría" aria-label="Sizing example input">
        <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
        <a href="{{ route('inventario.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
      </form>

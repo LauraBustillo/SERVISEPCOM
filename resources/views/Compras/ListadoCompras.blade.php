@@ -71,10 +71,15 @@
   </div>
   @endif
   
+  <br>
+
   
+
+
   {{-- Buscador--}}
   <h1 class="titulo" style="text-align:center">Listado de facturas de compras</h1> 
   <br>
+
   <nav class="navbar navbar-nav bg-nav" >
     <div class="container-fluid" >
       <form class="d-flex" id="ablescroll" method="POST" action="Compra">
@@ -88,8 +93,25 @@
       <i class="bi bi-cart-plus"> Nueva compra  </i></a>
     </div>
     </nav>
-  
-  <br>
+
+  <nav class="navbar navbar-nav bg-nav" >
+    <div class="container-fluid" >
+      <form style="display:flex" id="ablescroll" method="POST" action="Compra">
+      @csrf
+     
+      <br>
+      <h5>Desde </h5>&nbsp;&nbsp;
+        <input type="date" style="width: 194px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
+         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
+         <h5>hasta </h5>&nbsp;&nbsp;
+         <input type="date" style="width: 193px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
+         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
+
+        <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
+        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
+      </form>
+    </div>
+    </nav>
 
   <div>    
     <table class="table table-hover">
@@ -101,7 +123,6 @@
         <th scope="col">Proveedor </th>
         <th scope="col">Total de la factura </th>
         <th scope="col"> Detalles</th>
-        <th scope="col">Editar factura</th>  
         </tr>
         </thead>
 
@@ -112,17 +133,29 @@
        <td scope="row">{{ $de->Numero_factura}}</td>
         <td>{{ $de->Fecha_facturacion }}</td>
         <td>{{ $de->Nombre_empresa}}</td>
-       <td>{{ $de->Total_factura }}</td>
+       <td name="valores">Lps. {{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
       <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
-       <td><a class="btn-detalles" href="{{route('comprasEdit' , ['id' => $de->compras]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>  </td>
        </tr>
        @empty
        @endforelse
     </tbody>
     </table>
   </div>
+<br>
+<div style="float:right">
+  <label for="" style="font-size: 120%">Total de facturas</label>&nbsp;
+  <input type="text" value="" id="total_facturas"  name="calculo" > 
+  
+</div>
+
+<script>
+
+
+</script>
+
+  
 
   
   <Script>

@@ -137,10 +137,10 @@
                   html += '<td>'+element.Marca+'</td>';
                   html += '<td>'+element.Categoria+'</td>';
                   html += '<td>'+element.Cantidad+'</td>';
-                  html += '<td>'+element.Costo+'</td>';
-                  html += '<td>'+element.Precio_venta+'</td>';
-                  html += '<td>'+element.Impuesto+'</td>';
-                  html += '<td>'+totalproducto.toFixed()+'</td>';
+                  html += '<td>Lps. '+element.Costo+'</td>';
+                  html += '<td>Lps. '+element.Precio_venta+'</td>';
+                  html += '<td>'+element.Impuesto+'%</td>';
+                  html += '<td>Lps. '+totalproducto.toFixed()+'</td>';
                   html += '</tr>';
   
                   subtotalFACTURA += totalproducto;
@@ -152,18 +152,18 @@
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >SubTotal</strong></td>';
-                html += '<td><strong>'+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '  +subtotalFACTURA.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Impuesto</strong></td>';
-                html += '<td><strong>'+totalInmpuesto.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalInmpuesto.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
                 totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
-                html += '<td><strong>'+totalFACTURA.toFixed() +'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalFACTURA.toFixed() +'</strong></td><td></td>';
                 html += '<tr>';
     
 

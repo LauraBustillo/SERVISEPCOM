@@ -71,12 +71,17 @@
             </tr> 
 
             <tr>
+                <td>Cantidad</td>
+                <td>{{ $product->Cantidad }}</td> 
+            </tr> 
+
+            <tr>
                 <td>Proveedor</td>
-                <td>{{ $product->Proveedor }}</td>
+                <td>{{ $product->Nombre_empresa }}</td>
             </tr>  
 
             <tr>
-                <td>Categoria</td>
+                <td>Categoría</td>
                 <td>{{ $product->Categoria }}</td> 
             </tr> 
 

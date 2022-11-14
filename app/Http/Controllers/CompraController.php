@@ -5,9 +5,12 @@ use App\Models\Compra;
 use App\Models\CompraDetalles;
 use App\Models\Proveedor;
 use App\Models\Product;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
-use DB;
 use Carbon\Carbon;
+
+use DB;
+
 
 class CompraController extends Controller
 {
@@ -15,7 +18,8 @@ class CompraController extends Controller
 public function index(Request $request){
   $compras = [];
   $buscar = '';
-  
+
+
   if($request->buscar != null && $request->buscar != ''){
     $buscar = $request->buscar;
     //$compras =  Compra::where(DB::raw ('Numero_factura'), "like","%".strtolower($request->buscar)."%")
@@ -25,9 +29,12 @@ public function index(Request $request){
    // $buscar = '';
     //$compras = Compra::paginate(10);
 
+ 
+
     $compras= DB::table('Compras')
     ->join('proveedors','proveedors.id','=','Compras.proveedor')
-    ->select('Compras.id as compras','Compras.Numero_factura','Compras.Fecha_facturacion','proveedors.Nombre_empresa', 'Compras.Total_factura')
+    ->select('Compras.id as compras','Compras.Numero_factura','Compras.Fecha_facturacion',
+    'proveedors.Nombre_empresa', 'Compras.Total_factura' )
     ->where('Numero_factura',"like","%".$buscar."%")
     ->orWhere("Fecha_facturacion","like","%".$buscar."%")
     ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")->paginate(10);
@@ -57,11 +64,13 @@ public function show(){
     $factura = array("Numero_factura"=>"","Fecha_facturacion"=>$today,"Total_factura"=>0,"Telefono_proveedor"=>'',"Proveedor"=>"");
     $products = DB::select(DB::raw($query));
     $proveedores = Proveedor::all();
+    $categorias = Categoria::all();
 
     return view('Compras.RegistroCompras')->with('products',$products)
     ->with('detallefactura',$detallefactura)
     ->with('accion',$accion)
     ->with('proveedores',$proveedores)
+    ->with('categorias',$categorias)
     ->with('factura',$factura);
 }
 
@@ -164,14 +173,16 @@ public function detallecomp($id){
 
 
    /*Funcion para mostrar mas informacion  */ 
-public function mirar($id){
+   public function mirar($id){
 
-    $product = Product::
-    select('categorias.Descripcion as Categoria','proveedors.Nombre_empresa as Proveedor','products.*')
-    ->join('categorias', 'categorias.id', '=', 'products.categoria_id') 
-    ->join('proveedors', 'proveedors.id', '=', 'products.proveedor_id') 
-    ->where('products.id','=',$id)
-    ->first();
+    $product =  DB::table('compra_detalles')
+        ->join('proveedors','proveedors.id','=','compra_detalles.id_prov')
+        ->join('products','products.id','=','compra_detalles.id_product')
+        ->join('categorias','categorias.id','=','compra_detalles.id_cat')
+        ->select('products.id as id_producto','products.Nombre_producto',
+        DB::raw('SUM(compra_detalles.Cantidad) as Cantidad'), 'compra_detalles.Descripcion',
+        'categorias.id','compra_detalles.Marca','categorias.Descripcion AS Categoria', 
+        'proveedors.Nombre_empresa')->where('products.id','=',$id)->first();
 
   $historial = DB::table('historial_precios')->where('id_producto','=',$id)->get();
   

@@ -147,6 +147,16 @@
   <div class="card-body text-dark">
 
     <div style="display: flex">
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Proveedor</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <label for="">Encargado</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+      <label for="">Correo</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Télefono</label>
+
+    
+    </div>
+    <div style="display: flex">
       @if($accion == 'crear')
         <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background: transparent"> 
             <option value=>Seleccione el proveedor</option>
@@ -154,17 +164,25 @@
             <option value="{{$pro->id}}" >{{$pro->Nombre_empresa}}</option>
           @endforeach
         </select> 
+
       @else
-        <input type="text" id="prov_nombre_empresa" disabled>      
+        <input type="text" id="prov_nombre_empresa" placeholder="" disabled>  
+    
       @endif
 
+      
       &nbsp;<input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado">
+     
       &nbsp;<input disabled id="prov_correo" type="text" class="form-control" placeholder="Correo electrónico">
       &nbsp;<input disabled  id="prov_telefono" type="text" class="form-control" placeholder="Teléfono">
     </div>
+    
 
     <br>
     <div style="width:25%" id="divselectproduct"> 
+      
+
+    
     </div>
 
   </div>
@@ -180,7 +198,16 @@
   </div>
 
   <div class="card-body text-dark">
+    <div style="display: flex">
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Producto</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
 
+      <label for="">Marca</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+      <label for="">Descripción</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <label for="">Cantidad</label>
+
+    
+    </div>
     <div style="display: flex">
       <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required> &nbsp;
       <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required> &nbsp;
@@ -194,7 +221,9 @@
       <div style="display: flex" class="mx-auto">  
         <button type="button" onclick="agregarDetalleProducto()" class="btn btn-outline-dark"><i class="bi bi-folder-fill"> Agregar Producto</i></button> &nbsp;
         <button {{$accion == 'editar'?'hidden':''}}  type="button" class="btn btn-outline-dark" onclick="guardarPedido()" ><i class="bi bi-folder-fill"> Guardar</i></button> &nbsp;
-        <button {{$accion == 'editar'?'':'hidden'}} type="button" class="btn btn-outline-dark" onclick="actualizarPedido()" ><i class="bi bi-folder-fill"> Actualizar</i></button>
+        <button {{$accion == 'editar'?'':'hidden'}} type="button" class="btn btn-outline-dark" onclick="actualizarPedido()" ><i class="bi bi-folder-fill"> Actualizar</i></button> &nbsp; 
+        <a class="btn btn-outline-dark" href="{{ route('index.pedido') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+
       </div>
     </div>
 
@@ -250,7 +279,7 @@
 
             //se le asignan los valores al select
             productosprov = JSON.parse(data);
-            // hacerselectproductosproveedor(productosprov);      
+            hacerselectproductosproveedor(productosprov);      
           }
       })
  }
@@ -261,13 +290,14 @@
  function hacerselectproductosproveedor(data){
 
       $("#productosproveedor").remove();
-      document.getElementById("divselectproduct").innerHTML = '<select name="" id="productosproveedor" class="form-control" ></select>'
+      document.getElementById("divselectproduct").innerHTML = '<select name="" id="productosproveedor" class="form-control" ><option>Seleccione un producto</option></select>'
       $('#productosproveedor').on('select2:select', function (e) {                
         getProductdeDB(e.params.data.id)
       });
 
       // aniadiendo un nuevo opcion
-      data.push({"id":"0","text":"seleccione un producto"})
+     // data.push({"text":"seleccione un producto"})
+
       // ordenando el id de menor a mayoy
       data = data.sort(function(a, b){  if (a.id < b.id) { return -1; } });
       $("#productosproveedor").select2({
@@ -296,7 +326,7 @@
          
             productosprov = JSON.parse(data);
             // console.log(productosprov);
-           getProductdeDB(productosprov[0].id)
+           //getProductdeDB(productosprov[0].id)
            hacerselectproductosproveedor(productosprov)
 
 

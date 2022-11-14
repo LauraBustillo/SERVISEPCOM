@@ -23,8 +23,10 @@ class CompraDetallesController extends Controller
         ->join('proveedors','proveedors.id','=','compra_detalles.id_prov')
         ->join('products','products.id','=','compra_detalles.id_product')
         ->join('categorias','categorias.id','=','compra_detalles.id_cat')
-        ->select('products.id as id_producto','products.Nombre_producto',DB::raw('SUM(compra_detalles.Cantidad) as Cantidad'),
-        'categorias.id','compra_detalles.Marca','categorias.Descripcion AS Categoria','proveedors.Nombre_empresa')
+        ->select('products.id as id_producto','products.Nombre_producto',
+        DB::raw('SUM(compra_detalles.Cantidad) as Cantidad'), 
+        'categorias.id','compra_detalles.Marca','categorias.Descripcion AS Categoria',
+        'proveedors.Nombre_empresa')
         ->where("products.Nombre_producto","like","%".$buscar."%")
         ->orWhere("categorias.Descripcion","like","%".$buscar."%")
         ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")

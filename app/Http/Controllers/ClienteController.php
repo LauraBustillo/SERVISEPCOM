@@ -18,6 +18,8 @@ class ClienteController extends Controller
         $cliente =  Cliente::where(DB::raw("LOWER(concat(Nombre,' ',Apellido))"),"like","%".strtolower($request->buscar)."%")
         ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
         ->paginate(10); 
+
+        
       }else{
         $buscar = '';
         $cliente = Cliente::paginate(10);

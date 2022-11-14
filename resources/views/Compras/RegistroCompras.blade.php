@@ -78,7 +78,7 @@
     .ancho{
         background-color: transparent;
         border: 1.8px solid #000000;
-        width: 20%;
+        width: 30%;
     }
     .anchoo{
         background-color: transparent;
@@ -101,6 +101,7 @@
        border-radius: 0%; 
 
     }
+    
 </style>
 
 
@@ -144,8 +145,9 @@
         {{-- Fecha de facturación --}}
         <div style="padding-left: 5%  display: flex">
         <label  class="col-md-2" >Fecha de facturación</label>
-        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%"  name="Fecha_facturacion" id="Fecha_facturacion" 
-        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  class="input ancho"
+        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%" 
+        name="Fecha_facturacion" id="Fecha_facturacion" 
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  class="input1 ancho"
         required  placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
         </div>
         <br>
@@ -155,7 +157,7 @@
         {{-- proveedores--}}
     <div   style="display: flex">
          <label class="col-md-2" for="Proveedores" >Proveedor</label>
-        <select class="form-control select" style=" width:20%" {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor"  
+        <select class="form-control select" style=" width:30%" {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor"
           class="buscador-select" style="display:flex">
           <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
           @foreach ($proveedores as $p)
@@ -365,9 +367,25 @@
                         minlength="5" maxlength="50" id="Descripcion_form" placeholder="Ingrese la descripción del producto" required></textarea>
                     </div>
 
-                    <div style="display: flex;margin-top:1rem">
-                        
-                    </div>
+                    
+                        <div style="display: flex;margin-top:1rem">
+                              {{-- proveedores--}}
+                              <input type="text"  id="Marca_form" class="form-control" >
+
+                            {{--<select class="form-control" id="Proveedor">
+                                @foreach ($proveedores as $p)
+                                <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
+                                @endforeach
+                            </select>--}}
+                            
+                            <select id="categoria_form" class="form-control">
+                                <option value="0" selected disabled>Seleccione una categoria</option>
+                                @foreach ($categorias as $cat)
+                                    <option value="{{$cat->id}}">{{$cat->Descripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
                 </div>
 
                 <!-- Botones -->
@@ -419,7 +437,7 @@
 
 
 
-        // INICIO DE LAS FUNCIONES        
+        // INICIO DE LAS FUNCIONES  
         
         function openmodalproduct(){
         myModal.hide();
@@ -810,7 +828,7 @@
             htmlagregados +='<div class="col">Marca </div>';                    
             htmlagregados +='<div class="col">Cantidad </div>';                    
             htmlagregados +='<div class="col">Editar</div>';  
-            //htmlagregados +='<div class="col">Eliminar</div>';                   
+            htmlagregados +='<div class="col">Eliminar</div>';                   
             htmlagregados +='</div>';        
             htmlagregados +='</div>';                  
                 
@@ -833,10 +851,10 @@
                 html += '<td>'+element.Marca+'</td>';
                 html += '<td>'+element.Categoria+'</td>';
                 html += '<td>'+element.Cantidad+'</td>';
-                html += '<td>'+element.Costo+'</td>';
-                html += '<td>'+element.Precio_venta+'</td>';
-                html += '<td>'+element.Impuesto+'</td>';
-                html += '<td>'+totalproducto.toFixed()+'</td>';
+                html += '<td>Lps. '+element.Costo+'</td>';
+                html += '<td>Lps. '+element.Precio_venta+'</td>';
+                html += '<td>'+element.Impuesto+'%</td>';
+                html += '<td>Lps. '+totalproducto.toFixed()+'</td>';
                 //html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
                 html += '</tr>';
                 html += '</div';
@@ -865,20 +883,20 @@
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >SubTotal</strong></td>';
-                html += '<td><strong>'+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
 
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Impuesto</strong></td>';
-                html += '<td><strong>'+totalInmpuesto.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalInmpuesto.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
 
                     totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
                 html += '<tr>';               
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
-                html += '<td><strong>'+totalFACTURA.toFixed() +'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalFACTURA.toFixed() +'</strong></td><td></td>';
                 html += '<tr>';
 
             //inyectando los dos variables a donde correspondan
