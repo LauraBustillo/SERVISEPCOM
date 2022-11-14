@@ -135,7 +135,7 @@
         <div style="padding-left:0% ">
         <label class="col-md-2">Número de factura</label> 
         <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  style="display:flex padding-right:50%" name="Numero_factura" id="Numero_factura"  aria-label="Sizing example input" onkeypress="ValidaSoloNumeros4()"
-         aria-describedby="inputGroup-sizing-sm" class="input ancho" required 
+         aria-describedby="inputGroup-sizing-sm" class="input ancho" required placeholder="Ingrese el número de factura"
          title="Solo debe contener números" value="{{old('Numero_factura')}}" minlength="11" maxlength="11" >
         </div>
         
@@ -184,7 +184,7 @@
                 <tr>
                     <th>Producto</th>
                     <th>Marca</th>
-                    <th>Categoria</th>
+                    <th>Categoría</th>
                     <th>Cantidad</th>
                     <th>Precio de compra</th>
                     <th>Precio de venta</th>

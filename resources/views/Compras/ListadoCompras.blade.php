@@ -96,7 +96,7 @@
         <thead>
         <tr>
         
-        <th scope="col">Numero de factura</th>
+        <th scope="col">Número de factura</th>
         <th scope="col">Fecha de facturación</th>
         <th scope="col">Proveedor </th>
         <th scope="col">Total de la factura </th>

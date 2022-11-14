@@ -416,7 +416,7 @@
     html += '<table class="table table-hover" style="width: 100%";>'
     html += '<thead>'
     html += '<tr>'
-    html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripcion</th> <th>Cantidad</th> <th></th>'
+    html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripción</th> <th>Cantidad</th> <th></th>'
     html += '</tr>'
     html += '</thead>'
     html += '<tbody>'

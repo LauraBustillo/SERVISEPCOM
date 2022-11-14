@@ -51,7 +51,7 @@
 
         <thead class="letra">
               <tr>
-                <td>Datos Producto</td>
+                <td>Datos</td>
                 <td>Información</td>
             </tr>
         </thead>
