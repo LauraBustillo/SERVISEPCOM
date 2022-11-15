@@ -37,7 +37,12 @@ public function index(Request $request){
     'proveedors.Nombre_empresa', 'Compras.Total_factura' )
     ->where('Numero_factura',"like","%".$buscar."%")
     ->orWhere("Fecha_facturacion","like","%".$buscar."%")
-    ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")->paginate(10);
+    ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")
+    ->get();
+
+    // ->andWhere("Fecha_facturacion",">=",$request->fechafrom)
+    // ->andWhere("Fecha_facturacion","<=",$request->fechato)
+    // SELECT * FROM compras AS c WHERE c.Fecha_facturacion >= '2022-11-08' AND c.Fecha_facturacion <= '2022-11-09'; 
 
     return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar);
   }
@@ -109,11 +114,8 @@ public function guardarFactura($arrayFac,$arrayDet){
 
   }
 
-  if ($agregar1){
     return redirect()->route('compra.index')->with('mensaje', 'Se guardó  con  éxito') ;
- } else {
- 
-}
+
  
 }
 

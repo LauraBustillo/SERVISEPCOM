@@ -121,7 +121,8 @@
 <br>
 
 
-<form  class="form-control"    name="form_guardarCompra" id="form_guardarCompra" method="POST" onsubmit="guardarcompra()" >
+{{-- <form  class="form-control"    name="form_guardarCompra" id="form_guardarCompra" method="POST" onsubmit="guardarcompra()" > --}}
+<form  class="form-control"    name="form_guardarCompra" >
     <br>
        {{-- Título --}}
        <H1 class="titulo" style="text-align: center;">
@@ -203,7 +204,7 @@
         <form action=""  id="form_guardarCo" name="form_guardarCo" method="POST"  onsubmit="confirmar()" >
             <div style="text-align: center">
                 @if ($accion == 'guardar')
-                <button   class="btn btn-outline-dark"  type="submit" onclick="guardatFactura()" >
+                <button   class="btn btn-outline-dark"  type="button" onclick="guardatFactura()" >
                 <i class="bi bi-folder-fill"> Guardar</i>
                 </button>  
                 <button class="btn btn-outline-dark"  type="button" >
@@ -370,13 +371,15 @@
                     
                         <div style="display: flex;margin-top:1rem">
                               {{-- proveedores--}}
-                              <input type="text"  id="Marca_form" class="form-control" >
+                              {{-- <input type="text" disabled  id="Proveedor_form" class="form-control" > --}}
 
-                            {{--<select class="form-control" id="Proveedor">
+                            <select disabled class="form-control" id="Proveedor_form">
                                 @foreach ($proveedores as $p)
                                 <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
                                 @endforeach
-                            </select>--}}
+                            </select>
+
+                            &nbsp;
                             
                             <select id="categoria_form" class="form-control">
                                 <option value="0" selected disabled>Seleccione una categoria</option>
@@ -442,6 +445,7 @@
         function openmodalproduct(){
         myModal.hide();
         myModalProd.show();
+        document.getElementById("Proveedor_form").value = document.getElementById("Proveedor").value
         }
 
         function cerrarmodalproductos(){
@@ -453,7 +457,7 @@
             var nombre = document.getElementById('Nombre_producto_form').value
             var marca = document.getElementById('Marca_form').value
             var descripcion = document.getElementById('Descripcion_form').value
-            var proveedor = document.getElementById('proveedor_form').value
+            var proveedor = document.getElementById('Proveedor').value
             var categoria = document.getElementById('categoria_form').value
 
             var re = /^[a-zA-Z0-9 ]+$/;
@@ -547,6 +551,15 @@
                         cerrarmodalproductos();
                     }
                 })
+                
+        }
+        function limpiarformbase(){        
+            document.getElementById("Nombre_producto_form").value = '';
+            document.getElementById("Marca_form").value ='';
+            document.getElementById("Descripcion_form").value = '';
+            document.getElementById("Proveedor").value ='';
+            document.getElementById("categoria_form").value ='';
+       
         }
 
         function guardatFactura() {
@@ -565,7 +578,7 @@
                 return;
             }
 
-            //armamos el json con los campos de ls DB
+                   //armamos el json con los campos de ls DB
             var jsonFactura = {
                 Numero_factura : document.getElementById("Numero_factura").value,
                 Fecha_facturacion : document.getElementById("Fecha_facturacion").value,
@@ -573,10 +586,19 @@
                 Total_factura : totalFACTURA           
             };
 
-            //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
-            var stringarrayFactura = JSON.stringify(jsonFactura);
-            var stringarrayDetalles = JSON.stringify(detallefactura);
-            window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
+            alertify.confirm("Guardar Factura","Esta seguro que quieres guardar?",
+            function(){
+                //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
+                var stringarrayFactura = JSON.stringify(jsonFactura);
+                var stringarrayDetalles = JSON.stringify(detallefactura);
+                window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
+            },
+            function(){
+
+            })
+     
+
+      
 
             
             // $.ajax({
@@ -797,21 +819,62 @@
                 "Impuesto": document.getElementById("Impuesto").value,              
             };
 
-            if(accion == 'editar'){
-                $.ajax({
-                    type: "POST",
-                    url: '/agregardetallepro',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "data":jsonproducto
-                    },
-                    success: function(data) {
-                        console.log(data);
+            var existe = 0;
+            var iddetalleactualizar = "";
+            var nuevacantidad = 0;
+            detallefactura.forEach(element => {
+                if(element.id_product == jsonproducto.id_product && element.Impuesto == jsonproducto.Impuesto ){
+                    existe ++;
+                    iddetalleactualizar = element.id_detalle
+                    nuevacantidad =  (parseFloat(element.Cantidad) + parseFloat(jsonproducto.Cantidad));
+                    element.Cantidad = nuevacantidad
+                    element.Costo =jsonproducto.Costo ;
+                    element.Precio_venta =jsonproducto.Precio_venta;
+                }
+            });
+
+            if (existe == 0) {                
+                if(accion == 'editar'){
+                    $.ajax({
+                        type: "POST",
+                        url: '/agregardetallepro',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data":jsonproducto
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    })
+                }                
+                detallefactura.push(jsonproducto);
+            }else{
+                if(accion == 'editar'){
+                    let editdetpro = {
+                        "id":iddetalleactualizar,
+                        "Cantidad":nuevacantidad,
+                        "Costo":jsonproducto.Costo,
+                        "Precio_venta":jsonproducto.Precio_venta,
+                        "Impuesto":jsonproducto.Impuesto
                     }
-                })
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/editardetallepro',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data":editdetpro
+                        },
+                        success: function() {
+                            console.log("Valueadded");
+                        }
+                    })
+                }
             }
 
-            detallefactura.push(jsonproducto);
+
+
+
             dibujarTabla(detallefactura);
             limpiarform()          
         }    
@@ -1113,7 +1176,7 @@
 
     {{--mensaje de confirmacion --}}
 @push('alertas')
-<script>
+{{-- <script>
     function guardarcompra() {
        var formul = document.getElementById("form_guardarCompra");
        
@@ -1132,6 +1195,6 @@
         })
         event.preventDefault()
     }
-</script>
+</script> --}}
 @endpush
     @include('common')       

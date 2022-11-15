@@ -56,65 +56,185 @@
      Color: black; 
     
    }
+
+  div.dataTables_wrapper div.dataTables_filter input {
+
+  display: inline-block;
+  width: 80% !important;
+  background-color: transparent;
+     border: 1.5px solid #000000;
+     float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: left !important ;
+    text-align: left !important;
+  width: 100% !important;
+
+}
+
+
  </style>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-    </symbol>
-  </svg>
-  
-  @if (session('mensaje'))
-  <div class="alert alert-success d-flex align-items-center" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-    {{session('mensaje')}}
-  </div>
-  @endif
-  
-  <br>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
+
+<script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script  src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+<script  src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
+<br>
+
+<script>
+
+  $().ready(function(){
+  $('#example').DataTable({
+   language:{ "sProcessing": "Procesando...",
+        "sLengthMenu": "",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "",
+        "sInfo": "",
+        "sInfoEmpty": "",
+        "sInfoFiltered": "",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar por número de factura, proveedor y total de factura",
+        "sUrl": ".",
+        "sInfoThousands": "",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+    }
+
+  });
   
 
 
-  {{-- Buscador--}}
+});
+
+var minDate, maxDate;
+
+// Custom filtering function which will search data in column four between two values
+
+
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+
+
+       var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[1] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+ 
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: ' DD - M - YYYY '
+    });
+    maxDate = new DateTime($('#max'), {
+        format:  'YYYY - M - DD'
+
+       
+    });
+ 
+    // DataTables initialisation
+
+    var table = $('#example').DataTable();
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
+});
+
+
+
+
+
+</script>
+
+
   <h1 class="titulo" style="text-align:center">Listado de facturas de compras</h1> 
-  <br>
-
+ 
+{{-- Buscador
   <nav class="navbar navbar-nav bg-nav" >
     <div class="container-fluid" >
       <form class="d-flex" id="ablescroll" method="POST" action="Compra">
+
       @csrf
         <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
          placeholder="Buscar por número de factura, fecha de facuración y proveedor" aria-label="Sizing example input">
         <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
-      </form>
-      <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
-      <i class="bi bi-cart-plus"> Nueva compra  </i></a>
-    </div>
-    </nav>
+        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> 
+      </form>  </div> 
+    </nav> --}}
 
+      
+    
+  
   <nav class="navbar navbar-nav bg-nav" >
     <div class="container-fluid" >
       <form style="display:flex" id="ablescroll" method="POST" action="Compra">
       @csrf
      
       <br>
-      <h5>Desde </h5>&nbsp;&nbsp;
-        <input type="date" style="width: 194px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
-         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
-         <h5>hasta </h5>&nbsp;&nbsp;
-         <input type="date" style="width: 193px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
-         placeholder="Buscar por número de factura y/o fecha de facuración" aria-label="Sizing example input">
-
-        <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
+  
+       
       </form>
     </div>
     </nav>
 
-  <div>    
-    <table class="table table-hover">
+
+    <div class="input-group " style="padding-right:4%"  style="width: 100%" ><br>
+      <div >
+      <label for="" class="group-text">Fecha minima:</label>
+      <input  class="form-control" id="min" name="min"> 
+      </div>&nbsp; &nbsp;&nbsp;
+      
+      <div >
+        <label for="" class="group-text">Fecha  máxima:</label>
+        <input   class="form-control" id="max" name="max" > 
+        </div>
+        <div><br>&nbsp; &nbsp;
+        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
+          <i class="bi bi-cart-plus"> Nueva compra  </i></a>
+      </div>
+  
+      </div>  
+ 
+      
+    <table id='example' class="table table-hover tablacompras"> <br>  
         <thead>
         <tr>
         
@@ -146,36 +266,43 @@
 <br>
 <div style="float:right">
   <label for="" style="font-size: 120%">Total de facturas</label>&nbsp;
-  <input type="text" value="" id="total_facturas"  name="calculo" > 
+  <input disabled type="text" value="" id="total_facturas"  name="calculo" > 
   
 </div>
-
-<script>
-
-
-</script>
-
   
 
   
-  <Script>
-    function busquedaJQsimple() {
-      var filtro = $("#buscar").val().toUpperCase();
+ <script>
+
+let compras = {!! json_encode($compras, JSON_HEX_TAG) !!}; 
+console.log(compras);
+total = 0;
+compras.forEach(element => {
+  total += element.Total_factura
+});
+document.getElementById("total_facturas").value = total.toFixed(2);
+
+
+    // function busquedaJQsimple() {
+    //   var filtro = $("#buscar").val().toUpperCase();
     
-      $("#tabla tbody tr").each(function() {
-        texto = $(this).children("td:eq(0)").text().toUpperCase();
+    //   $("#tabla tbody tr").each(function() {
+    //     texto = $(this).children("td:eq(0)").text().toUpperCase();
         
-        if (texto.indexOf(filtro) < 0) {
-          $(this).hide();
-        } else{
-          $(this).show();
-        }
+    //     if (texto.indexOf(filtro) < 0) {
+    //       $(this).hide();
+    //     } else{
+    //       $(this).show();
+    //     }
         
-      });
+    //   });
       
-    }
-    </Script>
-{{ $compras->links() }}
+    // }
+    </script>
+
+
+  
+{{-- {{ $compras->links() }} --}}
 
 @endsection
 @include('common')

@@ -156,7 +156,7 @@ Route::get('/listas', function () {return view('Compras/Lista');
 
 /*Funcion del listado y buscador compra. */
 Route::get('/Compra',[CompraController::class, 'index'])->name('compra.index');
-Route::post('/Compra',[CompraController::class, 'index'])->name('compra.index');
+// Route::post('/Compra',[CompraController::class, 'index'])->name('compra.index');
 
 /*Para mostrar la infomarcion */
 Route::get('/Compras/{id}', [CompraController::class, 'detallecomp'])->name('compra.mostrar')->where('id', '[0-9]+');

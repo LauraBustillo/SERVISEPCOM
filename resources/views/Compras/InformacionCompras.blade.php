@@ -85,7 +85,7 @@
         <tr>
             <th>Producto</th>
             <th>Marca</th>
-            <th>Categoria</th>
+            <th>Categoría</th>
             <th>Cantidad</th>
             <th>Precio de compra</th>
             <th>Precio de venta</th>
