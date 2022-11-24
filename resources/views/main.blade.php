@@ -109,6 +109,35 @@ background-attachment: fixed, scroll;
     .dropdown-toggle{
     color: #f5f5f5 !important;
     }
+
+    .sidebar-nav {
+        padding: 9px;
+    }
+
+    .dropdown-menu .sub-menu {
+        left: 100%;
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+        margin-top: -1px;
+    }
+
+    .dropdown-menu li:hover .sub-menu {
+        visibility: visible;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        background-color: #000000;
+    }
+
+    
+    .dropdown-toggle{
+    color: #f5f5f5 !important;
+    }
+ 
+
+
  
 
 
