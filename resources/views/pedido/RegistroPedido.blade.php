@@ -83,6 +83,19 @@
 .letra{
         font-weight: bold;
     }
+
+.input{
+	content: "";
+	width: 26px;
+	height: 26px;
+	float: left;
+	margin-right: 1em;
+	border: 2px solid #ccc;
+	background: rgb(94, 237, 5) !important;
+	margin-top: 0.5em;
+  text-align: center !important;
+  vertical-align: middle !important;
+} 
 </style>
 
 
@@ -106,34 +119,34 @@
 <br>
 
 {{-- encabezado --}}
-<form  class="form-control" id="form_guardarPD" name="form_guardarPD"  onsubmit="guardarp()">
-<div style="display: flex">
+<div  class="form-control" >
 
-  <div class="">
-    <span class="input-group-text">Número del pedido</span> 
-    <input {{$accion == 'editar'?'disabled':''}}  onkeypress="ValidaSoloNumeros1()" id="numero_pedido" type="text" class="form-control" placeholder="ej. xxxxxxxxxxx"   maxlength="5" minlength="1">
-  </div>
+    <div style="display: flex">
+            <div style="width: 15%">
+              <label >Número del pedido</label> 
+              <input {{$accion == 'editar'?'disabled':''}}  onkeypress="ValidaSoloNumeros1()" id="numero_pedido" type="text" class="form-control" placeholder="ej. xxxxxxxxxxx"   maxlength="5" minlength="1">
+            </div> &nbsp;&nbsp;
+            <div style="width: 15%">
+                <label  >Fecha pedido</label> 
+                <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control" placeholder="Fecha del pedido"  date_default_timezone_set();>
+            </div>
+   
 
-  <div style="display: flex;margin-left:auto">
-    <div>
-      <span class="input-group-text" >Fecha pedido</span> 
-      <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control" placeholder="Fecha del pedido"  date_default_timezone_set();>
-    </div> &nbsp;
+        <div style="display: flex; margin-left:auto ">
+          &nbsp;
+          @if($accion == 'editar')
+            <div style="width: 50%">
+              <label>Fecha Recibido</label> 
+              <input id="fecha_recibido_pedido" type="date" class="form-control" placeholder="Fecha recibido">
+            </div> <br>&nbsp;&nbsp;
+            <div >
+              <label  for="estado_recibido">Chequear pedido</label><br>
+              <input style="width: 100% "  class="input" type="checkbox" id="estado_recibido"  >
+            </div>  
+          @endif
+        </div>
+    </div>
 
-    @if($accion == 'editar')
-      <div>
-        <span class="input-group-text" >Fecha Recibido</span> 
-        <input id="fecha_recibido_pedido" type="date" class="form-control" placeholder="Fecha recibido">
-      </div> &nbsp;
-      
-      <div>
-        <label for="estado_recibido">Recibido</label>  
-        <input type="checkbox" id="estado_recibido">
-      </div>  
-    @endif
-  </div>
-
-</div>
 
 <br>
 
@@ -152,7 +165,7 @@
 
       <label for="">Encargado</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
       <label for="">Correo</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Télefono</label>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Télefono</label>
 
     
     </div>
@@ -200,11 +213,11 @@
   <div class="card-body text-dark">
     <div style="display: flex">
       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Producto</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-
+      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
       <label for="">Marca</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-      <label for="">Descripción</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <label for="">Cantidad</label>
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<label for="">Descripción</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;; &nbsp;&nbsp; &nbsp;
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+     <label for="">Cantidad</label> &nbsp; &nbsp; &nbsp; &nbsp; 
 
     
     </div>
@@ -212,7 +225,7 @@
       <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required> &nbsp;
       <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required> &nbsp;
       <textarea disabled id="producto_descripcion" class="form-control" placeholder="Descripción" rows="1" required></textarea> &nbsp;
-      <input id="producto_cantidad" onkeypress="ValidaSoloNumeros2()"type="text" class="form-control" placeholder="Cantidad" maxlength="4" minlength="1"> 
+      <input id="producto_cantidad" onkeypress="ValidaSoloNumeros2()"type="text" class="form-control" placeholder="0" maxlength="4" minlength="1"> 
     </div>
 
     <br>
@@ -233,8 +246,10 @@
 
 <br>
 
+</div>
 {{-- tabla de productos agregados --}}
 <div id="tabladetallespedido"></div>
+
 
 <script>
 
@@ -333,7 +348,7 @@
 
           }
       })
-    }
+  }
 
   function getProductdeDB(id_product){
     $.ajax({
@@ -357,7 +372,7 @@
   function ValidaSoloNumeros1() {
         if ((event.keyCode < 48) || (event.keyCode > 57)) 
         event.returnValue = false;
-        }
+  }
 
   function ValidaSoloNumeros2() {
         if ((event.keyCode < 48) || (event.keyCode > 57)) 
@@ -367,12 +382,10 @@
 
     //Validaciones 
 
-
        if (document.getElementById("numero_pedido").value == '') {
                 alertify.error("El número del pedido es requerido");
                 return;
         }
-
       
         if (document.getElementById("numero_pedido").value == 0) {
                 alertify.error("El número del pedido no debe ser cero");
@@ -384,16 +397,13 @@
                 return;
         }
 
-        if (document.getElementById("selectProveedorPedido").value == '') {
-                alertify.error("El proveedor es requerido");
-                return;
-        }
-
       
 
     if(producto !=  "nada"){
+
       producto.Cantidad = document.getElementById('producto_cantidad').value;
       producto.id_detallepedido = uuidv4();
+      producto.id_producto = producto.id
 
       if (document.getElementById("producto_cantidad").value == '') {
                 alertify.error("La cantidad  es requerida ");
@@ -405,25 +415,60 @@
                 return;
         }
 
-       
+        // console.log(detalles_pedido);
+        // console.log(producto);
+        var existe = 0;
+        var iddetalleactualizar = "";
+        var nuevacantidad = 0;
+        detalles_pedido.forEach(element => {
+            if(element.id_producto == producto.id_producto){
+                existe ++;
+                iddetalleactualizar = element.id_detallepedido
+                nuevacantidad =  (parseFloat(element.Cantidad) + parseFloat(producto.Cantidad));
+                element.Cantidad = nuevacantidad
+            }
+        });
 
-      if(accion == 'editar'){
-        producto.numero_pedido = pedido.numero_pedido;
-        $.ajax({
-          type: "POST",
-          url: '/guardarDetallePedido',
-          data: {
-              "_token": "{{ csrf_token() }}",
-              "data":producto
-          },
-          success: function(data){
-            alertify.success('Producto agregado')
-            // $('#productosproveedor').select2('destroy');
+        if(existe == 0){
+          if(accion == 'editar'){
+            producto.numero_pedido = pedido.numero_pedido;
+            $.ajax({
+              type: "POST",
+              url: '/guardarDetallePedido',
+              data: {
+                  "_token": "{{ csrf_token() }}",
+                  "data":producto
+              },
+              success: function(data){
+                alertify.success('Producto agregado')
+              }
+            }); 
           }
-        }); 
-      }
+          detalles_pedido.push(producto);
+          
+        }else{
+          if(accion == 'editar'){
+            detalleaactualizar = {
+              "iddetalleactualizar":iddetalleactualizar,
+              "nuevacantidad":nuevacantidad
+            }
 
-      detalles_pedido.push(producto);
+            $.ajax({
+              type: "POST",
+              url: '/actualizarDetallePedido',
+              data: {
+                  "_token": "{{ csrf_token() }}",
+                  "data":detalleaactualizar
+              },
+              success: function(data){
+                console.log(data);
+                alertify.success('Producto actualizado')
+              }
+            }); 
+          }
+
+        }
+
       producto = "nada";
       limpiarcamposproducto();
       dibujarTablaDetalles();
@@ -446,7 +491,7 @@
     html += '<table class="table table-hover" style="width: 100%";>'
     html += '<thead>'
     html += '<tr>'
-    html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripción</th> <th>Cantidad</th> <th></th>'
+    html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripción</th> <th>Cantidad</th> <th>Eliminar</th>'
     html += '</tr>'
     html += '</thead>'
     html += '<tbody>'
@@ -457,7 +502,7 @@
         html += '<td>'+element.Marca+'</td>'
         html += '<td>'+element.Descripcion+'</td>'
         html += '<td>'+element.Cantidad+'</td>'
-        html += `<td><button class="btn btn-outline-dark" onclick="eliminardetalleproducto('`+element.id_detallepedido+`')">eliminar</button></td>`
+        html += `<td><button class="btn btn-outline-dark" onclick="eliminardetalleproducto('`+element.id_detallepedido+`')"><i class="bi bi-trash"></i></button></td>`
         html += '</tr>'      
       });
     }else{
@@ -547,13 +592,42 @@
     }); 
   }
 
-  function actualizarPedido(){    
+  function actualizarPedido(){   
+    var fecharecibido =  document.getElementById("fecha_recibido_pedido").value
+    var fechapedido = document.getElementById('fecha_pedido').value
+
+    
+    if ( fecharecibido == '') {
+                alertify.error("La fecha de recibido es requerida");
+                return;
+    }
+
+    if (fecharecibido == fechapedido) {
+      alertify.error("La fecha de recibido no debe ser igual a la de pedido");
+                return;
+    }
+
+    if (fecharecibido < fechapedido) {
+      alertify.error("La fecha de recibido no debe ser menor a la de pedido");
+                return;
+    }
+
+    if(detalles_pedido.length == 0 ){
+                alertify.error("Debe agregar productos");
+                return;
+            }
+   
+
+
     if(accion == 'editar'){
       let estado
       if(document.getElementById('estado_recibido').checked){
         estado = 1;
+
       }else{
         estado = 0
+        alertify.error("Debe chequear el pedido");
+                return;
       }
 
       let dataaActualizar = {
@@ -604,12 +678,11 @@ window.onload = function(){
   }
 
 </script>
-</form>
 
 
 @endsection
-{{--mensaje de confirmacion --}}
-@push('alertas')
+{{--mensaje de confirmacion--}}
+{{-- @push('alertas')
     <script>
         function guardarp() {
            var formul = document.getElementById("form_guardarPD");
@@ -629,6 +702,6 @@ window.onload = function(){
             })
             event.preventDefault()
         }
-    </script>
-@endpush
+    </script> 
+@endpush --}}
 @include('common')
