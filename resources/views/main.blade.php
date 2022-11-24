@@ -53,7 +53,7 @@ background-color: #f5f5f5;
 background-position: 0, center;
 background-repeat: no-repeat, repeat;
 background-size: cover, auto;
-background-attachment: fixed, scroll;
+background-attachment: fixed, scroll; 
 }
 
 
