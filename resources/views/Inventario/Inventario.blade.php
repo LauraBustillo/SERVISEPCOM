@@ -55,24 +55,89 @@
      Color: black; 
     
    }
+
+   div.dataTables_wrapper div.dataTables_filter input {
+
+display: inline-block;
+width: 80% !important;
+background-color: transparent;
+   border: 1.5px solid #000000;
+   float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+  float: left !important ;
+  text-align: left !important;
+width: 50% !important;
+
+ 
+
+}
+
+.dt-buttons{
+  padding-left: 85% !important;
+  
+  
+}
+.dt-button{
+  padding: 0 !important;
+  border: none !important;  
+}
+
+
+
+
  </style>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+
+<script  src = 'build/pdfmake.min.js' ></script> 
+<script  src = 'build/vfs_fonts.js' ></script> 
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
+
+<script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script  src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+<script  src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
+
+{{--Para los reportes--}}
+
+<script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+
+<script  src=" https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+
+{{-- Darle forma a los borones de reporte--}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+
+
+
+
+
+
  
- <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-   <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-   </symbol>
- </svg>
- 
- @if (session('mensaje'))
- <div class="alert alert-success d-flex align-items-center" role="alert">
- <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-   {{session('mensaje')}}
- </div>
- @endif
  
  
- {{-- Buscador--}}
  <h1 class="titulo" style="text-align:center">Listado de inventario</h1> 
+
+ {{-- Buscador
  <br>
  <nav class="navbar navbar-nav bg-nav" >
    <div class="container-fluid" >
@@ -83,12 +148,14 @@
        <a href="{{ route('inventario.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
      </form>
    </div>
-   </nav>
+   </nav>--}}
    
  <br>
  
- <div>    
-     <table class="table table-hover">
+
+
+ <div>     
+     <table id="example" class="table table-hover">
          <thead>
          <tr>
          
@@ -120,6 +187,123 @@
      </tbody>
      </table>
    </div>
+
+   <script>
+    
+    $().ready(function(){
+    $('#example').DataTable({
+
+   
+
+
+      dom:  '<"wrapper"fBlitp>',
+     language:{ "sProcessing": "Procesando...",
+          "sLengthMenu": "",
+          "sZeroRecords": "No se encontraron resultados",
+          "sEmptyTable": "",
+          "sInfo": "",
+          "sInfoEmpty": "",
+          "sInfoFiltered": "",
+          "sInfoPostFix": "",
+          "sSearch": "Buscar por nombre del producto, marca o categoría",
+          "sUrl": ".",
+          "sInfoThousands": "",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+              "sFirst": "Primero",
+              "sLast": "Último",
+              "sNext": "Siguiente",
+              "sPrevious": "Anterior"
+          },
+          "oAria": {
+              "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          },
+          "buttons": {
+              "copy": "Copiar",
+              "colvis": "Visibilidad"
+          }
+      },
+  
+      buttons: [
+
+ //Imprimir 
+
+       {
+        extend:    'print',
+        text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
+        titleAttr: 'Imprimir',
+        
+     
+        
+
+       },
+     
+
+
+//PDF
+
+      {
+   extend: 'pdfHtml5',
+   text:  '<button class ="btn btn-danger" > <i class="fa fa-file-pdf-o"></i></button>',
+   titleAttr: 'Archivo PDF',
+   orientation: 'portrait',
+   pageSize: 'A4',
+   title: 'Reporte de inventario',
+   exportOptions: { columns: [0, 1, 2, 3,4] ,
+  
+    
+},
+
+      customize: function(doc) {
+          doc.content[1].margin =[100, 0, 100, 0] ,
+          doc.content.splice(1, 0, {
+              columns: [{
+              }
+            ],
+            });
+
+            doc['footer'] = (function(page, pages) {
+                    return {
+                      columns: [
+                        {
+                          alignment: 'center',
+                          text: [
+                            { text: page.toString(), italics: true },
+                  ' / ',
+                            { text: pages.toString(), italics: true }
+                  ]
+                      }],
+                      margin: [10, 0]
+                    }
+                  });
+
+        }
+},
+
+{
+extend:    'excelHtml5',
+text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
+titleAttr: 'Archivo Excel',
+exportOptions: { columns: [0, 1, 2, 3,4] } 
+
+
+}, 
+
+]
+
+  });
+  
+
+
+});
+
+ </script>
+
+
  {{ $inventario->links()}} 
 @endsection
 @include('common')
+
+
+
