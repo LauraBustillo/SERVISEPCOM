@@ -563,10 +563,7 @@ $().ready(function(){
                 alertify.error("El número de identidad debe empezar con 0 o 1 y contener 13 números");
                 return;
     }
-    else if (identidad_cliente == identidad_cliente) {
-                alertify.error("El número de identidad ya existe");
-                return;
-    } 
+   
 
     // Validar número télefono
     if (telefono_cliente== '') {
@@ -576,10 +573,7 @@ $().ready(function(){
                 alertify.error("El número de teléfono debe empezar con 2, 3, 8 o 9 y contener 8 números");
                 return;
     }
-    else if (telefono_cliente == telefono_cliente) {
-                alertify.error("El número de teléfono ya existe");
-                return;
-    } 
+  
 
     //Validar direccion
     if (direccion_cliente == '') {
