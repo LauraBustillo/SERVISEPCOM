@@ -66,7 +66,7 @@
 
             </tr> 
             <tr>
-                <td>Fecha Recibido</td>
+                <td>Fecha recibido</td>
                 <td>{{ $pedido->fecha_recibido == null ? 'No recibido':$pedido->fecha_recibido}}</td>
 
 
