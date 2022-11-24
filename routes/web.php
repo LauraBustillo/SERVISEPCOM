@@ -7,6 +7,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\CompraDetallesController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\MantenimientoController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,7 @@ Route::put('/cliente/{id}/editar', [ClienteController::class, 'actu'])-> name('c
 
 /*Registro de cliente*/ 
 Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('cliente.crear');
+Route::post('/guardarClienteMantenimiento', [ClienteController::class, 'guardarClienteMantenimiento'])->name('guardarClienteMantenimiento.guardar');
 
 
 
@@ -194,6 +196,7 @@ Route::post('/getProductosProv',[PedidoController::class, 'getProductosProv'])->
 Route::post('/getProductosDB',[PedidoController::class, 'getProductosDB'])->name('getProductosDB.pedido');
 Route::post('/guardarPedido',[PedidoController::class, 'guardarPedido'])->name('guardarPedido.pedido');
 Route::post('/guardarDetallePedido',[PedidoController::class, 'guardarDetallePedido'])->name('guardarDetallePedido.pedido');
+Route::post('/actualizarDetallePedido',[PedidoController::class, 'actualizarDetallePedido'])->name('actualizarDetallePedido.pedido');
 Route::post('/eliminarDetallePedido',[PedidoController::class, 'eliminarDetallePedido'])->name('eliminarDetallePedido.pedido');
 Route::post('/actualizarPedido',[PedidoController::class, 'actualizarPedido'])->name('actualizarPedido.pedido');
 Route::get('/pedido/{id}', [PedidoController::class, 'detallepedido'])->name('pedido.mostrar')->where('id', '[0-9]+');
@@ -202,3 +205,25 @@ Route::get('/pedido/{id}', [PedidoController::class, 'detallepedido'])->name('pe
 
 Route::post('/guardarProductoModal', [ProductController::class, 'guardarProductoModal'])->name('guardarProductoModal.store');
 
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA servicios
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/mantenimiento',[MantenimientoController::class, 'mantenimiento'])->name('RegistroMantenimiento');
+/*Guardar mantenimiento*/
+
+Route::post('/mantenimiento', [MantenimientoController::class, 'guardar'])->name('show.registroMantenimiento');
+
+Route::get('/ListadoMantenimiento',[MantenimientoController::class, 'index'])->name('mantenimiento.index');
+Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar');
+Route::post('/actualizarMantenimiento',[MantenimientoController::class, 'actualizarMantenimiento'])->name('actualizarMantenimiento.update');
+// Route::post('/ListadoMantenimiento',[MantenimientoController::class, 'index'])->name('mantenimiento.index');
+
+/*Para mostrar la infomarcion de cada mantenimiento*/
+Route::get('/mantenimientos/{id}', [MantenimientoController::class, 'detallemantenimento'])
+->name('mantenimientos.ver')
+->where('id', '[0-9]+');
