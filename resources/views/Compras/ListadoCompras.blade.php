@@ -72,6 +72,14 @@
 
 }
 
+.dt-buttons{
+  padding-left: 85% !important;
+}
+.dt-button{
+  padding: 0 !important;
+  border: none !important;  
+}
+
 
  </style>
 
@@ -86,12 +94,30 @@
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script  src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
 <script  src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
+
+{{--Para los reportes--}}
+
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+
+<script  src=" https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+{{-- Darle forma a los borones de reporte--}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <br>
 
 <script>
 
   $().ready(function(){
-  $('#example').DataTable({
+
+  var tablecompras  = $('#tablecompras').DataTable({
+    dom:  '<"wrapper"fBlitp>',
    language:{ "sProcessing": "Procesando...",
         "sLengthMenu": "",
         "sZeroRecords": "No se encontraron resultados",
@@ -118,24 +144,107 @@
             "copy": "Copiar",
             "colvis": "Visibilidad"
         }
-    }
+    },
+
+    buttons: [
+      {
+      extend:    'print',
+      text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
+      titleAttr: 'Imprimir',
+      exportOptions: { columns: [0, 1, 2, 3] } 
+      },
+      {
+   extend: 'pdfHtml5',
+   text:  '<button class ="btn btn-danger" > <i class="fa fa-file-pdf-o"></i></button>',
+   titleAttr: 'Archivo PDF',
+   orientation: 'portrait',
+   pageSize: 'A4',
+   title: 'Reporte de compras',
+   exportOptions: { columns: [0, 1, 2, 3,4] ,
+    
+},
+
+customize: function(doc) {
+  doc.content[1].margin =[100, 0, 100, 0] ,
+  doc.content.splice(1, 0, {
+      columns: [{
+      }
+     ],
+    });
+
+    doc['footer'] = (function(page, pages) {
+            return {
+              columns: [
+                {
+                  alignment: 'center',
+                  text: [
+                    { text: page.toString(), italics: true },
+					' / ',
+                    { text: pages.toString(), italics: true }
+				  ]
+              }],
+              margin: [10, 0]
+            }
+          });
+        }
+
+  },
+      {
+      extend:    'excelHtml5',
+      text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
+      titleAttr: 'Archivo Excel',
+      exportOptions: { columns: [0, 1, 2, 3] } 
+      }
+    ]
 
   });
-  
 
 
-});
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: ' DD - M - YYYY '
+    });
+    maxDate = new DateTime($('#max'), {
+        format:  'YYYY - M - DD'       
+    });
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+      tablecompras.draw();
+    });
 
-var minDate, maxDate;
+      //obtenemos los valores a sumar de la columna que queremos(3), y le pasaamos que con el searh aplicado
+      var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
+      document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
+    
+    setTimeout(() => {
+      //detectando el cambio del input del search, para volver a actualizar la suma
+      $('input[aria-controls=tablecompras]').on('input', function() {
+        var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
+        document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
+      });     
 
-// Custom filtering function which will search data in column four between two values
+      //detectando el cambio del input del max fecha, para volver a actualizar la suma
+      $("#max").change(function(){
+        var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
+        document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
+    	});
 
+      //detectando el cambio del input del min fecha, para volver a actualizar la suma
+      $("#min").change(function(){
+        var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
+        document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
+      });
 
-$.fn.dataTable.ext.search.push(
+    }, 2000);
+
+  });
+
+  var minDate, maxDate;
+
+  $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
-
-
-       var min = minDate.val();
+        var min = minDate.val();
         var max = maxDate.val();
         var date = new Date( data[1] );
  
@@ -149,32 +258,7 @@ $.fn.dataTable.ext.search.push(
         }
         return false;
     }
-);
- 
-$(document).ready(function() {
-    // Create date inputs
-    minDate = new DateTime($('#min'), {
-        format: ' DD - M - YYYY '
-    });
-    maxDate = new DateTime($('#max'), {
-        format:  'YYYY - M - DD'
-
-       
-    });
- 
-    // DataTables initialisation
-
-    var table = $('#example').DataTable();
- 
-    // Refilter the table
-    $('#min, #max').on('change', function () {
-        table.draw();
-    });
-});
-
-
-
-
+  );
 
 </script>
 
@@ -224,9 +308,9 @@ $(document).ready(function() {
         <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
         <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
           <i class="bi bi-cart-plus"> Nueva compra  </i></a>
       </div>
@@ -234,14 +318,14 @@ $(document).ready(function() {
       </div>  
  
       
-    <table id='example' class="table table-hover tablacompras"> <br>  
+    <table id='tablecompras' class="table table-hover tablacompras"> <br>  
         <thead>
         <tr>
         
         <th scope="col">Número de factura</th>
         <th scope="col">Fecha de facturación</th>
         <th scope="col">Proveedor </th>
-        <th scope="col">Total de la factura </th>
+        <th scope="col">Total  </th>
         <th scope="col"> Detalles</th>
         </tr>
         </thead>
@@ -253,7 +337,7 @@ $(document).ready(function() {
        <td scope="row">{{ $de->Numero_factura}}</td>
         <td>{{ $de->Fecha_facturacion }}</td>
         <td>{{ $de->Nombre_empresa}}</td>
-       <td name="valores">Lps. {{ $de->Total_factura }}</td>
+       <td name="valores">{{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
       <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
@@ -264,45 +348,12 @@ $(document).ready(function() {
     </table>
   </div>
 <br>
-<div style="float:right">
-  <label for="" style="font-size: 120%">Total de facturas</label>&nbsp;
-  <input disabled type="text" value="" id="total_facturas"  name="calculo" > 
+<div style="padding-left: 78%">
+  <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
+  <b><label id="total_facturas" ></label></b>
   
 </div>
   
-
-  
- <script>
-
-let compras = {!! json_encode($compras, JSON_HEX_TAG) !!}; 
-console.log(compras);
-total = 0;
-compras.forEach(element => {
-  total += element.Total_factura
-});
-document.getElementById("total_facturas").value = total.toFixed(2);
-
-
-    // function busquedaJQsimple() {
-    //   var filtro = $("#buscar").val().toUpperCase();
-    
-    //   $("#tabla tbody tr").each(function() {
-    //     texto = $(this).children("td:eq(0)").text().toUpperCase();
-        
-    //     if (texto.indexOf(filtro) < 0) {
-    //       $(this).hide();
-    //     } else{
-    //       $(this).show();
-    //     }
-        
-    //   });
-      
-    // }
-    </script>
-
-
-  
-{{-- {{ $compras->links() }} --}}
 
 @endsection
 @include('common')
