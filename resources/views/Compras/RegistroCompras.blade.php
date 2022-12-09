@@ -339,7 +339,7 @@
 
                 <!-- Botones -->
                 <div class="modal-footer" style="text-align: center">
-                <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"  href="{{route('mantenimiento.mostrar')}}" ><i class="bi bi-x-circle"> Cerrar</i></button>
+                <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"  href="{{route('compra.index')}}" ><i class="bi bi-x-circle"> Cerrar</i></button>
                 <button id="AgregarDF" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()" ><i class="bi bi-bag-plus"> Agregar</i></button>
                 <button id="AgregarDFC" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x">Agregar y cerrar</i></button>
                 <button id="ActualizarDF" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()" ><i class="bi bi-bag-plus"> Actualizar</i></button>
@@ -586,7 +586,7 @@
                 Total_factura : totalFACTURA           
             };
 
-            alertify.confirm("Guardar Factura","Esta seguro que quieres guardar?",
+            alertify.confirm("Guardar Factura","Esta seguro que quieres guardar?", 
             function(){
                 //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
                 var stringarrayFactura = JSON.stringify(jsonFactura);
