@@ -11,5 +11,8 @@ class Cliente extends Model
     public function mantenimientos(){
         return $this-> hasMany(Mantenimiento::class);
     }
+    public function reparaciones(){
+        return $this-> hasMany(Reparacion::class);
+    }
 
 }
