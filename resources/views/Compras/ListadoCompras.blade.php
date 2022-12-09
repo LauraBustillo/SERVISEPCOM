@@ -70,6 +70,7 @@
     text-align: left !important;
   width: 100% !important;
 
+
 }
 
 .dt-buttons{
@@ -116,7 +117,10 @@
 
   $().ready(function(){
 
-  var tablecompras  = $('#tablecompras').DataTable({
+    // variable para hacer el string de fechas de los reportes
+    var fechasExportReporte = '';
+    var fechasExportReportep = '';
+   var tablecompras  = $('#tablecompras').DataTable({
     dom:  '<"wrapper"fBlitp>',
    language:{ "sProcessing": "Procesando...",
         "sLengthMenu": "",
@@ -148,24 +152,37 @@
 
     buttons: [
       {
-      extend:    'print',
-      text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
-      titleAttr: 'Imprimir',
-      exportOptions: { columns: [0, 1, 2, 3] } 
+        extend: 'print',
+        text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
+        titleAttr: 'Imprimir',
+        title:'Reporte de listado factura de compras ',
+        messageTop:'',
+        messageTop: function () {
+    return fechasExportReporte; // where `myVariable` is accessible in this scope and set somewhere else
+  },
+        exportOptions: { columns: [0, 1, 2, 3] }
       },
+           
+  
+
       {
    extend: 'pdfHtml5',
+  messageTop: function () {
+    return fechasExportReportep; // where `myVariable` is accessible in this scope and set somewhere else
+  },
    text:  '<button class ="btn btn-danger" > <i class="fa fa-file-pdf-o"></i></button>',
    titleAttr: 'Archivo PDF',
    orientation: 'portrait',
    pageSize: 'A4',
-   title: 'Reporte de compras',
-   exportOptions: { columns: [0, 1, 2, 3,4] ,
-    
-},
+   title: 'Reporte de listado factura de compras',
+
+  //  var suma = tablecompras.column(3,).data().sum();  
+   exportOptions: { columns: [0, 1, 2, 3,] ,
+    // {search: 'applied'} 
+  },
 
 customize: function(doc) {
-  doc.content[1].margin =[100, 0, 100, 0] ,
+  doc.content[1].margin =[0, 5, 7, 5] ,
   doc.content.splice(1, 0, {
       columns: [{
       }
@@ -186,7 +203,7 @@ customize: function(doc) {
               margin: [10, 0]
             }
           });
-        }
+}
 
   },
       {
@@ -197,19 +214,62 @@ customize: function(doc) {
       }
     ]
 
-  });
+  } 
+  
+  );
 
+  
+
+
+  var minDate, maxDate;
 
     // Create date inputs
     minDate = new DateTime($('#min'), {
-        format: ' DD - M - YYYY '
+        format: 'DD - M - YYYY' 
     });
     maxDate = new DateTime($('#max'), {
-        format:  'YYYY - M - DD'       
+        format:  'DD - M - YYYY'       
     });
  
     // Refilter the table
     $('#min, #max').on('change', function () {
+
+
+      //Funcion para mostrar el rango de recha desde hasta
+      var fechamin =  document.getElementById("min").value;
+      var fechamax =  document.getElementById("max").value;
+      if( fechamin != "" && fechamax == "" ){
+        fechasExportReporte = " Mostrando información desde:  "  + "<b> " + fechamin + "</b> " + "&nbsp;" +" en delante";
+      }else if(fechamin != "" && fechamax != ""){
+        fechasExportReporte = " Mostrando información desde:   " + "<b> " + fechamin + "</b> " + "&nbsp;" + " hasta " + "&nbsp;" + "<b> " + fechamax  + "</b> ";
+      }
+
+      var fechamin =  document.getElementById("min").value;
+      var fechamax =  document.getElementById("max").value;
+      if( fechamin != "" && fechamax == "" ){
+        fechasExportReportep = " Mostrando información desde:  "   + fechamin +" en delante";
+      }else if(fechamin != "" && fechamax != ""){
+        fechasExportReportep = " Mostrando información desde: " + fechamin  + " hasta " +  fechamax ;
+      }
+      
+      $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date( data[1] );
+    
+            if (
+                ( min === null && max === null ) ||
+                ( min === null && date <= max ) ||
+                ( min <= date   && max === null ) ||
+                ( min <= date   && date <= max )
+            ) {
+                return true;
+
+            }
+            return false;
+        }
+      );
       tablecompras.draw();
     });
 
@@ -240,25 +300,7 @@ customize: function(doc) {
 
   });
 
-  var minDate, maxDate;
 
-  $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date( data[1] );
- 
-        if (
-            ( min === null && max === null ) ||
-            ( min === null && date <= max ) ||
-            ( min <= date   && max === null ) ||
-            ( min <= date   && date <= max )
-        ) {
-            return true;
-        }
-        return false;
-    }
-  );
 
 </script>
 
@@ -297,12 +339,12 @@ customize: function(doc) {
     <div class="input-group " style="padding-right:4%"  style="width: 100%" ><br>
       <div >
       <label for="" class="group-text">Fecha minima:</label>
-      <input  class="form-control" id="min" name="min"> 
+      <input  class="form-control" id="min" name="min" value=""> 
       </div>&nbsp; &nbsp;&nbsp;
       
       <div >
         <label for="" class="group-text">Fecha  máxima:</label>
-        <input   class="form-control" id="max" name="max" > 
+        <input   class="form-control" id="max" name="max" value="" > 
         </div>
         <div><br>&nbsp; &nbsp;
         <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
