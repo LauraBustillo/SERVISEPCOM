@@ -16,7 +16,7 @@ class CompraDetallesController extends Controller
   
         if($request->buscar != null && $request->buscar != ''){
           $buscar = $request->buscar;          
-        }
+        } 
 
 
         $inventario =  DB::table('compra_detalles')
@@ -32,7 +32,7 @@ class CompraDetallesController extends Controller
         ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")
         ->orWhere("compra_detalles.Marca","like","%".$buscar."%")
         ->groupBy("products.id")
-        ->paginate(10);
+        ->get();
   
         return view('Inventario.Inventario')->with('inventario', $inventario)->with('buscar',$buscar);
     }
