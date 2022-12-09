@@ -8,6 +8,7 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\CompraDetallesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\MantenimientoController;
+use App\Http\Controllers\ReparacionController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,11 @@ Route::put('/cliente/{id}/editar', [ClienteController::class, 'actu'])-> name('c
 /*Registro de cliente*/ 
 Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('cliente.crear');
 Route::post('/guardarClienteMantenimiento', [ClienteController::class, 'guardarClienteMantenimiento'])->name('guardarClienteMantenimiento.guardar');
+
+
+Route::get('/Clientess/crear', [ClienteController::class, 'create'])->name('cliente.crear');
+
+Route::post('/guardarClienteReparacion', [ClienteController::class, 'guardarClienteReparacion'])->name('guardarClienteReparacion.guardar');
 
 
 
@@ -208,7 +214,7 @@ Route::post('/guardarProductoModal', [ProductController::class, 'guardarProducto
 
 /*
 |--------------------------------------------------------------------------
-|  RUTAS PARA servicios
+|  RUTAS PARA MANTENIMIENTO 
 |--------------------------------------------------------------------------
 */
 
@@ -220,10 +226,35 @@ Route::post('/mantenimiento', [MantenimientoController::class, 'guardar'])->name
 
 Route::get('/ListadoMantenimiento',[MantenimientoController::class, 'index'])->name('mantenimiento.index');
 Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar');
+//Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar'); se le quito el id 
+
+
 Route::post('/actualizarMantenimiento',[MantenimientoController::class, 'actualizarMantenimiento'])->name('actualizarMantenimiento.update');
+Route::post('/guardarFacturaMantenimiento',[MantenimientoController::class, 'guardarFacturaMantenimiento'])->name('guardarFacturaMantenimiento.update');
 // Route::post('/ListadoMantenimiento',[MantenimientoController::class, 'index'])->name('mantenimiento.index');
 
 /*Para mostrar la infomarcion de cada mantenimiento*/
 Route::get('/mantenimientos/{id}', [MantenimientoController::class, 'detallemantenimento'])
 ->name('mantenimientos.ver')
 ->where('id', '[0-9]+');
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA REPARACION
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/reparacion',[ReparacionController::class, 'reparacion'])->name('RegistroReparacion');
+
+Route::get('/ListadoReparacion',[ReparacionController::class, 'index'])->name('reparacion.index');
+
+
+Route::post('/reparacion', [ReparacionController::class, 'guardar'])->name('show.registroReparacion');
+Route::get('/reparacion/{id}',[ReparacionController::class, 'mostrar'])->name('reparacion.mostrar');
+Route::post('/actualizarReparacion',[ReparacionController::class, 'actualizarReparacion'])->name('actualizarReparacion.update');
+
+//Route::get('/reparacion/{id}',[ReparacionController::class, 'mostrar'])->name('reparacion.mostrar');
+Route::get('/repaciones/{id}', [ReparacionController::class, 'detallereparacion'])->name('repacionones.ver')->where('id', '[0-9]+');
+Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFacturaReparacion'])->name('guardarFacturaReparacion.update');
