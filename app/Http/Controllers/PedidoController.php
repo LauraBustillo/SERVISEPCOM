@@ -129,6 +129,7 @@ class PedidoController extends Controller
         ->where('pedidos.id', '=',$id)
         ->first();
 
+
         $detalles_pedido = DetallesPedido::select('products.Nombre_producto','products.Marca','products.Descripcion','detalles_pedidos.*')
         ->join('products', 'products.id', '=', 'detalles_pedidos.id_producto')
         ->where('numero_pedido','=',$pedido->numero_pedido)->get();
@@ -151,13 +152,24 @@ class PedidoController extends Controller
         $dp = new DetallesPedido();
         $dp->id_detallepedido = $detalle['id_detallepedido'];
         $dp->numero_pedido = $detalle['numero_pedido'];
-        $dp->id_producto = $detalle['id'];
+        $dp->id_producto = $detalle['id_producto'];
         $dp->proveedor_id = $detalle['proveedor_id'];
         $dp->Cantidad = $detalle['Cantidad'];
         $dp->estado = 0;
         $saved = $dp->save();
         echo $saved;
     }
+
+    public function actualizarDetallePedido(Request $request)
+    {
+        $actu =   DB::select(DB::raw("UPDATE detalles_pedidos SET
+        Cantidad = '".$request->data['nuevacantidad']."'
+        WHERE id_detallepedido = '".$request->data['iddetalleactualizar']."'
+       "));
+       
+       return $actu;
+    }
+    
     public function eliminarDetallePedido(Request $request)
     {
         DetallesPedido::where('id_detallepedido',$request->data)->delete();  
@@ -186,6 +198,8 @@ class PedidoController extends Controller
         ->join('proveedors', 'proveedors.id', '=', 'pedidos.id_proveedor')
         ->where('pedidos.id', '=',$id)
         ->first();
+
+        // return $pedido->numero_pedido; 
         $detalles_pedido = DetallesPedido::select('products.Nombre_producto','products.Marca','products.Descripcion','detalles_pedidos.*')
         ->join('products', 'products.id', '=', 'detalles_pedidos.id_producto')
         ->where('numero_pedido','=',$pedido->numero_pedido)->get();
