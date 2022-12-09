@@ -100,7 +100,7 @@
   </table>
 
   <a class="btn btn-outline-dark" href="{{route('compra.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
-  <a class="btn btn-outline-dark" href="{{route('comprasEdit', ['id'=>$factura->id])}}"> <i class="bi bi-pen-fill"> Editar </i></a>
+  {{-- <a class="btn btn-outline-dark" href="{{route('comprasEdit', ['id'=>$factura->id])}}"> <i class="bi bi-pen-fill"> Editar </i></a>--}}
   
 
   <script>
