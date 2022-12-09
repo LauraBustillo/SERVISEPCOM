@@ -43,11 +43,11 @@ class ClienteController extends Controller
           public function agg(Request $request){
 
             $rules= ([
-              'Nombre' =>'required|min:3|max:25',
-              'Apellido' =>'required|min:4|max:25',
-              'Numero_identidad' =>'required|unique:clientes|regex:([0-1][0-8][0-2][0-9]{10})|max:13',
+              'Nombre' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+              'Apellido' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+              'Numero_identidad' =>'required|unique:clientes|regex:([0-1][0-8][0-2][0-9]{10})|min:13',
               'Numero_telefono' => 'required|unique:clientes|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
-              'Direccion' =>'required',
+              'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
 
             ]);
             
@@ -57,19 +57,27 @@ class ClienteController extends Controller
            'Nombre.required'=>'El nombre del cliente es obligatorio' ,
            'Nombre.min'=>'El nombre debe tener minimo 3 letras' ,
            'Nombre.max'=>'El nombre no debe de tener más de 25 letras' ,
-           'Nombre.is_string'=>'Este campo solo debe de contener letras',
+           'Nombre.regex'=>'El nombre del cliente solo puede tener letras' ,
 
 
           'Apellido.required'=>'El apellido del cliente es obligatorio' ,
           'Apellido.min'=>'El apellido debe tener minimo 4 letras' ,
           'Apellido.max'=>'El apellido  no debe de tener más de 25 letras' ,
+          'Apellido.regex'=>'El apellido del cliente solo puede tener letras' ,
 
           'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
           'Numero_identidad.numeric'=>'El número de identidad solo debe contener números' ,
+          'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
+          'Numero_identidad.regex'=>'El número de identidad debe empezar con 0 o 1 ',
           'Numero_identidad.min'=>'El número de identidad debe minimo tener 13 números' ,
           'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
-          'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
-          'Numero_identidad.regex'=>'deebe empezar con 0 o 1 ' ,
+         
+          
+
+          'Direccion.required'=>'La dirección del cliente es obligatoria' ,
+           'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
+           'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
+           'Direccion.regex'=>'La dirección solo puede tener letras' ,
           ]);
 
           $this->validate($request, $rules, $mesaje);
@@ -123,4 +131,46 @@ if ($agregar){
     
   }
 }
+
+
+function guardarClienteMantenimiento(Request $request){
+
+  // aqui no lleva validacion, porque la hacemos en javascript
+  // aqui obtnemos el valor de request con $request->data, por que se envio con $.ajax
+  $agregar = new Cliente();
+  $agregar -> Nombre = $request->data['nombre_cliente'];
+  $agregar -> Apellido = $request->data['apellido_cliente'];
+  $agregar -> Numero_identidad = $request->data['identidad_cliente'];
+  $agregar -> Numero_telefono = $request->data['telefono_cliente'];
+  $agregar -> Direccion = $request->data['direccion_cliente'];
+  $agregar1=  $agregar->save();
+
+  // retornamos el ultimo cliente anadido, osea el que acabamos de guardar
+  $ultimocliente =DB::table('clientes')->latest('id')->first();  
+  return  $ultimocliente;
+
+
+}
+
+
+function guardarClienteReparacion(Request $request){
+
+  // aqui no lleva validacion, porque la hacemos en javascript
+
+  $agregar = new Cliente();
+  $agregar -> Nombre = $request->data['nombre_cliente'];
+  $agregar -> Apellido = $request->data['apellido_cliente'];
+  $agregar -> Numero_identidad = $request->data['identidad_cliente'];
+  $agregar -> Numero_telefono = $request->data['telefono_cliente'];
+  $agregar -> Direccion = $request->data['direccion_cliente'];
+  $agregar1=  $agregar->save();
+
+  $ultimocliente =DB::table('clientes')->latest('id')->first();  
+  // $clientes =DB::table('clientes')->orderBy('id','DESC')->get();
+  return  $ultimocliente;
+
+
+}
+
+
 }
