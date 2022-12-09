@@ -146,7 +146,7 @@ a { color: aliceblue;
             <div class="col" style="padding-left:15%" > 
                 
                 <input type="hidden" style="width: 70%"   minlength="1" maxlength="1" name="Cantidad" id="Cantidad" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" required title=" Solo debe tener números."  value="0"  readonly  pattern="[0-9]+" 
+                aria-describedby="inputGroup-sizing-sm" required title=" Solo debe tener números."  null readonly  pattern="[0-9]+" 
                value="{{old('Cantidad')}}">
             </div>
         
