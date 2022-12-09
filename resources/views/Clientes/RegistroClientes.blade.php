@@ -72,13 +72,13 @@ a { color: aliceblue;
 {{-- Nombre , Apellidos --}}
 <div class="row g-3">
   <div class="col">
-  <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
+  <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  class="form-control" 
   title="Solo debe tener letras" 
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido"  
-    pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
+    <input type="text" maxlength="25" id="Apellido" name="Apellido"  
+     class="form-control" title="Solo debe tener letras" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
@@ -89,15 +89,15 @@ a { color: aliceblue;
 <div class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"  minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control" 
-    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-  title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
+  <input type="text" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control" 
+    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
    placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
   
 </div> 
   <div class="col" style="padding-left:2%"  > 
   <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
-  <input type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+  <input type="text" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" 
+  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
   title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
@@ -107,7 +107,7 @@ a { color: aliceblue;
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
 <span class="input-group-text"  style="width: 70%">Dirección</span>
-  <textarea minlength="10" maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
+  <textarea  maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
    rows="3" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
 </div>
 
