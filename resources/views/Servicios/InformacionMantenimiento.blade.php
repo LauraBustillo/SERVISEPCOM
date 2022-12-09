@@ -80,6 +80,11 @@
                 <td>Modelo</td>
                 <td>{{$detalle->modelo}}</td>
             </tr>
+
+            <tr>
+                <td>Descripción</td>
+                <td>{{$detalle->descripcionm}}</td>
+            </tr>
             <tr>
                 <td>Fecha ingreso</td>
                 <td>{{$detalle->fecha_ingreso}}</td>
