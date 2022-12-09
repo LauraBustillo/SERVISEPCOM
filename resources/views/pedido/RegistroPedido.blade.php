@@ -128,7 +128,8 @@
             </div> &nbsp;&nbsp;
             <div style="width: 15%">
                 <label  >Fecha pedido</label> 
-                <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control" placeholder="Fecha del pedido"  date_default_timezone_set();>
+                <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control" placeholder="Fecha del pedido" 
+                >
             </div>
    
 
@@ -267,6 +268,7 @@
   document.getElementById('prov_correo').value = proveedor.Correo
   document.getElementById('prov_telefono').value = proveedor.Telefono_encargado
   document.getElementById('prov_nombre_empresa').value = proveedor.Nombre_empresa
+  console.log(pedido.fecha_pedido);
   document.getElementById('fecha_pedido').value = pedido.fecha_pedido 
   document.getElementById('numero_pedido').value = pedido.numero_pedido 
   document.getElementById('fecha_recibido_pedido').value = pedido.fecha_recibido 
@@ -297,7 +299,23 @@
             hacerselectproductosproveedor(productosprov);      
           }
       })
+ }else{
+  //Funcion para establecer fecha actual en la fecha de contrato, solo si estamos agregando pedido
+  // NO EDITANDO
+  window.onload = function(){
+      var fecha = new Date(); //Fecha actual
+      var mes = fecha.getMonth()+1; //obteniendo mes
+      var dia = fecha.getDate(); //obteniendo dia
+      var ano = fecha.getFullYear(); //obteniendo año
+      if(dia<10)
+        dia='0'+dia; //agrega cero si el menor de 10
+      if(mes<10)
+        mes='0'+mes //agrega cero si el menor de 10
+      document.getElementById('fecha_pedido').value= ano+"-"+mes+"-"+dia;
+    }
  }
+
+
  var producto = "nada";
 
  dibujarTablaDetalles();
@@ -662,19 +680,6 @@
       return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
           (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       );
-  }
-
-//Funcion para establecer fecha actual en la fecha de contrato
-window.onload = function(){
-    var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
-    var dia = fecha.getDate(); //obteniendo dia
-    var ano = fecha.getFullYear(); //obteniendo año
-    if(dia<10)
-      dia='0'+dia; //agrega cero si el menor de 10
-    if(mes<10)
-      mes='0'+mes //agrega cero si el menor de 10
-    document.getElementById('fecha_pedido').value= ano+"-"+mes+"-"+dia;
   }
 
 </script>
