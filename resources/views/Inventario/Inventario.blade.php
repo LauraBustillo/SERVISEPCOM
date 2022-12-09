@@ -164,7 +164,7 @@ width: 50% !important;
          <th scope="col">Provedor</th>
          <th scope="col">Cantidad</th>
          <th scope="col">Categoría</th>
-         <th scope="col">Detalles</th>  
+         <th scope="col">Detalles inventario</th>  
          </tr>
          </thead>
  
@@ -233,6 +233,8 @@ width: 50% !important;
         extend:    'print',
         text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
         titleAttr: 'Imprimir',
+        title:'Reporte de listado de inventario ',
+
         
      
         
@@ -249,7 +251,7 @@ width: 50% !important;
    titleAttr: 'Archivo PDF',
    orientation: 'portrait',
    pageSize: 'A4',
-   title: 'Reporte de inventario',
+   title:'Reporte de listado de inventario ',
    exportOptions: { columns: [0, 1, 2, 3,4] ,
   
     
@@ -301,7 +303,6 @@ exportOptions: { columns: [0, 1, 2, 3,4] }
  </script>
 
 
- {{ $inventario->links()}} 
 @endsection
 @include('common')
 
