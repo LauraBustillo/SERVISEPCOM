@@ -238,7 +238,7 @@ $(document).ready(function() {
             <th scope="col">Fecha pedido</th>
             <th scope="col">Fecha recibido</th>
             <th scope="col">Estado</th>
-            <th scope="col">Detalles</th>
+            <th scope="col">Detalles pedidos</th>
             <th scope="col">Editar pedido</th>
         </tr>
         </thead>
