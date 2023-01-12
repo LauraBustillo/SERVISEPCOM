@@ -77,13 +77,11 @@ a { color: aliceblue;
 <div class="row g-3">
   <div class="col">
 
-    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  pattern="[A-ZÑ a-zñ]+" class="form-control" 
-     title="Solo debe tener letras" placeholder="Nombres" 
-    aria-label="First name" value="{{old('Nombres')}}">
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  class="form-control" 
+    placeholder="Nombres" aria-label="First name" value="{{old('Nombres')}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-     title="Solo debe tener letras"
+    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" class="form-control" 
      placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
 
   </div>
@@ -94,9 +92,8 @@ a { color: aliceblue;
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"  minlength="13"  maxlength="13" name="Numero_identidad" id="Numero_identidad"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  
-  title="Debe comenzar con 0 o 1, debe tener 13 caracteres y solo numeros" 
-   pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
+  <input type="text"   maxlength="13" name="Numero_identidad" id="Numero_identidad"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"   
+   placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
   </div> 
 
   {{-- Fecha de nacimiento --}}
@@ -110,8 +107,7 @@ a { color: aliceblue;
 <div class="col"style="padding-left: 4%"> 
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input"
-   aria-describedby="inputGroup-sizing-sm" title="Primer digito (2, 3, 8 o 9) y solo debe tener números."  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+" 
-    placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+   aria-describedby="inputGroup-sizing-sm" placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
 <br>
@@ -120,7 +116,7 @@ a { color: aliceblue;
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
   <input type="date"  name="Fecha_contrato" id="fechaActual"  aria-label="First name" class="form-control"   placeholder="Fecha de contrato" value="{{old('Fecha_nacimiento')}}"  max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set(); >
-  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"   title="Este campo solo debe contener numeros"   pattern="[0-9]+"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio"   aria-label="Last name" class="form-control"  placeholder=" Salario Lps." value="{{old('Salrio')}}">
 </div>
 
 
@@ -154,44 +150,6 @@ a { color: aliceblue;
       mes='0'+mes //agrega cero si el menor de 10
     document.getElementById('fechaActual').value= ano+"-"+mes+"-"+dia;
   }
-
-
-
-
-//validaciones     
-function confirmar() {
-if (document.getElementById("Nombres").value == '') {
-      alertify.error("El nombre es requerido");
-      return;
-}    
-
-if (document.getElementById("Apellidos").value == '' ) {
-      alertify.error("El apellido es requerido");
-      return;
-} 
-
-
-if (document.getElementById("Numero_identidad").value == '') {
-      alertify.error("El número de identidad es requerido");
-      return;
-} 
-
-if (document.getElementById("Fecha_nacimiento").value == '') {
-      alertify.error("La fecha de nacimiento es requerida");
-      return;
-} 
-
-if (document.getElementById("Numero_telefono").value == '') {
-      alertify.error("El número teléfono es requerido");
-      return;
-} 
-
-if (document.getElementById("Salrio").value == '') {
-      alertify.error("El salario es requerido");
-      return;
-}
-
-}
 
 
   </script>

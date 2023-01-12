@@ -48,15 +48,15 @@ a { color: aliceblue;
 </style>
 
 {{-- Mensaje de editar (error)--}}
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<script>
+  var errores = []
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  if(errores.length > 0){
+    errores.forEach(element => {
+      alertify.error(element)
+    });   
+  }
+</script>
 
 <form class="form-control" id="form_editarC" name="form_editarC"  method="POST" style="text-align: center;" onsubmit="confirmar()" >
 @method('put')
@@ -72,13 +72,15 @@ a { color: aliceblue;
 {{-- Nombre , Apellido --}}
 <div class="row g-3">
     <div class="col">
-    <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control" id="Nombre" name="Nombre" aria-label="First name" 
-    value="{{old('Nombre',$modificar->Nombre)}}">
+    <input type="text" minlength="3" maxlength="25"  id="Nombre" name="Nombre" pattern="[A-ZÑ a-zñ]+" 
+     class="form-control" id="Nombre" name="Nombre" aria-label="First name" 
+    placeholder="Nombres" value="{{old('Nombre',$modificar->Nombre)}}">
 </div>
 
 <div class="col">
 
-    <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-ZÑ a-zñ]+" required title="Este campo solo debe de contener letras" class="form-control"  aria-label="Last name"
+    <input type="text" minlength="4" maxlength="25" id="Apellido" name="Apellido" pattern="[A-ZÑ a-zñ]+"
+    class="form-control"  aria-label="Last name" placeholder="Apellidos"
     Value="{{old('Apellido',$modificar->Apellido)}}">
     </div>
 </div>
@@ -93,7 +95,7 @@ a { color: aliceblue;
   <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
   <input type="text" minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad" 
   class="form-control"  name="Numero_identidad" id="Numero_identidad" aria-label="Sizing example input" 
-  aria-describedby="inputGroup-sizing-sm" required title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})" pattern="[0-9]+"  placeholder="Eje. 0000000000000" 
+  aria-describedby="inputGroup-sizing-sm"   placeholder="Eje. 0000000000000" 
   Value="{{old('Numero_identidad', $modificar->Numero_identidad)}}">
 </div> 
 
@@ -102,7 +104,7 @@ a { color: aliceblue;
   <input type="text" minlength="8" maxlength="8" name="Numero_telefono" 
   id="Numero_telefono" class="form-control" name="Numero_telefono" 
   id="Numero_telefono" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-   required  title="Solo debe tener números"  pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"  placeholder="Eje. 00000000"
+  placeholder="Eje. 00000000"
   Value="{{old('Numero_telefono',$modificar->Numero_telefono)}}">
 </div>
 </div>
@@ -110,8 +112,9 @@ a { color: aliceblue;
 
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
+  <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea class="form-control" minlength="10" maxlength="150"  name="Direccion"  id="Direccion"
-   style="width: 70%" id="exampleFormControlTextarea1" rows="3" placeholder="Dirección exacta">
+   style="width: 70%" id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese la dirección exacta del domicilio">
   {{old('Direccion',$modificar->Direccion)}} </textarea>
 </div>
 

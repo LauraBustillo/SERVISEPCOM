@@ -52,12 +52,12 @@ class ClienteController extends Controller
             ]);
             
   
-           $mesaje=([
+          $mesaje=([
 
-           'Nombre.required'=>'El nombre del cliente es obligatorio' ,
-           'Nombre.min'=>'El nombre debe tener minimo 3 letras' ,
-           'Nombre.max'=>'El nombre no debe de tener más de 25 letras' ,
-           'Nombre.regex'=>'El nombre del cliente solo puede tener letras' ,
+          'Nombre.required'=>'El nombre del cliente es obligatorio' ,
+          'Nombre.min'=>'El nombre debe tener minimo 3 letras' ,
+          'Nombre.max'=>'El nombre no debe de tener más de 25 letras' ,
+          'Nombre.regex'=>'El nombre del cliente solo puede tener letras' ,
 
 
           'Apellido.required'=>'El apellido del cliente es obligatorio' ,
@@ -72,12 +72,17 @@ class ClienteController extends Controller
           'Numero_identidad.min'=>'El número de identidad debe minimo tener 13 números' ,
           'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
          
-          
+          'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
+          'Numero_telefono.numeric'=>'El número de teléfono solo debe contener números' ,
+          'Numero_telefono.unique'=>'El número de teléfono ya ha sido usado' ,
+          'Numero_telefono.regex'=>'El número de teléfono debe empezar con 2,3,8 o 9 ',
+          'Numero_telefono.min'=>'El número de teléfono debe minimo tener 8 números' ,
+          'Numero_telefono.max'=>'El número de teléfono debe  tener 8 números' ,
 
           'Direccion.required'=>'La dirección del cliente es obligatoria' ,
-           'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
-           'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
-           'Direccion.regex'=>'La dirección solo puede tener letras' ,
+          'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
+          'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
+          'Direccion.regex'=>'La dirección solo puede tener letras' ,
           ]);
 
           $this->validate($request, $rules, $mesaje);
@@ -107,13 +112,51 @@ class ClienteController extends Controller
 
 public function actu (Request $request, $id){
 
-$request->validate([
-    'Nombre' =>'required',
-    'Apellido' =>'required',
-    'Numero_identidad' =>"required|numeric|unique:clientes,Numero_identidad, $id",
-    'Numero_telefono' => "required|numeric|unique:clientes,Numero_telefono, $id",
-    'Direccion' =>'required',
-  ]); 
+
+
+  $rules= ([
+    'Nombre' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25",
+    'Apellido' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25",
+    'Numero_identidad' =>"required|regex:([0-1][0-8][0-2][0-9]{10})|min:13|unique:clientes,Numero_identidad, $id",
+    'Numero_telefono' => "required|regex:([9,8,3,2]{1}[0-9]{7})|max:8|unique:clientes,Numero_telefono, $id",
+    'Direccion' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25",
+
+  ]);
+
+  $mesaje=([
+
+    'Nombre.required'=>'El nombre del cliente es obligatorio' ,
+    'Nombre.min'=>'El nombre debe tener minimo 3 letras' ,
+    'Nombre.max'=>'El nombre no debe de tener más de 25 letras' ,
+    'Nombre.regex'=>'El nombre del cliente solo puede tener letras' ,
+
+
+    'Apellido.required'=>'El apellido del cliente es obligatorio' ,
+    'Apellido.min'=>'El apellido debe tener minimo 4 letras' ,
+    'Apellido.max'=>'El apellido  no debe de tener más de 25 letras' ,
+    'Apellido.regex'=>'El apellido del cliente solo puede tener letras' ,
+
+    'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
+    'Numero_identidad.numeric'=>'El número de identidad solo debe contener números' ,
+    'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
+    'Numero_identidad.regex'=>'El número de identidad debe empezar con 0 o 1 ',
+    'Numero_identidad.min'=>'El número de identidad debe minimo tener 13 números' ,
+    'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
+   
+    'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
+    'Numero_telefono.numeric'=>'El número de teléfono solo debe contener números' ,
+    'Numero_telefono.unique'=>'El número de teléfono ya ha sido usado' ,
+    'Numero_telefono.regex'=>'El número de teléfono debe empezar con 2,3,8 o 9 ',
+    'Numero_telefono.min'=>'El número de teléfono debe minimo tener 8 números' ,
+    'Numero_telefono.max'=>'El número de teléfono debe  tener 8 números' ,
+
+    'Direccion.required'=>'La dirección del cliente es obligatoria' ,
+    'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
+    'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
+    'Direccion.regex'=>'La dirección solo puede tener letras' ,
+    ]);
+
+    $this->validate($request, $rules, $mesaje);
         
   $actu = Cliente::find($id);
 

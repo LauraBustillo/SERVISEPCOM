@@ -58,11 +58,11 @@ class EmpleadoController extends Controller
         public function agg (Request $request){
 
             $rules = ([
-            'Nombres' =>'required|min:3|max:25',
-            'Apellidos' =>'required|min:4|max:25',
-            'Numero_identidad' =>'required|unique:empleados|regex:([0-1][0-8][0-2][0-9]{10})|max:13',
+            'Nombres' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+            'Apellidos' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+            'Numero_identidad' =>'required|unique:empleados|regex:([0-1][0-8][0-2][0-9]{10})|min:13',
             'Fecha_nacimiento' =>'required',
-            'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
+            'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
             'Salrio' => 'required|numeric',
             'Fecha_contrato' => 'required',
             'Direccion' =>'required',
@@ -70,32 +70,32 @@ class EmpleadoController extends Controller
 
            $mesaje=([
 
-            'Nombres.required'=>'El primer nombre del empleado es obligatorio' ,
-            'Nombres.min'=>'El primer nombre debe tener minimo 3 letras' ,
-            'Nombres.max'=>'El nombre no debe de tener más de 25 letras' ,
+            'Nombres.required'=>'El nombre del empleado es obligatorio' ,
+            'Nombres.regex'=>'El nombre del empleado solo puede tener letras' ,
+            'Nombres.min'=>'El nombre del empleado debe tener minimo 3 letras' ,
+            'Nombres.max'=>'El nombre del empleado no debe de tener más de 25 letras',
 
-
-            'Apellidos.required'=>'El primer apellido del empleado es obligatorio' ,
-            'Apellidos.min'=>'El apellido debe tener minimo 4 letras' ,
-            'Apellidos.max'=>'El apellido  no debe de tener más de 25 letras' ,
+            'Apellidos.required'=>'El apellido del empleado es obligatorio' ,
+            'Apellidos.regex'=>'El apellido del empleado solo puede tener letras' ,
+            'Apellidos.min'=>'El apellido del empleado debe tener minimo 4 letras' ,
+            'Apellidos.max'=>'El apellido del empleado no debe de tener más de 25 letras' ,
 
             
             'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
-            'Numero_identidad.numeric'=>'El número de identidad solo debe contener números' ,
-            'Numero_identidad.min'=>'El número de identidad debe minimo tener 13 números' ,
-            'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
             'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
-            'Numero_identidad.regex'=>'' ,
+            'Numero_identidad.min'=>'El número de identidad debe tener minimo 13 números' ,
+            'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
+            'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1 ' ,
         
-            'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatorio' ,
-           
+            'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatoria' ,
         
             'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
-            'Numero_telefono.numeric'=>'El número de  teléfono solo debe contener números' ,
             'Numero_telefono.min'=>'El número de teléfono debe  tener minimo 8 números' ,
             'Numero_telefono.max'=>'El número de teléfono debe  tener máximo  8 números' ,
             'Numero_telefono.unique'=>'El número de teléfono ya ha sido usado' ,
-            'Numero_telefono.regex'=>'El teléfono debe de empezar con 9, 8 o 3' ,
+            'Numero_telefono.regex'=>'El teléfono solo debe contener números y empezar con 9, 8 o 3' ,
+
+            'Fecha_contrato.required'=>'La fecha de contrato es obligatoria' ,
 
             'Salrio.required'=>'El salario es obligatorio' ,
             'Salrio.numeric'=>'El salario solo debe contener números' ,
@@ -139,20 +139,55 @@ class EmpleadoController extends Controller
   }
   
       public function actu (Request $request, $id){
-
-      $request->validate([
-          'Nombres' =>'required',
-          'Apellidos' =>'required',
-          'Numero_identidad' =>"required|numeric|unique:empleados,Numero_identidad, $id",
-          'Fecha_nacimiento' =>'required|date',
-          'Numero_telefono' => "required|numeric|unique:empleados,Numero_telefono, $id",
+        $rules = ([
+          'Nombres' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+          'Apellidos' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+          'Numero_identidad' =>"required|regex:([0-1][0-8][0-2][0-9]{10})|min:13|unique:empleados,Numero_identidad, $id",
+          'Fecha_nacimiento' =>'required',
+          'Numero_telefono' =>"required|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8|unique:empleados,Numero_telefono, $id",
           'Salrio' => 'required|numeric',
-          'Fecha_contrato' => 'required|date',
+          'Fecha_contrato' => 'required',
           'Direccion' =>'required',
         ]); 
 
+         $mesaje=([
+
+          'Nombres.required'=>'El nombre del empleado es obligatorio' ,
+          'Nombres.regex'=>'El nombre del empleado solo puede tener letras' ,
+          'Nombres.min'=>'El nombre del empleado debe tener minimo 3 letras' ,
+          'Nombres.max'=>'El nombre del empleado no debe de tener más de 25 letras',
+
+          'Apellidos.required'=>'El apellido del empleado es obligatorio' ,
+          'Apellidos.regex'=>'El apellido del empleado solo puede tener letras' ,
+          'Apellidos.min'=>'El apellido del empleado debe tener minimo 4 letras' ,
+          'Apellidos.max'=>'El apellido del empleado no debe de tener más de 25 letras' ,
+
+          
+          'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
+          'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
+          'Numero_identidad.min'=>'El número de identidad debe tener minimo 13 números' ,
+          'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
+          'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1 ' ,
+      
+          'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatoria' ,
+      
+          'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
+          'Numero_telefono.min'=>'El número de teléfono debe  tener minimo 8 números' ,
+          'Numero_telefono.max'=>'El número de teléfono debe  tener máximo  8 números' ,
+          'Numero_telefono.unique'=>'El número de teléfono ya ha sido usado' ,
+          'Numero_telefono.regex'=>'El teléfono solo debe contener números y empezar con 9, 8 o 3' ,
+
+          'Fecha_contrato.required'=>'La fecha de contrato es obligatoria' ,
+
+          'Salrio.required'=>'El salario es obligatorio' ,
+          'Salrio.numeric'=>'El salario solo debe contener números' ,
+
+          'Direccion.required'=>'La dirección es obligatoria' ,
+      
+          
+          ]);
         
-       
+          $this->validate($request, $rules, $mesaje);
               
         $actu = Empleado::find($id);
 
