@@ -813,14 +813,16 @@ switchestado.addEventListener('change', function(element) {
     document.getElementById("factura_form_rep").style.display = "block";  
     document.getElementById('labelswitchestado_rep').innerHTML = "Finalizado";      
   }else{
+    
     // en caso de ser falso
     // ocualtaremos la seccion 
     // y le colocaremos pendiente al label
     document.getElementById("factura_form_rep").style.display = "none";
     document.getElementById('labelswitchestado_rep').innerHTML = "Pendiente";
   }
+  
 });
-} 
+}   
 
 function fecha(){
     var fechaingreso = document.getElementById("fecha_ingreso").value 
