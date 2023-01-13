@@ -85,7 +85,7 @@ class EmpleadoController extends Controller
             'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
             'Numero_identidad.min'=>'El número de identidad debe tener minimo 13 números' ,
             'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
-            'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1 ' ,
+            'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1',
         
             'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatoria' ,
         
@@ -93,7 +93,7 @@ class EmpleadoController extends Controller
             'Numero_telefono.min'=>'El número de teléfono debe  tener minimo 8 números' ,
             'Numero_telefono.max'=>'El número de teléfono debe  tener máximo  8 números' ,
             'Numero_telefono.unique'=>'El número de teléfono ya ha sido usado' ,
-            'Numero_telefono.regex'=>'El teléfono solo debe contener números y empezar con 9, 8 o 3' ,
+            'Numero_telefono.regex'=>'El teléfono solo debe contener números y empezar con 2, 3, 8 o 9',
 
             'Fecha_contrato.required'=>'La fecha de contrato es obligatoria' ,
 

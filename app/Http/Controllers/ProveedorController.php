@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use DB;
-
+ 
 class ProveedorController extends Controller
 {
 
@@ -45,12 +45,12 @@ class ProveedorController extends Controller
  public function agg (Request $request){
 
      $rules = ([
-     'Nombre_empresa'=>'required|min:3|max:25',
-     'Direccion' =>'required',
+     'Nombre_empresa'=>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:50',
      'Correo'=>'required|email|unique:proveedors|max:30',
-     'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
-     'Nombre_encargado' =>'required|min:3|max:25',
-     'Apellido_encargado' =>'required|min:4|max:25',
+     'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|max:8',
+     'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/',
+     'Nombre_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+     'Apellido_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/min:4|max:25',
      'Telefono_encargado' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
       
    ]); 
@@ -60,9 +60,8 @@ class ProveedorController extends Controller
      'Nombre_empresa.required'=>'El nombre de la empresa es obligatorio' ,
      'Nombre_empresa.min'=>'El nombre de la empresa debe tener minimo 3 letras' ,
      'Nombre_empresa.max'=>'El nombre de la empresa no debe de tener más de 25 letras' ,
+     'Nombre_empresa.regex'=>'El nombre de la empresa solo puede tener letras' ,
 
-     'Direccion.required'=>'La dirección es obligatoria' ,
- 
      'Correo.required'=>'El correo es obligatorio' ,
      'Correo.unique'=>'El correo ya ha sido usado' ,
      'Correo.max'=>'El correo no debe tener más de 30 caracteres' ,
@@ -72,23 +71,28 @@ class ProveedorController extends Controller
      'Telefono_empresa.min'=>'El número de teléfono debe  tener minimo 8 números' ,
      'Telefono_empresa.max'=>'El número de teléfono debe  tener máximo  8 números' ,
      'Telefono_empresa.unique'=>'El número de teléfono de la empresa ya ha sido usado' ,
-     'Telefono_empresa.regex'=>'El teléfono debe de empezar con 9, 8 o 3' ,
+     'Telefono_empresa.regex'=>'El teléfono de la empresa solo debe contener números y empezar con 2, 3, 8 o 9',
+
+     'Direccion.required'=>'La dirección es obligatoria' ,
 
      'Nombre_encargado.required'=>'El nombre del encargado es obligatorio' ,
      'Nombre_encargado.min'=>'El nombre del encargado  debe tener minimo 3 letras' ,
      'Nombre_encargado.max'=>'El nombre del encargado  no debe de tener más de 25 letras' ,
- 
+     'Nombre_encargado.regex'=>'El nombre del encargado solo puede tener letras' ,
 
      'Apellido_encargado.required'=>'El apellido del encargado es obligatorio' ,
      'Apellido_encargado.min'=>'El apellido debe tener minimo 4 letras' ,
      'Apellido_encargado.max'=>'El apellido  no debe de tener más de 25 letras' ,
+     'Apellido_encargado.regex'=>'El apellido del encargado solo puede tener letras' ,
+
  
      'Telefono_encargado.required'=>'El número de teléfono del encargado es obligatorio' ,
      'Telefono_encargado.numeric'=>'El número de  teléfono solo debe contener números' ,
      'Telefono_encargado.min'=>'El número de teléfono debe  tener minimo 8 números' ,
      'Telefono_encargado.max'=>'El número de teléfono debe  tener máximo  8 números' ,
      'Telefono_encargado.unique'=>'El número de teléfono del encargado ya ha sido usado' ,
-     'Telefono_encargado.regex'=>'El teléfono debe de empezar con 9, 8 o 3' ,
+     'Telefono_encargado.regex'=>'El teléfono del encargado solo debe contener números y empezar con 2, 3, 8 o 9',
+
      ]);
  
      $this->validate($request, $rules, $mesaje);
@@ -123,16 +127,57 @@ public function actualizar($id){
 
 public function actu (Request $request, $id){
 
-$request->validate([
-
- 'Nombre_empresa'=>'required|min:3|max:25',
+$rules= ([
+  'Nombre_empresa'=>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:50',
   'Direccion' =>'required',
   'Correo'=>"required|email|unique:proveedors,Correo, $id",
-  'Telefono_empresa' => "required|numeric|unique:proveedors,Telefono_empresa, $id",
-  'Nombre_encargado' =>'required|min:3|max:25',
-  'Apellido_encargado' =>'required|min:4|max:25',
-  'Telefono_encargado' => "required|numeric|unique:proveedors,Telefono_encargado, $id",
+  'Telefono_empresa' => "required|regex:([9,8,3,2]{1}[0-9]{7})|max:8'|unique:proveedors,Telefono_empresa, $id",
+  'Nombre_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+  'Apellido_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+  'Telefono_encargado' => "required|regex:([9,8,3,2]{1}[0-9]{7}) |max:8'|unique:proveedors,Telefono_encargado, $id",
 ]); 
+
+$mesaje=([
+
+  'Nombre_empresa.required'=>'El nombre de la empresa es obligatorio' ,
+  'Nombre_empresa.min'=>'El nombre de la empresa debe tener minimo 3 letras' ,
+  'Nombre_empresa.max'=>'El nombre de la empresa no debe de tener más de 25 letras' ,
+  'Nombre_empresa.regex'=>'El nombre de la empresa solo puede tener letras' ,
+
+  'Correo.required'=>'El correo es obligatorio' ,
+  'Correo.unique'=>'El correo ya ha sido usado' ,
+  'Correo.max'=>'El correo no debe tener más de 30 caracteres' ,
+
+  'Telefono_empresa.required'=>'El número de teléfono de la empresa es obligatorio' ,
+  'Telefono_empresa.numeric'=>'El número de  teléfono solo debe contener números' ,
+  'Telefono_empresa.min'=>'El número de teléfono debe  tener minimo 8 números' ,
+  'Telefono_empresa.max'=>'El número de teléfono debe  tener máximo  8 números' ,
+  'Telefono_empresa.unique'=>'El número de teléfono de la empresa ya ha sido usado' ,
+  'Telefono_empresa.regex'=>'El teléfono de la empresa solo debe contener números y empezar con 2, 3, 8 o 9',
+
+  'Direccion.required'=>'La dirección es obligatoria' ,
+
+  'Nombre_encargado.required'=>'El nombre del encargado es obligatorio' ,
+  'Nombre_encargado.min'=>'El nombre del encargado  debe tener minimo 3 letras' ,
+  'Nombre_encargado.max'=>'El nombre del encargado  no debe de tener más de 25 letras' ,
+  'Nombre_encargado.regex'=>'El nombre del encargado solo puede tener letras' ,
+
+  'Apellido_encargado.required'=>'El apellido del encargado es obligatorio' ,
+  'Apellido_encargado.min'=>'El apellido debe tener minimo 4 letras' ,
+  'Apellido_encargado.max'=>'El apellido  no debe de tener más de 25 letras' ,
+  'Apellido_encargado.regex'=>'El apellido del encargado solo puede tener letras' ,
+
+
+  'Telefono_encargado.required'=>'El número de teléfono del encargado es obligatorio' ,
+  'Telefono_encargado.numeric'=>'El número de  teléfono solo debe contener números' ,
+  'Telefono_encargado.min'=>'El número de teléfono debe  tener minimo 8 números' ,
+  'Telefono_encargado.max'=>'El número de teléfono debe  tener máximo  8 números' ,
+  'Telefono_encargado.unique'=>'El número de teléfono del encargado ya ha sido usado' ,
+  'Telefono_encargado.regex'=>'El teléfono del encargado solo debe contener números y empezar con 2, 3, 8 o 9',
+
+  ]);
+
+  $this->validate($request, $rules, $mesaje);
       
 $actu = Proveedor::find($id);
 

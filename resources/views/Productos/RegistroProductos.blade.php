@@ -64,13 +64,6 @@ a { color: aliceblue;
   }
 </script>
 
-
-@if (session('mensaje'))
-  <script>
-    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
-    alertify.success(mensaje);
-  </script> 
-@endif 
 <br>
 <br>
 
@@ -90,36 +83,37 @@ a { color: aliceblue;
  
  <div class="row g-3"  class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" >
   <div class="col" style="padding-left: 7%">
-    <input type="text"   minlength="3" maxlength="25" name="Nombre_producto" id="Nombre_producto" pattern="[A-ZÑ a-zñ0-9]+"  
+    <span class="input-group-text"  >Nombre del producto</span>
+    <input type="text"   maxlength="25" name="Nombre_producto" id="Nombre_producto"  
 
-   class="form-control"  required   title="Puede tener letras y números"   
-    placeholder="Nombre del producto"
+   class="form-control" placeholder="Nombre del producto"
     aria-label="First name" value="{{old('Nombre_producto')}}">
   </div>
+
   <div class="col">
-    <input type="text" minlength="1" maxlength="25" name="Marca" id="Marca" pattern="[A-ZÑ a-zñ]+"  title="Solo debe  tener letras"   class="form-control"   required 
-     placeholder="Marca del producto" aria-label="First name" value="{{old('Marca')}}">
+    <span class="input-group-text" >Marca del producto</span>
+    <input type="text" maxlength="25" name="Marca" id="Marca"  class="form-control" placeholder="Marca del producto" aria-label="First name" value="{{old('Marca')}}">
     </div>
  </div>
 
   <br>
 
-
-
  {{-- Descripcion --}}
  <div class="input-group input-group-sm mb-1 " style="padding-right:4%"  style="width: 150%"> <br>
  <div class="col" style="padding-left: 6.4% " > 
- <textarea class="form-control ancho-alto" spellcheck="true" title="Puede tener letras y números"  pattern="[A-ZÑ a-zñ][0-9]+"
- minlength="5" maxlength="50" name="Descripcion" id="Descripcion" id="exampleFormControlTextarea1"
-  placeholder="Ingrese la descripción del producto" required>{{old('Descripcion')}}</textarea>
+  <span class="input-group-text" style="width: 181.5%">Descripción del producto</span>
+
+ <textarea class="form-control ancho-alto" spellcheck="true" maxlength="150" name="Descripcion" id="Descripcion" id="exampleFormControlTextarea1"
+  placeholder="Ingrese la descripción del producto">{{old('Descripcion')}}</textarea>
  </div>
+ 
 
 
 
 {{-- categorias--}}
  <div class="col" style="padding-left: 20%">
  <label for="Categorias">Categorias</label>
- <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent"  required >
+ <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent"  >
     <option value="{{old('categoria_id')}}"[readonly]='true' >Seleccione</option>
     @foreach ($categorias as $c)
       <option value="{{$c->id}}"> {{$c->Descripcion}} </option>
@@ -132,7 +126,7 @@ a { color: aliceblue;
       {{-- proveedores--}}
       <div class="col"  >
       <label for="Proveedores">Proveedores</label>
-      <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" required>
+      <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" >
       <option value="{{old('proveedor_id')}}" required [readonly]='true'>Seleccione</option>
       @foreach($proveedores as $p)
     <option value="{{$p->id}}">{{$p->Nombre_empresa}}</option>

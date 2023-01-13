@@ -26,13 +26,13 @@ class ProductController extends Controller
    public function agg(Request $request){
 
      $rules= ([
-       'proveedor_id'=>'required',
-       'Nombre_producto' =>'required',
+       'Nombre_producto' =>'required|regex:/^([0-9a-zñA-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:3|max:25',
+       'Marca' => 'required|regex:/^([0-9a-zñA-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:2|max:25',
        'Descripcion' =>'required',
-       'Marca' => 'required',
        'categoria_id'=>'required',
+       'proveedor_id'=>'required',
        'Cantidad',
-       'Precio_compra',
+       'Precio_compra', 
        'Precio_venta',
        'Impuesto',
 
@@ -41,6 +41,21 @@ class ProductController extends Controller
 
     $mesaje=([
 
+    'Nombre_producto.required'=>'El nombre del producto es obligatorio' ,
+    'Nombre_producto.min'=>'El nombre del producto debe tener minimo 3 letras' ,
+    'Nombre_producto.max'=>'El nombre del producto no debe de tener más de 25 letras' ,
+
+    'Marca.required'=>'La marca del producto es obligatoria' ,
+    'Marca.min'=>'La marca debe tener minimo 2 letras' ,
+    'Marca.max'=>'La marca no debe de tener más de 25 letras' ,
+   
+    'Descripcion.required'=>'La descripción es obligatoria ', 
+
+    'categoria_id.required'=>'La categoría es obligatorio', 
+    
+    'proveedor_id.required'=>'El proveedor es obligatorio' ,
+     
+    
 
    ]);
 
