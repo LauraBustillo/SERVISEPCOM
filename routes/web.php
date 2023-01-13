@@ -193,7 +193,12 @@ Route::get('/Historial', [CompraController::class, 'historial'])->name('historia
 
 
 
-//PEDIDO
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA PEDIDO 
+|--------------------------------------------------------------------------
+*/
 Route::get('/createpedidos',[PedidoController::class, 'create'])->name('create.pedido');
 Route::get('/pedidos',[PedidoController::class, 'index'])->name('index.pedido');
 Route::post('/pedidos',[PedidoController::class, 'index'])->name('index.pedido');
