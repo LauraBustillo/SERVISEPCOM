@@ -615,10 +615,16 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                 alertify.error("El número de identidad debe empezar con 0 o 1 y contener 13 números");
                 return;
     }   
+    if (identidad_cliente == 0) {
+                alertify.error("El número de identidad del cliente no debe ser cero");
+                return;
+    }
     if(existeIden > 0){
       alertify.error("La identidad ya existe");
       return;
     }
+
+    
 
     // Validar número télefono
     if (telefono_cliente== '') {

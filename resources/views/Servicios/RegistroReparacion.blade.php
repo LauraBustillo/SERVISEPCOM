@@ -410,8 +410,8 @@
         <div style="display: flex">
          <div style="width: 50%">
             <b> <label  id="inputGroup-sizing-sm">Descripción</label> </b>
-            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('descripcionr', $reparacion->descripcionr)}}" name="descripcionr" id="descripcionr"  maxlength="20" 
-            type="text" aria-label="First name" class="form-control" placeholder="Descripción del equipo">
+            <textarea {{$accion == "editar" ? "disabled" : "" }} value="{{old('descripcionr', $reparacion->descripcionr)}}" name="descripcionr" id="descripcionr"  maxlength="200" 
+            type="text" aria-label="First name" class="form-control" rows="1" placeholder="Descripción del equipo"></textarea>
           </div>
 
           &nbsp;
@@ -420,7 +420,7 @@
           {{-- Foto--}}
           <br><br><br><br>
           <div style="width: 50%"> 
-            <b> <label  id="inputGroup-sizing-sm"></label> </b>
+            <b> <label  id="inputGroup-sizing-sm">Fotos</label> </b>
 
             <div id="is-relative" >
          
@@ -1025,6 +1025,11 @@ if(accion == "editar"){
                 alertify.error("El número de identidad debe empezar con 0 o 1 y contener 13 números");
                 return;
     }
+    if (identidad_cliente == 0) {
+                alertify.error("El número de identidad del cliente no debe ser cero");
+                return;
+    } 
+    
 
     
     
