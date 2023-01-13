@@ -410,8 +410,8 @@
         <div style="display: flex">
          <div style="width: 50%">
             <b> <label  id="inputGroup-sizing-sm">Descripción</label> </b>
-            <textarea {{$accion == "editar" ? "disabled" : "" }} value="{{old('descripcionr', $reparacion->descripcionr)}}" name="descripcionr" id="descripcionr"  maxlength="200" 
-            type="text" aria-label="First name" class="form-control" rows="1" placeholder="Descripción del equipo"></textarea>
+            <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200" 
+            type="text" aria-label="First name" class="form-control" rows="1"  placeholder="Descripción del equipo">{{old('descripcionr', $reparacion->descripcionr)}}</textarea>
           </div>
 
           &nbsp;
