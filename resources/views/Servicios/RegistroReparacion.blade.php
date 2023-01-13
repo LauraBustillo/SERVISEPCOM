@@ -324,15 +324,15 @@
 
     <div style="display: flex">
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Precio reparacion</label> 
+        <label  id="inputGroup-sizing-sm">Precio reparación</label> 
         <input  id="precio_rep" type="text" name="precio_rep" class="form-control" 
-        placeholder="Precio reparacion"  value="{{$reparacion->precio}}">
+        placeholder="Precio reparación"  value="{{$reparacion->precio}}">
       </div>
       &nbsp;&nbsp;   
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Descripcion</label> 
+        <label  id="inputGroup-sizing-sm">Descripción</label> 
         <textarea  id="descripcion_rep" type="text" name="descripcion_rep" class="form-control" 
-        placeholder="Descripcion"  rows="2" value="{{$reparacion->descripcion}}">{{$reparacion->descripcion}}</textarea>
+        placeholder="Descripción"  rows="2" value="{{$reparacion->descripcion}}">{{$reparacion->descripcion}}</textarea>
       </div>        
     </div>
 
@@ -1149,6 +1149,19 @@ if(accion == "editar"){
   function openabririnventario(){
     myModalagregarproductoinventario.show()
   }
+
+    // FECHA
+    window.onload = function(){
+      var fecha = new Date(); //Fecha actual
+      var mes = fecha.getMonth()+1; //obteniendo mes
+      var dia = fecha.getDate(); //obteniendo dia
+      var ano = fecha.getFullYear(); //obteniendo año
+      if(dia<10)
+        dia='0'+dia; //agrega cero si el menor de 10
+      if(mes<10)
+        mes='0'+mes //agrega cero si el menor de 10
+      document.getElementById('fecha_facturacion_rep').value= ano+"-"+mes+"-"+dia;
+    }
 
 
 </script>

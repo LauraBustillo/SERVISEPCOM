@@ -820,6 +820,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     myModalbuscarCliente.hide(); 
   }
 
+  // FECHA
   window.onload = function(){
       var fecha = new Date(); //Fecha actual
       var mes = fecha.getMonth()+1; //obteniendo mes

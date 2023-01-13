@@ -403,15 +403,7 @@
 
 
 
-
-
-
-
-
-
-
-
-  
+    {{-- MODAL DE FACTURACION --}}
   <div class="modal fade"  id="modalafacturarReparacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
     <div class="modal-content">
@@ -438,7 +430,7 @@
       
           <div style="display: flex">
             <div style="width: 100%">
-              <label  id="inputGroup-sizing-sm">Precio mantenimiento</label> 
+              <label  id="inputGroup-sizing-sm">Precio reparación</label> 
               <input  maxlength="4" id="precio_reparacion" type="text" name="precio_reparacion" class="form-control" 
               placeholder="Precio reparacion">
             </div>
@@ -515,7 +507,7 @@
 
     //Precio de reparacion
     if (document.getElementById("precio_reparacion").value == '') {
-      alertify.error("El precio del mantenimeinto es requerido");
+      alertify.error("El precio del reparación es requerido");
       return;
             
     }else if(precio_reparacion.length < 2){
@@ -527,6 +519,10 @@
                 return;
                 
             }
+      if (document.getElementById("precio_reparacion").value == 0) {
+      alertify.error("El precio del reparación no debe ser cero");
+      return; 
+           }
     
  // Descripcion
     if (document.getElementById("descripcion_reparacion").value == '') {
