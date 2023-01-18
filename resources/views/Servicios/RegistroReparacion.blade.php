@@ -367,12 +367,13 @@
           <div style="width: 100%">
           <b>  <label id="inputGroup-sizing-sm" >Categorías</label> </b>
               <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
-                <option {{ $reparacion->categoria == "" ? "selected" : ""}} value="{{null}}" id= "prueba">Seleccione la categoría</option>
+                <option {{  $reparacion->categoria == "" ? "selected" : ""}} value="{{null}}" id= "prueba">Seleccione la categoría</option>
                 <option {{ $reparacion->categoria == "Computadoras" ? "selected" : "" }} value="Computadoras">Computadoras</option>
                 <option {{ $reparacion->categoria == "Impresoras" ? "selected" : "" }}  value="Impresoras">Impresoras</option>
                 <option {{ $reparacion->categoria == "Otros"? "selected" : "" }}  value="Otros">Otros</option>
               </select>
           </div>
+          
           &nbsp;
           &nbsp;
       
@@ -503,6 +504,7 @@
         <b><label id="inputGroup-sizing-sm">Fecha ingreso</label> </b>
         <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}"  name="fecha_ingreso"  id="fecha_ingreso" type="date" aria-label="First name" class="form-control" placeholder="Fecha de ingreso">
       </div> 
+      
   
       &nbsp;
       &nbsp;
@@ -822,7 +824,21 @@ switchestado.addEventListener('change', function(element) {
   }
   
 });
-}   
+}   else{
+   // FECHA
+   window.onload = function(){
+      var fecha = new Date(); //Fecha actual
+      var mes = fecha.getMonth()+1; //obteniendo mes
+      var dia = fecha.getDate(); //obteniendo dia
+      var ano = fecha.getFullYear(); //obteniendo año
+      if(dia<10)
+        dia='0'+dia; //agrega cero si el menor de 10
+      if(mes<10)
+        mes='0'+mes //agrega cero si el menor de 10
+      document.getElementById('fecha_ingreso').value= ano+"-"+mes+"-"+dia;
+    }
+}
+
 
 function fecha(){
     var fechaingreso = document.getElementById("fecha_ingreso").value 
@@ -1150,18 +1166,28 @@ if(accion == "editar"){
     myModalagregarproductoinventario.show()
   }
 
-    // FECHA
-    window.onload = function(){
-      var fecha = new Date(); //Fecha actual
-      var mes = fecha.getMonth()+1; //obteniendo mes
-      var dia = fecha.getDate(); //obteniendo dia
-      var ano = fecha.getFullYear(); //obteniendo año
-      if(dia<10)
-        dia='0'+dia; //agrega cero si el menor de 10
-      if(mes<10)
-        mes='0'+mes //agrega cero si el menor de 10
-      document.getElementById('fecha_facturacion_rep').value= ano+"-"+mes+"-"+dia;
-    }
+  window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('fecha_ingreso').value=ano+"-"+mes+"-"+dia;
+}
+n =  new Date();
+//Año
+y = n.getFullYear();
+//Mes
+m = n.getMonth() + 1;
+//Día
+d = n.getDate();
+
+//Lo ordenas a gusto.
+document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+
 
 
 </script>
