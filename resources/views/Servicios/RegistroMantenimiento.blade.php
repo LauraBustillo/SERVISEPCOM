@@ -543,6 +543,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       if(mes<10)
         mes='0'+mes //agrega cero si el menor de 10
       document.getElementById('fecha_ingreso').value= ano+"-"+mes+"-"+dia;
+
     }
   }
 

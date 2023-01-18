@@ -448,7 +448,7 @@ var table2 = '';
             </div>
             &nbsp;&nbsp;   
             <div style="width: 100%">
-              <label  id="inputGroup-sizing-sm">Descripcion</label> 
+              <label  id="inputGroup-sizing-sm">Descripción</label> 
               <textarea  id="descripcion_mantenimiento" type="text" name="descripcion_mantenimiento" class="form-control" 
               placeholder="Descripción de lo que se realizó en el mantenimiento"  rows="2" >{{old('descripcion_mantenimiento')}}</textarea>
             </div>        
@@ -565,6 +565,19 @@ var myModalFacturar = new bootstrap.Modal(document.getElementById('modalafactura
     })
 
   }
+
+  window.onload = function(){
+      var fecha = new Date(); //Fecha actual
+      var mes = fecha.getMonth()+1; //obteniendo mes
+      var dia = fecha.getDate(); //obteniendo dia
+      var ano = fecha.getFullYear(); //obteniendo año
+      if(dia<10)
+        dia='0'+dia; //agrega cero si el menor de 10
+      if(mes<10)
+        mes='0'+mes //agrega cero si el menor de 10
+      document.getElementById('fecha_facturacionM').value= ano+"-"+mes+"-"+dia;
+
+    }
 
 </script>
 
