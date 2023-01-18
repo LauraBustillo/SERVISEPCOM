@@ -528,7 +528,7 @@
           <button  class="btn btn-outline-dark" type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
           <button type="button"  onclick="clickactualizarReparacion()" class="btn btn-outline-dark"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
           <button type="button" class="btn btn-outline-dark">
-          <a class="a"  href="{{route('reparacion.index')}}" ><i class="bi bi-x-circle-fill"> Volver </i></a></button>
+          <a class="a"  href="{{route('reparacion.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a></button>
           </div>
       </center>
         
