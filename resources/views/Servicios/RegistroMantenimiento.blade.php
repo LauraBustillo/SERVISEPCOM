@@ -354,12 +354,14 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
   </div> 
 
   <div style="width: 50%">
-    <b> <label  id="inputGroup-sizing-sm">Descripción</label> </b>
-    <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('descripcionm', $mantenimiento->descripcionm)}}" name="descripcionm" id="descripcionm"  maxlength="100" 
-    type="text" rows="2"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">
+    <b><label id="inputGroup-sizing-sm">Descripción</label> </b>
+    <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"  
+    type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
   </div>
 
 </div>
+
+
 
 <br>
 {{--Botones --}}
@@ -504,10 +506,11 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
   var clientes = {!! json_encode($clientes, JSON_HEX_TAG) !!}; 
   var myModalCliente = new bootstrap.Modal(document.getElementById('modalagregarcliente'));
   var myModalbuscarCliente = new bootstrap.Modal(document.getElementById('modalbuscarcliente'));
-
+  
 // cuando sea la aciion de editar declararemos otras variables globales como ser
 // switchestado: que sera con el cual mostraremos y ocultaremos la seccion de la factura
    if(accion == "editar"){
+
 
     // si inicialmente el estado de la factura es pendiente, ocultaremos la seccion de la factura
     if(mantenimiento.estado == "Pendiente"){
@@ -532,21 +535,8 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
         document.getElementById('labelswitchestado').innerHTML = "Pendiente";
       }
     });
-  } else { // FECHA
-  window.onload = function(){
-      var fecha = new Date(); //Fecha actual
-      var mes = fecha.getMonth()+1; //obteniendo mes
-      var dia = fecha.getDate(); //obteniendo dia
-      var ano = fecha.getFullYear(); //obteniendo año
-      if(dia<10)
-        dia='0'+dia; //agrega cero si el menor de 10
-      if(mes<10)
-        mes='0'+mes //agrega cero si el menor de 10
-      document.getElementById('fecha_ingreso').value= ano+"-"+mes+"-"+dia;
-    }
-  }
-
-
+   
+  } 
 
   // funciones de mostrar y oculatar modales, incluyendo los limpiar campos
   function openmodalagregarcliente(){
@@ -782,6 +772,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
      fecha_facturacion = document.getElementById("fecha_facturacion").value;
      precio_mantenimiento = document.getElementById("precio_mantenimiento").value;
      descripcion_mantenimiento = document.getElementById("descripcion_mantenimiento").value;
+   
     }else{
       stringestado = "Pendiente";   
     }
@@ -807,6 +798,8 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       "descripcionm": document.getElementById("descripcionm").value,   
      
     }
+   
+
 
     $.ajax({
         type: "POST",
@@ -819,8 +812,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
           window.location.href = `{{URL::to('/ListadoMantenimiento')}}`;
         }
     })
-
-  }
+ 
+    
+  } 
 
   function seleccionarCliente(id) {
     var clientefilter = clientes.filter(x => x.id == id);
@@ -833,6 +827,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     myModalbuscarCliente.hide(); 
   }
 
+ 
   
  
 </script>
