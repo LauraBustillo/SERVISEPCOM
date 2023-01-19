@@ -370,7 +370,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
   <button  class="btn btn-outline-dark" type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
   <button  class="btn btn-outline-dark" type="button" {{$accion == "agregar"?"hidden":""}} onclick="actualizarMantenimiento()"><i class="bi bi-folder-fill"> Actualizar</i></button>
   <button type="button" class="btn btn-outline-dark">
-  <a class="a"  href="{{route('mantenimiento.index')}}" ><i class="bi bi-x-circle-fill"> Volver </i></a></button>
+  <a class="a"  href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a></button>
   </div>
 </center>
 
@@ -535,8 +535,6 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
         document.getElementById('labelswitchestado').innerHTML = "Pendiente";
       }
     });
-   
-  } 
 
   // funciones de mostrar y oculatar modales, incluyendo los limpiar campos
   function openmodalagregarcliente(){

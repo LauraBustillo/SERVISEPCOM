@@ -100,7 +100,7 @@
   
   {{--Botones --}}
   <a class="btn btn-outline-dark" href="{{route('mantenimiento.mostrar' , ['id' => $detalle->id]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>
-  <a class="btn btn-outline-dark" href="{{route('mantenimiento.index')}}" ><i class="bi bi-x-circle-fill"> Volver </i></a>
+  <a class="btn btn-outline-dark" href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
   
 @endsection
 @include('common')
