@@ -368,9 +368,9 @@
           <b>  <label id="inputGroup-sizing-sm" >Categorías</label> </b>
               <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
                 <option {{  $reparacion->categoria == "" ? "selected" : ""}} value="{{null}}" id= "prueba">Seleccione la categoría</option>
-                <option {{ $reparacion->categoria == "Computadoras" ? "selected" : "" }} value="Computadoras">Computadoras</option>
-                <option {{ $reparacion->categoria == "Impresoras" ? "selected" : "" }}  value="Impresoras">Impresoras</option>
-                <option {{ $reparacion->categoria == "Otros"? "selected" : "" }}  value="Otros">Otros</option>
+                <option {{ $reparacion->categoria == "Computadoras" ? "selected" : "" }}  value="Computadoras" {{ old('categoria') == "Computadoras" ? 'selected' : '' }}>Computadoras</option>
+                <option {{ $reparacion->categoria == "Impresoras" ? "selected" : "" }}  value="Impresoras" {{ old('categoria') == "Impresoras" ? 'selected' : '' }}>Impresoras</option>
+                <option {{ $reparacion->categoria == "Otros"? "selected" : "" }}  value="Otros" {{ old('categoria') == "Otros" ? 'selected' : '' }}>Otros</option>
               </select>
           </div>
           
@@ -425,12 +425,12 @@
 
             <div id="is-relative" >
          
-              <input  class="input form-control" {{$accion == "editar" ? "hidden" : "" }} class="form-control form-control-lg" id="selectAvatar" type="file" multiple /> &nbsp;
+              <input  class="input form-control" {{$accion == "editar" ? "hidden" : "" }}  class="form-control form-control-lg" id="selectAvatar" type="file" multiple /> &nbsp;
               <div style="display: flex;">
-                <img {{$accion == "editar" && $reparacion->foto == null?"hidden":""}}  class="img" id="avatar"  style="width: 4rem;height:4rem" /> &nbsp;
-                <img {{$accion == "editar" && $reparacion->foto1 == null?"hidden":""}}  class="img" id="avatar1"  style="width: 4rem;height:4rem" />&nbsp;
+                <img {{$accion == "editar" && $reparacion->foto == null?"hidden":""}}  class="img" id="avatar" style="width: 4rem;height:4rem" /> &nbsp;
+                <img {{$accion == "editar" && $reparacion->foto1 == null?"hidden":""}}  class="img" id="avatar1" style="width: 4rem;height:4rem" />&nbsp;
                 <img {{$accion == "editar" && $reparacion->foto2 == null?"hidden":""}}  class="img" id="avatar2"  style="width: 4rem;height:4rem" />&nbsp;
-                <img {{$accion == "editar" && $reparacion->foto3 == null?"hidden":""}}  class="img" id="avatar3"  style="width: 4rem;height:4rem" />&nbsp;
+                <img {{$accion == "editar" && $reparacion->foto3 == null?"hidden":""}}  class="img" id="avatar3" style="width: 4rem;height:4rem" />&nbsp;
                 <img {{$accion == "editar" && $reparacion->foto4 == null?"hidden":""}}  class="img" id="avatar4"  style="width: 4rem;height:4rem" />&nbsp;
               </div>
             
