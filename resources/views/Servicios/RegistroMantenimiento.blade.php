@@ -296,9 +296,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     para tener seleccionada esa opcion en un inicio --}}
         <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
           <option {{ $mantenimiento->categoria == "" ? "selected" : ""}}  id= "prueba" value="{{null}}">Seleccione la categoría</option>
-          <option {{ $mantenimiento->categoria == "Computadoras" ? "selected" : "" }} value="Computadoras">Computadoras</option>
-          <option {{ $mantenimiento->categoria == "Impresoras" ? "selected" : "" }}  value="Impresoras">Impresoras</option>
-          <option {{ $mantenimiento->categoria == "Otros"? "selected" : "" }}  value="Otros">Otros</option>
+          <option {{ $mantenimiento->categoria == "Computadoras" ? "selected" : "" }} value="Computadoras" {{ old('categoria') == "Computadoras" ? 'selected' : '' }}>Computadoras</option>
+          <option {{ $mantenimiento->categoria == "Impresoras" ? "selected" : "" }} value="Impresoras" {{ old('categoria') == "Impresoras" ? 'selected' : '' }}>Impresoras</option>
+          <option {{ $mantenimiento->categoria == "Otros"? "selected" : "" }}  value="Otros" {{ old('categoria') == "Otros" ? 'selected' : '' }}>Otros</option>
         </select>
     </div>
     &nbsp;

@@ -26,7 +26,8 @@ class ReparacionController extends Controller
       $reparacion = (object)array("cliente_id"=>"", "Nombre"=>"", "Apellido"=>"", "Numero_telefono"=>"", "Numero_identidad"=>"","Direccion"=>"", 
       "numero_factura"=>"", "fecha_facturacion"=>"", "precio"=>"", "descripcion"=>"",
       "estado"=>"","numero_factura"=>"", "fecha_factura"=>"", "precio"=>"", "descripcion"=>"",  
-       "descripcionr"=>"", "foto"=>"","cambio_pieza"=>"","garantia"=>"","categoria"=>"", "nombre_equipo"=>"", "marca"=>"", "modelo"=>"",
+       "descripcionr"=>"", "foto"=>"","foto1"=>"","foto2"=>"","foto3"=>"","foto4"=>"",
+       "cambio_pieza"=>"","garantia"=>"","categoria"=>"", "nombre_equipo"=>"", "marca"=>"", "modelo"=>"",
 
       "fecha_ingreso"=>"","fecha_entrega"=>"", "categoria_producto_inv"=>"", "marca_producto_inv"=>"",
       "nombre_producto_inv" =>"", "id_producto_inv" =>"",);
@@ -66,6 +67,10 @@ class ReparacionController extends Controller
           'descripcionr'=>'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:200',
 
           'foto',
+          'foto1',
+          'foto2',
+          'foto3',
+          'foto4',
           'cambio_pieza',
           'garantia',
 

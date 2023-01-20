@@ -114,9 +114,9 @@ a { color: aliceblue;
  <div class="col" style="padding-left: 20%">
  <label for="Categorias">Categorias</label>
  <select name="categoria_id" id= "categoria_id"  class="" style="background:transparent"  >
-    <option value="{{old('categoria_id')}}"[readonly]='true' >Seleccione</option>
+    <option value="{{old('categoria_id')}}" [readonly]='true' >Seleccione</option>
     @foreach ($categorias as $c)
-      <option value="{{$c->id}}"> {{$c->Descripcion}} </option>
+      <option value="{{$c->id}}" {{ old('categoria_id') == $c->id ? 'selected' : '' }}> {{$c->Descripcion}} </option>
     @endforeach
   </select>
  </div> 
@@ -127,9 +127,9 @@ a { color: aliceblue;
       <div class="col"  >
       <label for="Proveedores">Proveedores</label>
       <select name="proveedor_id" id="proveedor_id"  class="" style="background: transparent" >
-      <option value="{{old('proveedor_id')}}" required [readonly]='true'>Seleccione</option>
+      <option value="{{old('proveedor_id')}}"  required [readonly]='true'>Seleccione</option>
       @foreach($proveedores as $p)
-    <option value="{{$p->id}}">{{$p->Nombre_empresa}}</option>
+    <option value="{{$p->id}}" {{ old('proveedor_id') == $p->id ? 'selected' : '' }}>{{$p->Nombre_empresa}}</option>
   @endforeach
   </select> 
   </div> 
