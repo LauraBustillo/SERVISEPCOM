@@ -423,7 +423,7 @@
             &nbsp;&nbsp;     
             <div style="width: 100%">
               <label  id="inputGroup-sizing-sm">Fecha facturación</label> 
-              <input  id="fecha_facturacionR" type="date"  name="fecha_facturacionR" class="form-control" 
+              <input  id="fecha_facturacionR" type="date" readonly name="fecha_facturacionR" class="form-control" 
               placeholder="Fecha facturacion" >
             </div>        
           </div>
@@ -432,11 +432,11 @@
             <div style="width: 100%">
               <label  id="inputGroup-sizing-sm">Precio reparación</label> 
               <input  maxlength="4" id="precio_reparacion" type="text" name="precio_reparacion" class="form-control" 
-              placeholder="Precio reparacion">
+              placeholder="Precio reparación">
             </div>
             &nbsp;&nbsp;   
             <div style="width: 100%">
-              <label  id="inputGroup-sizing-sm">Descripcion</label> 
+              <label  id="inputGroup-sizing-sm">Descripción</label> 
               <textarea  id="descripcion_reparacion" type="text" name="descripcionR" class="form-control" 
               placeholder="Descripción"  rows="2" ></textarea>
             </div>        

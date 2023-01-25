@@ -536,7 +536,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       }
     });
 
-  } else{
+  } else{  // fecha de ingreso de  facturacion 
     var fecha = new Date();
     document.getElementById("fecha_ingreso").value = fecha.toJSON().slice(0,10);  
   }

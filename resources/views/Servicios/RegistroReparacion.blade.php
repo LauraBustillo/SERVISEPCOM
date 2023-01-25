@@ -824,32 +824,24 @@ switchestado.addEventListener('change', function(element) {
   }
   
 });
-}   else{
-   // FECHA
-   window.onload = function(){
-      var fecha = new Date(); //Fecha actual
-      var mes = fecha.getMonth()+1; //obteniendo mes
-      var dia = fecha.getDate(); //obteniendo dia
-      var ano = fecha.getFullYear(); //obteniendo año
-      if(dia<10)
-        dia='0'+dia; //agrega cero si el menor de 10
-      if(mes<10)
-        mes='0'+mes //agrega cero si el menor de 10
-      document.getElementById('fecha_ingreso').value= ano+"-"+mes+"-"+dia;
-    }
-}
-
-
-function fecha(){
-    var fechaingreso = document.getElementById("fecha_ingreso").value 
-    var fechaentrega = document.getElementById("fecha_entrega").value 
-
-
-    if (fechaentrega < fechaingreso ) {
-      alertify.error("La fecha de entrega no debe ser menor a la de ingreso");
-      return;
-    }
+}   else{  // fecha de ingreso de  facturacion 
+    var fecha = new Date();
+    document.getElementById("fecha_ingreso").value = fecha.toJSON().slice(0,10);  
   }
+
+
+//function fecha(){
+    //var fechaingreso = document.getElementById("fecha_ingreso").value 
+    //var fechaentrega = document.getElementById("fecha_entrega").value 
+
+
+    //if (fechaentrega < fechaingreso ) {
+     // alertify.error("La fecha de entrega no debe ser menor a la de ingreso");
+      //return;
+    //}
+
+    
+  //}
   
 
   function clickactualizarReparacion(){
@@ -1166,28 +1158,10 @@ if(accion == "editar"){
     myModalagregarproductoinventario.show()
   }
 
-  window.onload = function(){
-  var fecha = new Date(); //Fecha actual
-  var mes = fecha.getMonth()+1; //obteniendo mes
-  var dia = fecha.getDate(); //obteniendo dia
-  var ano = fecha.getFullYear(); //obteniendo año
-  if(dia<10)
-    dia='0'+dia; //agrega cero si el menor de 10
-  if(mes<10)
-    mes='0'+mes //agrega cero si el menor de 10
-  document.getElementById('fecha_ingreso').value=ano+"-"+mes+"-"+dia;
-}
-n =  new Date();
-//Año
-y = n.getFullYear();
-//Mes
-m = n.getMonth() + 1;
-//Día
-d = n.getDate();
+ 
 
-//Lo ordenas a gusto.
-document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-
+var fecha1 = new Date();
+document.getElementById("fecha_facturacion_rep").value = fecha1.toJSON().slice(0,10);
 
 
 </script>

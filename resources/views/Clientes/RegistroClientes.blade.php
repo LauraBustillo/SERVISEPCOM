@@ -1,6 +1,7 @@
 @extends('main')
 @section('extra-content')
 
+
 <style>
 
 /*Cajas de texto*/ 
@@ -73,12 +74,12 @@ a { color: aliceblue;
 <div class="row g-3">
   <div class="col">
   <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  class="form-control" 
-  title="Solo debe tener letras" 
+ 
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
   <div class="col">
     <input type="text" maxlength="25" id="Apellido" name="Apellido"  
-     class="form-control" title="Solo debe tener letras" 
+     class="form-control" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
@@ -98,7 +99,7 @@ a { color: aliceblue;
   <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
   <input type="text" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" 
   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-  title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
 </div>
 </div>
 <br>
@@ -163,6 +164,7 @@ input.addEventListener('invalid', function(evt) {
         } 
         
         }
+
 
 
  </script>

@@ -435,7 +435,7 @@ var table2 = '';
             &nbsp;&nbsp;     
             <div style="width: 100%">
               <label  id="inputGroup-sizing-sm">Fecha facturación</label> 
-              <input value="{{old('fecha_facturacionM')}}"  id="fecha_facturacionM" type="date"  name="fecha_facturacionM" class="form-control" 
+              <input value="{{old('fecha_facturacionM')}}"readonly  id="fecha_facturacionM" type="date"  name="fecha_facturacionM" class="form-control" 
               placeholder="Fecha facturación" >
             </div>        
           </div>

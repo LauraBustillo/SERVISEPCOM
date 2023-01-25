@@ -44,7 +44,6 @@ class ReparacionController extends Controller
       'proveedors.Nombre_empresa')
     ->groupBy("products.id")
       ->get();  
-       
         return view('Servicios.RegistroReparacion')
         ->with('clientes',$clientes)
         ->with('reparacion',$reparacion)
@@ -66,7 +65,7 @@ class ReparacionController extends Controller
           'modelo'=>'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
           'descripcionr'=>'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:200',
 
-          'foto',
+          'foto'=>'required',
           'foto1',
           'foto2',
           'foto3',
@@ -104,16 +103,17 @@ class ReparacionController extends Controller
           'descripcionr.regex'=>'La descripción solo puede tener letras y números' ,
 
            //FALTA 
-          'foto',
+          'foto.required'=>'La foto es requerida',
           'cambio_pieza',
           'garantia',
+
 
           'fecha_ingreso.required'=>'La fecha de ingreso es requerida' ,
     
           'fecha_entrega.required'=>'La fecha de entrega es requerida' ,
-
-         
+    
          ]);
+
        $this->validate($request, $rules, $mesaje);
   
         $agregar = new Reparacion();
