@@ -49,7 +49,7 @@ class EmpleadoController extends Controller
 
         return view('Empleados.InformacionEmpleado')->with('ver', $ver);
       }
-
+ 
          /*Funcion para guardar empleado*/
         public function guardar(){
            return view ('Empleados.RegistroEmpleados');
@@ -60,7 +60,7 @@ class EmpleadoController extends Controller
             $rules = ([
             'Nombres' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
             'Apellidos' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
-            'Numero_identidad' =>'required|unique:empleados|regex:([0-1][0-8][0-2][0-9]{10})|min:13',
+            'Numero_identidad' =>'required|unique:empleados|regex:([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})|min:13',
             'Fecha_nacimiento' =>'required',
             'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
             'Salrio' => 'required|numeric',

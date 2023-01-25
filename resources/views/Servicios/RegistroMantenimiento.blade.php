@@ -586,7 +586,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     // hacer las validaciones
     var re = /^[a-zA-Z0-9 ]+$/;
     var letra= /[A-ZÑ a-zñ]/;
-    var identidad= /([0-1][0-8][0-2][0-9]{10})/;
+    var identidad= /([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})/;
    var telefono= /([9,8,3,2]{1}[0-9]{7})/;
     // Validar Nombre
     if (nombre_cliente == '') {
