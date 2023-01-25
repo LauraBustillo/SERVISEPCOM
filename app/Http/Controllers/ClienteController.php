@@ -45,12 +45,13 @@ class ClienteController extends Controller
             $rules= ([
               'Nombre' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
               'Apellido' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
-              'Numero_identidad' =>'required|unique:clientes|regex:([0-1][0-8][0-2][0-9]{10})|min:13',
+              'Numero_identidad' =>'required|unique:clientes|regex:([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})|min:13',
               'Numero_telefono' => 'required|unique:clientes|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
               'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
 
             ]);
             
+
   
           $mesaje=([
 
