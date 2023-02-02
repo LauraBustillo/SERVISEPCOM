@@ -621,7 +621,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                 return;
     }  
     else if (!identidad.test(identidad_cliente)) {
-                alertify.error("El número de identidad debe empezar con 0 o 1 y contener 13 números");
+                alertify.error("Ingrese una identidad valida");
                 return;
     }   
     if (identidad_cliente == 0) {
