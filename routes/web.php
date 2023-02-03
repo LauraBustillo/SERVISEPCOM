@@ -9,6 +9,7 @@ use App\Http\Controllers\CompraDetallesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\ReparacionController;
+use App\Http\Controllers\VentaController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -263,3 +264,13 @@ Route::post('/actualizarReparacion',[ReparacionController::class, 'actualizarRep
 //Route::get('/reparacion/{id}',[ReparacionController::class, 'mostrar'])->name('reparacion.mostrar');
 Route::get('/repaciones/{id}', [ReparacionController::class, 'detallereparacion'])->name('repacionones.ver')->where('id', '[0-9]+');
 Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFacturaReparacion'])->name('guardarFacturaReparacion.update');
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA VENTAS
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/venta',[VentaController::class, 'index'])->name('Venta.index');
+
