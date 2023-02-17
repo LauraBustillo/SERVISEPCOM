@@ -520,6 +520,8 @@
         };
 
         alertify.confirm("Guardar Factura", "Esta seguro que quieres guardar?"
+       
+
             , function() {
 
                 if (document.getElementById("empleadoVentas").value == '') {
@@ -536,6 +538,8 @@
             })
 
     }
+
+    
 
 </script>
 
