@@ -26,7 +26,7 @@ class CompraDetallesController extends Controller
         ->select('products.id as id_producto','products.Nombre_producto',
         DB::raw('SUM(compra_detalles.Cantidad) as Cantidad'), 
         'categorias.id','compra_detalles.Marca','categorias.Descripcion AS Categoria',
-        'proveedors.Nombre_empresa')
+        'proveedors.Nombre_empresa', 'compra_detalles.CantidadRestante')
         ->where("products.Nombre_producto","like","%".$buscar."%")
         ->orWhere("categorias.Descripcion","like","%".$buscar."%")
         ->orWhere("proveedors.Nombre_empresa","like","%".$buscar."%")
