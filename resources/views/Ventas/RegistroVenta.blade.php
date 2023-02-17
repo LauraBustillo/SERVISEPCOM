@@ -38,6 +38,7 @@
         color: #FFFFFF;
 
     }
+    
 
     /*Los botones*/
     .btn-outline-dark {
@@ -84,7 +85,13 @@
         font-size: 40px;
         text-align: center;
     }
-
+    /*Letras del modal*/
+    .group-texto {
+    background-color: transparent;
+    font-family: 'Open Sans';
+    color: #000000;
+    font-size: 25px;
+    }
     .letra {
         font-weight: bold;
     }
@@ -114,12 +121,14 @@
         background-color: rgb(184, 234, 249) !important;
     }
 
+
+
 </style>
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-<form class="form-control">
+<form class="form-control"  >
     @csrf
     {{-- titiulo --}}
     <div style="display: flex">
@@ -195,7 +204,7 @@
                     <th>Marca</th>
                     <th>Descripción</th>
                     <th>Cantidad</th>
-                    <th>Descuento</th>
+
                     <th>Precio de venta</th>
                     <th>Impuesto</th>
                     <th>Total Producto</th>
@@ -209,7 +218,7 @@
     </div>
     <br>
     <center>
-        <button class="btn btn-outline-dark" type="button" onclick="guardatFactura()">
+        <button class="btn btn-outline-dark" type="button" id="guardarFactura" name="guardarFactura" onclick="guardatFactura()">
             <i class="bi bi-receipt-cutoff"> Facturar</i>
         </button>
         <button class="btn btn-outline-dark" type="button">
@@ -308,7 +317,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="group-texto" id="staticBackdropLabel" style="text-align: center">
-                    Agregar producto a la factura #<span id="numfact_form"></span>
+                    Agregar producto a la factura # <span id="numfact_form"></span>
                 </h1>
             </div>
             <div class="modal-body">
@@ -359,32 +368,37 @@
 
 
                     <div style="display: flex">
-                        <!--  Descuento -->
-                        <div style="width: 20%">
-                            <label for="" class="group-text">Descuento</label>
-                            <input type="text" value="" id="Costo" name="Costo" onkeypress="ValidaSoloNumeros1()" minlength="1" maxlength="5">
-                        </div>
-
+                      
                         <div style="width: 20%">
                             <!-- Precio Venta -->
                             <label for="" class="group-text">Precio venta</label>
                             <input type="text" value="" disabled id="Precio_venta" name="Precio_venta" onkeypress="ValidaSoloNumeros2()" minlength="1" maxlength="5">
                         </div>
+
                         <div style="width: 20%">
                             <!-- Impuesto -->
                             <label for="" class="group-text">Impuesto</label>
                             <input type="text" value="" id="Impuesto" name="Impuesto" onkeypress="ValidaSoloNumeros3()" minlength="1" maxlength="2">
                         </div>
 
-                    </div>
-
-                    <div style="display: flex">
-                        <!-- Descripcion -->
+                         <!-- Descripcion -->
                         <div style="width: 20%">
                             <label for="" class="group-text">Descripción</label>
                             <input disabled type="text" value="" id="Descripcion" name="Descripcion">
                         </div>
                     </div>
+                    
+                    <div style="display: flex">
+                        <!--  Descuento -->
+                        <div style="width: 20%">
+                            <label for="" class="group-text"></label>
+                            <input type="text" value="" hidden id="Costo" name="Costo" onkeypress="ValidaSoloNumeros1()" minlength="1" maxlength="5">
+                        </div>
+                    </div>
+
+                      
+
+                   
 
 
                     <input type="text" hidden value="" name="Numero_facturaform" id="Numero_facturaform">
@@ -446,9 +460,11 @@
         myModal.show();
 
         buscarydibujarProductos();
+        cargarNumeroFactura();
         dibujarTabla()
 
     }
+
 
     // Dibujar los productos en la tabla
     function buscarydibujarProductos() {
@@ -490,15 +506,29 @@
         document.getElementById("buscar_producto_proveedor").innerHTML = html;
     }
 
+        function cargarNumeroFactura() {
+        var numfactura = document.getElementById("numeroFactura").value;
+        //se manda al input ihidden del formulario
+        document.getElementById("numeroFactura").value = numfactura;
+        // se manda al titulo del modal
+        document.getElementById("numfact_form").innerHTML = '<span>'+numfactura+'</span>';    
+    }
+
+
 
 
     function guardatFactura() {
+        var formul = document.getElementById("guardarFactura");
 
         //validaciones
         if (document.getElementById("numeroFactura").value == '') {
             alertify.error("El numero de la factura es obligatorio");
             return;
         }
+        if (document.getElementById("empleadoVentas").value == '') {
+                    alertify.error("Debe estar escrito el empleado");
+                    return;
+                }
         if (document.getElementById("clienteFactura").value == '') {
             alertify.error("El cliente es obligatorio");
             return;
@@ -519,27 +549,28 @@
             , Total_factura: totalFACTURA
         };
 
-        alertify.confirm("Guardar Factura", "Esta seguro que quieres guardar?"
-       
-
-            , function() {
-
-                if (document.getElementById("empleadoVentas").value == '') {
-                    alertify.error("Debe estar escrito el empleado");
-                    return;
-                }
-                //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
-                var stringarrayFactura = JSON.stringify(jsonFactura);
-                var stringarrayDetalles = JSON.stringify(detallefactura);
-                window.location.href = `{{URL::to('/guardarventa/` + stringarrayFactura + `/` + stringarrayDetalles + `')}}`;
+        swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
             }
             , function() {
 
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
+                var stringarrayFactura = JSON.stringify(jsonFactura);
+                var stringarrayDetalles = JSON.stringify(detallefactura);
+                window.location.href = `{{URL::to('/guardarventa/` + stringarrayFactura + `/` + stringarrayDetalles + `')}}`;
+                }
             })
+            event.preventDefault()
 
     }
-
-    
 
 </script>
 
@@ -993,7 +1024,7 @@
             data.forEach(element => {
                 
 
-                totalproducto = (element.Cantidad * element.Precio_venta)- (element.Costo)
+                totalproducto = (element.Cantidad * element.Precio_venta)
                 totalInmpuesto += ((element.Cantidad * element.Precio_venta) * (element.Impuesto / 100))
                 html += '<div class= "box">';
                 html += '<tr>';
@@ -1001,7 +1032,7 @@
                 html += '<td>' + element.Marca + '</td>';
                 html += '<td>' + element.Descripcion + '</td>';
                 html += '<td>' + element.Cantidad + '</td>';
-                html += '<td>Lps. ' + element.Costo + '</td>';
+                //html += '<td>Lps. ' + element.Costo + '</td>';
                 html += '<td>Lps. ' + element.Precio_venta + '</td>';
                 html += '<td>' + element.Impuesto + '%</td>';
                 html += '<td>Lps. ' + totalproducto.toFixed() + '</td>';
@@ -1034,20 +1065,20 @@
 
 
         html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
         html += '<td><strong >SubTotal</strong></td>';
         html += '<td><strong>Lps. ' + subtotalFACTURA.toFixed() + '</strong></td>';
         html += '<tr>';
 
         html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
         html += '<td><strong >Impuesto</strong></td>';
         html += '<td><strong>Lps. ' + totalInmpuesto.toFixed() + '</strong></td>';
         html += '<tr>';
 
         totalFACTURA = (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
         html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
         html += '<td><strong >Total factura</strong></td>';
         html += '<td><strong>Lps. ' + totalFACTURA.toFixed() + '</strong></td>';
         html += '<tr>';
