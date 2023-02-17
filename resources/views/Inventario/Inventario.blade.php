@@ -163,6 +163,7 @@ width: 50% !important;
          <th scope="col">Marca</th>
          <th scope="col">Provedor</th>
          <th scope="col">Cantidad</th>
+         <th scope="col">Cantidad Restante</th>
          <th scope="col">Categoría</th>
          <th scope="col">Detalles inventario</th>  
          </tr>
@@ -176,6 +177,7 @@ width: 50% !important;
          <td>{{ $in->Marca }}</td>
          <td>{{ $in->Nombre_empresa}}</td>
          <td>{{ $in->Cantidad}}</td>
+         <td>{{ $in->CantidadRestante}}</td>
          <td>{{ $in->Categoria}}</td>
          
          {{-- Botones --}}
