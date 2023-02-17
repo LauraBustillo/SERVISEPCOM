@@ -332,3 +332,72 @@
     });
 
 </script>
+<h1 class="titulo" style="text-align:center">Listo de facturas de ventas</h1>
+
+
+
+<div class="input-group " style="padding-right:4%" style="width: 100%"><br>
+    <div>
+        <label for="" class="group-text">Fecha minima:</label>
+        <input class="form-control" id="min" name="min" value="">
+    </div>&nbsp; &nbsp;&nbsp;
+
+    <div>
+        <label for="" class="group-text">Fecha máxima:</label>
+        <input class="form-control" id="max" name="max" value="">
+    </div>
+    <div><br>&nbsp; &nbsp;
+        <a href="{{ route('Venta.index') }}" class="btn btn-outline-dark"><i class="bi bi-x-square"></i></a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroventa')}}">
+            <i class="bi bi-cart-plus"> Nueva venta</i></a>
+
+
+    </div>
+
+</div>
+
+
+
+<table id='tablecompras' class="table table-hover tablacompras"> <br>
+    <thead>
+        <tr>
+            <th scope="col">Número de factura</th>
+            <th scope="col">Fecha de facturación</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Empleado</th>
+            <th scope="col">Total</th>
+            <th scope="col">Detalles</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @forelse($ventas as $de)
+        <tr>
+            <td scope="row">{{ $de->numeroFactura}}</td>
+            <td>{{ $de->fechaFactura }}</td>
+            <td>{{ $de->clienteFactura}}</td>
+            <td>{{ $de->empleadoVentas }}</td>
+            <td name="valores">{{ $de->totalFactura }}</td>
+            {{-- Botones --}}
+            <td><a class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+        </tr>
+        @empty
+        @endforelse
+    </tbody>
+</table>
+</div>
+<br>
+<div style="padding-left: 78%">
+    <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
+    <b><label id="total_facturas"></label></b>
+
+</div>
+
+@endsection
+@include('common')
+
