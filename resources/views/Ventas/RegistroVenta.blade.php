@@ -318,6 +318,7 @@
                     </div>
                     <div class="col"></div>
                 </div>
+
                 <br>
                 <div class="row">
                     <div class="col">
@@ -367,7 +368,7 @@
                         <div style="width: 20%">
                             <!-- Precio Venta -->
                             <label for="" class="group-text">Precio venta</label>
-                            <input type="text" value="" id="Precio_venta" name="Precio_venta" onkeypress="ValidaSoloNumeros2()" minlength="1" maxlength="5">
+                            <input type="text" value="" disabled id="Precio_venta" name="Precio_venta" onkeypress="ValidaSoloNumeros2()" minlength="1" maxlength="5">
                         </div>
                         <div style="width: 20%">
                             <!-- Impuesto -->

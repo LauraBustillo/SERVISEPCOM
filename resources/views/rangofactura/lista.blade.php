@@ -145,7 +145,7 @@
                     , "sInfoEmpty": ""
                     , "sInfoFiltered": ""
                     , "sInfoPostFix": ""
-                    , "sSearch": "Buscar por Fecha (Inicio/Vencimiento), Factura (Inicial/Final)"
+                    , "sSearch": "Buscar por CAI y factura (Inicial/Final)"
                     , "sUrl": "."
                     , "sInfoThousands": ""
                     , "sLoadingRecords": "Cargando..."
