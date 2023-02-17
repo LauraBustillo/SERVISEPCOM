@@ -59,7 +59,7 @@
 
 <br>
 <br>
-<form class="form-control" method="POST" action="{{ route('store.rangofactura') }}">
+<form class="form-control" method="POST" id="form_guardarRF" name="form_guardarRF" action="{{ route('store.rangofactura') }}" onsubmit="guardarRango()">
     @csrf
     <br>
     <br>
@@ -184,5 +184,31 @@
 
 
 @endsection
+
+{{--mensaje de confirmacion --}}
+@push('alertas')
+    <script>
+        function guardarRango() {
+           var formul = document.getElementById("form_guardarRF");
+           
+           Swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
+    </script>
+@endpush
+
+
 @include('common')
 
