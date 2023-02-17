@@ -10,7 +10,8 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\ReparacionController;
 use App\Http\Controllers\VentaController;
-
+use App\Http\Controllers\RangoFacturaController;
+use App\Models\RangoFactura;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,7 +62,7 @@ Route::POST('/registroclientes', [ClienteController::class, 'agg'])->name('datos
 Route::get('/cliente/{id}/editar', [ClienteController::class, 'actualizar'])-> name('cliente.editar');
 Route::put('/cliente/{id}/editar', [ClienteController::class, 'actu'])-> name('cliente.update');
 
-/*Registro de cliente*/ 
+/*Registro de cliente*/
 Route::get('/Clientes/crear', [ClienteController::class, 'create'])->name('cliente.crear');
 Route::post('/guardarClienteMantenimiento', [ClienteController::class, 'guardarClienteMantenimiento'])->name('guardarClienteMantenimiento.guardar');
 
@@ -153,11 +154,11 @@ Route::get('/guardarFactura/{arrayFac}/{arrayDet}', [CompraController::class, 'g
 Route::post('/actualizarFactura', [CompraController::class, 'actualizarFactura']);
 Route::get('/comprasEdit/{id}', [CompraController::class, 'comprasEdit'])->name('comprasEdit');
 Route::post('/editardetallepro', [CompraController::class, 'editardetallepro'])->name('editardetallepro');
-Route::post('/agregardetallepro', [CompraController::class, 'agregardetallepro'])->name('agregardetallepro'); 
+Route::post('/agregardetallepro', [CompraController::class, 'agregardetallepro'])->name('agregardetallepro');
 Route::post('/eliminardetallepro', [CompraController::class, 'eliminardetallepro'])->name('eliminardetallepro');
 
 
-Route::get('/facturacion', function () { 
+Route::get('/facturacion', function () {
 return view('Compras/facturacion');})->name('show.registroFacturacion');
 
 Route::get('/listas', function () {return view('Compras/Lista');
@@ -197,7 +198,7 @@ Route::get('/Historial', [CompraController::class, 'historial'])->name('historia
 
 /*
 |--------------------------------------------------------------------------
-|  RUTAS PARA PEDIDO 
+|  RUTAS PARA PEDIDO
 |--------------------------------------------------------------------------
 */
 Route::get('/createpedidos',[PedidoController::class, 'create'])->name('create.pedido');
@@ -220,7 +221,7 @@ Route::post('/guardarProductoModal', [ProductController::class, 'guardarProducto
 
 /*
 |--------------------------------------------------------------------------
-|  RUTAS PARA MANTENIMIENTO 
+|  RUTAS PARA MANTENIMIENTO
 |--------------------------------------------------------------------------
 */
 
@@ -232,7 +233,7 @@ Route::post('/mantenimiento', [MantenimientoController::class, 'guardar'])->name
 
 Route::get('/ListadoMantenimiento',[MantenimientoController::class, 'index'])->name('mantenimiento.index');
 Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar');
-//Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar'); se le quito el id 
+//Route::get('/mantenimiento/{id}',[MantenimientoController::class, 'mostrar'])->name('mantenimiento.mostrar'); se le quito el id
 
 
 Route::post('/actualizarMantenimiento',[MantenimientoController::class, 'actualizarMantenimiento'])->name('actualizarMantenimiento.update');
@@ -265,6 +266,21 @@ Route::post('/actualizarReparacion',[ReparacionController::class, 'actualizarRep
 Route::get('/repaciones/{id}', [ReparacionController::class, 'detallereparacion'])->name('repacionones.ver')->where('id', '[0-9]+');
 Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFacturaReparacion'])->name('guardarFacturaReparacion.update');
 
+
+/*
+|--------------------------------------------------------------------------
+|  RUTAS PARA Factura
+|--------------------------------------------------------------------------
+*/
+Route::get('/listaRangoFactura',[RangoFacturaController::class, 'index'])->name('RangoFactura.index');
+Route::get('/createRangoFactura',[RangoFacturaController::class, 'create'])->name('create.rangofactura');
+Route::post('/storeRangoFactura',[RangoFacturaController::class, 'store'])->name('store.rangofactura');
+
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 |  RUTAS PARA VENTAS
@@ -273,4 +289,14 @@ Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFa
 
 
 Route::get('/venta',[VentaController::class, 'index'])->name('Venta.index');
+Route::get('/registroventa', [VentaController::class, 'show'])->name('show.registroventa');
+Route::get('/guardarventa/{arrayFac}/{arrayDet}', [VentaController::class, 'store'])->name('store.registroventa');
+Route::post('/rangoventa', [RangoFacturaController::class, 'storeVentas' ])->name('store.registroRang');
+//Para moestrar la informacion en detalles
+Route::get('/LVentas/{id}', [VentaController::class, 'mostrar'])->name('venta.mostrar');
+
+
+/*Para mostrar la infomarcion */
+
+
 
