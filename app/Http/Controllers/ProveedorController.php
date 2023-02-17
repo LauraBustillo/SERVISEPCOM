@@ -50,7 +50,7 @@ class ProveedorController extends Controller
      'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|max:8',
      'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/',
      'Nombre_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
-     'Apellido_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/min:4|max:25',
+     'Apellido_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
      'Telefono_encargado' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
       
    ]); 
