@@ -3,13 +3,13 @@
 
 <style>
 
-    /*Cajas de texto*/ 
+    /*Cajas de texto*/
     .form-control  {
         background-color: transparent;
         border: 1.3px solid #000000;
     }
 
-    /*Las label*/ 
+    /*Las label*/
     .input-group-text  {
     background-color: #000000;
     border: 1.3px solid #000000;
@@ -23,14 +23,14 @@
     color: #000000;
 
     }
-    /*Letra del titulo del modal */ 
+    /*Letra del titulo del modal */
     .group-texto {
     background-color: transparent;
     font-family: 'Open Sans';
     color: #000000;
     font-size: 25px;
     }
-    /*Los titulos */ 
+    /*Los titulos */
     .titulo {
     font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
     color: black;
@@ -38,7 +38,7 @@
     font-size: 20xp;
     }
 
-    /*Los botones*/ 
+    /*Los botones*/
     .btn-outline-dark {
     background-color: transparent;
     border: 1.8px solid #000000;
@@ -57,22 +57,22 @@
         width: 9%;
     }
     .col2{
-        width: 91%;    
+        width: 91%;
     }
     .row{
         display: flex;
-        width: 100%;    
+        width: 100%;
     }
     .modal-body{
-        background-color: rgb(142, 220, 243)!important;   
+        background-color: rgb(142, 220, 243)!important;
     }
 
     .modal-header{
-        background-color: rgb(184, 234, 249)!important;    
+        background-color: rgb(184, 234, 249)!important;
     }
 
     .modal-content{
-        background-color: rgb(184, 234, 249)!important;   
+        background-color: rgb(184, 234, 249)!important;
     }
 
     .ancho{
@@ -84,7 +84,7 @@
         background-color: transparent;
         border: 1.8px solid #000000;
         width: 25.8%;
-    }   
+    }
     .box{
                 display:flex;
             }
@@ -98,20 +98,20 @@
         height: 15%;
         margin-left:0.3%;
         border: 1.8px solid #000000;
-       border-radius: 0%; 
+       border-radius: 0%;
 
     }
-    
+
 </style>
 
 
 <script>
     var errores = []
-    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
     if(errores.length > 0){
       errores.forEach(element => {
         alertify.error(element)
-      });   
+      });
     }
 
   </script>
@@ -127,34 +127,34 @@
        {{-- Título --}}
        <H1 class="titulo" style="text-align: center;">
         @if ($accion == 'guardar')Registrar @endif
-        @if ($accion == 'editar')Actualizar @endif         
+        @if ($accion == 'editar')Actualizar @endif
         factura de compra</H1>
 
         <br>
-        
+
         {{-- Numero de facturación --}}
-       
+
         <div style="padding-left:0% ">
-        <label class="col-md-2">Número de factura</label> 
+        <label class="col-md-2">Número de factura</label>
         <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  style="display:flex padding-right:50%" name="Numero_factura" id="Numero_factura"  aria-label="Sizing example input" onkeypress="ValidaSoloNumeros4()"
          aria-describedby="inputGroup-sizing-sm" class="input ancho" required placeholder="Ingrese el número de factura"
          title="Solo debe contener números" value="{{old('Numero_factura')}}" minlength="11" maxlength="11" >
         </div>
-        
+
         <br>
 
         {{-- Fecha de facturación --}}
         <div style="padding-left: 5%  display: flex">
         <label  class="col-md-2" >Fecha de facturación</label>
-        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%" 
-        name="Fecha_facturacion" id="Fecha_facturacion" 
+        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%"
+        name="Fecha_facturacion" id="Fecha_facturacion"
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  class="input1 ancho"
         required  placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
         </div>
         <br>
 
-       
-  
+
+
         {{-- proveedores--}}
     <div   style="display: flex">
          <label class="col-md-2" for="Proveedores" >Proveedor</label>
@@ -162,12 +162,12 @@
           class="buscador-select" style="display:flex">
           <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
           @foreach ($proveedores as $p)
-            <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
+            <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>
           @endforeach
-        </select> 
+        </select>
     </div>
-       
-   
+
+
         <br>
         <br>
 
@@ -193,7 +193,7 @@
                     <th>Precio de venta</th>
                     <th>Impuesto</th>
                     <th>Total Producto</th>
-                    
+
                 </tr>
             </thead>
             <tbody id="body_table_detallesFac">
@@ -206,34 +206,34 @@
                 @if ($accion == 'guardar')
                 <button   class="btn btn-outline-dark"  type="button" onclick="guardatFactura()" >
                 <i class="bi bi-folder-fill"> Guardar</i>
-                </button>  
+                </button>
                 <button class="btn btn-outline-dark"  type="button" >
                 <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-                </button>       
+                </button>
                 @endif
-            
+
                 {{--Botones --}}
                 @if ($accion == 'editar')
-                <button  onclick="actualizarFactura()"  class="btn btn-outline-dark"  type="button" > 
+                <button  onclick="actualizarFactura()"  class="btn btn-outline-dark"  type="button" >
                 <a class="a"  href="{{route('compra.index')}}">
                 <i class="bi bi-folder-fill"> Actualizar</i></a>
-                </button>         
+                </button>
                 <button class="btn btn-outline-dark"  type="button" >
                     <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-                </button>  
+                </button>
                 @endif
             </div>
         </form>
     </form>
 
-          <!-- Modal de dialogo de agregar producto --> 
+          <!-- Modal de dialogo de agregar producto -->
         <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog  modal-xl" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
-                        Agregar producto a la factura #<span id="numfact_form"></span> 
-                    </h1>    
+                        Agregar producto a la factura #<span id="numfact_form"></span>
+                    </h1>
                 <label >
 
                 <button class="btn btn-outline-dark" onclick="openmodalproduct()" type="button"> <i class="bi bi-bag-plus"></i>Agregar producto</button>
@@ -241,10 +241,10 @@
                 </label>
                 </div>
             <div class="modal-body" >
-                        
+
                     <div class="row">
                         <div class="col">
-                            <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value="" 
+                            <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value=""
                             class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
                         <div class="col"></div>
                     </div>
@@ -252,65 +252,65 @@
                     <div class="row">
                         <div class="col">
                             {{-- tabla de buscar producto --}}
-                            <div id="buscar_producto_proveedor">    
+                            <div id="buscar_producto_proveedor">
                             </div>
                         </div>
                         <div class="col">
                             {{-- tabla de productosAgregados --}}
-                            <div id="body_table_detallesFacModal">    
+                            <div id="body_table_detallesFacModal">
                             </div>
                         </div>
                     </div>
                     <br>
-        
+
                     <!-- Formulario de agregar producto-->
-                    <form action="" >   
-                    
-            
-                        <!-- Nombre producto --> 
+                    <form action="" >
+
+
+                        <!-- Nombre producto -->
                         <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
                         <div class="col" style="padding-left: 3%"  >
                         <label for="" class="group-text">Nombre producto</label>
-                        <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto"> 
+                        <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto">
                         </div>
-        
+
                         <!-- Marca producto -->
                         <div class="col" style="padding-left: 5%"  >
                         <label for="" class="group-text" >Marca producto</label>
                         <input disabled type="text" value="" id="Marca" name="Marca">
                         </div>
-        
+
                         <!-- Descripcion -->
                         <div class="col" style="padding-left: 2%"  >
                         <label for="" class="group-text" style="padding-right: 7%">Descripción</label>
                         <input disabled type="text" value="" style="padding-right: 2%" id="Descripcion" name="Descripcion">
                         </div>
                         </div>
-                        
+
                             <!-- Categorias -->
                         <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width:150%" ><br>
                         <div class="col" style="padding-left: 1.5%">
                         <label for="" class="group-text" style="padding-right: 14%">Categoría</label>
                         <input disabled type="text" value="" id="Categoria"  style="padding-left:25% width:30%"  name="Categoria">
-                        </div>                
-                        
-        
+                        </div>
+
+
                         <!-- Cantidad -->
                         <div class="col" style="padding-left:2%"  >
                         <label for="" class="group-text" style="padding-right: 14%">Cantidad</label>
                         <input type="text" value="" id="Cantidad" style=" width:54.5%" name="Cantidad" onkeypress="ValidaSoloNumeros()"
                         minlength="1" maxlength="4">
                         </div>
-        
+
                         <!--  Precio compra -->
-                        
+
                             <div class="col" style="padding-right: 1.5%"  >
                             <label for="" class="group-text" style="padding-right: 1.5%" >Precio compra</label>
                             <input type="text" value="" id="Costo" style=" width:55.5%"  name="Costo" onkeypress="ValidaSoloNumeros1()"
                             minlength="1" maxlength="5">
                             </div>
                         </div>
-        
+
                         <!-- Precio Venta -->
                         <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width: 150%" ><br>
                         <div class="col" style="padding-left: 1.5%" >
@@ -318,7 +318,7 @@
                         <input type="text" value="" id="Precio_venta" style=" width:51%" name="Precio_venta" onkeypress="ValidaSoloNumeros2()"
                         minlength="1" maxlength="5">
                         </div>
-        
+
                         <!-- Impuesto -->
                         <div class="col"style="padding-right:31%"   >
                         <label for="" class="group-text" style="padding-right:12.5%" >Impuesto</label>
@@ -326,14 +326,14 @@
                         minlength="1" maxlength="2">
                         </div>
                         </div>
-                    
-        
+
+
                         <input type="text" hidden  value="" name="Numero_facturaform" id="Numero_facturaform" >
                         <input type="text" hidden  value="" name="id_product" id="id_product" >
                         <input type="text" hidden  value="" name="id_prov" id="id_prov" >
                         <input type="text" hidden  value="" name="id_detalle" id="id_detalle" >
                         <input type="text" hidden  value="" name="id_cat" id="id_cat" >
-                        
+
                     </form>
                 </div>
 
@@ -348,8 +348,8 @@
             </div>
             </div>
         </div>
-      
-        <!-- Modal de dialogo de agregar producto --> 
+
+        <!-- Modal de dialogo de agregar producto -->
         <div class="modal fade"  id="modalagregarproductos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog  modal-xl" >
             <div class="modal-content">
@@ -358,29 +358,29 @@
                 </div>
                 <div class="modal-body" >
                     <div style="display: flex">
-                        <input type="text" minlength="3" maxlength="25"  id="Nombre_producto_form" pattern="[A-ZÑ a-zñ0-9]+"  
+                        <input type="text" minlength="3" maxlength="25"  id="Nombre_producto_form" pattern="[A-ZÑ a-zñ0-9]+"
                         class="form-control"  required placeholder="Nombre del producto"> &nbsp;
 
-                        <input type="text" minlength="1" maxlength="25" id="Marca_form" pattern="[A-ZÑ a-zñ]+"  class="form-control" required 
+                        <input type="text" minlength="1" maxlength="25" id="Marca_form" pattern="[A-ZÑ a-zñ]+"  class="form-control" required
                         placeholder="Marca del producto" > &nbsp;
 
                         <textarea class="form-control" rows="1" pattern="[A-ZÑ a-zñ][0-9]+"
                         minlength="5" maxlength="50" id="Descripcion_form" placeholder="Ingrese la descripción del producto" required></textarea>
                     </div>
 
-                    
+
                         <div style="display: flex;margin-top:1rem">
                               {{-- proveedores--}}
                               {{-- <input type="text" disabled  id="Proveedor_form" class="form-control" > --}}
 
                             <select disabled class="form-control" id="Proveedor_form">
                                 @foreach ($proveedores as $p)
-                                <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>         
+                                <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>
                                 @endforeach
                             </select>
 
                             &nbsp;
-                            
+
                             <select id="categoria_form" class="form-control">
                                 <option value="" selected disabled>Seleccione una categoria</option>
                                 @foreach ($categorias as $cat)
@@ -388,7 +388,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    
+
                 </div>
 
                 <!-- Botones -->
@@ -400,7 +400,7 @@
             </div>
         </div>
 
-    
+
 <script>
 
     // declaramos los dos modales para acceder a ellos con los metodos de javascript
@@ -416,23 +416,23 @@
             $('.buscador-select').select2();
         });
 
-        // varibles publicas, a las que pueden acceder todas las funciones   
-        
+        // varibles publicas, a las que pueden acceder todas las funciones
+
         //pasando las variables php, a javascript
-        var detallefactura = {!! json_encode($detallefactura, JSON_HEX_TAG) !!}; 
-        var factura = {!! json_encode($factura, JSON_HEX_TAG) !!}; 
-        var products = {!! json_encode($products, JSON_HEX_TAG) !!}; 
-        var accion = {!! json_encode($accion, JSON_HEX_TAG) !!}; 
-        
+        var detallefactura = {!! json_encode($detallefactura, JSON_HEX_TAG) !!};
+        var factura = {!! json_encode($factura, JSON_HEX_TAG) !!};
+        var products = {!! json_encode($products, JSON_HEX_TAG) !!};
+        var accion = {!! json_encode($accion, JSON_HEX_TAG) !!};
+
 
         var productfiltersProveedor;
-        var totalFACTURA;   
-    
+        var totalFACTURA;
+
         document.getElementById("Numero_factura").value = factura.Numero_factura ;
         document.getElementById("Fecha_facturacion").value = factura.Fecha_facturacion;
         totalFACTURA= factura.Total_factura;
-        document.getElementById("Proveedor").value = factura.Proveedor;       
-    
+        document.getElementById("Proveedor").value = factura.Proveedor;
+
         dibujarTabla(detallefactura);
 
 
@@ -440,8 +440,8 @@
 
 
 
-        // INICIO DE LAS FUNCIONES  
-        
+        // INICIO DE LAS FUNCIONES
+
         function openmodalproduct(){
         myModal.hide();
         myModalProd.show();
@@ -453,6 +453,7 @@
             myModal.show();
             limpiarformbase();
         }
+        
         function guardarProductoaBASE() {
             // inputs del form
             var nombre = document.getElementById('Nombre_producto_form').value
@@ -467,7 +468,7 @@
                 alertify.error("El nombre del producto es requerido")
                 return;
 
-                
+
             }else if (!re.test(nombre)) {
                 alertify.error('No se aceptan signos especiales')
                 return;
@@ -479,12 +480,12 @@
                 alertify.error('El minimo es de 3 caracteres')
                 return;
             }
-            
+
             if(marca == ""){
               alertify.error("La marca del producto es requerida")
                 return;
             }
-            
+
             else if (!re.test(marca)) {
                 alertify.error('No se aceptan signos especiales')
                 return;
@@ -545,30 +546,30 @@
                     success: function(data) {
                         // actualizamos la variable con el nuevo producto
                         products = data
-                        var proveedor = document.getElementById('Proveedor').value;                        
+                        var proveedor = document.getElementById('Proveedor').value;
                         productfiltersProveedor =  products.filter((x) => x.id_prov == proveedor);
                         buscarydibujarProductos();
                         alertify.success("Producto guardado");
                         cerrarmodalproductos();
                     }
                 })
-                
+
         }
-        function limpiarformbase(){        
+        function limpiarformbase(){
             document.getElementById("Nombre_producto_form").value = '';
             document.getElementById("Marca_form").value ='';
             document.getElementById("Descripcion_form").value = '';
             document.getElementById("categoria_form").value ='';
-       
+
         }
 
         function guardatFactura() {
-        
-            //validaciones     
+
+            //validaciones
             if (document.getElementById("Numero_factura").value == '') {
                     alertify.error("El numero de la factura es requerido");
                     return;
-            }      
+            }
             if (document.getElementById("Proveedor").value == '') {
                     alertify.error("El proveedor es requerido");
                     return;
@@ -583,40 +584,40 @@
                 Numero_factura : document.getElementById("Numero_factura").value,
                 Fecha_facturacion : document.getElementById("Fecha_facturacion").value,
                 Proveedor : document.getElementById("Proveedor").value,
-                Total_factura : totalFACTURA           
+                Total_factura : totalFACTURA
             };
 
-            alertify.confirm("Guardar Factura","Esta seguro que quieres guardar?", 
-            function(){
-                //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
-                var stringarrayFactura = JSON.stringify(jsonFactura);
-                var stringarrayDetalles = JSON.stringify(detallefactura);
-                window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
+            swal.fire({
+                title: '¿Está seguro que desea guardar los datos?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
             },
             function(){
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
+                    var stringarrayFactura = JSON.stringify(jsonFactura);
+                var stringarrayDetalles = JSON.stringify(detallefactura);
+                window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
 
+                }
             })
-     
-
-      
-
+            event.preventDefault()
             
-            // $.ajax({
-            // type: "POST",
-            // url: 'guardarFactura',
-            // data: {
-            //     "_token": "{{ csrf_token() }}",
-            //     "data":jsonFactura
-            // },
-            // })
-        
-        }            
-    
+        }
+
+
+   
+
         function actualizarFactura() {
             //armamos el json con los campos de ls DB, ahora con el id de la base de datos que se hizo
             var data = {
-                Total_factura : totalFACTURA,               
-                id:factura.id    
+                Total_factura : totalFACTURA,
+                id:factura.id
             };
 
             $.ajax({
@@ -633,7 +634,7 @@
 
 
         }
-    
+
         function openmodal(){
             var factura = document.getElementById('Numero_factura').value;
             var proveedor = document.getElementById('Proveedor').value;
@@ -641,72 +642,72 @@
             if(factura != '' && factura != undefined && factura != null){
                 if (factura.length != 11) {
                     alertify.error("El numero de la factura debe tener 11 caracteres");
-                    return; 
+                    return;
                 }
                 if(proveedor != '' && proveedor != undefined && proveedor != null){
                     productfiltersProveedor =  products.filter((x) => x.id_prov == proveedor);
-                                  
+
                     buscarydibujarProductos();
                     cargarNumeroFactura();
                     // para abrir el modal detalles
                     myModal.show();
 
 
-                    limpiarform();  
-                    
+                    limpiarform();
+
                     //oculta y muestra los botones de accion del modal, (Agregar/ Actualizar
                     document.getElementById("AgregarDF").style.display = 'block';
                     document.getElementById("AgregarDFC").style.display = 'block';
                     document.getElementById("ActualizarDF").style.display = 'none';
-                    document.getElementById("ActualizarDFC").style.display = 'none';   
-    
+                    document.getElementById("ActualizarDFC").style.display = 'none';
+
                 }else{
-                    alertify.error('Ingrese Proveedor')    
-                    return;             
+                    alertify.error('Ingrese Proveedor')
+                    return;
                 }
 
-            }else{    
-                alertify.error('Ingrese Factura')   
-                return;                
-            } 
-        }    
+            }else{
+                alertify.error('Ingrese Factura')
+                return;
+            }
+        }
 
         function buscarydibujarProductos(){
             var  inputBuscarProveedor = document.getElementById('inputBuscarProveedor').value;
-            
+
             // filtrando los productos por proveeddor
             productfiltersBuscador = productfiltersProveedor.filter((x) => x.Nombre_producto.toLowerCase().includes(inputBuscarProveedor.toLowerCase()));
-            
+
             // haciendo la tabla con los productos filtrados anteriormente
-            html = '<table class="table table-hover" style="width: 100%";>';                
-            html += '<thead style="width: 100%;table-layout: fixed">';                
-            html += '<tr>';                
-            html += '<th>Productos</th>';                
-            html += '</tr>';                
-            html += '</thead>';                
-            html += '<tbody  style="display: inline-block; height:10rem;overflow:auto; width: 100%">';              
+            html = '<table class="table table-hover" style="width: 100%";>';
+            html += '<thead style="width: 100%;table-layout: fixed">';
+            html += '<tr>';
+            html += '<th>Productos</th>';
+            html += '</tr>';
+            html += '</thead>';
+            html += '<tbody  style="display: inline-block; height:10rem;overflow:auto; width: 100%">';
             productfiltersBuscador.forEach(element => {
             html += '<tr style="width:100%">';
-            html += '<td>' +element.Nombre_producto+'</td>';    
-            html += '<td>' +element.Marca+'</td>';    
-            html += '<td><button class="btn btn-outline-dark" onclick="cargarProducto('+element.id_product+')"><i class="bi bi-bag-plus"> Agregar</i></button></td>';   
-            html += '</tr>';                    
+            html += '<td>' +element.Nombre_producto+'</td>';
+            html += '<td>' +element.Marca+'</td>';
+            html += '<td><button class="btn btn-outline-dark" onclick="cargarProducto('+element.id_product+')"><i class="bi bi-bag-plus"> Agregar</i></button></td>';
+            html += '</tr>';
             });
 
-            html += '</tbody>';   
+            html += '</tbody>';
             html += '</table>';
-            //con el inner html, inyectamos la tabla en el div con este id, en el modal  
+            //con el inner html, inyectamos la tabla en el div con este id, en el modal
             document.getElementById("buscar_producto_proveedor").innerHTML = html;
-        }   
-    
+        }
+
         function cargarNumeroFactura() {
         var numfactura = document.getElementById("Numero_factura").value;
         //se manda al input ihidden del formulario
         document.getElementById("Numero_facturaform").value = numfactura;
         // se manda al titulo del modal
-        document.getElementById("numfact_form").innerHTML = '<span>'+numfactura+'</span>';    
-        }    
-    
+        document.getElementById("numfact_form").innerHTML = '<span>'+numfactura+'</span>';
+        }
+
         function cargarProducto(select) {
 
             if (select == '') {
@@ -727,15 +728,15 @@
                 document.getElementById("Costo").value = pro[0].Precio_compra;
                 document.getElementById("Precio_venta").value = pro[0].Precio_venta;
                 document.getElementById("Impuesto").value = pro[0].Impuesto;
-        
+
                 //mostramos y escondemos los botones que necesitan
                 document.getElementById("AgregarDF").style.display = 'block';
                 document.getElementById("AgregarDFC").style.display = 'block';
                 document.getElementById("ActualizarDF").style.display = 'none';
-                document.getElementById("ActualizarDFC").style.display = 'none';             
+                document.getElementById("ActualizarDFC").style.display = 'none';
             }
         }
-    
+
         function  AgregarDetalle(){
            var nombre_producto =  document.getElementById("nombre_producto").value;
            var Marca =  document.getElementById("Marca").value;
@@ -744,7 +745,7 @@
            var Cantidad = document.getElementById("Cantidad").value;
            var Costo = document.getElementById("Costo").value;
            var Precio_venta = document.getElementById("Precio_venta").value;
-           
+
 
            if(nombre_producto == ''){
             alertify.error("Seleccionar producto");
@@ -764,11 +765,11 @@
             alertify.error("Seleccionar producto");
             return;
            }
-    
+
            if(Cantidad == '' ){
             alertify.error("La cantidad es requerida");
             return;
-           }    
+           }
            if(Cantidad == 0){
             alertify.error("La cantidad no debe ser cero");
             return;
@@ -780,7 +781,7 @@
            if(Costo == 0){
             alertify.error("El precio de compra no debe ser cero");
             return;
-           }           
+           }
            if(Precio_venta == ''){
             alertify.error("El precio de venta es requerida");
             return;
@@ -790,16 +791,16 @@
             return;
            }
 
-           if( parseFloat(Precio_venta) < parseFloat(Costo)){            
+           if( parseFloat(Precio_venta) < parseFloat(Costo)){
             alertify.error("El precio de venta no debe ser menor al precio de compra");
             return;
            }else if(parseFloat(Precio_venta) == parseFloat(Costo)){
-            alertify.error("El precio de venta no debe ser igual al precio de compra");  
-            return;          
+            alertify.error("El precio de venta no debe ser igual al precio de compra");
+            return;
            }
 
-           
-        
+
+
             //    armamos el json de los stringarrayDetalles
             //    con un uuid, para poder actualizarlo, incluso cuando aun no se ha guardado
             //    para eso utilizamos la funcion uuidv4
@@ -816,7 +817,7 @@
                 "Cantidad": Cantidad,
                 "Costo": Costo,
                 "Precio_venta": Precio_venta,
-                "Impuesto": document.getElementById("Impuesto").value,              
+                "Impuesto": document.getElementById("Impuesto").value,
             };
 
             var existe = 0;
@@ -833,7 +834,7 @@
                 }
             });
 
-            if (existe == 0) {                
+            if (existe == 0) {
                 if(accion == 'editar'){
                     $.ajax({
                         type: "POST",
@@ -846,7 +847,7 @@
                             console.log(data);
                         }
                     })
-                }                
+                }
                 detallefactura.push(jsonproducto);
             }else{
                 if(accion == 'editar'){
@@ -876,40 +877,40 @@
 
 
             dibujarTabla(detallefactura);
-            limpiarform()          
-        }    
-    
+            limpiarform()
+        }
+
         function dibujarTabla(data){
             var html = '';
             var htmlagregados = '';
 
-            htmlagregados +='<div style="text-align:center "><strong>Productos agregados</strong></div>';                               
-                              
-            htmlagregados +='<div>';                    
-            htmlagregados +='<div class="row" style="font-weight:bold">';               
-            htmlagregados +='<div class="col">Nombre </div>';                    
-            htmlagregados +='<div class="col">Marca </div>';                    
-            htmlagregados +='<div class="col">Cantidad </div>';                    
-            htmlagregados +='<div class="col">Editar</div>';  
-            htmlagregados +='<div class="col">Eliminar</div>';                   
-            htmlagregados +='</div>';        
-            htmlagregados +='</div>';                  
-                
-                
-            htmlagregados +='<div  style="height:10rem;overflow:auto">';                    
+            htmlagregados +='<div style="text-align:center "><strong>Productos agregados</strong></div>';
+
+            htmlagregados +='<div>';
+            htmlagregados +='<div class="row" style="font-weight:bold">';
+            htmlagregados +='<div class="col">Nombre </div>';
+            htmlagregados +='<div class="col">Marca </div>';
+            htmlagregados +='<div class="col">Cantidad </div>';
+            htmlagregados +='<div class="col">Editar</div>';
+            htmlagregados +='<div class="col">Eliminar</div>';
+            htmlagregados +='</div>';
+            htmlagregados +='</div>';
+
+
+            htmlagregados +='<div  style="height:10rem;overflow:auto">';
 
             subtotalFACTURA = 0;
             totalFACTURA = 0;
             totalInmpuesto = 0;
-            
-            
+
+
            //TABLA GRANDE AFUERA
             data.forEach(element => {
-                
+
                 totalproducto = ( element.Cantidad * element.Costo)
                 totalInmpuesto += (( element.Cantidad * element.Costo) * (element.Impuesto/100))
-                html += '<div class= "box">'; 
-                html += '<tr>';   
+                html += '<div class= "box">';
+                html += '<tr>';
                 html += '<td>'+element.nombre_producto+'</td>';
                 html += '<td>'+element.Marca+'</td>';
                 html += '<td>'+element.Categoria+'</td>';
@@ -922,8 +923,8 @@
                 html += '</tr>';
                 html += '</div';
 
-                htmlagregados +='<table class="table table-hover">'; 
-                htmlagregados +='<div  class="row">';                    
+                htmlagregados +='<table class="table table-hover">';
+                htmlagregados +='<div  class="row">';
                 htmlagregados += '<div class="col">'+element.nombre_producto+'</div>';
                 htmlagregados += '<div class="col">'+element.Marca+'</div>';
                 htmlagregados += '<div class="col">'+element.Cantidad+'</div>';
@@ -932,31 +933,31 @@
                 htmlagregados +='</div>';
                 htmlagregados += `<div class="col" style="display:flex">`+
                     `<button class="btn btn-outline-dark" onclick="eliminardetalle('`+element.id_detalle+`')"><i class="bi bi-trash"></i></button>`;
-                    
-               
+
+
                 htmlagregados +='</div>';
-                htmlagregados +='</table>'; 
-    
+                htmlagregados +='</table>';
+
                 subtotalFACTURA += totalproducto;
             });
 
-            htmlagregados +='</div>';      
+            htmlagregados +='</div>';
 
 
-                html += '<tr>';               
+                html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >SubTotal</strong></td>';
                 html += '<td><strong>Lps. '+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
 
-                html += '<tr>';               
+                html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Impuesto</strong></td>';
                 html += '<td><strong>Lps. '+totalInmpuesto.toFixed()+'</strong></td><td></td>';
                 html += '<tr>';
 
                     totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
-                html += '<tr>';               
+                html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
                 html += '<td><strong>Lps. '+totalFACTURA.toFixed() +'</strong></td><td></td>';
@@ -965,44 +966,59 @@
             //inyectando los dos variables a donde correspondan
             document.getElementById('body_table_detallesFac').innerHTML = html;
             document.getElementById('body_table_detallesFacModal').innerHTML = htmlagregados;
-    
+
         }
 
         function eliminardetalle(id_detalle){
-        alertify.confirm('Eliminar detalle','¿Desea eliminar este detalle?',
-        function(){
+            swal.fire({
+                title: '¿Desea eliminar este detalle?',
+                icon: 'question',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            },
+            function(){
             // excluir el json del array, diciendole que el id sea diferente
-            detallefactura = detallefactura.filter((x) => x.id_detalle != id_detalle)
+           
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    detallefactura = detallefactura.filter((x) => x.id_detalle != id_detalle)
 
-            //eliminar de la base de datos, solo si estamos en editar
-            if(accion == 'editar'){
-                $.ajax({
-                    type: "POST",
-                    url: '/eliminardetallepro',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "data":id_detalle
-                    },
-                    success: function() {
-                        console.log("Valueadded");
+                    //eliminar de la base de datos, solo si estamos en editar
+                    if(accion == 'editar'){
+                        $.ajax({
+                            type: "POST",
+                            url: '/eliminardetallepro',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "data":id_detalle
+                            },
+                            success: function() {
+                                console.log("Valueadded");
+                            }
+                        })
                     }
-                })                
-            }
-
-
-            // volver a dibujar la tabla para que se note la diferencia
-            dibujarTabla(detallefactura);
-            alertify.success('Eliminado correctamemte')
-
+                }
+                 // volver a dibujar la tabla para que se note la diferencia
+                dibujarTabla(detallefactura);
+                alertify.success('Eliminado correctamemte')
+            })
+            event.preventDefault()
         }
-        , function(){ })
-        }
+       
+
+
+   
+
+
 
         function editardetalle(id_detalle){
-           
+
             //buscamos el registro por el id
             var detalleaeditar = detallefactura.filter((x) => x.id_detalle == id_detalle)
-            
+
            var Costo = document.getElementById("Costo").value;
            var Precio_venta = document.getElementById("Precio_venta").value;
 
@@ -1020,35 +1036,35 @@
             document.getElementById("Costo").value = detalleaeditar[0].Costo;
             document.getElementById("Precio_venta").value = detalleaeditar[0].Precio_venta;
             document.getElementById("Impuesto").value = detalleaeditar[0].Impuesto;
-           
-        
-              
+
+
+
 
             // cambiamos los botones a actualizar
             document.getElementById("AgregarDF").style.display = 'none';
             document.getElementById("AgregarDFC").style.display = 'none';
             document.getElementById("ActualizarDF").style.display = 'block';
-            document.getElementById("ActualizarDFC").style.display = 'block';  
+            document.getElementById("ActualizarDFC").style.display = 'block';
 
-            if( parseFloat(Precio_venta) < parseFloat(Costo)){            
+            if( parseFloat(Precio_venta) < parseFloat(Costo)){
             alertify.error("El precio de venta no debe ser menor al precio de compra");
             return;
            }else if(parseFloat(Precio_venta) == parseFloat(Costo)){
-            alertify.error("El precio de venta no debe ser igual al precio de compra");  
+            alertify.error("El precio de venta no debe ser igual al precio de compra");
             return; }
 
         }
 
          function ActualizarDetalle(){
-            //copiamos las mismas validacion de agregar        
+            //copiamos las mismas validacion de agregar
            var Cantidad = document.getElementById("Cantidad").value;
            var Costo = document.getElementById("Costo").value;
            var Precio_venta = document.getElementById("Precio_venta").value;
-            
+
            if(Cantidad == '' ){
             alertify.error("La cantidad es requerida");
             return;
-           }    
+           }
            if(Cantidad == 0){
             alertify.error("La cantidad no debe ser cero");
             return;
@@ -1060,7 +1076,7 @@
            if(Costo == 0){
             alertify.error("El precio de compra no debe ser cero");
             return;
-           }           
+           }
            if(Precio_venta == ''){
             alertify.error("El precio de venta es requerida");
             return;
@@ -1069,14 +1085,14 @@
             alertify.error("El precio de venta no debe ser cero");
             return;
            }
-           
-        
-            if( parseFloat(Precio_venta) < parseFloat(Costo)){            
+
+
+            if( parseFloat(Precio_venta) < parseFloat(Costo)){
             alertify.error("El precio de venta no debe ser menor al precio de compra");
             return;
            }else if(parseFloat(Precio_venta) == parseFloat(Costo)){
-            alertify.error("El precio de venta no debe ser igual al precio de compra");  
-            return;          
+            alertify.error("El precio de venta no debe ser igual al precio de compra");
+            return;
            }
 
            //obtener el id del detalle que vamos a actualizar, con los valores de las cajas
@@ -1091,7 +1107,7 @@
             "Impuesto":document.getElementById("Impuesto").value,
            }
 
-    
+
            $.ajax({
                 type: "POST",
                 url: '/editardetallepro',
@@ -1105,7 +1121,7 @@
             })
 
 
-           detallefactura.forEach(element => {      
+           detallefactura.forEach(element => {
             // y donde coincida, darle los mismos valores de la cajas al elemento
             if(element.id_detalle == iddetalleinput){
                 element.Cantidad = Cantidad;
@@ -1117,14 +1133,14 @@
 
            //dibujamosla tabla para que se mire el campo, y regresamos los botones, y limpiamos los campos
             dibujarTabla(detallefactura);
-            limpiarform()  
+            limpiarform()
             document.getElementById("AgregarDF").style.display = 'block';
             document.getElementById("AgregarDFC").style.display = 'block';
             document.getElementById("ActualizarDF").style.display = 'none';
-            document.getElementById("ActualizarDFC").style.display = 'none';     
+            document.getElementById("ActualizarDFC").style.display = 'none';
          }
-    
-        function limpiarform(){        
+
+        function limpiarform(){
             document.getElementById("nombre_producto").value = '';
             document.getElementById("Marca").value ='';
             document.getElementById("Descripcion").value = '';
@@ -1138,7 +1154,7 @@
             document.getElementById("id_cat").value ='';
             document.getElementById("inputBuscarProveedor").value = '';
         }
-    
+
         function uuidv4() {
             return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
                 (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -1148,38 +1164,38 @@
 
         //  {{-- para no escribir numeros --}}
          function ValidaSoloNumeros() {
-        if ((event.keyCode < 48) || (event.keyCode > 57)) 
+        if ((event.keyCode < 48) || (event.keyCode > 57))
         event.returnValue = false;
         }
         function ValidaSoloNumeros1() {
-        if ((event.keyCode < 48) || (event.keyCode > 57)) 
+        if ((event.keyCode < 48) || (event.keyCode > 57))
         event.returnValue = false;
         }
         function ValidaSoloNumeros2() {
-        if ((event.keyCode < 48) || (event.keyCode > 57)) 
+        if ((event.keyCode < 48) || (event.keyCode > 57))
         event.returnValue = false;
         }
         function ValidaSoloNumeros3() {
-        if ((event.keyCode < 48) || (event.keyCode > 57)) 
+        if ((event.keyCode < 48) || (event.keyCode > 57))
         event.returnValue = false;
         }
         function ValidaSoloNumeros4() {
-        if ((event.keyCode < 48) || (event.keyCode > 57)) 
+        if ((event.keyCode < 48) || (event.keyCode > 57))
         event.returnValue = false;
         }
-    
-    
-            
-     </script>  
-    
-    @endsection    
+
+
+
+     </script>
+
+    @endsection
 
     {{--mensaje de confirmacion --}}
 @push('alertas')
 {{-- <script>
     function guardarcompra() {
        var formul = document.getElementById("form_guardarCompra");
-       
+
        Swal.fire({
             title: '¿Está seguro que desea guardar los datos?',
             icon: 'question',
@@ -1197,4 +1213,4 @@
     }
 </script> --}}
 @endpush
-    @include('common')       
+    @include('common')
