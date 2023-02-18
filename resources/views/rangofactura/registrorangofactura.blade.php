@@ -2,6 +2,7 @@
 @section('extra-content')
 
 
+
 <style>
     /*Cajas de texto*/
     .form-control {
