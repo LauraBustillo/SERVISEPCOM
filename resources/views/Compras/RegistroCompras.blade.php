@@ -1000,10 +1000,11 @@
                             }
                         })
                     }
+                    alertify.success('Eliminado correctamemte')
                 }
                  // volver a dibujar la tabla para que se note la diferencia
                 dibujarTabla(detallefactura);
-                alertify.success('Eliminado correctamemte')
+                
             })
             event.preventDefault()
         }
