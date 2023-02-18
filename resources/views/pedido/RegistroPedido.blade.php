@@ -546,23 +546,27 @@
             // excluir el json del array, diciendole que el id sea diferente
            
             }).then((result)=>{
-              if(accion == 'editar'){
-            $.ajax({
-              type: "POST",
-              url: '/eliminarDetallePedido',
-              data: {
-                  "_token": "{{ csrf_token() }}",
-                  "data":id
-              },
-              success: function(data){
-                
-              }
-            }); 
-          }
-          let filtered= detalles_pedido.filter((x) => x.id_detallepedido != id);
-          detalles_pedido = filtered
-          dibujarTablaDetalles()
-          alertify.success('Detalle pedido eliminado')
+              if (result.isConfirmed) {
+                let filtered= detalles_pedido.filter((x) => x.id_detallepedido != id);
+                detalles_pedido = filtered
+
+                if(accion == 'editar'){
+                    $.ajax({
+                      type: "POST",
+                      url: '/eliminarDetallePedido',
+                      data: {
+                          "_token": "{{ csrf_token() }}",
+                          "data":id
+                      },
+                      success: function(data){
+                        
+                      }
+                    }); 
+                }
+                alertify.success('Detalle pedido eliminado')
+              }  
+               
+                dibujarTablaDetalles()
             })
             event.preventDefault()
    
