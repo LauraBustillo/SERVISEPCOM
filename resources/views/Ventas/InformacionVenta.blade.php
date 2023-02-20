@@ -49,7 +49,8 @@
 <br>
 
 <div>
-    <div class="titulo" > Factura N° : {{ $factura->numeroFactura }} </div>
+    <div class="titulo" > Factura N° : {{ $factura->numeroFactura}} </div>
+    <div class="titulo" > CAI : {{ $factura->caiRango}}</div>
 <br>
 
     <table class="table table-hover">
@@ -170,26 +171,8 @@
 
         }
 
-        function actualizarFactura() {
-            //armamos el json con los campos de ls DB, ahora con el id de la base de datos que se hizo
-            var jsonFactura = {
-                Numero_factura : document.getElementById("Numero_factura").value,
-                Fecha_facturacion : document.getElementById("Fecha_facturacion").value,
-                Proveedor : document.getElementById("Proveedor").value,
-                Total_factura : totalFACTURA,
-                id:factura.id
-            };
-            //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
-            var stringarrayFactura = JSON.stringify(jsonFactura);
-            var stringarrayDetalles = JSON.stringify(detallefactura);
-            window.location.href = `{{URL::to('/actualizarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
-        }
+        
   </script>
-
-
-
-
-
 
 @endsection
 @include('common')

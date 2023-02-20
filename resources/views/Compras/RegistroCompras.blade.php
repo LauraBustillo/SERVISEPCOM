@@ -996,7 +996,7 @@
                                 "data":id_detalle
                             },
                             success: function() {
-                                console.log("Valueadded");
+                                
                             }
                         })
                     }
@@ -1004,7 +1004,7 @@
                 }
                  // volver a dibujar la tabla para que se note la diferencia
                 dibujarTabla(detallefactura);
-                
+               
             })
             event.preventDefault()
         }

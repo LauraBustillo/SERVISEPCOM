@@ -567,6 +567,7 @@
               }  
                
                 dibujarTablaDetalles()
+                
             })
             event.preventDefault()
    
