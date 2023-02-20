@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\RangoFactura;
 use App\Http\Requests\StoreRangoFacturaRequest;
 use App\Http\Requests\UpdateRangoFacturaRequest;
+use App\Rules\FacturaFinalMayorQueInicial;
+use App\Rules\FacturaFinalMayorQueInicialVentas;
 use Illuminate\Http\Request;
 
 class RangoFacturaController extends Controller
@@ -44,12 +46,11 @@ class RangoFacturaController extends Controller
 
 
         $rules = ([
-
             'caiRango' => 'required|unique:rango_facturas|regex:^\b([0-9A-Fa-f]{6}-){5}[0-9A-Fa-f]{2}\b^|max:37',
-            'fechaInicio' => 'required',
+            'fechaInicio' => 'required|before:fechaVencimiento',
             'fechaVencimiento' => 'required',
             'facturaInicial' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19',
-            'facturaFinal' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19',
+            'facturaFinal' => ['required','regex:^[0-9]-\d{3}-\d{2}-\d{8}$^','max:19',new FacturaFinalMayorQueInicial()],
 
         ]);
         $mesaje = ([
@@ -57,22 +58,14 @@ class RangoFacturaController extends Controller
             'caiRango.required' => 'El CAI es obligatorio',
             'caiRango.regex' => 'El numero CAI solo adminte valores hexadecimales (0-F)',
             'caiRango.unique' => 'El numero CAI ya ha sido usado',
-
-
             'fechaInicio.required' => 'La fecha de inicio es obligatoria',
-
+            'fechaInicio.before' => 'La fecha de inicio debe de ser menor a la fecha de vencimiento',
             'fechaVencimiento.required' => 'La fecha final es obligatoria',
-
             'facturaInicial.required' => 'La factura inicial es obligatoria',
-
             'facturaFinal.required' => 'La factura final es obligatoria',
-
-
-            
-
-
-
         ]);
+
+
         $this->validate($request, $rules, $mesaje);
 
         $actual = RangoFactura::where('estado', 1)->get();
@@ -102,14 +95,16 @@ class RangoFacturaController extends Controller
     {
 
         $rules = ([
-            'fecha_desde' => 'required',
+            'fecha_desde' => 'required|before:fecha_hasta',
             'fecha_hasta' => 'required',
             'rango_hasta' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19',
-            'rango_desde' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19',
+            'rango_desde' => ['required','regex:^[0-9]-\d{3}-\d{2}-\d{8}$^','max:19',new FacturaFinalMayorQueInicialVentas()],
             'numero_cai' => 'required|regex:^\b([0-9A-Fa-f]{6}-){5}[0-9A-Fa-f]{2}\b^|max:37',
         ]);
+
         $mesaje = ([
             'fecha_desde.required' => 'La fecha de inicio es requerida',
+            'fecha_desde.before' => 'La fecha de inicio debe de ser menor a la fecha de vencimiento',
             'fecha_hasta.required' => 'La fecha final es requerida',
             'rango_desde.required' => 'La factura iniciales requerida',
             'rango_hasta.required' => 'La factura final es requerida',
