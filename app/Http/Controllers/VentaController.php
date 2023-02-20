@@ -68,24 +68,24 @@ class VentaController extends Controller
 
 
         $cliente = Cliente::all();
-        $query = 'SELECT DISTINCT p.id_detalle as id_inventa,
-                                p.id as id_product,
-                                cat.id as id_cat,
-                                prov.id as id_prov,
-                                p.Nombre_producto,
-                                p.Descripcion,
-                                p.Marca,
-                                p.costo,
-                                p.Precio_venta,
-                                p.Cantidad,
-                                p.CantidadRestante,
-                                p.Impuesto,
-                                prov.Nombre_empresa,
-                                cat.Descripcion as DescripcionC
-        FROM compra_detalles AS p
-        INNER JOIN proveedors  as prov ON p.id_prov = prov.id
-        INNER JOIN categorias AS cat ON p.id_cat = cat.id
-        WHERE p.CantidadRestante > 0';
+        $query = 'SELECT DISTINCT
+                        p.id_product,
+                        cat.id as id_cat,
+                        prov.id as id_prov,
+                        p.Nombre_producto,
+                        p.Descripcion,
+                        p.Marca,
+                        (SELECT MAX(costo) FROM compra_detalles WHERE compra_detalles.id_product = p.id_product) as costo,
+                        (SELECT MAX(Precio_venta) FROM compra_detalles WHERE compra_detalles.id_product = p.id_product) as Precio_venta,
+                        ((SELECT SUM(Cantidad) FROM compra_detalles WHERE compra_detalles.id_product = p.id_product) -
+                                if((SELECT SUM(Cantidad) FROM detalle_ventas WHERE detalle_ventas.id_product = p.id_product) IS NULL,
+                                            0, (SELECT SUM(Cantidad) FROM detalle_ventas WHERE detalle_ventas.id_product = p.id_product))) as Cantidad,
+                        p.Impuesto,
+                        prov.Nombre_empresa,
+                        cat.Descripcion as DescripcionC
+                FROM compra_detalles AS p
+                INNER JOIN proveedors  as prov ON p.id_prov = prov.id
+                INNER JOIN categorias AS cat ON p.id_cat = cat.id';
 
 
         $products = DB::select(DB::raw($query));
@@ -137,11 +137,6 @@ class VentaController extends Controller
             $a->Precio_venta = $detFact->Precio_venta;
             $a->Impuesto = $detFact->Impuesto;
             $agregar1 =  $a->save();
-
-
-            DB::update('UPDATE compra_detalles AS c
-                set c.CantidadRestante = c.CantidadRestante - ?
-                where c.id_detalle = ?', [ $detFact->Cantidad, $detFact->id_inventa]);
         }
 
 
@@ -171,13 +166,14 @@ class VentaController extends Controller
         $products = [];
         $factura = Venta::findOrFail($id);
         $detallefactura = DetalleVenta::where('Numero_facturaform', '=', $factura->numeroFactura)->get();
-
+        $rangos = RangoFactura::findOrFail($factura->idRangoFactura);
 
 
         return view('Ventas.InformacionVenta')
             ->with('products', $products)
             ->with('factura', $factura)
-            ->with('detallefactura', $detallefactura);
+            ->with('detallefactura', $detallefactura)
+            ->with('rangos', $rangos);
 
     }
 }
