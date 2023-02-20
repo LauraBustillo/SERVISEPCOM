@@ -2,7 +2,6 @@
 @section('extra-content')
 
 
-
 <style>
     /*Cajas de texto*/
     .form-control {
@@ -173,11 +172,13 @@
         document.getElementById("caiRango").addEventListener("keypress", validarCai);
 
 
+      
+
     </script>
 
     {{--Botones --}}
     <center>
-        <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>
+        <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-folder-fill" > Guardar</i></button>
         <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
         <button type="button" class="btn btn-outline-dark"><a class="a" href="{{route('RangoFactura.index')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
     </center>
@@ -185,7 +186,6 @@
 
 
 @endsection
-
 {{--mensaje de confirmacion --}}
 @push('alertas')
     <script>
@@ -209,7 +209,6 @@
         }
     </script>
 @endpush
-
 
 @include('common')
 

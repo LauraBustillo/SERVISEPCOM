@@ -5,55 +5,55 @@
    background-color: #B8D7F9;
    border: 1.5px solid #000000;
  }
- 
+
  .form-control  {
      background-color: transparent;
      border: 1.5px solid #000000;
  }
- 
+
  .table-1{
      width: 100%;
      color: rgb(3, 10, 1);
-   
+
      border: 1px solid #000000;
- 
+
  }
- 
+
  .table-1 th{
      background-color: #0319C4;
      color:white;
      padding: .2rem;
      text-align: start;
  }
- 
+
  .btn-info{
      background-color: transparent;
      border: 1px solid #000000;
  }
- 
- /*Los titulos */ 
+
+ /*Los titulos */
  .titulo {
    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
    color: black;
    font-family: 'Open Sans';
    font-size: 20xp;
  }
- 
- 
- /*Los botones*/ 
+
+
+ /*Los botones*/
  .btn-outline-dark {
    background-color: transparent;
    border: 1.8px solid #000000;
    text-decoration: none;
    color: black;
-   
+
  }
- 
- /*Quitar Subrayado*/ 
+
+ /*Quitar Subrayado*/
   a:link, a:visited, a:active, a:focus{
      text-decoration:none;
-     Color: black; 
-    
+     Color: black;
+
    }
 
    div.dataTables_wrapper div.dataTables_filter input {
@@ -69,18 +69,18 @@ background-color: transparent;
   text-align: left !important;
 width: 50% !important;
 
- 
+
 
 }
 
 .dt-buttons{
   padding-left: 85% !important;
-  
-  
+
+
 }
 .dt-button{
   padding: 0 !important;
-  border: none !important;  
+  border: none !important;
 }
 
 
@@ -92,8 +92,8 @@ width: 50% !important;
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 
-<script  src = 'build/pdfmake.min.js' ></script> 
-<script  src = 'build/vfs_fonts.js' ></script> 
+<script  src = 'build/pdfmake.min.js' ></script>
+<script  src = 'build/vfs_fonts.js' ></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
 
@@ -132,10 +132,10 @@ width: 50% !important;
 
 
 
- 
- 
- 
- <h1 class="titulo" style="text-align:center">Listado de inventario</h1> 
+
+
+
+ <h1 class="titulo" style="text-align:center">Listado de inventario</h1>
 
  {{-- Buscador
  <br>
@@ -149,40 +149,38 @@ width: 50% !important;
      </form>
    </div>
    </nav>--}}
-   
+
  <br>
- 
 
 
- <div>     
+
+ <div>
      <table id="example" class="table table-hover">
          <thead>
          <tr>
-         
+
          <th scope="col">Nombre del producto</th>
          <th scope="col">Marca</th>
          <th scope="col">Provedor</th>
          <th scope="col">Cantidad</th>
-         <th scope="col">Cantidad Restante</th>
          <th scope="col">Categoría</th>
-         <th scope="col">Detalles inventario</th>  
+         <th scope="col">Detalles inventario</th>
          </tr>
          </thead>
- 
-      <tbody>   
+
+      <tbody>
          @forelse($inventario as $in)
- 
+
          <tr>
          <td scope="row">{{ $in->Nombre_producto}}</td>
          <td>{{ $in->Marca }}</td>
          <td>{{ $in->Nombre_empresa}}</td>
          <td>{{ $in->Cantidad}}</td>
-         <td>{{ $in->CantidadRestante}}</td>
          <td>{{ $in->Categoria}}</td>
-         
+
          {{-- Botones --}}
          <td><a class="btn-detalles" href="{{route('inventario.mostrar' , ['id' => $in->id_producto]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
-       
+
         </tr>
         @empty
         @endforelse
@@ -191,11 +189,11 @@ width: 50% !important;
    </div>
 
    <script>
-    
+
     $().ready(function(){
     $('#example').DataTable({
 
-   
+
 
 
       dom:  '<"wrapper"fBlitp>',
@@ -226,10 +224,10 @@ width: 50% !important;
               "colvis": "Visibilidad"
           }
       },
-  
+
       buttons: [
 
- //Imprimir 
+ //Imprimir
 
        {
         extend:    'print',
@@ -237,12 +235,12 @@ width: 50% !important;
         titleAttr: 'Imprimir',
         title:'Reporte de listado de inventario ',
 
-        
-     
-        
+
+
+
 
        },
-     
+
 
 
 //PDF
@@ -255,8 +253,8 @@ width: 50% !important;
    pageSize: 'A4',
    title:'Reporte de listado de inventario ',
    exportOptions: { columns: [0, 1, 2, 3,4] ,
-  
-    
+
+
 },
 
       customize: function(doc) {
@@ -289,15 +287,15 @@ width: 50% !important;
 extend:    'excelHtml5',
 text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
 titleAttr: 'Archivo Excel',
-exportOptions: { columns: [0, 1, 2, 3,4] } 
+exportOptions: { columns: [0, 1, 2, 3,4] }
 
 
-}, 
+},
 
 ]
 
   });
-  
+
 
 
 });

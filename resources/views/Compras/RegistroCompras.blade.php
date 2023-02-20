@@ -601,17 +601,13 @@
                 if (result.isConfirmed) {
                     //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
                     var stringarrayFactura = JSON.stringify(jsonFactura);
-                var stringarrayDetalles = JSON.stringify(detallefactura);
-                window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
+                    var stringarrayDetalles = JSON.stringify(detallefactura);
+                    window.location.href = `{{URL::to('/guardarFactura/`+stringarrayFactura+`/`+stringarrayDetalles+`')}}`;
 
                 }
             })
             event.preventDefault()
-            
         }
-
-
-   
 
         function actualizarFactura() {
             //armamos el json con los campos de ls DB, ahora con el id de la base de datos que se hizo
@@ -1008,12 +1004,6 @@
             })
             event.preventDefault()
         }
-       
-
-
-   
-
-
 
         function editardetalle(id_detalle){
 

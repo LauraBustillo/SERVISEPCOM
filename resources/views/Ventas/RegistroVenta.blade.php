@@ -38,7 +38,7 @@
         color: #FFFFFF;
 
     }
-    
+
 
     /*Los botones*/
     .btn-outline-dark {
@@ -127,7 +127,8 @@
 
 
 
-<form class="form-control"  >
+
+<form class="form-control">
     @csrf
     {{-- titiulo --}}
     <div style="display: flex">
@@ -217,7 +218,7 @@
     </div>
     <br>
     <center>
-        <button class="btn btn-outline-dark" type="button" id="guardarFactura" name="guardarFactura" onclick="guardatFactura()">
+        <button class="btn btn-outline-dark" type="button" onclick="guardatFactura()">
             <i class="bi bi-receipt-cutoff"> Facturar</i>
         </button>
         <button class="btn btn-outline-dark" type="button">
@@ -293,8 +294,7 @@
                         <div style="display: flex" class="mx-auto">
                             <button type="submit" class="btn btn-outline-dark"><i class="bi bi-plus-square">
                                     Agregar</i></button> &nbsp;
-                                 
-                            <a class="btn btn-outline-dark" ><i class="bi bi-eraser-fill"> Limpiar </i></a>
+                            <a class="btn btn-outline-dark"><i class="bi bi-eraser-fill"> Limpiar </i> </a>
 
                         </div>
 
@@ -361,14 +361,14 @@
                         <!-- Cantidad -->
                         <div style="width: 20%">
                             <label for="" class="group-text">Cantidad</label>
-                            <input type="text" value="" id="Cantidad" name="Cantidad" onkeypress="ValidaSoloNumeros()" minlength="1" maxlength="4" onchange="inventarioMinimo()">
+                            <input type="text" value="" id="Cantidad" name="Cantidad" onkeypress="ValidaSoloNumeros()" minlength="1" maxlength="4">
                         </div>
                     </div>
 
 
 
                     <div style="display: flex">
-                      
+
                         <div style="width: 20%">
                             <!-- Precio Venta -->
                             <label for="" class="group-text">Precio venta</label>
@@ -387,7 +387,7 @@
                             <input disabled type="text" value="" id="Descripcion" name="Descripcion">
                         </div>
                     </div>
-                    
+
                     <div style="display: flex">
                         <!--  Descuento -->
                         <div style="width: 20%">
@@ -396,9 +396,9 @@
                         </div>
                     </div>
 
-                      
 
-                   
+
+
 
 
                     <input type="text" hidden value="" name="Numero_facturaform" id="Numero_facturaform">
@@ -409,7 +409,7 @@
                     <input type="text" hidden value="" name="id_detalle" id="id_detalle">
                     <input type="text" hidden value="" name="id_cat" id="id_cat">
                     <input type="text" hidden value="" name="id_inventa" id="id_inventa">
-                    <input type="text" hidden value="" name="inventario" id="inventario">
+                    <input type="text" hidden value="" name="CantidadExistencia" id="CantidadExistencia">
 
                 </form>
 
@@ -438,7 +438,7 @@
 
 
 <script>
-    var detallefactura = @json($detallefactura);
+    var detallefactura = {!! json_encode($detallefactura, JSON_HEX_TAG) !!};
 
     var myModalVerRangos = new bootstrap.Modal(document.getElementById('modalverrango'));
     var accion = @json($accion);
@@ -452,9 +452,6 @@
         myModalVerRangos.hide();
     }
 
-   
-
-   
 
     //Para abrir el modal de garegra detalle
     function openmodal() {
@@ -464,9 +461,106 @@
 
         buscarydibujarProductos();
         cargarNumeroFactura();
-        dibujarTabla()
+        dibujarTabla(detallefactura);
 
     }
+
+    function dibujarTabla(data) {
+        var html = '';
+        var htmlagregados = '';
+
+        htmlagregados += '<div style="text-align:center "><strong>Productos agregados</strong></div>';
+
+        htmlagregados += '<div>';
+        htmlagregados += '<div class="row" style="font-weight:bold">';
+        htmlagregados += '<div class="col">Nombre</div>';
+        htmlagregados += '<div class="col">Marca</div>';
+        htmlagregados += '<div class="col">Cantidad </div>';
+        htmlagregados += '<div class="col">Editar</div>';
+        htmlagregados += '<div class="col">Eliminar</div>';
+        htmlagregados += '</div>';
+        htmlagregados += '</div>';
+
+
+        htmlagregados += '<div  style="height:10rem;overflow:auto">';
+
+        subtotalFACTURA = 0;
+        totalFACTURA = 0;
+        totalInmpuesto = 0;
+
+
+        //TABLA GRANDE AFUERA
+        if(data.length > 0){
+
+
+            data.forEach(element => {
+
+
+                totalproducto = (element.Cantidad * element.Precio_venta)
+                totalInmpuesto += ((element.Cantidad * element.Precio_venta) * (element.Impuesto / 100))
+                html += '<div class= "box">';
+                html += '<tr>';
+                html += '<td>' + element.nombre_producto + '</td>';
+                html += '<td>' + element.Marca + '</td>';
+                html += '<td>' + element.Descripcion + '</td>';
+                html += '<td>' + element.Cantidad + '</td>';
+                //html += '<td>Lps. ' + element.Costo + '</td>';
+                html += '<td>Lps. ' + element.Precio_venta + '</td>';
+                html += '<td>' + element.Impuesto + '%</td>';
+                html += '<td>Lps. ' + totalproducto.toFixed() + '</td>';
+                //html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
+                html += '</tr>';
+                html += '</div';
+
+                htmlagregados += '<table class="table table-hover">';
+                htmlagregados += '<div  class="row">';
+                htmlagregados += '<div class="col">' + element.nombre_producto + '</div>';
+                htmlagregados += '<div class="col">' + element.Marca + '</div>';
+                htmlagregados += '<div class="col">' + element.Cantidad + '</div>';
+                htmlagregados += `<div class="col" style="display:flex">` +
+                    `<button class="btn btn-outline-dark" onclick="editardetalle('` + element.id_detalle + `')"><i class="bi bi-pen-fill"></i></button>`;
+                htmlagregados += '</div>';
+                htmlagregados += `<div class="col" style="display:flex">` +
+                    `<button class="btn btn-outline-dark" onclick="eliminardetalle('` + element.id_detalle + `')"><i class="bi bi-trash"></i></button>`;
+
+
+                htmlagregados += '</div>';
+                htmlagregados += '</table>';
+
+                subtotalFACTURA += totalproducto;
+
+            });
+
+        }
+
+        htmlagregados += '</div>';
+
+
+        html += '<tr>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
+        html += '<td><strong >SubTotal</strong></td>';
+        html += '<td><strong>Lps. ' + subtotalFACTURA.toFixed() + '</strong></td>';
+        html += '<tr>';
+
+        html += '<tr>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
+        html += '<td><strong >Impuesto</strong></td>';
+        html += '<td><strong>Lps. ' + totalInmpuesto.toFixed() + '</strong></td>';
+        html += '<tr>';
+
+        totalFACTURA = (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
+        html += '<tr>';
+        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
+        html += '<td><strong >Total factura</strong></td>';
+        html += '<td><strong>Lps. ' + totalFACTURA.toFixed() + '</strong></td>';
+        html += '<tr>';
+
+        //inyectando los dos variables a donde correspondan
+        document.getElementById('body_table_detallesFac').innerHTML = html;
+        document.getElementById('body_table_detallesFacModal').innerHTML = htmlagregados;
+
+    }
+
 
 
     // Dibujar los productos en la tabla
@@ -497,7 +591,7 @@
             html += '<td>' + element.Marca + '</td>';
             html += '<td>' + element.Precio_venta + '</td>';
             html += '<td>' + element.costo + '</td>';
-            html += '<td>' + element.CantidadRestante + '</td>';
+            html += '<td>' + element.Cantidad + '</td>';
             html += '<td><button class="btn btn-outline-dark" onclick="cargarProducto(' + element.id_product + ')"><i class="bi bi-bag-plus"> Agregar</i></button></td>';
             html += '</tr>';
         });
@@ -514,24 +608,19 @@
         //se manda al input ihidden del formulario
         document.getElementById("numeroFactura").value = numfactura;
         // se manda al titulo del modal
-        document.getElementById("numfact_form").innerHTML = '<span>'+numfactura+'</span>';    
+        document.getElementById("numfact_form").innerHTML = '<span>'+numfactura+'</span>';
     }
 
 
 
 
     function guardatFactura() {
-        var formul = document.getElementById("guardarFactura");
 
         //validaciones
         if (document.getElementById("numeroFactura").value == '') {
             alertify.error("El numero de la factura es obligatorio");
             return;
         }
-        if (document.getElementById("empleadoVentas").value == '') {
-                    alertify.error("Debe estar escrito el empleado");
-                    return;
-                }
         if (document.getElementById("clienteFactura").value == '') {
             alertify.error("El cliente es obligatorio");
             return;
@@ -580,6 +669,10 @@
 
 
 <script>
+
+
+
+
     var d = new Date();
     var offset = -6; // offset para la hora de Honduras en GMT
     d.setHours(d.getHours() + offset);
@@ -634,14 +727,20 @@
 
     function cargarProducto(select) {
 
+
         if (select == '') {
             limpiarform();
         } else {
             // buscar el producto por el value del input,(id_producto)
-            pro = @json($products).filter((x) => x.id_product == select)
+            pro = @json($products).filter((x) => x.id_product == select);
+
+
+            if (parseInt(pro[0].Cantidad) === 0) {
+                alertify.error("No puede agregarlo, porque no hay productos en el Inventario");
+                return;
+            }
 
             //asignamos los valores a las cajas del modal, y alas las hidden tambien
-            document.getElementById("id_inventa").value = pro[0].id_inventa;
             document.getElementById("id_product").value = pro[0].id_product;
             document.getElementById("id_prov").value = pro[0].id_prov;
             document.getElementById("id_cat").value = pro[0].id_cat;
@@ -649,10 +748,10 @@
             document.getElementById("Marca").value = pro[0].Marca;
             document.getElementById("Descripcion").value = pro[0].Descripcion;
             document.getElementById("Cantidad").value = 1;
+            document.getElementById("CantidadExistencia").value = pro[0].Cantidad;
             document.getElementById("Costo").value = 0;
             document.getElementById("Precio_venta").value = pro[0].Precio_venta;
             document.getElementById("Impuesto").value = pro[0].Impuesto;
-            document.getElementById("inventario").value = pro[0].CantidadRestante;
 
 
             //mostramos y escondemos los botones que necesitan
@@ -663,17 +762,6 @@
         }
     }
 
-    function inventarioMinimo() {
-
-        var inves = document.getElementById("inventario").value;
-        var cantidad = document.getElementById("Cantidad").value;
-
-        if (parseInt(cantidad) > parseInt(inves)) {
-            document.getElementById("Cantidad").value = inves;
-        }
-
-
-    }
 
     function limpiarformbase() {
         document.getElementById("Nombre_producto_form").value = '';
@@ -718,13 +806,19 @@
 
     function AgregarDetalle() {
 
-        var id_inventa = document.getElementById("id_inventa").value;
         var nombre_producto = document.getElementById("nombre_producto").value;
         var Marca = document.getElementById("Marca").value;
         var Descripcion = document.getElementById("Descripcion").value;
         var Cantidad = document.getElementById("Cantidad").value;
+        var CantidadExistencia = document.getElementById("CantidadExistencia").value;
         var Costo = document.getElementById("Costo").value;
         var Precio_venta = document.getElementById("Precio_venta").value;
+
+
+        if (parseInt(CantidadExistencia) === 0) {
+            alertify.error("No hay existencia en el inventario");
+            return;
+        }
 
 
         if (nombre_producto == '') {
@@ -750,11 +844,18 @@
             alertify.error("La cantidad no debe ser cero");
             return;
         }
-      
+
+        if (parseInt(Cantidad) > parseInt(CantidadExistencia)) {
+            alertify.error("La cantidad no debe de exeder la existencia");
+            return;
+        }
+
+
         if (Precio_venta == '') {
             alertify.error("El precio de venta es obligatorio");
             return;
         }
+
         if (Precio_venta == 0) {
             alertify.error("El precio de venta no debe ser cero");
             return;
@@ -774,8 +875,7 @@
         //    con un uuid, para poder actualizarlo, incluso cuando aun no se ha guardado
         //    para eso utilizamos la funcion uuidv4
         var jsonproducto = {
-            "id_inventa": document.getElementById("id_inventa").value
-            , "id_detalle": uuidv4()
+             "id_detalle": uuidv4()
             , "id_product": document.getElementById("id_product").value
             , "id_prov": document.getElementById("id_prov").value
             , "id_cat": document.getElementById("id_cat").value
@@ -787,16 +887,27 @@
             , "Costo": Costo
             , "Precio_venta": Precio_venta
             , "Impuesto": document.getElementById("Impuesto").value
-        , };
+            , "existencia": parseInt(CantidadExistencia)
+        };
 
         var existe = 0;
         var iddetalleactualizar = "";
         var nuevacantidad = 0;
+
         detallefactura.forEach(element => {
             if (element.id_product == jsonproducto.id_product && element.Impuesto == jsonproducto.Impuesto) {
                 existe++;
                 iddetalleactualizar = element.id_detalle
                 nuevacantidad = (parseFloat(element.Cantidad) + parseFloat(jsonproducto.Cantidad));
+
+
+
+                if (parseInt(nuevacantidad) > parseInt(CantidadExistencia)) {
+                    alertify.error("La cantidad no debe de exeder la existencia");
+                    return;
+                }
+
+
                 element.Cantidad = nuevacantidad
                 element.Costo = jsonproducto.Costo;
                 element.Precio_venta = jsonproducto.Precio_venta;
@@ -862,34 +973,32 @@
             }
             , function() {
             }).then((result)=>{
-                // excluir el json del array, diciendole que el id sea diferente
-                detallefactura = detallefactura.filter((x) => x.id_detalle != id_detalle)
+                if (result.isConfirmed) {
+                    // excluir el json del array, diciendole que el id sea diferente
+                    detallefactura = detallefactura.filter((x) => x.id_detalle != id_detalle)
 
-                //eliminar de la base de datos, solo si estamos en editar
-                if (accion == 'editar') {
-                    $.ajax({
-                        type: "POST"
-                        , url: '/eliminardetallepro'
-                        , data: {
-                            "_token": "{{ csrf_token() }}"
-                            , "data": id_detalle
-                        }
-                        , success: function() {
-                            console.log("Valueadded");
-                        }
-                    })
+                    //eliminar de la base de datos, solo si estamos en editar
+                    if (accion == 'editar') {
+                        $.ajax({
+                            type: "POST"
+                            , url: '/eliminardetallepro'
+                            , data: {
+                                "_token": "{{ csrf_token() }}"
+                                , "data": id_detalle
+                            }
+                            , success: function() {
+                                console.log("Valueadded");
+                            }
+                        })
+                    }
+                    alertify.success('Eliminado correctamemte')
                 }
-
-
                 // volver a dibujar la tabla para que se note la diferencia
                 dibujarTabla(detallefactura);
-                alertify.success('Eliminado correctamemte')
+                
             })
             event.preventDefault()
     }
-
-
-
 
     function editardetalle(id_detalle) {
 
@@ -912,6 +1021,8 @@
         document.getElementById("Costo").value = detalleaeditar[0].Costo;
         document.getElementById("Precio_venta").value = detalleaeditar[0].Precio_venta;
         document.getElementById("Impuesto").value = detalleaeditar[0].Impuesto;
+        document.getElementById("CantidadExistencia").value = detalleaeditar[0].existencia;
+
 
 
 
@@ -937,6 +1048,7 @@
         var Cantidad = document.getElementById("Cantidad").value;
         var Costo = document.getElementById("Costo").value;
         var Precio_venta = document.getElementById("Precio_venta").value;
+        var CantidadExistencia = document.getElementById("CantidadExistencia").value;
 
         if (Cantidad == '') {
             alertify.error("La cantidad es obligatorio");
@@ -952,6 +1064,11 @@
         }
         if (Precio_venta == 0) {
             alertify.error("El precio de venta no debe ser cero");
+            return;
+        }
+
+        if (parseInt(Cantidad) > parseInt(CantidadExistencia)) {
+            alertify.error("La cantidad no debe de exeder la existencia");
             return;
         }
 
@@ -993,6 +1110,14 @@
         detallefactura.forEach(element => {
             // y donde coincida, darle los mismos valores de la cajas al elemento
             if (element.id_detalle == iddetalleinput) {
+
+
+                if (parseInt(Cantidad) > parseInt(CantidadExistencia)) {
+                    alertify.error("La cantidad no debe de exeder la existencia");
+                    return;
+                }
+
+
                 element.Cantidad = Cantidad;
                 element.Costo = Costo;
                 element.Precio_venta = Precio_venta;
@@ -1002,106 +1127,14 @@
 
         //dibujamosla tabla para que se mire el campo, y regresamos los botones, y limpiamos los campos
         dibujarTabla(detallefactura);
-        limpiarform()
+        limpiarform();
         document.getElementById("AgregarDF").style.display = 'block';
         document.getElementById("AgregarDFC").style.display = 'block';
         document.getElementById("ActualizarDF").style.display = 'none';
         document.getElementById("ActualizarDFC").style.display = 'none';
     }
 
-    function dibujarTabla(data) {
-        var html = '';
-        var htmlagregados = '';
 
-        htmlagregados += '<div style="text-align:center "><strong>Productos agregados</strong></div>';
-
-        htmlagregados += '<div>';
-        htmlagregados += '<div class="row" style="font-weight:bold">';
-        htmlagregados += '<div class="col">Nombre</div>';
-        htmlagregados += '<div class="col">Marca</div>';
-        htmlagregados += '<div class="col">Cantidad </div>';
-        htmlagregados += '<div class="col">Editar</div>';
-        htmlagregados += '<div class="col">Eliminar</div>';
-        htmlagregados += '</div>';
-        htmlagregados += '</div>';
-
-
-        htmlagregados += '<div  style="height:10rem;overflow:auto">';
-
-        subtotalFACTURA = 0;
-        totalFACTURA = 0;
-        totalInmpuesto = 0;
-
-
-        //TABLA GRANDE AFUERA
-        
-            data.forEach(element => {
-                
-
-                totalproducto = (element.Cantidad * element.Precio_venta)
-                totalInmpuesto += ((element.Cantidad * element.Precio_venta) * (element.Impuesto / 100))
-                html += '<div class= "box">';
-                html += '<tr>';
-                html += '<td>' + element.nombre_producto + '</td>';
-                html += '<td>' + element.Marca + '</td>';
-                html += '<td>' + element.Descripcion + '</td>';
-                html += '<td>' + element.Cantidad + '</td>';
-                //html += '<td>Lps. ' + element.Costo + '</td>';
-                html += '<td>Lps. ' + element.Precio_venta + '</td>';
-                html += '<td>' + element.Impuesto + '%</td>';
-                html += '<td>Lps. ' + totalproducto.toFixed() + '</td>';
-                //html += '<td><button class="btn btn-outline-dark">Eliminar</button></td>';
-                html += '</tr>';
-                html += '</div';
-
-                htmlagregados += '<table class="table table-hover">';
-                htmlagregados += '<div  class="row">';
-                htmlagregados += '<div class="col">' + element.nombre_producto + '</div>';
-                htmlagregados += '<div class="col">' + element.Marca + '</div>';
-                htmlagregados += '<div class="col">' + element.Cantidad + '</div>';
-                htmlagregados += `<div class="col" style="display:flex">` +
-                    `<button class="btn btn-outline-dark" onclick="editardetalle('` + element.id_detalle + `')"><i class="bi bi-pen-fill"></i></button>`;
-                htmlagregados += '</div>';
-                htmlagregados += `<div class="col" style="display:flex">` +
-                    `<button class="btn btn-outline-dark" onclick="eliminardetalle('` + element.id_detalle + `')"><i class="bi bi-trash"></i></button>`;
-
-
-                htmlagregados += '</div>';
-                htmlagregados += '</table>';
-
-                subtotalFACTURA += totalproducto;
-            
-            });
-       
-
-
-        htmlagregados += '</div>';
-
-
-        html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
-        html += '<td><strong >SubTotal</strong></td>';
-        html += '<td><strong>Lps. ' + subtotalFACTURA.toFixed() + '</strong></td>';
-        html += '<tr>';
-
-        html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
-        html += '<td><strong >Impuesto</strong></td>';
-        html += '<td><strong>Lps. ' + totalInmpuesto.toFixed() + '</strong></td>';
-        html += '<tr>';
-
-        totalFACTURA = (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
-        html += '<tr>';
-        html += '<td></td> <td></td> <td></td> <td></td> <td></td> ';
-        html += '<td><strong >Total factura</strong></td>';
-        html += '<td><strong>Lps. ' + totalFACTURA.toFixed() + '</strong></td>';
-        html += '<tr>';
-
-        //inyectando los dos variables a donde correspondan
-        document.getElementById('body_table_detallesFac').innerHTML = html;
-        document.getElementById('body_table_detallesFacModal').innerHTML = htmlagregados;
-
-    }
 
     function limpiarform() {
         document.getElementById("nombre_producto").value = '';
