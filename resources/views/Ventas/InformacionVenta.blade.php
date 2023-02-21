@@ -50,7 +50,7 @@
 
 <div>
     <div class="titulo" > Factura N° : {{ $factura->numeroFactura}} </div>
-    <div class="titulo" > CAI : {{ $factura->caiRango}}</div>
+    <div class="titulo" > CAI : {{ $rangos->caiRango}}</div>
 <br>
 
     <table class="table table-hover">
@@ -171,7 +171,7 @@
 
         }
 
-        
+
   </script>
 
 @endsection
