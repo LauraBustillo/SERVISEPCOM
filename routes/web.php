@@ -12,6 +12,7 @@ use App\Http\Controllers\ReparacionController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\RangoFacturaController;
 use App\Models\RangoFactura;
+use App\Http\Controllers\DevolucionVentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -260,11 +261,13 @@ Route::get('/ListadoReparacion',[ReparacionController::class, 'index'])->name('r
 
 Route::post('/reparacion', [ReparacionController::class, 'guardar'])->name('show.registroReparacion');
 Route::get('/reparacion/{id}',[ReparacionController::class, 'mostrar'])->name('reparacion.mostrar');
-Route::post('/actualizarReparacion',[ReparacionController::class, 'actualizarReparacion'])->name('actualizarReparacion.update');
+Route::post('/actualizarReparacion/{id}',[ReparacionController::class, 'actualizarReparacion'])->name('actualizarReparacion.update');
 
 //Route::get('/reparacion/{id}',[ReparacionController::class, 'mostrar'])->name('reparacion.mostrar');
 Route::get('/repaciones/{id}', [ReparacionController::class, 'detallereparacion'])->name('repacionones.ver')->where('id', '[0-9]+');
 Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFacturaReparacion'])->name('guardarFacturaReparacion.update');
+
+Route::get('/repaciones/pdf/{id}',[ReparacionController::class,'factura_pdf'])->name('pdf.reparacion');
 
 
 /*
@@ -292,11 +295,34 @@ Route::get('/venta',[VentaController::class, 'index'])->name('Venta.index');
 Route::get('/registroventa', [VentaController::class, 'show'])->name('show.registroventa');
 Route::get('/guardarventa/{arrayFac}/{arrayDet}', [VentaController::class, 'store'])->name('store.registroventa');
 Route::post('/rangoventa', [RangoFacturaController::class, 'storeVentas' ])->name('store.registroRang');
+Route::get('/venta/pdf/{id}',[VentaController::class,'factura_pdf'])->name('Venta.pdf');
+Route::get('/venta/pdf/garantia/{id}',[VentaController::class,'garantia_pdf'])->name('VentaGarantia.pdf');
 //Para moestrar la informacion en detalles
 Route::get('/LVentas/{id}', [VentaController::class, 'mostrar'])->name('venta.mostrar');
 
 
 /*Para mostrar la infomarcion */
+
+/*
+|--------------------------------------------------------------------------
+| Devoluciones GARANTIA DE VENTA
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/devoluciongarantiaventa',[DevolucionVentaController::class, 'show'])->name('show.devolucion');
+Route::post('/devoluciongarantiaventa/store',[DevolucionVentaController::class, 'store'])->name('store.devolucion');
+Route::get('/listadodevolucion', [DevolucionVentaController::class, 'index'])->name('devolucion.index');
+
+Route::get('/detallesdevolucion/{id}', [DevolucionVentaController::class, 'mostrarDev'])->name('devolucion.mostrar');
+
+Route::post('/editardevolucion/{id}', [DevolucionVentaController::class, 'actualizarDev'])-> name('devolucion.editar');
+Route::put('/editardevolucion/editar', [DevolucionVentaController::class, 'actuDev'])-> name('devolucion.update');
+
+
+/* Route::get('/editardevolucionnn', function () {
+    return view('DevolucionesGarantiaVenta.EditarDevolucion');
+})->name('show.users'); */
+
 
 
 
