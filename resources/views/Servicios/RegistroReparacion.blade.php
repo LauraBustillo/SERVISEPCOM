@@ -3,13 +3,13 @@
 
 <style>
 
-    /*Cajas de texto*/ 
+    /*Cajas de texto*/
     .form-control  {
         background-color: transparent;
         border: 1.3px solid #000000;
         height: fit-content;
     }
-  
+
     .form-control2  {
       background-color: rgb(145, 203, 223);
       height: fit-content;
@@ -17,41 +17,41 @@
       border-radius: 1rem;
   }
 
-  
-      /*Cajas de texto*/ 
+
+      /*Cajas de texto*/
     .form-control1  {
         background-color: white;
         border: 1.3px solid #000000;
         height: fit-content;
         padding: 1rem;
     }
-  
-  
-  
-    /*Alinear Div*/ 
+
+
+
+    /*Alinear Div*/
     .divaling {
       position: relative;
       right: -4%;
     }
-  
-    /*Alinear botones*/ 
+
+    /*Alinear botones*/
     .divalingn {
       position: relative;
       right: -8%;
     }
-  
-    /*Las label*/ 
+
+    /*Las label*/
     .input-group-text  {
       background-color: #000000;
       border: 1.3px solid #000000;
       font-family: 'Open Sans';
       color: #FFFFFF;
-  
+
     }
-  
-    /*Los botones*/ 
+
+    /*Los botones*/
     .btn-outline-dark {
-    
+
       background-color: transparent;
       border: 1.8px solid #000000;
     }
@@ -59,7 +59,7 @@
         background-color: rgb(48, 48, 48);
         color: white;
     }
-  
+
     a { color: aliceblue;
       outline: none;
       text-decoration: none;
@@ -74,8 +74,8 @@
             height: 40%;
             resize: none;
         }
-  
-        /*Los titulos */ 
+
+        /*Los titulos */
   .titulo {
     font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
     color:black;
@@ -83,7 +83,7 @@
     font-size: 50px;
     text-align: center;
   }
-  
+
   .titulo1 {
     font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
     color:black;
@@ -91,21 +91,21 @@
     font-size: 30px;
     text-align: center;
   }
-  
+
   .letra{
           font-weight: bold;
       }
-  
-  
+
+
   .inputCliente{
     background: transparent;border: none;width:100%;outline: none;
   }
   .modal-content{
-          background-color: rgb(184, 234, 249)!important;   
+          background-color: rgb(184, 234, 249)!important;
       }
-  
+
       div.dataTables_wrapper div.dataTables_filter input {
-  
+
   display: inline-block;
   width: 120% !important;
   background-color: transparent;
@@ -116,8 +116,8 @@
     float: left !important ;
     text-align: left !important;
   width: 100% !important;
-  
-  }    
+
+  }
 
 
 
@@ -155,16 +155,16 @@
 
   }
 
-   
+
 </style>
 {{-- alertas de errores desde controlador --}}
 <script>
   var errores = []
-  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
   if(errores.length > 0){
     errores.forEach(element => {
       alertify.error(element)
-    });   
+    });
   }
 </script>
 
@@ -229,7 +229,7 @@
                 "colvis": "Visibilidad"
             }
         },
-    
+
         buttons: []
       });
 
@@ -261,42 +261,77 @@
                   "colvis": "Visibilidad"
               }
           }
-      
-        });   
+
+        });
+
+
+        var tableinv = $('#table_cambio_pieza').DataTable({
+            searching: false,
+        language:{ "sProcessing": "Procesando...",
+              "sLengthMenu": "",
+              "sZeroRecords": "No se encontraron resultados",
+              "sEmptyTable": "",
+              "sInfo": "",
+              "sInfoEmpty": "",
+              "sInfoFiltered": "",
+              "sInfoPostFix": "",
+              "sUrl": ".",
+              "sInfoThousands": "",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "Último",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              },
+              "buttons": {
+                  "copy": "Copiar",
+                  "colvis": "Visibilidad"
+              }
+          }
+
+        });
+
+
+
 
 
 
 
     });
-    
+
 </script>
 
-    
-    
 
 
 
-<form  class="form-control" method="POST"  id="form_guardarR" name="form_guardarR" onsubmit="guardarReparacion();">
- 
+
+
+<form  class="form-control" @if ($accion == 'editar') action="{{ route('actualizarReparacion.update', [ 'id' => $reparacion->id ]) }}" @endif method="POST"  id="form_guardarR" name="form_guardarR" onsubmit="guardarReparacion();">
+
     <br>
      <H1 class="titulo" style="text-align: center;">
       @if ($accion == 'agregar')Registrar @endif
-      @if ($accion == 'editar')Actualizar @endif         
+      @if ($accion == 'editar')Actualizar @endif
         reparación</H1>
     <br>
-    
+
     @csrf
-   
-    
+
+
     <div>
       <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalbuscarcliente()" class="btn btn-outline-dark"><i class="bi bi-search"> Buscar cliente</i></button>
       <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalagregarcliente()" class="btn btn-outline-dark"><i class="bi bi-plus-circle"> Nuevo cliente</i></button>
-   
+
         {{-- este checkbox solo se mostrara en  editar --}}
       <div {{$accion == "agregar"?"hidden":""}} class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="switchestado_rep" {{$reparacion->estado == "Finalizado" ? "checked" : "" }} >
+        <input class="form-check-input" type="checkbox" id="switchestado_rep" name="switchestado_rep" {{$reparacion->estado == "Finalizado" ? "checked" : "" }} >
         <label id="labelswitchestado_rep" class="form-check-label" for="flexSwitchCheckDefault"> {{$reparacion->estado == "Finalizado" ? "Finalizado" : "Pendiente" }} </label>
-      </div>  
+      </div>
     </div>
 
     <br>
@@ -304,36 +339,36 @@
 {{-- esta seccion solo se motrara en editar --}}
  {{-- con este formulario, agregaremos los campos de la factura en la misma tabla de mantenimiento --}}
  <div {{$accion == "agregar"?"hidden":""}} id="factura_form_rep">
-  
+
   <div class="form-control2" {{$accion == "editar"?"hidden":""}}>
     <h5 >Datos Factura</h5>
 
     <div style="display: flex">
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Número factura</label> 
-        <input  id="numero_factura_rep" type="number" minlength="3" maxlength="25" name="numero_factura_rep" class="form-control" 
+        <label  id="inputGroup-sizing-sm">Número factura</label>
+        <input  id="numero_factura_rep" type="number" minlength="3" maxlength="25" name="numero_factura_rep" class="form-control"
         placeholder="Numero factura" value="{{$reparacion->numero_factura}}">
       </div>
-      &nbsp;&nbsp;     
+      &nbsp;&nbsp;
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Fecha facturación</label> 
-        <input  id="fecha_facturacion_rep" type="date"  name="fecha_facturacion_rep" class="form-control" 
+        <label  id="inputGroup-sizing-sm">Fecha facturación</label>
+        <input  id="fecha_facturacion_rep" type="date"  name="fecha_facturacion_rep" class="form-control"
         placeholder="Fecha facturacion" value="{{$reparacion->fecha_factura}}">
-      </div>        
+      </div>
     </div>
 
     <div style="display: flex">
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Precio reparación</label> 
-        <input  id="precio_rep" type="text" name="precio_rep" class="form-control" 
+        <label  id="inputGroup-sizing-sm">Precio reparación</label>
+        <input  id="precio_rep" type="text" name="precio_rep" class="form-control"
         placeholder="Precio reparación"  value="{{$reparacion->precio}}">
       </div>
-      &nbsp;&nbsp;   
+      &nbsp;&nbsp;
       <div style="width: 100%">
-        <label  id="inputGroup-sizing-sm">Descripción</label> 
-        <textarea  id="descripcion_rep" type="text" name="descripcion_rep" class="form-control" 
+        <label  id="inputGroup-sizing-sm">Descripción</label>
+        <textarea  id="descripcion_rep" type="text" name="descripcion_rep" class="form-control"
         placeholder="Descripción"  rows="2" value="{{$reparacion->descripcion}}">{{$reparacion->descripcion}}</textarea>
-      </div>        
+      </div>
     </div>
 
 
@@ -342,27 +377,27 @@
 </div>
 
     <br>
-   
-    <div class="form-control2" style="display: flex">    
-       
+
+    <div class="form-control2" style="display: flex">
+
       <div style="width: 50%;">
-        <h5>Información Cliente</h5> 
+        <h5>Información Cliente</h5>
          <input hidden readonly id="l_id_cliente" value="{{old('cliente_id')}}" name="cliente_id"/>
-         <div style="display: flex">Nombre:&nbsp; <input value="{{old('Nombre',$reparacion->Nombre)}} {{old('Apellido',$reparacion->Apellido)}}" class="inputCliente" readonly id="l_nombre_cliente" name="Nombre"/></div> 
-         <div style="display: flex">Identidad:&nbsp; <input value="{{old('Numero_identidad',$reparacion->Numero_identidad)}}" class="inputCliente" readonly id="l_identidad_cliente" name="Numero_identidad"/></div> 
-         <div style="display: flex">Teléfono:&nbsp; <input value="{{old('Numero_telefono',$reparacion->Numero_telefono)}}"class="inputCliente" readonly id="l_telefono_cliente" name="Numero_telefono"/></div> 
-         <div style="display: flex">Dirección:&nbsp; <input value="{{old('Direccion',$reparacion->Direccion)}}" class="inputCliente" readonly id="l_direccion_cliente" name="Direccion"/></div> 
+         <div style="display: flex">Nombre:&nbsp; <input value="{{old('Nombre',$reparacion->Nombre)}} {{old('Apellido',$reparacion->Apellido)}}" class="inputCliente" readonly id="l_nombre_cliente" name="Nombre"/></div>
+         <div style="display: flex">Identidad:&nbsp; <input value="{{old('Numero_identidad',$reparacion->Numero_identidad)}}" class="inputCliente" readonly id="l_identidad_cliente" name="Numero_identidad"/></div>
+         <div style="display: flex">Teléfono:&nbsp; <input value="{{old('Numero_telefono',$reparacion->Numero_telefono)}}"class="inputCliente" readonly id="l_telefono_cliente" name="Numero_telefono"/></div>
+         <div style="display: flex">Dirección:&nbsp; <input value="{{old('Direccion',$reparacion->Direccion)}}" class="inputCliente" readonly id="l_direccion_cliente" name="Direccion"/></div>
       </div>
       <br>
       <br>
-  
+
     </div>
-      
+
       <br>
 
 
       <div class="form-control2" >
-        <h5>Detalles reparación</h5> 
+        <h5>Detalles reparación</h5>
         <div style="display: flex">
           <div style="width: 100%">
           <b>  <label id="inputGroup-sizing-sm" >Categorías</label> </b>
@@ -373,32 +408,32 @@
                 <option {{ $reparacion->categoria == "Otros"? "selected" : "" }}  value="Otros" {{ old('categoria') == "Otros" ? 'selected' : '' }}>Otros</option>
               </select>
           </div>
-          
+
           &nbsp;
           &nbsp;
-      
+
           {{-- Nombre equipo--}}
           <div style="width: 100%">
             <b> <label  id="inputGroup-sizing-sm">Nombre equipo</label> </b>
-            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20" 
+            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20"
             type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
           </div>
         </div>
-      
+
         <br>
-      
+
         {{-- Marca --}}
         <div style="display: flex">
           <div style="width: 100%">
             <b><label id="inputGroup-sizing-sm">Marca</label> </b>
             <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$reparacion->marca)}}"
-             name="marca" id="marca" type="text" 
+             name="marca" id="marca" type="text"
             aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
           </div>
-      
+
           &nbsp;
           &nbsp;
-          
+
           {{-- Modelo --}}
           <div style="width: 100%">
             <b>    <label  id="inputGroup-sizing-sm">Modelo</label>     </b>
@@ -411,20 +446,20 @@
         <div style="display: flex">
          <div style="width: 50%">
             <b> <label  id="inputGroup-sizing-sm">Descripción</label> </b>
-            <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200" 
+            <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200"
             type="text" aria-label="First name" class="form-control" rows="1"  placeholder="Descripción del equipo">{{old('descripcionr', $reparacion->descripcionr)}}</textarea>
           </div>
 
           &nbsp;
           &nbsp;
-          
+
           {{-- Foto--}}
           <br><br><br><br>
-          <div style="width: 50%"> 
+          <div style="width: 50%">
             <b> <label  id="inputGroup-sizing-sm">Fotos</label> </b>
 
             <div id="is-relative" >
-         
+
               <input  class="input form-control" {{$accion == "editar" ? "hidden" : "" }}  class="form-control form-control-lg" id="selectAvatar" type="file" multiple /> &nbsp;
               <div style="display: flex;">
                 <img {{$accion == "editar" && $reparacion->foto == null?"hidden":""}}  class="img" id="avatar" style="width: 4rem;height:4rem" /> &nbsp;
@@ -433,7 +468,7 @@
                 <img {{$accion == "editar" && $reparacion->foto3 == null?"hidden":""}}  class="img" id="avatar3" style="width: 4rem;height:4rem" />&nbsp;
                 <img {{$accion == "editar" && $reparacion->foto4 == null?"hidden":""}}  class="img" id="avatar4"  style="width: 4rem;height:4rem" />&nbsp;
               </div>
-            
+
               <textarea name="foto" id="textArea" hidden></textarea>
               <textarea name="foto1"  id="textArea1" hidden></textarea>
               <textarea name="foto2" id="textArea2" hidden></textarea>
@@ -441,101 +476,94 @@
               <textarea name="foto4"  id="textArea4" hidden></textarea>
             </div>
 
-                
+
 
           </div>
         </div>
 <br>
+
+<div style="display: flex">
+    <div class="form-check form-switch form-inline">
+        <label>Cambio de pieza</label>
+        <input style="display:flex;" class="form-check-input" type="checkbox" id="switchCambioPieza" name="switchCambioPieza" {{$reparacion->cambio_pieza == "Si" ? "checked" : "" }}>
+        <input type="text" hidden id="datelles_piezas" name="datelles_piezas" value="{{ old('datelles_piezas') }}">
+    </div>
+    &nbsp; &nbsp;<button class="btn btn-outline-dark" type="button" id="ver_inventario" style="display: none" onclick="openabririnventario()"> <i class="bi bi-eye"> Ver inventario </i></button>
+</div>
+
+<div id="abririnventario">
+    <div>
+
+        <table id='table_cambio_pieza' class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Nombre producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+
+
+            <tbody id="table_cambio_pieza_body" >
+
+            </tbody>
+        </table>
+
+
+
+
+        <input hidden value="{{$reparacion->id_producto_inv}}" name="id_producto_inv" id="id_producto_inv">
+    </div>
+
    
 
-    <div style="display: flex" >
-      
-      <div class="form-check form-switch">
-        <label >Cambio de pieza</label>
-        <input style="display:flex;" class="form-check-input" type="checkbox" id="switchCambioPieza" name="switchCambioPieza" {{$reparacion->cambio_pieza == "Si" ? "checked" : "" }} >
-      </div>
-    </div> 
-    
-    <div id="abririnventario" >
-      <div style="display: flex" >
-        <button  class="btn btn-outline-dark" type="button" onclick="openabririnventario()"> Ver inventario </button>
-        &nbsp;
-        &nbsp;
-        {{-- Nombre equipo--}}
-        <div style="width: 100%">
-          <b> <label  id="inputGroup-sizing-sm">Categoria</label> </b>
-          <input  value="{{$reparacion->categoria_producto_inv}}" name="categoria_producto_inv" id="categoria_producto_inv"  maxlength="20" 
-          type="text" class="form-control" placeholder="Categoria">
-        </div>
-        &nbsp;
-        &nbsp;
+</div>
 
-        {{-- Nombre equipo--}}
-        <div style="width: 100%">
-          <b> <label  id="inputGroup-sizing-sm">Marca</label> </b>
-          <input  value="{{ $reparacion->marca_producto_inv}}" name="marca_producto_inv" id="marca_producto_inv"  maxlength="20" 
-          type="text" class="form-control" placeholder="Nombre del equipo">
-        </div>
-        &nbsp;
-        &nbsp;
-        {{-- Nombre equipo--}}
-        <div style="width: 100%">
-          <b> <label  id="inputGroup-sizing-sm">Nombre producto</label> </b>
-          <input  value="{{ $reparacion->nombre_producto_inv}}" name="nombre_producto_inv" id="nombre_producto_inv"  maxlength="20" 
-          type="text" class="form-control" placeholder="Nombre Producto">
-        </div>
 
-        <input hidden  value="{{$reparacion->id_producto_inv}}" name="id_producto_inv" id="id_producto_inv" >
-      </div>
 
-      <div>
-        <div class="form-check form-switch">
-          <label >Garantia</label>
-          <input style="display:flex;" class="form-check-input" onchange="changeswitchGarantia()" type="checkbox" id="switchGarantia" name="switchGarantia" {{$reparacion->garantia == "Si" ? "checked" : "" }} >
-        </div>
-      </div>
-    </div>
-      
-    <br>
-      
-    {{-- Fecha ingreso  --}}
-    <div style="display: flex">
-      <div style="width: 100%">
+<br>
+
+{{-- Fecha ingreso  --}}
+<div style="display: flex">
+    <div style="width: 100%">
         <b><label id="inputGroup-sizing-sm">Fecha ingreso</label> </b>
-        <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}"  name="fecha_ingreso"  id="fecha_ingreso" type="date" aria-label="First name" class="form-control" placeholder="Fecha de ingreso">
-      </div> 
-      
-  
-      &nbsp;
-      &nbsp;
-  
-  
-        {{-- Fecha entrega  --}}
-      <div style="width: 100%">
-        <b><label  id="inputGroup-sizing-sm">Fecha entrega</label> </b>
-        <input  value="{{old('fecha_entrega', $reparacion->fecha_entrega)}}"  name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control" placeholder="Fecha de entrega">
-      </div> 
-    </div> 
-      
-        
-      
-      </div>
-      
+        <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}" name="fecha_ingreso" id="fecha_ingreso" type="date" aria-label="First name" class="form-control" placeholder="Fecha de ingreso">
+    </div>
+
+
+    &nbsp;
+    &nbsp;
+
+
+    {{-- Fecha entrega  --}}
+    <div style="width: 100%">
+        <b><label id="inputGroup-sizing-sm">Fecha entrega</label> </b>
+        <input value="{{old('fecha_entrega', $reparacion->fecha_entrega)}}" name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control" placeholder="Fecha de entrega">
+    </div>
+</div>
+
+
+
+</div>
+
+
       <br>
       {{--Botones --}}
       <center>
         <div class="col" >
           <button  class="btn btn-outline-dark" type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
-          <button type="button"  onclick="clickactualizarReparacion()" class="btn btn-outline-dark"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
+          <button type="submit" class="btn btn-outline-dark"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
           <button type="button" class="btn btn-outline-dark">
           <a class="a"  href="{{route('reparacion.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a></button>
           </div>
       </center>
-        
-      
+
+
       </form>
 
- <!-- Modal de dialogo de Buscar cliente --> 
+ <!-- Modal de dialogo de Buscar cliente -->
  <div class="modal fade"  id="modalbuscarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
     <div class="modal-content">
@@ -543,10 +571,10 @@
           Buscar cliente
         </h3></div>
         <div class="modal-body" >
-  
-            <table id="tablebuscarclientesrep" class="table table-hover tablacompras"> <br>  
+
+            <table id="tablebuscarclientesrep" class="table table-hover tablacompras"> <br>
               <thead>
-                <tr>              
+                <tr>
                   <th scope="col">Nombres</th>
                   <th scope="col">Identidad</th>
                   <th scope="col">Teléfono </th>
@@ -554,31 +582,31 @@
                   <th scope="col">Agregar cliente</th>
                 </tr>
               </thead>
-            
-              <tbody id="tbody_buscarcliente">   
-                @forelse($clientes as $cli)          
+
+              <tbody id="tbody_buscarcliente">
+                @forelse($clientes as $cli)
                 <tr>
                   <td>{{ $cli->Nombre}} {{$cli->Apellido}}</td>
                   <td>{{ $cli->Numero_identidad }}</td>
                   <td>{{ $cli->Numero_telefono}}</td>
-                  <td>{{ $cli->Direccion }}</td>                  
-                  <td><button class="btn btn-outline-dark"  onclick="seleccionarCliente({{$cli->id}})"><i class="bi bi-check-circle"></i></button></td>                  
+                  <td>{{ $cli->Direccion }}</td>
+                  <td><button class="btn btn-outline-dark"  onclick="seleccionarCliente({{$cli->id}})"><i class="bi bi-check-circle"></i></button></td>
                 </tr>
                 @empty
                 @endforelse
               </tbody>
-            </table> 
-  
+            </table>
+
             <div class="modal-footer" style="text-align: center">
               <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalbuscarclientes()"><i class="bi bi-x-circle"> Cerrar</i></button>
             </div>
         </div>
-  
+
     </div>
     </div>
 </div>
 
- <!-- Modal de dialogo de agregar cliente --> 
+ <!-- Modal de dialogo de agregar cliente -->
  <div class="modal fade "  id="modalagregarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
     <div class="modal-content">
@@ -586,54 +614,54 @@
             Agregar cliente
           </h3></div>
         <div class="modal-body" >
-            
-          
+
+
             <div style="display: flex">
-      
+
               <div style="width: 100%">
-                <label  id="inputGroup-sizing-sm">Nombres</label> 
-                <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
+                <label  id="inputGroup-sizing-sm">Nombres</label>
+                <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"
                 title="Solo debe tener letras"
                 placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
               </div>
               &nbsp; &nbsp;
-  
+
               <div style="width: 100%">
-                <label id="inputGroup-sizing-sm">Apellidos</label> 
-                <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  
-                pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
+                <label id="inputGroup-sizing-sm">Apellidos</label>
+                <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"
+                pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras"
                 placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
-              </div> 
-  
+              </div>
+
               &nbsp; &nbsp;
               <div style="width: 100%">
-                <label  id="inputGroup-sizing-sm">Número de identidad</label> 
-                <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control" 
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-                title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
+                <label  id="inputGroup-sizing-sm">Número de identidad</label>
+                <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+"
                 placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
               </div>
-  
+
               &nbsp; &nbsp;
               <div style="width: 100%">
                 <label id="inputGroup-sizing-sm">Teléfono fijo o celular</label>
-                <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                 title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
-              </div> 
-           
+              </div>
+
             </div>
-          
-  
+
+
             <br>
-         
-            <center><div style="width: 60%"> 
-              <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span> 
+
+            <center><div style="width: 60%">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span>
               <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
               rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
             </div></center>
-            
+
         </div>
-  
+
         <!-- Botones -->
         <div class="modal-footer" style="text-align: center">
           <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalclientes()"><i class="bi bi-x-circle"> Cancelar</i></button>
@@ -643,7 +671,7 @@
     </div>
 </div>
 
- <!-- Modal de dialogo de agregar cliente --> 
+ <!-- Modal de dialogo de agregar cliente -->
  <div class="modal fade "  id="modalagregarproductoinventario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-xl" >
   <div class="modal-content">
@@ -651,9 +679,9 @@
         <h3 class="titulo1">Agregar Producto Invantario</h3>
       </div>
 
-      <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>  
+      <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>
         <thead>
-          <tr>              
+          <tr>
             <th scope="col">Categoria</th>
             <th scope="col">Marca</th>
             <th scope="col">Nombre Producto </th>
@@ -661,21 +689,21 @@
             <th scope="col">Agregar</th>
           </tr>
         </thead>
-      
-        <tbody id="tbody_buscarcliente">   
-          @forelse($inventario as $in)          
+
+        <tbody id="tbody_buscarcliente">
+          @forelse($inventario as $in)
           <tr>
             <td>{{ $in->Categoria}} </td>
             <td>{{ $in->Marca }}</td>
             <td>{{ $in->Nombre_producto}}</td>
-            <td>{{ $in->Cantidad }}</td>                  
-            <td><button class="btn btn-outline-dark" type="button" onclick="agregarproductoInventario({{$in->id_producto}})"><i class="bi bi-check-circle"></i></button></td>                  
+            <td>{{ $in->Cantidad }}</td>
+            <td><button class="btn btn-outline-dark" type="button" onclick="agregarproductoInventario({{$in->id_producto}})"><i class="bi bi-check-circle"></i></button></td>
           </tr>
           @empty
           @endforelse
         </tbody>
-      </table> 
-      
+      </table>
+
 
       <!-- Botones -->
       <div class="modal-footer" style="text-align: center">
@@ -688,31 +716,58 @@
 
 <script>
 
+    let piezas = @json(old('datelles_piezas')?json_decode(old('datelles_piezas')):$piezas);
 
 
 
 
+    function dibujarTabla(data) {
 
+        var html = ''
 
+        document.getElementById('table_cambio_pieza_body').innerHTML = html;
 
+        //TABLA GRANDE AFUERA
+        if(data.length > 0){
 
+            data.forEach(element => {
+                html += '<tr>';
+                    html += '<td>' + element.Categoria + '</td>';
+                    html += '<td>' + element.Marca + '</td>';
+                    html += '<td>' + element.Nombre_producto + '</td>';
+                    html += '<td>' + element.Cantidad + '</td>';
+                    html += '<td><button onclick="eliminarproductoInventario('+ element.id_producto +')"  type="button" class="btn btn-outline-dark" ><i class="bi bi-x-circle">Eliminar</i></button></td>';
+                html += '</tr>';
+            });
 
+        }
+        document.getElementById('table_cambio_pieza_body').innerHTML = html;
+
+    }
 
 
     //ocultar y esconder, boton de inventario
     var switchCambioPieza = document.querySelector('#switchCambioPieza');
     if(switchCambioPieza.checked){
-      document.getElementById("abririnventario").style.display = "block";  
+      document.getElementById("abririnventario").style.display = "block";
+      document.getElementById("ver_inventario").style.display = "block";
+        dibujarTabla(piezas);
     }else{
       document.getElementById("abririnventario").style.display = "none";
+      document.getElementById("ver_inventario").style.display = "none";
     }
   switchCambioPieza.addEventListener('change', function(element) {
     if(switchCambioPieza.checked){
-      document.getElementById("abririnventario").style.display = "block";  
+      document.getElementById("abririnventario").style.display = "block";
+      document.getElementById("ver_inventario").style.display = "block";
+      dibujarTabla(piezas);
     }else{
       document.getElementById("abririnventario").style.display = "none";
+      document.getElementById("ver_inventario").style.display = "none";
     }
   });
+
+    
 
 const input = document.getElementById("selectAvatar");
 
@@ -747,23 +802,23 @@ const uploadImage = async (event) => {
     const file = event.target.files[i];
     const base64 = await convertBase64(file);
 
-    if(i == 0){      
+    if(i == 0){
       avatar.src = base64;
       textArea.innerText = base64;
     }
-    if(i == 1){      
+    if(i == 1){
       avatar1.src = base64;
       textArea1.innerText = base64;
     }
-    if(i == 2){      
+    if(i == 2){
       avatar2.src = base64;
       textArea2.innerText = base64;
     }
-    if(i == 3){      
+    if(i == 3){
       avatar3.src = base64;
       textArea3.innerText = base64;
     }
-    if(i == 4){      
+    if(i == 4){
       avatar4.src = base64;
       textArea4.innerText = base64;
     }
@@ -778,10 +833,10 @@ input.addEventListener("change", (e) => {
 
 
     //funcion para guardar cliente en el modal
-  var accion = {!! json_encode($accion, JSON_HEX_TAG) !!}; 
-  var reparacion = {!! json_encode($reparacion, JSON_HEX_TAG) !!};   
+  var accion = {!! json_encode($accion, JSON_HEX_TAG) !!};
+  var reparacion = {!! json_encode($reparacion, JSON_HEX_TAG) !!};
   var inventario = {!! json_encode($inventario, JSON_HEX_TAG) !!};
-  var clientes = {!! json_encode($clientes, JSON_HEX_TAG) !!}; 
+  var clientes = {!! json_encode($clientes, JSON_HEX_TAG) !!};
   var myModalCliente = new bootstrap.Modal(document.getElementById('modalagregarcliente'));
   var myModalbuscarCliente = new bootstrap.Modal(document.getElementById('modalbuscarcliente'));
   var myModalagregarproductoinventario = new bootstrap.Modal(document.getElementById('modalagregarproductoinventario'));
@@ -794,15 +849,15 @@ if(accion == "editar"){
 
 // si inicialmente el estado de la factura es pendiente, ocultaremos la seccion de la factura
 if(reparacion.estado == "Pendiente"){
-  document.getElementById("factura_form_rep").style.display = "none";      
+  document.getElementById("factura_form_rep").style.display = "none";
 }
 
-// obtendremos el checkbox con JQuery, y obtendremos cada cambio que se realize en el 
+// obtendremos el checkbox con JQuery, y obtendremos cada cambio que se realize en el
 // con el evento change,
 var switchestado = document.querySelector('#switchestado_rep');
 if(switchestado.checked){
-    document.getElementById("factura_form_rep").style.display = "block";  
-    document.getElementById('labelswitchestado_rep').innerHTML = "Finalizado";      
+    document.getElementById("factura_form_rep").style.display = "block";
+    document.getElementById('labelswitchestado_rep').innerHTML = "Finalizado";
   }else{
     document.getElementById("factura_form_rep").style.display = "none";
     document.getElementById('labelswitchestado_rep').innerHTML = "Pendiente";
@@ -812,27 +867,27 @@ switchestado.addEventListener('change', function(element) {
   // mostraremos la factura dando un estilo de display bloc a la seccion
   // y al label a la par del checkbox le daremos el valor con innerHTML de finalezado
   if(switchestado.checked){
-    document.getElementById("factura_form_rep").style.display = "block";  
-    document.getElementById('labelswitchestado_rep').innerHTML = "Finalizado";      
+    document.getElementById("factura_form_rep").style.display = "block";
+    document.getElementById('labelswitchestado_rep').innerHTML = "Finalizado";
   }else{
-    
+
     // en caso de ser falso
-    // ocualtaremos la seccion 
+    // ocualtaremos la seccion
     // y le colocaremos pendiente al label
     document.getElementById("factura_form_rep").style.display = "none";
     document.getElementById('labelswitchestado_rep').innerHTML = "Pendiente";
   }
-  
+
 });
-}   else{  // fecha de ingreso de  facturacion 
+}   else{  // fecha de ingreso de  facturacion
     var fecha = new Date();
-    document.getElementById("fecha_ingreso").value = fecha.toJSON().slice(0,10);  
+    document.getElementById("fecha_ingreso").value = fecha.toJSON().slice(0,10);
   }
 
 
 //function fecha(){
-    //var fechaingreso = document.getElementById("fecha_ingreso").value 
-    //var fechaentrega = document.getElementById("fecha_entrega").value 
+    //var fechaingreso = document.getElementById("fecha_ingreso").value
+    //var fechaentrega = document.getElementById("fecha_entrega").value
 
 
     //if (fechaentrega < fechaingreso ) {
@@ -840,9 +895,9 @@ switchestado.addEventListener('change', function(element) {
       //return;
     //}
 
-    
+
   //}
-  
+
 
   function clickactualizarReparacion(){
     var fechaingreso = document.getElementById("fecha_ingreso").value;
@@ -863,37 +918,37 @@ switchestado.addEventListener('change', function(element) {
       alertify.error("La fecha de entrega es requerida");
       return;
     }
- 
+
     if (fechaentrega < fechaingreso ) {
       alertify.error("La fecha de entrega no debe ser menor a la de ingreso");
       return;
     }
-   
+
       // verificamos cual es el estado del checkbox y si es verdadero, significa que la factura esta abierta y si podra obtener los valores de la factura
     // si esta cerrada nos tira el error que no halla esos inputs
     let  stringestado = '';
     if(switchestado.checked){
-      stringestado = "Finalizado";  
+      stringestado = "Finalizado";
     }else{
-      stringestado  = "Pendiente";   
-    }  
+      stringestado  = "Pendiente";
+    }
 
     let  stringcambio_pieza = '';
     if(switchCambioPieza.checked){
-      stringcambio_pieza = "Si";  
+      stringcambio_pieza = "Si";
     }else{
-      stringcambio_pieza  = "No";   
-    }  
+      stringcambio_pieza  = "No";
+    }
     let  string_garantia = '';
     if(switchGarantia){
-      string_garantia = "Si";  
+      string_garantia = "Si";
     }else{
-      string_garantia  = "No";   
-    }  
+      string_garantia  = "No";
+    }
 
     // armamos el jason, que mandaremos en la ruta
-     let datosReparacion = {      
-     
+     let datosReparacion = {
+
       "id":reparacion.id,
 
       "estado": stringestado,
@@ -905,16 +960,16 @@ switchestado.addEventListener('change', function(element) {
       "cambio_pieza": stringcambio_pieza,
       "categoria_producto_inv": categoria_producto_inv  ,
       "marca_producto_inv": marca_producto_inv,
-      "nombre_producto_inv":nombre_producto_inv,    
+      "nombre_producto_inv":nombre_producto_inv,
       "id_producto_inv": id_producto_inv,
-      "garantia": string_garantia,   
-     
+      "garantia": string_garantia,
+
       "fecha_ingreso": document.getElementById("fecha_ingreso").value,
-      "fecha_entrega": document.getElementById("fecha_entrega").value,   
-     
+      "fecha_entrega": document.getElementById("fecha_entrega").value,
+
     }
-    
-    
+
+
     $.ajax({
         type: "POST",
         url: '/actualizarReparacion',
@@ -937,22 +992,22 @@ switchestado.addEventListener('change', function(element) {
     myModalbuscarCliente.show();
   }
   function cerrarmodalclientes(){
-    myModalCliente.hide();    
+    myModalCliente.hide();
     limpiarcamposcliente();
   }
   function cerrarmodalbuscarclientes(){
-    myModalbuscarCliente.hide();    
+    myModalbuscarCliente.hide();
     limpiarcamposcliente();
-  }  
+  }
 
 // cuando sea la aciion de editar declararemos otras variables globales como ser
 // switchestado: que sera con el cual mostraremos y ocultaremos la seccion de la factura
 if(accion == "agregar"){
-  
-  document.getElementById("btninventario").style.display = "none"; 
+
+  document.getElementById("btninventario").style.display = "none";
 
 
-// obtendremos el checkbox con JQuery, y obtendremos cada cambio que se realize en el 
+// obtendremos el checkbox con JQuery, y obtendremos cada cambio que se realize en el
 // con el evento change,
 var switchestado = document.querySelector('#switchestado');
 switchestado.addEventListener('change', function(element) {
@@ -960,17 +1015,17 @@ switchestado.addEventListener('change', function(element) {
   // mostraremos la factura dando un estilo de display bloc a la seccion
   // y al label a la par del checkbox le daremos el valor con innerHTML de finalezado
   if(switchestado.checked){
-    document.getElementById("btninventario").style.display = "block";  
-    document.getElementById('labelswitchestado').innerHTML = "Si";      
+    document.getElementById("btninventario").style.display = "block";
+    document.getElementById('labelswitchestado').innerHTML = "Si";
   }else{
     // en caso de ser falso
-    // ocualtaremos la seccion 
+    // ocualtaremos la seccion
     // y le colocaremos pendiente al label
     document.getElementById("btninventario").style.display = "none";
     document.getElementById('labelswitchestado').innerHTML = "No";
   }
 });
-} 
+}
 
 if(accion == "editar"){
   avatar.src = reparacion.foto;
@@ -979,8 +1034,8 @@ if(accion == "editar"){
   avatar3.src = reparacion.foto3;
   avatar4.src = reparacion.foto4;
 }
-  
-  
+
+
   function guardarClienteBASE(){
 
     let nombre_cliente = document.getElementById("nombre_cliente").value;
@@ -988,7 +1043,7 @@ if(accion == "editar"){
     let identidad_cliente = document.getElementById("identidad_cliente").value;
     let telefono_cliente = document.getElementById("telefono_cliente").value;
     let direccion_cliente = document.getElementById("direccion_cliente").value;
-    
+
     // hacer las validaciones
     var re = /^[A-ZÑ a-zñ]+$/;
     var letra= /[A-ZÑ a-zñ]/;
@@ -1000,7 +1055,7 @@ if(accion == "editar"){
                 return;
     }
 
-   
+
     else if (!re.test(nombre_cliente)) {
                 alertify.error("No se aceptan signos especiales y números");
                 return;
@@ -1014,11 +1069,11 @@ if(accion == "editar"){
     if (apellido_cliente == '') {
                 alertify.error("El apellido del cliente es requerido");
                 return;
-    } 
+    }
     else if (!re.test(apellido_cliente)) {
                 alertify.error("No se aceptan signos especiales y números");
                 return;
-    } 
+    }
     else if (!letra.test(apellido_cliente)) {
                 alertify.error("No se aceptan números");
                 return;
@@ -1028,7 +1083,7 @@ if(accion == "editar"){
     if (identidad_cliente == '') {
                 alertify.error("El número de identidad del cliente es requerido");
                 return;
-    }  
+    }
     else if (!identidad.test(identidad_cliente)) {
                 alertify.error("Ingrese una identidad valida");
                 return;
@@ -1036,13 +1091,13 @@ if(accion == "editar"){
     if (identidad_cliente == 0) {
                 alertify.error("El número de identidad del cliente no debe ser cero");
                 return;
-    } 
-    
+    }
 
-    
-    
 
-   
+
+
+
+
 
     // Validar número télefono
     if (telefono_cliente== '') {
@@ -1052,20 +1107,20 @@ if(accion == "editar"){
                 alertify.error("El número de teléfono debe empezar con 2, 3, 8 o 9 y contener 8 números");
                 return;
     }
-    
+
     // la "clientes" tenemos todos los clientes de la base de datos cliente
     // vamos a verificar el campo de telefono de todos los cliente, a ver si hay un telefono exacatmente igual
     console.log(clientes);
     var existeTel  = 0;
     var existeIden  = 0;
     clientes.forEach(element => {
-        
+
       if(element.Numero_identidad == identidad_cliente){
         existeIden = existeIden +1;
-      }   
+      }
       if(element.Numero_telefono == telefono_cliente){
         existeTel = existeTel +1;
-      } 
+      }
     });
 
     if(existeIden > 0){
@@ -1077,15 +1132,15 @@ if(accion == "editar"){
       return;
     }
 
-   
-  
+
+
 
     //Validar direccion
     if (direccion_cliente == '') {
               alertify.error("La dirección del cliente es requerida");
               return;
     }
-      
+
     let datoscliente = {
       "nombre_cliente":nombre_cliente,
       "apellido_cliente":apellido_cliente,
@@ -1101,10 +1156,10 @@ if(accion == "editar"){
             "data":datoscliente
         },
         success: function(data) {
-          
-          clientes.push(data);     
-          
-       
+
+          clientes.push(data);
+
+
           //pasamos a los label, los datos del ultimo customer de la base de datos
           document.getElementById("l_id_cliente").value = data.id ;
           document.getElementById("l_nombre_cliente").value = data.Nombre+' '+data.Apellido;
@@ -1117,7 +1172,7 @@ if(accion == "editar"){
         }
     })
     limpiarcamposcliente();
-    myModalCliente.hide();  
+    myModalCliente.hide();
   }
 
 
@@ -1129,7 +1184,7 @@ if(accion == "editar"){
     document.getElementById("l_identidad_cliente").value = cliente.Numero_identidad ;
     document.getElementById("l_telefono_cliente").value = cliente.Numero_telefono ;
     document.getElementById("l_direccion_cliente").value = cliente.Direccion ;
-    myModalbuscarCliente.hide(); 
+    myModalbuscarCliente.hide();
   }
 
   function limpiarcamposcliente(){
@@ -1147,18 +1202,60 @@ if(accion == "editar"){
 
    function agregarproductoInventario(id_producto){
     let producto = inventario.filter(x => x.id_producto == id_producto)
-    document.getElementById('categoria_producto_inv').value = producto[0].Categoria ;
-    document.getElementById('marca_producto_inv').value = producto[0].Marca ;
-    document.getElementById('nombre_producto_inv').value = producto[0].Nombre_producto ;
-    document.getElementById('id_producto_inv').value = producto[0].id_producto ;
-    myModalagregarproductoinventario.hide()    
+
+    var jsonproducto = {
+             "id_producto": producto[0].id_producto
+            , "Categoria": producto[0].Categoria
+            , "Marca": producto[0].Marca
+            ,"Nombre_producto": producto[0].Nombre_producto
+            ,"Cantidad": 1
+        };
+
+        var existe = 0;
+
+        piezas.forEach(element => {
+            if (element.id_producto == jsonproducto.id_producto) {
+                existe++;
+
+                iddetalleactualizar = element.id_producto
+                nuevacantidad = (parseInt(element.Cantidad) + parseInt(jsonproducto.Cantidad));
+
+                if (parseInt(nuevacantidad) > parseInt(producto[0].Cantidad)) {
+                    alertify.error("La cantidad no debe de exeder la existencia");
+                    return;
+                }
+
+                element.Cantidad = nuevacantidad
+            }
+        });
+
+        if (existe == 0) {
+
+            if (parseInt(jsonproducto.Cantidad) > parseInt(producto[0].Cantidad)) {
+                    alertify.error("La cantidad no debe de exeder la existencia");
+                    return;
+            }
+
+            piezas.push(jsonproducto);
+        }
+
+    dibujarTabla(piezas);
+    myModalagregarproductoinventario.hide()
   }
+
+
+  function eliminarproductoInventario(id_producto){
+    piezas = piezas.filter(x => x.id_producto != id_producto)
+
+    dibujarTabla(piezas);
+  }
+
 
   function openabririnventario(){
     myModalagregarproductoinventario.show()
   }
 
- 
+
 
 var fecha1 = new Date();
 document.getElementById("fecha_facturacion_rep").value = fecha1.toJSON().slice(0,10);
@@ -1174,10 +1271,15 @@ document.getElementById("fecha_facturacion_rep").value = fecha1.toJSON().slice(0
  @push('alertas')
  <script>
     function guardarReparacion() {
+
+        document.getElementById("datelles_piezas").value = JSON.stringify(piezas);
+
        var formul = document.getElementById("form_guardarR");
-       
+
+
+
        Swal.fire({
-            title: '¿Está seguro que desea guardar los datos?',
+            title: "{{ ($accion=='editar') ? '¿Está seguro que desea Actualizar los datos?' : '¿Está seguro que desea guardar los datos?' }}",
             icon: 'question',
             confirmButtonColor: '#3085d6',
             showCancelButton: true,
@@ -1191,6 +1293,6 @@ document.getElementById("fecha_facturacion_rep").value = fecha1.toJSON().slice(0
         })
         event.preventDefault()
     }
-</script> 
+</script>
 @endpush
 @include('common')
