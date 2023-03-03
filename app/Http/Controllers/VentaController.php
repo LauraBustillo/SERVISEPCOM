@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\DetalleVenta;
+use App\Models\Garantia;
 use App\Models\RangoFactura;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use NumberFormatter;
 
 class VentaController extends Controller
 {
@@ -60,14 +63,16 @@ class VentaController extends Controller
             total de 8 dígitos, rellenando con ceros a la
             izquierda si es necesario para cumplir con la longitud. formato estandar de la SAR:
             000-000-00-00000000*/
-        if(count($rangos)){
+        if (count($rangos)) {
             $num_factura = '000-001-04-' . sprintf('%08d', $rangos[0]->facturaActual);
-        }else{
+        } else {
             $num_factura = '';
         }
 
 
         $cliente = Cliente::all();
+
+        //Select que rebaja el inventario tanto de detalle de ventas como de piezas en las reparaciones
         $query = 'SELECT DISTINCT
                         p.id_product,
                         cat.id as id_cat,
@@ -79,7 +84,11 @@ class VentaController extends Controller
                         (SELECT MAX(Precio_venta) FROM compra_detalles WHERE compra_detalles.id_product = p.id_product) as Precio_venta,
                         ((SELECT SUM(Cantidad) FROM compra_detalles WHERE compra_detalles.id_product = p.id_product) -
                                 if((SELECT SUM(Cantidad) FROM detalle_ventas WHERE detalle_ventas.id_product = p.id_product) IS NULL,
-                                            0, (SELECT SUM(Cantidad) FROM detalle_ventas WHERE detalle_ventas.id_product = p.id_product))) as Cantidad,
+                                            0, (SELECT SUM(Cantidad) FROM detalle_ventas WHERE detalle_ventas.id_product = p.id_product))
+                                            -
+                                if((SELECT SUM(Cantidad) FROM pieza_reparaciones WHERE pieza_reparaciones.id_producto = p.id_product) IS NULL,
+                                            0, (SELECT SUM(Cantidad) FROM pieza_reparaciones WHERE pieza_reparaciones.id_producto = p.id_product))
+                        ) as Cantidad,
                         p.Impuesto,
                         prov.Nombre_empresa,
                         cat.Descripcion as DescripcionC
@@ -145,20 +154,29 @@ class VentaController extends Controller
         $rango->ocupadas += 1;
         $rango->facturaDisponibles -= 1;
 
-        if($rango->facturaActual > $rango->facturaFinal){
+        if ($rango->facturaActual > $rango->facturaFinal) {
             $rango->estado = 0;
         }
 
         $fechaActual = Carbon::now()->setTimezone('America/Tegucigalpa');
 
-        if($fechaActual->gt(Carbon::parse($rango->fechaVencimiento)->setTimezone('America/Tegucigalpa'))){
+        if ($fechaActual->gt(Carbon::parse($rango->fechaVencimiento)->setTimezone('America/Tegucigalpa'))) {
             $rango->estado = 0;
         }
 
         $rango->save();
 
+        if ($jsonFactura->garantia == 'si') {
+            $grantia = new Garantia();
+            $grantia->id_reparacion = $venta->id;
+            $grantia->tipo_garantia = "Ventas";
+            $grantia->fecha_finalizacion = Carbon::parse($jsonFactura->fechaFactura)->addDays(30)->format('Y-m-d');
+            $grantia->fecha_inicio = $jsonFactura->fechaFactura;
+            $grantia->descripcion = 'Garantia general de los productos ofrecidos por la empresa';
+            $grantia->save();
+        }
 
-        return redirect()->route('show.registroventa')->with('mensaje', 'Se guardó  con  éxito');
+        return redirect()->route('venta.mostrar',['id'=> $venta->id])->with('mensaje', 'Se guardó  con  éxito');
     }
 
     public function mostrar($id)
@@ -167,13 +185,63 @@ class VentaController extends Controller
         $factura = Venta::findOrFail($id);
         $detallefactura = DetalleVenta::where('Numero_facturaform', '=', $factura->numeroFactura)->get();
         $rangos = RangoFactura::findOrFail($factura->idRangoFactura);
+        $garantia = Garantia::where('tipo_garantia','=','Ventas')->where('id_reparacion','=',$id)->get();
 
 
         return view('Ventas.InformacionVenta')
             ->with('products', $products)
             ->with('factura', $factura)
             ->with('detallefactura', $detallefactura)
-            ->with('rangos', $rangos);
-
+            ->with('rangos', $rangos)
+            ->with('garantia', $garantia);
     }
+
+    public function factura_pdf($id)
+    {
+        $factura = Venta::findOrFail($id);
+        $digit = new NumberFormatter("es", NumberFormatter::SPELLOUT);
+        $factura->total_numero_texto = $digit->format($factura->totalFactura);
+        $factura->numero_identidad = Cliente::whereRaw('concat(Nombre," ",Apellido) = "'.$factura->clienteFactura.'"')->get()[0]->Numero_identidad;
+        $detallefactura = DetalleVenta::where('Numero_facturaform', '=', $factura->numeroFactura)->get();
+        $rangos = RangoFactura::findOrFail($factura->idRangoFactura);
+
+        $pdf = PDF::loadView('factura', [
+            'factura' => $factura,
+            'detallefactura' => $detallefactura,
+            'rangos' => $rangos
+        ]);
+
+        $pdf->setPaper('letter'); // Establecer tamaño de página como carta y orientación horizontal
+        $pdf->setOption('margin-top', '5mm'); // Establecer margen superior en 5 mm
+        $pdf->setOption('margin-bottom', '5mm'); // Establecer margen inferior en 5 mm
+        $pdf->setOption('margin-left', '5mm'); // Establecer margen izquierdo en 5 mm
+        $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
+        $pdf->render();
+
+        return $pdf->download('Factura-'.$factura->numeroFactura.'.pdf');
+    }
+
+    public function garantia_pdf($id)
+    {
+        $factura = Venta::findOrFail($id);
+        $factura->numero_identidad = Cliente::whereRaw('concat(Nombre," ",Apellido) = "'.$factura->clienteFactura.'"')->get()[0]->Numero_identidad;
+        $detallefactura = DetalleVenta::where('Numero_facturaform', '=', $factura->numeroFactura)->get();
+        $rangos = RangoFactura::findOrFail($factura->idRangoFactura);
+
+        $pdf = PDF::loadView('facturaGarantia', [
+            'factura' => $factura,
+            'detallefactura' => $detallefactura,
+            'rangos' => $rangos
+        ]);
+
+        $pdf->setPaper('letter'); // Establecer tamaño de página como carta y orientación horizontal
+        $pdf->setOption('margin-top', '5mm'); // Establecer margen superior en 5 mm
+        $pdf->setOption('margin-bottom', '5mm'); // Establecer margen inferior en 5 mm
+        $pdf->setOption('margin-left', '5mm'); // Establecer margen izquierdo en 5 mm
+        $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
+        $pdf->render();
+
+        return $pdf->download('GarntiaVenta-'.$factura->numeroFactura.'.pdf');
+    }
+
 }
