@@ -192,6 +192,12 @@
                             <span class="nav_name">Ventas</span>
                         </a>
 
+                        {{-- Devoluciones--}}
+                        <a href="{{ route('devolucion.index') }}" class="@if(Request::is('devolucion')) nav_link active @else nav_link @endif">
+                            <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 96 960 960" width="28"><path d="M160 316v-60h642v60H160Zm5 580V638h-49v-60l44-202h641l44 202v60h-49v258h-60V638H547v258H165Zm60-60h262V638H225v198Zm-50-258h611-611Zm0 0h611l-31-142H206l-31 142Z"/></svg>
+                            <span class="nav_name">Devolucion garantia</span>
+                        </a>
+
 
                       
 
