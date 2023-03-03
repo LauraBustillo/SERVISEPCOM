@@ -339,7 +339,37 @@
 </form>
 
 
+<!-- Modal de dialogo de agregar productos -->
+<div class="modal fade" id="modalagregarproductoventa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="titulo1">Devolver producto</h3>
+            </div>
+            <div class="modal-body" id="tbody_agregar_detalle">
+                <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>
+                    <thead>
+                        <tr>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Nombre producto </th>
+                            <th scope="col">Cantidad </th>
+                            <th scope="col">Devolver</th>
+                        </tr>
+                    </thead>
 
+                    <tbody >
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- Botones -->
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"><i class="bi bi-x-circle"> Cancelar</i></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     var modalagregarproductoventa = new bootstrap.Modal(document.getElementById('modalagregarproductoventa'));
@@ -353,9 +383,97 @@
 
     let detalles = [];
 
-    
-    
+    function dibujarTabla(data) {
 
+var html = ''
+var datosJson = JSON.parse(data);
+
+document.getElementById('tbody_agregar_detalle').innerHTML = html;
+
+
+html += '<table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>\
+            <thead>\
+                <tr>\
+                    <th scope="col">categoría</th>\
+                    <th scope="col">Marca</th>\
+                    <th scope="col">Nombre producto </th>\
+                    <th scope="col">Cantidad </th>\
+                    <th scope="col">Devolver producto</th>\
+                </tr>\
+            </thead>\
+            <tbody >';
+
+//TABLA GRANDE AFUERA
+if (datosJson.length > 0) {
+
+    datosJson.forEach(element => {
+        html += '<tr>';
+        html += '<td>' + element.Categoria + '</td>';
+        html += '<td>' + element.Marca + '</td>';
+        html += '<td>' + element.nombre_producto + '</td>';
+        html += '<td>' + element.Cantidad + '</td>';
+        var el = JSON.stringify(element);
+        html += "<td><button onclick='agregarDevolucion(" + el + ")' type='button' class='btn btn-outline-dark'><i class='bi bi-x-circle'> Devolver </i></button></td>";
+        html += '</tr>';
+    });
+
+}
+
+
+html +=   '</tbody>\
+        </table>';
+
+
+document.getElementById('tbody_agregar_detalle').innerHTML = html;
+
+$('#tablebuscarinventario').DataTable({
+
+    pageLength: 4
+    , lengthMenu: [
+        [5, 10, 20, -1]
+        , [5, 10, 20, 'Todos']
+    ]
+    , language: {
+        "sProcessing": "Procesando..."
+        , "sLengthMenu": ""
+        , "sZeroRecords": "No se encontraron resultados"
+        , "sEmptyTable": ""
+        , "sInfo": ""
+        , "sInfoEmpty": ""
+        , "sInfoFiltered": ""
+        , "sInfoPostFix": ""
+        , "sSearch": "Buscar por categoría, marca y nombre producto"
+        , "sUrl": "."
+        , "sInfoThousands": ""
+        , "sLoadingRecords": "Cargando..."
+        , "oPaginate": {
+            "sFirst": "Primero"
+            , "sLast": "Último"
+            , "sNext": "Siguiente"
+            , "sPrevious": "Anterior"
+        }
+        , "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente"
+            , "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        , "buttons": {
+            "copy": "Copiar"
+            , "colvis": "Visibilidad"
+        }
+    }
+
+});
+
+}
+    
+function agregarDevolucion(element) {
+        document.getElementById('id_detalle_venta').value = element.id_detalle;
+        document.getElementById('id_producto_devolucion').value = element.id_product;
+        document.getElementById('proveedor_devolucion').value = element.Proveedor;
+        document.getElementById('categoria_Devolucion').value = element.Categoria;
+        document.getElementById('Marca_Devolucion').value = element.Marca;
+        document.getElementById('Nombre_producto_devolucion').value = element.nombre_producto;
+    }
 
 
     function agregarproductoventa(data) {
