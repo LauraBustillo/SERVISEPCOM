@@ -517,8 +517,28 @@
         <input hidden value="{{$reparacion->id_producto_inv}}" name="id_producto_inv" id="id_producto_inv">
     </div>
 
-   
-
+    <div>
+        <div class="form-check form-switch">
+            <label>Garantia</label>
+            <input style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" {{$reparacion->garantia == "Si" ? "checked" : "" }}>
+        </div>
+        <div id="abrirgarantia" class="form-inline" style="display: none">
+            <div class="row">
+                <div class="col-6">
+                    <label for="">Descripción</label>
+                    <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
+                </div>
+                <div class="col-3">
+                    <label for="">Fecha Inicio</label>
+                    <input class="form-control" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
+                </div>
+                <div class="col-sm-3">
+                    <label for="">Fecha Final</label>
+                    <input class="form-control" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -767,7 +787,20 @@
     }
   });
 
-    
+  //ocultar y esconder, boton de garantia
+  var switchCambioGarantia = document.querySelector('#switchGarantia');
+    if(switchCambioGarantia.checked){
+        document.getElementById("abrirgarantia").style.display = "block";
+    }else{
+      document.getElementById("abrirgarantia").style.display = "none";
+    }
+    switchCambioGarantia.addEventListener('change', function(element) {
+    if(switchCambioGarantia.checked){
+      document.getElementById("abrirgarantia").style.display = "block";
+    }else{
+      document.getElementById("abrirgarantia").style.display = "none";
+    }
+  });
 
 const input = document.getElementById("selectAvatar");
 
