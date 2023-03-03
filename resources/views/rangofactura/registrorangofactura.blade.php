@@ -90,7 +90,7 @@
             <span class="input-group-text" id="inputGroup-sizing-sm">Fecha Vencimiento</span>
             <input type="date" name="fechaVencimiento" id="fechaVencimiento" class="form-control" value="{{old('fechaVencimiento')}}">
         </div>
-    </div>
+    </div> 
 
     <br>
     <div class="input-group input-group-sm flex">
