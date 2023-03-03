@@ -98,7 +98,17 @@
         </tbody>
   </table>
 
-  <a class="btn btn-outline-dark" href="{{route('Venta.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+  @if(session('mensaje'))
+    <a class="btn btn-outline-dark" href="{{route('show.registroventa')}}"> <i class="bi bi-arrow-left-circle-fill"> Registrar nueva factura </i></a>
+    <a class="btn btn-outline-dark" href="{{route('Venta.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+  @else
+    <a class="btn btn-outline-dark" href="{{route('Venta.index')}}"> <i class="bi bi-arrow-left-circle-fill"> Volver a la lista </i></a>
+  @endif
+    <a class="btn btn-outline-dark" href="{{route('Venta.pdf', ['id'=>$factura->id])}}"> <i class="bi bi-printer-fill">  Imprimir </i></a>
+  @if(count($garantia) > 0)
+    <a class="btn btn-outline-dark" href="{{route('VentaGarantia.pdf', ['id'=>$factura->id])}}"> <i class="bi bi-award-fill"> Garantía </i></a>
+  @endif
+
 
 
   <script>

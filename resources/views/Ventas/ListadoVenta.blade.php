@@ -119,13 +119,10 @@
 
 
 @if (session('mensaje'))
-<script>
-    mensaje = {
-        !!json_encode(session('mensaje'), JSON_HEX_TAG) !!
-    };
+  <script>
+    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
     alertify.success(mensaje);
-
-</script>
+  </script> 
 @endif
 
 <script>
@@ -332,7 +329,7 @@
     });
 
 </script>
-<h1 class="titulo" style="text-align:center">Listo de facturas de ventas</h1>
+<h1 class="titulo" style="text-align:center">Listado de facturas de ventas</h1>
 
 
 
@@ -372,6 +369,7 @@
             <th scope="col">Empleado</th>
             <th scope="col">Total</th>
             <th scope="col">Detalles</th>
+            <th scope="col">Imprimir</th>
         </tr>
     </thead>
 
@@ -384,7 +382,18 @@
             <td>{{ $de->empleadoVentas }}</td>
             <td name="valores">{{ $de->totalFactura }}</td>
             {{-- Botones --}}
-            <td><a class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+            <td>
+                <a class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}">
+                    <i class="bi bi-file-text-fill">  Detalles </i>
+                </a>
+               
+                
+            </td>
+            <td>
+                <a class="btn-detalles" href="{{route('Venta.pdf' , ['id' => $de->id]) }}">
+                    <i class="bi bi-printer-fill"> Imprimir </i>
+                </a>
+            </td>
         </tr>
         @empty
         @endforelse
