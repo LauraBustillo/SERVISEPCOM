@@ -74,7 +74,7 @@
                 <td><img src="{{ asset('imagenes/Sepcom-logo-removebg-preview.png') }}" alt="Logo.png" width="150px" height="150px"></td>
                 <td colspan="3">
                     <div class="text-justify">
-                        <h3>Servicios Profesionales En Conputación</h3>
+                        <h3>Servicios Profesionales En Computación</h3>
                         <p>Bo. Tierra Blanca, cuadras al norte del Museao Municipal, esquina opuesta a Ferreteria Valladares,
                             Danlí, El Paraíso
                         </p>
@@ -90,6 +90,11 @@
                 <td style="text-align: left" colspan="2"><p>Recibido por Honorarios: <b>{{ substr($factura->numeroFactura, 0, 14) }}</b> <b style="color: red;font-size: 1rem">{{ substr($factura->numeroFactura, 14, 19) }}</b>  </p></td>
                 <td style="text-align: right" colspan="2"><b><i>Por Lps</i> <input readonly type="text" name="" id="" value="{{ $factura->totalFactura }}"></b></td>
             </tr>
+            
+            <tr>
+                <td style="text-align: left" colspan="4"><p>CAI: <b>{{ substr($rangos->caiRango, 0, 37) }}</b>   </p></td>
+            </tr>
+
         </tbody>
     </table>
     <center>
@@ -132,9 +137,9 @@
             <tr class="tr">
                 <td class="td">{{ $detalle->nombre_producto }}</td>
                 <td class="td">{{ $detalle->Marca }}</td>
-                <td class="td" style="text-align: center">{{ $detalle->Cantidad }}</td>
+                <td class="td" style="text-align: right">{{ $detalle->Cantidad }}</td>
                 <td class="td" style="text-align: right">{{ $detalle->Precio_venta }}</td>
-                <td class="td" style="text-align: center">{{ $detalle->Impuesto }}%</td>
+                <td class="td" style="text-align: right">{{ $detalle->Impuesto }}%</td>
                 <td class="td" style="text-align: right">Lps. {{$totalproducto }}</td>
             </tr>
             @endforeach
@@ -163,6 +168,12 @@
         <p>Fecha Límite de Emisión: {{  $rangos->fechaVencimiento }}</p>
         <p>Gracias por su compra.</p>
     </div>
+
+    <script>
+        setTimeout(function() {
+            window.print();
+        }, 1000); //
+    </script>
 
 </body>
 </html>
