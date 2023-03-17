@@ -241,11 +241,6 @@
 
         );
 
-
-
-
-
-
         //obtenemos los valores a sumar de la columna que queremos(3), y le pasaamos que con el searh aplicado
         var suma = tablecompras.column(4, {
             search: 'applied'
@@ -282,6 +277,7 @@
     });
 
 </script>
+
 <h1 class="titulo" style="text-align:center">Listado de gastos</h1>
 
 
