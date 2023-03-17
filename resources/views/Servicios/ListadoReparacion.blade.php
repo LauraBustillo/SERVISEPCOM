@@ -156,7 +156,7 @@
     }
     .row{
         display: flex;
-        width: 100%;
+        width: 100%; 
     }
     .modal-body{
         background-color: rgb(142, 220, 243)!important;
@@ -310,8 +310,7 @@
 
 
 {{-- Buscador--}}
-<h1 class="titulo" style="text-align:center">Listado de reparación de equipos</h1>
-<br>
+
 {{--<nav class="navbar navbar-nav bg-nav" >
   <div class="container-fluid" >
     <form class="d-flex" id="ablescroll" method="POST" action="Mantenimiento">
@@ -323,7 +322,8 @@
 
   </div>
   </nav>--}}
-
+  <h1 class="titulo" style="text-align:center">Listado de reparación de equipos</h1>
+  <h1 class="titulo" style="text-align:center">Listado de reparación de equipos</h1>
 <br>
 <div class="input-group " style="float:right" style="width: 100%" >
  <div >
@@ -374,13 +374,13 @@
         <th scope="col">Fecha de ingreso</th>
         <th scope="col">Estado</th>
         <th scope="col">Factura</th>
-        <th scope="col">Detalle</th>
+        <th scope="col">Detalles</th>
         <th scope="col">Editar</th>
         <th scope="col">Facturar</th>
-        <th scope="col">Imprimir</th>
+        
         </tr>
         </thead>
-
+ 
      <tbody>
 
       @forEach($reparaciones as $r)
@@ -391,21 +391,19 @@
           <td>{{$r->estado}} </td>
           <td>{{$r->numero_factura != null && $r->numero_factura != '' ? $r->numero_factura  : "no facturado"}} </td>
 
-<td>
-<a class="btn-detalles" href="{{route('repacionones.ver' , ['id' => $r->id]) }}"> <i class="bi bi-file-text-fill"> Detalles</i> </a> &nbsp;&nbsp;
-</td>
-<td>
-<a class="btn-detalles" href="{{route('reparacion.mostrar' , ['id' => $r->id]) }}">  <i class="bi bi-pen-fill"> Editar </i> </a>&nbsp;&nbsp;
-</td>
-<td>
-<a  style="color: #000000;text-decoration:none" class="btn-detalles" {{$r->estado == 'Finalizado' ? "" : "hidden"}} onclick="openmodalfacturar({{$r}})">  <i class="bi bi-clipboard-check-fill"> Facturar </i> </a>&nbsp;&nbsp;
-</td>
-<td>
-<a  style="color: #000000;text-decoration:none" href="{{ route('pdf.reparacion', ['id'=>$r->id]) }}" class="btn-detalles" {{is_null($r->numero_factura) ? "hidden" : ""}}>  <i class="bi bi-clipboard-check-fill"> Imprimir </i> </a>
-</td>
+          <td>
+            <a class="btn-detalles" href="{{route('repacionones.ver' , ['id' => $r->id]) }}"> <i class="bi bi-file-text-fill"> Detalles</i> </a> &nbsp;&nbsp;
+          </td>
+          <td>
+            <a class="btn-detalles" href="{{route('reparacion.mostrar' , ['id' => $r->id]) }}">  <i class="bi bi-pen-fill"> Editar </i> </a>
+          </td>
+          <td>
+            <a  style="color: #000000;text-decoration:none" class="btn-detalles" {{strlen($r->numero_factura) != 19 ? "" : "hidden"}} onclick="openmodalfacturar({{$r}})">  <i class="bi bi-clipboard-check-fill"> Facturar </i> </a>&nbsp;&nbsp;
+            <a  style="color: #000000;text-decoration:none" href="{{ route('pdf.reparacion', ['id'=>$r->id]) }}" class="btn-detalles" {{strlen($r->numero_factura) == 19 ? "" : "hidden"}}>  <i class="bi bi-clipboard-check-fill"> Imprimir </i> </a>
 
-  
-    </tr>
+          </td>
+         
+        </tr>
       @endforeach
 
     </tbody>

@@ -227,9 +227,15 @@
     </i>
 </a>
 <a class="btn btn-outline-dark" href="{{route('pdf.reparacion',['id' => $detalle->id])}}">
-    <i class="bi bi-arrow-left-circle-fill"> Imprimir
+    <i class="bi bi-printer-fill"> Imprimir
     </i>
 </a>
+
+<a class="btn btn-outline-dark" href="{{route('pdf.garantia',['id' => $detalle->id])}}">
+    <i class="bi bi-award-fill"> Garantia
+    </i>
+</a>
+
 
 
 
