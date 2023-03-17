@@ -47,7 +47,7 @@ class DevolucionVentaController extends Controller
         ->orWhere("clienteFactura", "like", "%" . $buscar . "%")
         ->get();
 
-
+ 
         foreach ($ventas as $key => $value) {
             $value->detalles = DetalleVenta::where("Numero_facturaform","=", $value->numeroFactura)->get();
             foreach ($value->detalles as $key => $value2) {
@@ -69,20 +69,21 @@ class DevolucionVentaController extends Controller
     public function store(Request $request)
     {
         $rules = ([
-            'id_producto_devolucion',
+            'id_producto_devolucion' =>'required',
             'id_detalle_venta' =>'required',
             'fechaDev' =>'required|date',
             'des_devolucion' =>'required|max:255',
-            'switchDev'
+            'switchDev' => ''
         ]);
- 
+
         $mesaje=([
-            //'id_producto_devolucion.required'=>'El producto es obligatorio' ,
-            'id_detalle_venta.required'=>'El producto es obligatorio' ,
+            'id_producto_devolucion.required'=>'El producto es obligatorio' ,
+            'id_detalle_venta.required'=>'El id_detalle_venta es obligatorio' ,
             'fechaDev.required'=>'La fecha de la devolucion es obligatoria' ,
             'fechaDev.date'=>'La fecha de la devolucion debe ser una fecha' ,
             'des_devolucion.required'=>'La descripción es obligatorio' ,
             'des_devolucion.max'=>'La descripción no debe superar los 255 caracteres' ,
+            
         ]);
 
         $this->validate($request, $rules, $mesaje);

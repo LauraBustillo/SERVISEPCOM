@@ -17,16 +17,16 @@ class EmpleadoController extends Controller
           $buscar = $request->buscar;
           $empleado =  Empleado::where(DB::raw("LOWER(concat(Nombres,'',Apellidos))"),"like","%".strtolower($request->buscar)."%")
           ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
-          ->paginate(10); 
+          ->paginate(10);
         }else{
           $buscar = '';
           $empleado = Empleado::paginate(10);
         }
-  
+
         return view('Empleados.ListadoEmpleados')->with('empleados', $empleado)->with('buscar',$buscar);
     }
-   
-      /*Funcion para mostrar mas informacion del empleado */ 
+
+      /*Funcion para mostrar mas informacion del empleado */
       public function show($id){
         $ver = Empleado::findOrFail($id);
         $meses = ['Enero','Febrero','Marzo',
@@ -35,13 +35,13 @@ class EmpleadoController extends Controller
         'Octubre','Noviembre','Diciembre'];
 
           $f1 = $ver->Fecha_nacimiento;
-          $fechaN = Carbon::parse($f1)->format("m");  
+          $fechaN = Carbon::parse($f1)->format("m");
           $monthNac =  $meses[$fechaN -1];
-          $fechaNacimiento = Carbon::parse($f1)->format("d")." de ".$monthNac." de ".Carbon::parse($f1)->format("Y");  
+          $fechaNacimiento = Carbon::parse($f1)->format("d")." de ".$monthNac." de ".Carbon::parse($f1)->format("Y");
           $ver['fechaNacimiento'] = $fechaNacimiento;
-         
+
           $f2 = $ver->Fecha_contrato;
-          $fechaC = Carbon::parse($f2)->format("m");  
+          $fechaC = Carbon::parse($f2)->format("m");
           $monthCon =  $meses[$fechaC -1];
           $fechaContrato = Carbon::parse($f2)->format("d")." de ".$monthCon." de ".Carbon::parse($f2)->format("Y");
           $ver['fechaContrato'] = $fechaContrato;
@@ -49,7 +49,7 @@ class EmpleadoController extends Controller
 
         return view('Empleados.InformacionEmpleado')->with('ver', $ver);
       }
- 
+
          /*Funcion para guardar empleado*/
         public function guardar(){
            return view ('Empleados.RegistroEmpleados');
@@ -66,7 +66,7 @@ class EmpleadoController extends Controller
             'Salrio' => 'required|numeric',
             'Fecha_contrato' => 'required',
             'Direccion' =>'required',
-          ]); 
+          ]);
 
            $mesaje=([
 
@@ -80,15 +80,15 @@ class EmpleadoController extends Controller
             'Apellidos.min'=>'El apellido del empleado debe tener minimo 4 letras' ,
             'Apellidos.max'=>'El apellido del empleado no debe de tener más de 25 letras' ,
 
-            
+
             'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
             'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
             'Numero_identidad.min'=>'El número de identidad debe tener minimo 13 números' ,
             'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
             'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1',
-        
+
             'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatoria' ,
-        
+
             'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
             'Numero_telefono.min'=>'El número de teléfono debe  tener minimo 8 números' ,
             'Numero_telefono.max'=>'El número de teléfono debe  tener máximo  8 números' ,
@@ -101,14 +101,14 @@ class EmpleadoController extends Controller
             'Salrio.numeric'=>'El salario solo debe contener números' ,
 
             'Direccion.required'=>'La dirección es obligatoria' ,
-        
-            
+
+
             ]);
-        
+
             $this->validate($request, $rules, $mesaje);
 
         $nuevoEmpleado = new Empleado();
-        //Formulario 
+        //Formulario
         $nuevoEmpleado -> Nombres = $request -> input('Nombres');
         $nuevoEmpleado -> Apellidos = $request -> input('Apellidos');
         $nuevoEmpleado -> Numero_identidad= $request -> input('Numero_identidad');
@@ -117,15 +117,15 @@ class EmpleadoController extends Controller
         $nuevoEmpleado -> Salrio = $request -> input('Salrio');
         $nuevoEmpleado -> Fecha_contrato= $request -> input('Fecha_contrato');
         $nuevoEmpleado -> Direccion= $request -> input('Direccion');
-       
-       
+
+
         $creado = $nuevoEmpleado->save();
 
         if ($creado){
             return redirect()->route('empleado.index')
             ->with('mensaje', 'Se guardo exitosamente');
         }else{
-           
+
 
         }
 
@@ -135,9 +135,9 @@ class EmpleadoController extends Controller
     public function actualizar($id){
       $modificar = Empleado::find($id);
        return view('Empleados.EditarEmpleado')->with('modificar', $modificar);
-       
+
   }
-  
+
       public function actu (Request $request, $id){
         $rules = ([
           'Nombres' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
@@ -148,7 +148,7 @@ class EmpleadoController extends Controller
           'Salrio' => 'required|numeric',
           'Fecha_contrato' => 'required',
           'Direccion' =>'required',
-        ]); 
+        ]);
 
          $mesaje=([
 
@@ -162,15 +162,15 @@ class EmpleadoController extends Controller
           'Apellidos.min'=>'El apellido del empleado debe tener minimo 4 letras' ,
           'Apellidos.max'=>'El apellido del empleado no debe de tener más de 25 letras' ,
 
-          
+
           'Numero_identidad.required'=>'El número de identidad es obligatorio' ,
           'Numero_identidad.unique'=>'El número de identidad ya ha sido usado' ,
           'Numero_identidad.min'=>'El número de identidad debe tener minimo 13 números' ,
           'Numero_identidad.max'=>'El número de identidad debe  tener 13 números' ,
           'Numero_identidad.regex'=>'El número de identidad solo debe contener números y empezar con 0 o 1 ' ,
-      
+
           'Fecha_nacimiento.required'=>'La fecha de nacimiento es obligatoria' ,
-      
+
           'Numero_telefono.required'=>'El número de teléfono es obligatorio' ,
           'Numero_telefono.min'=>'El número de teléfono debe  tener minimo 8 números' ,
           'Numero_telefono.max'=>'El número de teléfono debe  tener máximo  8 números' ,
@@ -183,12 +183,12 @@ class EmpleadoController extends Controller
           'Salrio.numeric'=>'El salario solo debe contener números' ,
 
           'Direccion.required'=>'La dirección es obligatoria' ,
-      
-          
+
+
           ]);
-        
+
           $this->validate($request, $rules, $mesaje);
-              
+
         $actu = Empleado::find($id);
 
         $actu -> Nombres = $request -> input('Nombres');
@@ -206,9 +206,9 @@ class EmpleadoController extends Controller
       if ($agregar){
           return redirect()->route('empleado.index')->with('mensaje', 'Se actualizó exitosamente') ;
         } else {
-          
+
         }
       }
-     
+
 }
 

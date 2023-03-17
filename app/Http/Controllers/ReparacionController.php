@@ -83,8 +83,9 @@ class ReparacionController extends Controller
                         prov.Nombre_empresa,
                         cat.Descripcion as DescripcionC
                 FROM compra_detalles AS p
-                INNER JOIN proveedors  as prov ON p.id_prov = prov.id
-                INNER JOIN categorias AS cat ON p.id_cat = cat.id';
+                    INNER JOIN proveedors  as prov ON p.id_prov = prov.id
+                    INNER JOIN categorias AS cat ON p.id_cat = cat.id
+                WHERE cat.Descripcion != "Computadoras" and cat.Descripcion != "Impresoras"';
 
 
         $inventario = DB::select(DB::raw($query));
@@ -125,8 +126,12 @@ class ReparacionController extends Controller
             'cambio_pieza',
             'garantia',
 
-            'fecha_ingreso' => 'required',
+
+            'fecha_ingreso' => 'required|before:fecha_entrega',
+
             'fecha_entrega' => 'required',
+            'inicio_garantia' => 'required|date',
+            'final_garantia' => 'required|date|after:inicio_garantia',
 
         ]);
         $mesaje = ([
@@ -161,8 +166,16 @@ class ReparacionController extends Controller
 
 
             'fecha_ingreso.required' => 'La fecha de ingreso es requerida',
+            'fecha_ingreso.before' => 'La fecha ingreso debe de ser menor a la fecha de entrega',
+
 
             'fecha_entrega.required' => 'La fecha de entrega es requerida',
+
+            'inicio_garantia.required' => 'La fecha de garantia inicial es requerida',
+            'inicio_garantia.date' => 'La fecha de garantia inicial debe ser tipo de dato Date',
+            'final_garantia.required' => 'La fecha de garantia final es requerida',
+            'final_garantia.date' => 'La fecha de garantia inicial debe ser tipo de dato Date',
+            'final_garantia.after' => 'La fecha de garantia final debe mayor a la fecha inicial',
 
         ]);
 
@@ -351,9 +364,10 @@ class ReparacionController extends Controller
                 p.Impuesto,
                 prov.Nombre_empresa,
                 cat.Descripcion as DescripcionC
-        FROM compra_detalles AS p
-        INNER JOIN proveedors  as prov ON p.id_prov = prov.id
-        INNER JOIN categorias AS cat ON p.id_cat = cat.id';
+            FROM compra_detalles AS p
+                    INNER JOIN proveedors  as prov ON p.id_prov = prov.id
+                    INNER JOIN categorias AS cat ON p.id_cat = cat.id
+            WHERE cat.Descripcion != "Computadoras" and cat.Descripcion != "Impresoras"';
 
 
         $inventario = DB::select(DB::raw($query));
@@ -446,6 +460,39 @@ class ReparacionController extends Controller
         $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
         $pdf->render();
 
-        return $pdf->download('FacturaReparacion-'.$actu->numero_factura.'.pdf');
+        $pdf->save(public_path('FacturaReparacion-'.$actu->numero_factura.'.pdf'));
+
+
+        return view('facturaReparacion', [
+            'factura' =>  $actu,
+            'rangos' => $rangos
+        ]);
+    }
+
+    public function garantia_pdf($id)
+    {
+        $actu = Reparacion::find($id);
+
+        $digit = new NumberFormatter("es", NumberFormatter::SPELLOUT);
+        $actu->total_numero_texto = $digit->format($actu->precio);
+        $actu->cliente = Cliente::findOrFail($actu->cliente_id);
+
+        $pdf = Pdf::loadView('GarantiaReparacion', [
+            'factura' =>  $actu,
+        ]);
+
+        $pdf->setPaper('letter'); // Establecer tamaño de página como carta y orientación horizontal
+        $pdf->setOption('margin-top', '5mm'); // Establecer margen superior en 5 mm
+        $pdf->setOption('margin-bottom', '5mm'); // Establecer margen inferior en 5 mm
+        $pdf->setOption('margin-left', '5mm'); // Establecer margen izquierdo en 5 mm
+        $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
+        $pdf->render();
+
+        $pdf->save(public_path('FacturaReparacion-'.$actu->numero_factura.'.pdf'));
+
+
+        return view('GarantiaReparacion', [
+            'factura' =>  $actu,
+        ]);
     }
 }
