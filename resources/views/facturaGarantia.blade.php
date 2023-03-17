@@ -79,7 +79,7 @@
                         height="150px"></td>
                 <td colspan="3">
                     <div class="text-justify">
-                        <h3>Servicios Profesionales En Conputación</h3>
+                        <h3>Servicios Profesionales En Computación</h3>
                         <p>Bo. Tierra Blanca, cuadras al norte del Museao Municipal, esquina opuesta a Ferreteria
                             Valladares,
                             Danlí, El Paraíso
@@ -87,6 +87,10 @@
                         <p>Tel/fax: 2763-5610 Cel: 9993-3462 / 3310-3508</p>
                         <p><b>RTN: 07031978003476 - E-mail: sepcom2003@hotmail.com</b></p>
                         <p><b>De: DANIEL EDUARDO BUSTILLO GODOY</b></p>
+                        <p> <b> Para: </b><u>{{ $factura->clienteFactura }}</u></p>
+                        <p style="text-align: left" colspan="2"><p> <b> Número de factura:</b> <b>{{ substr($factura->numeroFactura, 0, 14) }}</b> <b>{{ substr($factura->numeroFactura, 14, 19) }}</b>  </p></p>
+
+
                     </div>
                 </td>
             </tr>
@@ -107,7 +111,7 @@
 
     <h3><b>GARANTÍA POR COMPUTADORA</b></h3>
 
-    <p class=".text-justify"> Se aplicará a cualquier computadora nueva comprada a partir de {{ Carbon\Carbon::parse( $factura->fecha_factura)->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fecha_factura)->addDays(30)->format('d-m-Y') }}.
+    <p style="text-align:justify"> Se aplicará a cualquier computadora nueva comprada a partir de {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->addDays(30)->format('d-m-Y') }}.
 
         Garantizamos que la computadora funcionará sin defectos en materiales y mano de obra durante un período de
         30 dias a partir de la fecha de venta original. Si la computadora presenta algún defecto
@@ -124,7 +128,7 @@
 
     <h3><b>GARANTÍA POR IMPRESORAS</b></h3>
 
-    <p class=".text-justify">Se aplicará a cualquier impresora nueva comprada a partir de {{ Carbon\Carbon::parse( $factura->fecha_factura)->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fecha_factura)->addDays(20)->format('d-m-Y') }}.
+    <p style="text-align:justify" >Se aplicará a cualquier impresora nueva comprada a partir de {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->addDays(20)->format('d-m-Y') }}.
 
         Garantizamos que la impresora funcionará sin defectos en materiales y mano de obra durante un período de
         20 dias a partir de la fecha de venta original. Si la impresora presenta algún defecto
@@ -141,7 +145,7 @@
 
     <h3><b>GARANTÍA POR OTROS PRODUCTOS</b></h3>
 
-    <p class=".text-justify">Se aplicará a cualquier producto nuevo comprado a partir de {{ Carbon\Carbon::parse( $factura->fecha_factura)->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fecha_factura)->addDays(15)->format('d-m-Y') }}.
+    <p style="text-align:justify" >Se aplicará a cualquier producto nuevo comprado a partir de {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->format('d-m-Y') }} hasta {{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->setTimezone('America/Tegucigalpa')->addDays(15)->format('d-m-Y') }}.
 
         Garantizamos que el producto funcionará sin defectos en materiales y mano de obra durante un período de
         15 dias a partir de la fecha de venta original. Si el producto presenta algún defecto durante
@@ -157,13 +161,20 @@
         otra política o procedimiento de garantía que pueda requerir SEPCOM.</p>
 
     <br>
-    <p>Fecha:_____<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->format('d') }}</u>____ de:__<u>{{
-            Carbon\Carbon::parse( $factura->fecha_factura)->formatLocalized('%B') }}</u>__Año <u>{{
-            Carbon\Carbon::parse( $factura->fecha_factura)->format('Y') }}</u></p>
+    <p>Fecha:_____<u>{{ Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->setTimezone('America/Tegucigalpa')->format('d') }}</u>____ de:__<u>{{
+            Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->formatLocalized('%B') }}</u>__Año <u>{{
+            Carbon\Carbon::parse( $factura->fechaFactura)->setTimezone('America/Tegucigalpa')->setTimezone('America/Tegucigalpa')->format('Y') }}</u></p>
     <br>
     <div style="width: 100%; text-align: center">
         <p>Gracias por su compra.</p>
     </div>
+
+
+    <script>
+        setTimeout(function() {
+            window.print();
+        }, 1000); //
+    </script>
 
 </body>
 

@@ -74,7 +74,7 @@
                 <td><img src="{{ asset('imagenes/Sepcom-logo-removebg-preview.png') }}" alt="Logo.png" width="150px" height="150px"></td>
                 <td colspan="3">
                     <div class="text-justify">
-                        <h3>Servicios Profesionales En Conputación</h3>
+                        <h3>Servicios Profesionales En Computación</h3>
                         <p>Bo. Tierra Blanca, cuadras al norte del Museao Municipal, esquina opuesta a Ferreteria Valladares,
                             Danlí, El Paraíso
                         </p>
@@ -109,13 +109,19 @@
     <br>
     <p>Por Concepto de:________________________________________________________________</p>
     <p><u>{{ $factura->descripcion }}</u></p>
-    <p>_____<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->format('d') }}</u>____ de:__<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->formatLocalized('%B') }}</u>__Año <u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->format('Y') }}</u></p>
+    <p>_____<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->format('d') }}</u>____ de:__<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->formatLocalized('%B') }}</u>__Año <u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->format('Y') }}</u></p>
 
     <div style="width: 100%; text-align: right">
         <p>Rango Autorizado: 000-001-004-{{  sprintf('%08d', $rangos->facturaInicial) }} A 000-001-004-{{  sprintf('%08d', $rangos->facturaFinal) }}</p>
         <p>Fecha Límite de Emisión: {{  $rangos->fechaVencimiento }}</p>
         <p>Gracias por su compra.</p>
     </div>
+
+    <script>
+        setTimeout(function() {
+            window.print();
+        }, 1000); //
+    </script>
 
 </body>
 </html>
