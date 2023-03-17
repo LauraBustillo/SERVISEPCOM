@@ -11,8 +11,10 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\ReparacionController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\RangoFacturaController;
+use App\Http\Controllers\GastoController;
 use App\Models\RangoFactura;
 use App\Http\Controllers\DevolucionVentaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
+
+
+Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/', function () {
     return view('dashboard');
@@ -268,6 +275,8 @@ Route::get('/repaciones/{id}', [ReparacionController::class, 'detallereparacion'
 Route::post('/guardarFacturaReparacion',[ReparacionController::class, 'guardarFacturaReparacion'])->name('guardarFacturaReparacion.update');
 
 Route::get('/repaciones/pdf/{id}',[ReparacionController::class,'factura_pdf'])->name('pdf.reparacion');
+Route::get('/repaciones/garantia/{id}',[ReparacionController::class,'garantia_pdf'])->name('pdf.garantia');
+
 
 
 /*
@@ -323,6 +332,32 @@ Route::put('/editardevolucion/editar', [DevolucionVentaController::class, 'actuD
     return view('DevolucionesGarantiaVenta.EditarDevolucion');
 })->name('show.users'); */
 
+/*
+|--------------------------------------------------------------------------
+| RUTAS PARA GASTOS
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/gastos',[GastoController::class, 'show'])->name('show.gasto');
+
+Route::post('/gastos/store',[GastoController::class, 'store'])->name('store.gasto');
+
+Route::get('/listadodegastos', [GastoController::class, 'index'])->name('gasto.index');
+
+Route::get('/detallegatos/{id}', [GastoController::class, 'mostrarGas'])->name('gasto.mostrar');
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS PARA USUARIOS
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/registrousuario', [UsuarioController::class, 'show'])->name('show.registroUsuarios');
+Route::post('/store/usuarios', [UsuarioController::class, 'store'])->name('store.registroUsuarios');
 
 
 
+
+});
