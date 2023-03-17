@@ -85,7 +85,7 @@
         <br>
         <tr>
             <th>Producto</th>
-            <th>Marca</th>
+            <th>Marca</th> 
             <th>Cantidad</th>
             <th>Precio de venta</th>
             <th>Impuesto</th>
@@ -107,7 +107,7 @@
     <a class="btn btn-outline-dark" href="{{route('Venta.pdf', ['id'=>$factura->id])}}"> <i class="bi bi-printer-fill">  Imprimir </i></a>
   @if(count($garantia) > 0)
     <a class="btn btn-outline-dark" href="{{route('VentaGarantia.pdf', ['id'=>$factura->id])}}"> <i class="bi bi-award-fill"> Garantía </i></a>
-  @endif
+  @endif 
 
 
 
@@ -183,6 +183,7 @@
 
 
   </script>
+
 
 @endsection
 @include('common')
