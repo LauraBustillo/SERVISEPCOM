@@ -160,14 +160,13 @@
 
 <script>
     var errores = []
-    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
     if(errores.length > 0){
       errores.forEach(element => {
         alertify.error(element)
-      });   
+      });
     }
   </script>
-
 
 <script>
     $().ready(function() {
@@ -209,13 +208,62 @@
 
         });
 
-        
+        $('#tablebuscarinventario').DataTable({
+
+            pageLength: 4
+            , lengthMenu: [
+                [5, 10, 20, -1]
+                , [5, 10, 20, 'Todos']
+            ]
+            , language: {
+                "sProcessing": "Procesando..."
+                , "sLengthMenu": ""
+                , "sZeroRecords": "No se encontraron resultados"
+                , "sEmptyTable": ""
+                , "sInfo": ""
+                , "sInfoEmpty": ""
+                , "sInfoFiltered": ""
+                , "sInfoPostFix": ""
+                , "sSearch": "Buscar por número de factura"
+                , "sUrl": "."
+                , "sInfoThousands": ""
+                , "sLoadingRecords": "Cargando..."
+                , "oPaginate": {
+                    "sFirst": "Primero"
+                    , "sLast": "Último"
+                    , "sNext": "Siguiente"
+                    , "sPrevious": "Anterior"
+                }
+                , "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente"
+                    , "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+                , "buttons": {
+                    "copy": "Copiar"
+                    , "colvis": "Visibilidad"
+                }
+            }
+
+        });
+
 
 
     });
 
 </script>
 
+
+{{--Mostrar funcion--}}
+<script>
+    var errores = []
+    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
+    if(errores.length > 0){
+      errores.forEach(element => {
+        alertify.error(element)
+      });
+    }
+
+  </script>
 
 
 <br>
@@ -257,7 +305,7 @@
                     <td>{{ $de->fechaFactura }}</td>
                     <td>{{ $de->clienteFactura}}</td>
                     <td>
-                        <a class="btn btn-outline-dark" onclick="agregarproductoventa('{{ $de->detalles }}')">
+                        <a class="btn btn-outline-dark" onclick="agregarproductoventa('{{ $de->detalles }}','{{ $de->numeroFactura }}')">
                             <i class="bi bi-eye"></i>
                         </a>
                     </td>
@@ -270,16 +318,29 @@
     </div>
     <br><br>
 
+    <br>
+    <div class="card-header"  style="display: flex">
+      <h6 style="font-size: 31px" class="mx-auto letra titulo" >Datos del producto en devolución</h6>
+    </div>
+     <br>
+
 
     {{---Nombre del producto --}}
     <div style="display: flex">
+              {{--- número de factura --}}
+        <div class="col" style="width: 25%">
+            <b><label>Número de factura</label></b>
+            <input type="text" readonly required maxlength="25" name="Numero_de_factura" id="Numero_de_factura" class="form-control" placeholder="Número de factura" aria-label="First name" value="{{old('Numero_de_factura')}}">
+        </div>
+
+        &nbsp;&nbsp;
         <div class="col" style="width: 25%">
             <b><label>Nombre del producto</label></b>
-
             <input type="text" name="id_detalle_venta" id="id_detalle_venta" readonly style="display: none" value="{{old('id_detalle_venta')}}">
             <input type="number" name="id_producto_devolucion" id="id_producto_devolucion" readonly style="display: none" value="{{old('id_producto_devolucion')}}">
             <input type="text" readonly required maxlength="25" name="Nombre_producto_devolucion" id="Nombre_producto_devolucion" class="form-control" placeholder="Nombre del producto" aria-label="First name" value="{{old('Nombre_producto_devolucion')}}">
         </div>
+
 
         &nbsp;&nbsp;
         {{--- Marca del producto--}}
@@ -295,23 +356,24 @@
             <input type="text" readonly required maxlength="25" name="categoria_Devolucion" id="categoria_Devolucion" class="form-control" placeholder=" Categoría del producto" aria-label="First name" value="{{old('categoria_Devolucion')}}">
         </div>
 
-        &nbsp;&nbsp;
-        {{--- Proveedor--}}
-        <div class="col" style="width: 25%">
+    </div>
+    <br>
+    <div style="display: flex">
+         {{--- Proveedor--}}
+         <div style="width: 24.5%">
             <b><label>Proveedor</label></b>
             <input type="text" readonly required maxlength="25" name="proveedor_devolucion" id="proveedor_devolucion" class="form-control" placeholder="Nombre del proveedor" aria-label="First name" value="{{old('proveedor_devolucion')}}">
         </div>
 
-    </div>
-    <br>
-    <div style="display: flex">
+        &nbsp;&nbsp;
         <div style="width: 24.5%">
             {{--- Fecha de devolución --}}
             <b><label>Fecha de devolución</label></b>
             <input type="date" readonly name='fechaDev' value="{{  $fecha_actual   }}" id='fechaDev' class="form-control">
         </div> &nbsp;&nbsp;
-         
-        <div style="width: 50%">
+
+         {{--- escripción--}}
+        <div  class="col" style="width: 50%">
             <b><label>Descripción</label></b>
             <textarea name='des_devolucion' id='des_devolucion' class="form-control" maxlength="255"  rows="1" >{{old('des_devolucion')}}</textarea>
         </div>
@@ -329,12 +391,13 @@
     <br><br>
 
 
+
     <div class="col" style="padding-left:2%">
         {{--Botones --}}
-        <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>
-        <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
+        <button class="btn btn-outline-dark" type="submit"><i class="bi bi-folder-fill">Guardar</i></button>
+        <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill">Limpiar</i></button>
         <button type="button" class="btn btn-outline-dark">
-            <a class="a" href="{{route('devolucion.index')}}"> <i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+            <a class="a" href="{{route('devolucion.index')}}"><i class="bi bi-x-circle-fill">Cerrar</i> </a></button>
     </div>
 </form>
 
@@ -344,17 +407,17 @@
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="titulo1">Devolver producto</h3>
+                <h3 class="titulo1" id="titulo_modal">Devolver Producto</h3>
             </div>
             <div class="modal-body" id="tbody_agregar_detalle">
                 <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>
                     <thead>
                         <tr>
-                            <th scope="col">Categoría</th>
+                            <th scope="col">Categoria</th>
                             <th scope="col">Marca</th>
-                            <th scope="col">Nombre producto </th>
+                            <th scope="col">Nombre Producto </th>
                             <th scope="col">Cantidad </th>
-                            <th scope="col">Devolver</th>
+                            <th scope="col">Agregar</th>
                         </tr>
                     </thead>
 
@@ -365,7 +428,7 @@
             </div>
             <!-- Botones -->
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"><i class="bi bi-x-circle"> Cancelar</i></button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"><i class="bi bi-x-circle">Cancelar</i></button>
             </div>
         </div>
     </div>
@@ -380,106 +443,114 @@
 {{--mensaje de confirmacion --}}
 @push('alertas')
 <script>
-
     let detalles = [];
 
-    function dibujarTabla(data) {
+    function dibujarTabla(data,numFactura) {
 
-var html = ''
-var datosJson = JSON.parse(data);
+        var html = ''
+        var datosJson = JSON.parse(data,numFactura);
 
-document.getElementById('tbody_agregar_detalle').innerHTML = html;
-
-
-html += '<table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>\
-            <thead>\
-                <tr>\
-                    <th scope="col">categoría</th>\
-                    <th scope="col">Marca</th>\
-                    <th scope="col">Nombre producto </th>\
-                    <th scope="col">Cantidad </th>\
-                    <th scope="col">Devolver producto</th>\
-                </tr>\
-            </thead>\
-            <tbody >';
-
-//TABLA GRANDE AFUERA
-if (datosJson.length > 0) {
-
-    datosJson.forEach(element => {
-        html += '<tr>';
-        html += '<td>' + element.Categoria + '</td>';
-        html += '<td>' + element.Marca + '</td>';
-        html += '<td>' + element.nombre_producto + '</td>';
-        html += '<td>' + element.Cantidad + '</td>';
-        var el = JSON.stringify(element);
-        html += "<td><button onclick='agregarDevolucion(" + el + ")' type='button' class='btn btn-outline-dark'><i class='bi bi-x-circle'> Devolver </i></button></td>";
-        html += '</tr>';
-    });
-
-}
+        document.getElementById('tbody_agregar_detalle').innerHTML = html;
 
 
-html +=   '</tbody>\
-        </table>';
+        html += '<table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>\
+                    <thead>\
+                        <tr>\
+                            <th scope="col">Categoria</th>\
+                            <th scope="col">Marca</th>\
+                            <th scope="col">Nombre Producto </th>\
+                            <th scope="col">Cantidad </th>\
+                            <th scope="col">Agregar</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody >';
 
+        //TABLA GRANDE AFUERA
+        if (datosJson.length > 0) {
 
-document.getElementById('tbody_agregar_detalle').innerHTML = html;
+            datosJson.forEach(element => {
+                html += '<tr>';
+                html += '<td>' + element.Categoria + '</td>';
+                html += '<td>' + element.Marca + '</td>';
+                html += '<td>' + element.nombre_producto + '</td>';
+                html += '<td>' + element.Cantidad + '</td>';
+                var el = JSON.stringify(element);
+                html += "<td><button onclick='agregarDevolucion(" + el + ",`"+numFactura+"`)' type='button' class='btn btn-outline-dark'><i class='bi bi-x-circle'>Devolver</i></button></td>";
+                html += '</tr>';
+            });
 
-$('#tablebuscarinventario').DataTable({
-
-    pageLength: 4
-    , lengthMenu: [
-        [5, 10, 20, -1]
-        , [5, 10, 20, 'Todos']
-    ]
-    , language: {
-        "sProcessing": "Procesando..."
-        , "sLengthMenu": ""
-        , "sZeroRecords": "No se encontraron resultados"
-        , "sEmptyTable": ""
-        , "sInfo": ""
-        , "sInfoEmpty": ""
-        , "sInfoFiltered": ""
-        , "sInfoPostFix": ""
-        , "sSearch": "Buscar por categoría, marca y nombre producto"
-        , "sUrl": "."
-        , "sInfoThousands": ""
-        , "sLoadingRecords": "Cargando..."
-        , "oPaginate": {
-            "sFirst": "Primero"
-            , "sLast": "Último"
-            , "sNext": "Siguiente"
-            , "sPrevious": "Anterior"
         }
-        , "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente"
-            , "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-        , "buttons": {
-            "copy": "Copiar"
-            , "colvis": "Visibilidad"
-        }
+
+
+        html +=   '</tbody>\
+                </table>';
+
+
+        document.getElementById('tbody_agregar_detalle').innerHTML = html;
+
+        $('#tablebuscarinventario').DataTable({
+
+            pageLength: 4
+            , lengthMenu: [
+                [5, 10, 20, -1]
+                , [5, 10, 20, 'Todos']
+            ]
+            , language: {
+                "sProcessing": "Procesando..."
+                , "sLengthMenu": ""
+                , "sZeroRecords": "No se encontraron resultados"
+                , "sEmptyTable": ""
+                , "sInfo": ""
+                , "sInfoEmpty": ""
+                , "sInfoFiltered": ""
+                , "sInfoPostFix": ""
+                , "sSearch": "Buscar por nombre o marca"
+                , "sUrl": "."
+                , "sInfoThousands": ""
+                , "sLoadingRecords": "Cargando..."
+                , "oPaginate": {
+                    "sFirst": "Primero"
+                    , "sLast": "Último"
+                    , "sNext": "Siguiente"
+                    , "sPrevious": "Anterior"
+                }
+                , "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente"
+                    , "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+                , "buttons": {
+                    "copy": "Copiar"
+                    , "colvis": "Visibilidad"
+                }
+            }
+
+        });
+
     }
 
-});
-
-}
-    
-function agregarDevolucion(element) {
+    function agregarDevolucion(element,numFactura) {
         document.getElementById('id_detalle_venta').value = element.id_detalle;
         document.getElementById('id_producto_devolucion').value = element.id_product;
         document.getElementById('proveedor_devolucion').value = element.Proveedor;
         document.getElementById('categoria_Devolucion').value = element.Categoria;
         document.getElementById('Marca_Devolucion').value = element.Marca;
         document.getElementById('Nombre_producto_devolucion').value = element.nombre_producto;
+        document.getElementById('Numero_de_factura').value = numFactura;
+
+
     }
 
+    
 
-    function agregarproductoventa(data) {
+
+
+    function agregarproductoventa(data,numFactura) {
         modalagregarproductoventa.show();
 
-        dibujarTabla(data);
+        dibujarTabla(data,numFactura);
+
+        document.getElementById('titulo_modal').innerHTML = 'Detalles de la Factura N# '+numFactura;
+
     }
 
 
