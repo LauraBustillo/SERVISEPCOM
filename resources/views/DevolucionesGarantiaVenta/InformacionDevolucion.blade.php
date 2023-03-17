@@ -49,7 +49,7 @@
 <br>
 
 <div>
-    <div class="titulo"> Devolución N°: {{ $devoluciones->id }}</div>
+    <div class="titulo"> Pedido N°: {{ $devoluciones->id }}</div>
     <br>
     <table class="table table-hover">
         <thead>
@@ -106,7 +106,7 @@
                 <td><label>Estado de devolución</label></td>
                 <td>
                     <input @if($devoluciones->estado_devolucion == 'Realizado')
-                    checked
+                    checked disabled
                     @endif class="form-check-input" type="checkbox" id="switchDev" name="switchDev">
                     <b></b>
                 </td>
@@ -132,6 +132,8 @@
 </form>
 </div>
 </div>
+
+
 
 <script>
 

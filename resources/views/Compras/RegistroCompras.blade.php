@@ -163,7 +163,7 @@
           <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
           @foreach ($proveedores as $p)
             <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>
-          @endforeach
+          @endforeach 
         </select>
     </div>
 

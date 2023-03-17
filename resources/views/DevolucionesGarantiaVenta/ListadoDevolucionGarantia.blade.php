@@ -16,7 +16,7 @@
         color: rgb(3, 10, 1);
         border: 1px solid #000000;
 
-    } 
+    }
 
     .table-1 th {
         background-color: #0319C4;
@@ -76,6 +76,7 @@
 </style>
 
 
+
 @if (session('mensaje'))
   <script>
     mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
@@ -83,21 +84,35 @@
   </script> 
 @endif 
 
-
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-<script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
+<script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script  src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+<script  src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
 
+{{--Para los reportes--}}
+
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+
+<script  src=" https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+<script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+{{-- Darle forma a los borones de reporte--}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <br>
+
 
 <script>
     $().ready(function() {
@@ -111,7 +126,7 @@
                 , "sInfoEmpty": ""
                 , "sInfoFiltered": ""
                 , "sInfoPostFix": ""
-                , "sSearch": "Buscar por nombre del producto en  devolución y número de factura"
+                , "sSearch": "Buscar por número de pedido"
                 , "sUrl": "."
                 , "sInfoThousands": ""
                 , "sLoadingRecords": "Cargando..."
@@ -150,7 +165,7 @@
             var max = maxDate.val();
             var date = new Date(data[3]);
 
-            if (
+            if ( 
                 (min === null && max === null) ||
                 (min === null && date <= max) ||
                 (min <= date && max === null) ||
@@ -187,15 +202,7 @@
 
 </script>
 
-@if (session('mensaje'))
-<script>
-    mensaje = {
-        !!json_encode(session('mensaje'), JSON_HEX_TAG) !!
-    };
-    alertify.success(mensaje);
 
-</script>
-@endif
 
 <h1 class="titulo" style="text-align:center">Listado de devoluciones</h1>
 
@@ -223,7 +230,7 @@
 <br>
 <div>
 
-    <table id='myTable' class="table table-hover">
+    <table class="table table-hover" id="myTable">
         <thead>
             <tr>
                 <th scope="col">Nombre del producto en devolución</th>
