@@ -125,16 +125,6 @@
 
 </style>
 
-<script>
-    var errores = []
-    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
-    if(errores.length > 0){
-      errores.forEach(element => {
-        alertify.error(element)
-      });   
-    }
-  </script>
-
 
 
 
@@ -180,23 +170,15 @@
         </div>
     </div>
     <br>
-    <div style="display: flex"> 
-        <div style="width: 15%">
-           <button onclick="openmodal()" class="btn btn-outline-dark" type="button">
-        
-            <i class="bi bi-file-text-fill"> Agregar Detalle </i>
-          </button>
-        </div> 
-        <br>
-        <div style="width: 15%" class="form-check form-switch">
-            <b><label>Garantia</label></b>
-            <input style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" >
-        </div>
+    <div class="form-check form-switch">
+        <label>Garantia</label>
+        <input style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" >
     </div>
     <br>
-
     <div>
-        
+        <button onclick="openmodal()" class="btn btn-outline-dark" type="button">
+            <i class="bi bi-file-text-fill"> Agregar Detalle </i>
+        </button>
 
         @if(count($rangoActual) == 1)
         @php

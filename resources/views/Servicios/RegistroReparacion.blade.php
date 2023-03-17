@@ -484,11 +484,11 @@
 
 <div style="display: flex">
     <div class="form-check form-switch form-inline">
-        <label>Cambio de pieza</label>
+        <b></p><label>Cambio de pieza</label></b>
         <input style="display:flex;" class="form-check-input" type="checkbox" id="switchCambioPieza" name="switchCambioPieza" {{$reparacion->cambio_pieza == "Si" ? "checked" : "" }}>
         <input type="text" hidden id="datelles_piezas" name="datelles_piezas" value="{{ old('datelles_piezas') }}">
     </div>
-    &nbsp; &nbsp;<button class="btn btn-outline-dark" type="button" id="ver_inventario" style="display: none" onclick="openabririnventario()"> <i class="bi bi-eye"> Ver inventario </i></button>
+    &nbsp; &nbsp;<button class="btn btn-outline-dark" type="button" id="ver_inventario" style="display: none" onclick="openabririnventario()"> Ver inventario </button>
 </div>
 
 <div id="abririnventario">
@@ -518,30 +518,28 @@
     </div>
 
     <div>
-        <div class="form-check form-switch">
-            <label>Garantia</label>
-            <input style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" {{$reparacion->garantia == "Si" ? "checked" : "" }}>
-        </div>
-        <div id="abrirgarantia" class="form-inline" style="display: none">
-            <div class="row">
-                <div class="col-6">
-                    <label for="">Descripción</label>
-                    <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
-                </div>
-                <div class="col-3">
-                    <label for="">Fecha Inicio</label>
-                    <input class="form-control" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
-                </div>
-                <div class="col-sm-3">
-                    <label for="">Fecha Final</label>
-                    <input class="form-control" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
-                </div>
-            </div>
-        </div>
+      <div class="form-check form-switch">
+         <b><label>Garantia por reparación</label></b>
+          <input  style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" {{$reparacion->garantia == "Si" ? "checked" : "" }}>
+      </div>
+      <div id="abrirgarantia" class="form-inline" style="display: none">
+          <div class="row">
+              <div class="col-6">
+                  <label for="">Descripción</label>
+                  <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
+              </div>
+              <div class="col-3">
+                  <label for="">Fecha Inicio</label>
+                  <input class="form-control" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
+              </div>
+              <div class="col-sm-3">
+                  <label for="">Fecha Final</label>
+                  <input class="form-control" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
+              </div>
+          </div>
+      </div>
     </div>
 </div>
-
-
 
 <br>
 
@@ -738,6 +736,20 @@
 
     let piezas = @json(old('datelles_piezas')?json_decode(old('datelles_piezas')):$piezas);
 
+        var d = new Date();
+        var offset = -6; // offset para la hora de Honduras en GMT
+        d.setHours(d.getHours() + offset);
+        document.getElementById("fecha_ingreso").min = d.toISOString().split("T")[0];
+        d.setMonth(d.getMonth() + 1);
+        document.getElementById("fecha_entrega").min = d.toISOString().split("T")[0];
+
+        var g = new Date();
+        var offset = -6; // offset para la hora de Honduras en GMT
+        g.setHours(g.getHours() + offset);
+        document.getElementById("inicio_garantia").min = g.toISOString().split("T")[0];
+        g.setMonth(g.getMonth() + 1);
+        document.getElementById("final_garantia").min = g.toISOString().split("T")[0];
+
 
 
 
@@ -766,6 +778,13 @@
     }
 
 
+
+
+
+
+
+
+
     //ocultar y esconder, boton de inventario
     var switchCambioPieza = document.querySelector('#switchCambioPieza');
     if(switchCambioPieza.checked){
@@ -787,8 +806,8 @@
     }
   });
 
-  //ocultar y esconder, boton de garantia
-  var switchCambioGarantia = document.querySelector('#switchGarantia');
+    //ocultar y esconder, boton de garantia
+    var switchCambioGarantia = document.querySelector('#switchGarantia');
     if(switchCambioGarantia.checked){
         document.getElementById("abrirgarantia").style.display = "block";
     }else{
