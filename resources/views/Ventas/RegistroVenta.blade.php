@@ -125,6 +125,16 @@
 
 </style>
 
+<script>
+    var errores = []
+    errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+    if(errores.length > 0){
+      errores.forEach(element => {
+        alertify.error(element)
+      });   
+    }
+  </script>
+
 
 
 
@@ -170,11 +180,23 @@
         </div>
     </div>
     <br>
-    {{--Boton de agregar detalle modal --}}
-    <div>
-        <button onclick="openmodal()" class="btn btn-outline-dark" type="button">
+    <div style="display: flex"> 
+        <div style="width: 15%">
+           <button onclick="openmodal()" class="btn btn-outline-dark" type="button">
+        
             <i class="bi bi-file-text-fill"> Agregar Detalle </i>
-        </button>
+          </button>
+        </div> 
+        <br>
+        <div style="width: 15%" class="form-check form-switch">
+            <b><label>Garantia</label></b>
+            <input style="display:flex;" class="form-check-input" type="checkbox" id="switchGarantia" name="switchGarantia" >
+        </div>
+    </div>
+    <br>
+
+    <div>
+        
 
         @if(count($rangoActual) == 1)
         @php
@@ -637,6 +659,7 @@
             , fechaFactura: document.getElementById("fechaFactura").value
             , empleadoVentas: document.getElementById("empleadoVentas").value
             , clienteFactura: document.getElementById("clienteFactura").value
+            , garantia: document.getElementById("switchGarantia").checked ? 'si': 'no'
             , id_rango: document.getElementById("id_rango").value
             , Total_factura: totalFACTURA
         };
@@ -657,7 +680,10 @@
                     //pasamos lo el json, y el arreglo de detalles, a string para que se manden como parametros por la ruta
                 var stringarrayFactura = JSON.stringify(jsonFactura);
                 var stringarrayDetalles = JSON.stringify(detallefactura);
-                window.location.href = `{{URL::to('/guardarventa/` + stringarrayFactura + `/` + stringarrayDetalles + `')}}`;
+
+
+                    window.location.href = `{{URL::to('/guardarventa/` + stringarrayFactura + `/` + stringarrayDetalles + `')}}`;
+
                 }
             })
             event.preventDefault()
@@ -958,6 +984,8 @@
 
         dibujarTabla(detallefactura);
         limpiarform()
+        buscarydibujarProductos()
+
     }
 
 
@@ -995,7 +1023,7 @@
                 }
                 // volver a dibujar la tabla para que se note la diferencia
                 dibujarTabla(detallefactura);
-                
+
             })
             event.preventDefault()
     }
@@ -1179,7 +1207,6 @@
 @if (session('mensaje'))
 <script>
     alertify.success("{{ session('mensaje') }}");
-
 </script>
 @endif
 @endpush
