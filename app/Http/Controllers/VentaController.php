@@ -104,7 +104,7 @@ class VentaController extends Controller
 
         return view('Ventas.RegistroVenta', [
             'num_factura' => $num_factura,
-            'fecha_actual' => Carbon::now()->format('Y-m-d'),
+            'fecha_actual' => Carbon::now()->setTimezone('America/Tegucigalpa')->format('Y-m-d'),
             'rangoActual' =>  $rangos,
             'clientes' =>  $cliente,
             'products' =>  $products,
@@ -170,15 +170,16 @@ class VentaController extends Controller
             $grantia = new Garantia();
             $grantia->id_reparacion = $venta->id;
             $grantia->tipo_garantia = "Ventas";
-            $grantia->fecha_finalizacion = Carbon::parse($jsonFactura->fechaFactura)->addDays(30)->format('Y-m-d');
+            $grantia->fecha_finalizacion = Carbon::parse($jsonFactura->fechaFactura)->setTimezone('America/Tegucigalpa')->addDays(30)->format('Y-m-d');
             $grantia->fecha_inicio = $jsonFactura->fechaFactura;
             $grantia->descripcion = 'Garantia general de los productos ofrecidos por la empresa';
             $grantia->save();
         }
 
+
         return redirect()->route('venta.mostrar',['id'=> $venta->id])->with('mensaje', 'Se guardó  con  éxito');
     }
-
+  
     public function mostrar($id)
     {
         $products = [];
@@ -218,12 +219,22 @@ class VentaController extends Controller
         $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
         $pdf->render();
 
-        return $pdf->download('Factura-'.$factura->numeroFactura.'.pdf');
+
+        $pdf->save(public_path('pdf\Factura-'.$factura->numeroFactura.'.pdf'));
+
+
+        return view('factura', [
+            'factura' => $factura,
+            'detallefactura' => $detallefactura,
+            'rangos' => $rangos
+        ]);
+
     }
 
     public function garantia_pdf($id)
     {
         $factura = Venta::findOrFail($id);
+
         $factura->numero_identidad = Cliente::whereRaw('concat(Nombre," ",Apellido) = "'.$factura->clienteFactura.'"')->get()[0]->Numero_identidad;
         $detallefactura = DetalleVenta::where('Numero_facturaform', '=', $factura->numeroFactura)->get();
         $rangos = RangoFactura::findOrFail($factura->idRangoFactura);
@@ -241,7 +252,15 @@ class VentaController extends Controller
         $pdf->setOption('margin-right', '5mm'); // Establecer margen derecho en 5 mm
         $pdf->render();
 
-        return $pdf->download('GarntiaVenta-'.$factura->numeroFactura.'.pdf');
+        $pdf->save(public_path('GarntiaVenta-'.$factura->numeroFactura.'.pdf'));
+
+
+
+        return view('facturaGarantia', [
+            'factura' => $factura,
+            'detallefactura' => $detallefactura,
+            'rangos' => $rangos
+        ]);
     }
 
 }
