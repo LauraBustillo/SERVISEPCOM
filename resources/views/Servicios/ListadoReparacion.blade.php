@@ -323,7 +323,6 @@
   </div>
   </nav>--}}
   <h1 class="titulo" style="text-align:center">Listado de reparación de equipos</h1>
-  <h1 class="titulo" style="text-align:center">Listado de reparación de equipos</h1>
 <br>
 <div class="input-group " style="float:right" style="width: 100%" >
  <div >
