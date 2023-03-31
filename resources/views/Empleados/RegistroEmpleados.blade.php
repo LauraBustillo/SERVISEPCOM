@@ -3,7 +3,7 @@
 @section('extra-content')
 <style>
 
-/*Los titulos */ 
+/*Los titulos */
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #000000;
@@ -11,13 +11,13 @@
   font-size: 20xp;
 }
 
-/*Cajas de texto*/ 
+/*Cajas de texto*/
 .form-control  {
     background-color: transparent;
     border: 1.3px solid #000000;
 }
 
-/*Las label*/ 
+/*Las label*/
 .input-group-text  {
   background-color: #000000;
   border: 1.3px solid #000000;
@@ -26,9 +26,9 @@
 
 }
 
-/*Los botones*/ 
+/*Los botones*/
 .btn-outline-dark {
- 
+
   background-color: transparent;
   border: 1.8px solid #000000;
 }
@@ -52,11 +52,11 @@ a { color: aliceblue;
 
 <script>
   var errores = []
-  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
   if(errores.length > 0){
     errores.forEach(element => {
       alertify.error(element)
-    });   
+    });
   }
 </script>
 
@@ -70,18 +70,18 @@ a { color: aliceblue;
 <br><br>
 
 {{-- Título --}}
-<H1 class="titulo"  style="font-size: 30px" >Registrar empleado</H1>
+<H1 class="titulo"  style="font-size: 30px">Registrar empleado</H1>
 <br>
 
 {{-- Nombres y Apellido --}}
 <div class="row g-3">
   <div class="col">
 
-    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  class="form-control" 
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"  class="form-control"
     placeholder="Nombres" aria-label="First name" value="{{old('Nombres')}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" class="form-control" 
+    <input type="text" minlength="4" maxlength="25" name="Apellidos" id="Apellidos" class="form-control"
      placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
 
   </div>
@@ -91,20 +91,20 @@ a { color: aliceblue;
 {{-- Número de identidad--}}
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
-  <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text"   maxlength="13" name="Numero_identidad" id="Numero_identidad"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"   
+  <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span>
+  <input type="text"   maxlength="13" name="Numero_identidad" id="Numero_identidad"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
    placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
-  </div> 
+  </div>
 
   {{-- Fecha de nacimiento --}}
-  <div class="col" style="padding-left: 4%" > 
+  <div class="col" style="padding-left: 4%" >
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
-  <input type="date"  name="Fecha_nacimiento" id="Fecha_nacimiento"  max="2004-01-01" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+  <input type="date"  name="Fecha_nacimiento" id="Fecha_nacimiento"  max="2004-01-01" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
   placeholder="Fecha de nacimiento" value="{{old('Fecha_nacimiento')}}">
 </div>
 
 {{-- Número de teléfono --}}
-<div class="col"style="padding-left: 4%"> 
+<div class="col"style="padding-left: 4%">
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
   <input type="text"  minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" aria-label="Sizing example input"
    aria-describedby="inputGroup-sizing-sm" placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
@@ -125,7 +125,7 @@ a { color: aliceblue;
 <div class="mb-3" style="padding-left: 22%">
 <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea class="form-control" spellcheck="true"
-   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" 
+   minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3"
    placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
 </div>
 
@@ -153,14 +153,14 @@ a { color: aliceblue;
 
 
   </script>
-  
+
 @endsection
 {{--mensaje de confirmacion --}}
 @push('alertas')
     <script>
         function confirmar() {
            var formul = document.getElementById("form_guardarE");
-           
+
            Swal.fire({
                 title: '¿Está seguro que desea guardar los datos?',
                 icon: 'question',
