@@ -85,8 +85,15 @@
         padding: 0 !important;
         border: none !important;
     }
-
+ 
 </style>
+
+@if (session('mensaje'))
+  <script>
+    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
+    alertify.success(mensaje);
+  </script> 
+@endif 
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
@@ -118,15 +125,6 @@
 <br>
 
 
-@if (session('mensaje'))
-<script>
-    mensaje = {
-        !!json_encode(session('mensaje'), JSON_HEX_TAG) !!
-    };
-    alertify.success(mensaje);
-
-</script>
-@endif
 
 <script>
     $().ready(function() {
@@ -164,9 +162,14 @@
                         , "colvis": "Visibilidad"
                     }
                 },
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
 
                 buttons: [{
-                        extend: 'print'
+                        extend: 'print',
+                        footer: true
                         , text: '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>'
                         , titleAttr: 'Imprimir'
                         , title: 'Reporte de listado de gastos '
@@ -178,11 +181,9 @@
                             columns: [0, 1, 2, 3, 4]
                         }
                     },
-
-
-
                     {
-                        extend: 'pdfHtml5'
+                        extend: 'pdfHtml5',
+                        footer: true
                         , messageTop: function() {
                             return fechasExportReportep; // where `myVariable` is accessible in this scope and set somewhere else
                         }
@@ -190,45 +191,27 @@
                         , titleAttr: 'Archivo PDF'
                         , orientation: 'portrait'
                         , pageSize: 'A4'
-                        , title: 'Reporte de listado factura de venta',
+                        , title: 'Reporte  de listado factura de venta',
 
                         //  var suma = tablecompras.column(3,).data().sum();
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4],
+                            footer: true
                             // {search: 'applied'}
                         },
 
                         customize: function(doc) {
+
                             doc.content[1].margin = [0, 5, 7, 5]
                                 , doc.content.splice(1, 0, {
                                     columns: [{}]
                                 , });
-
                             console.log( doc);
-
-                            doc['footer'] = (function(page, pages) {
-                                return {
-                                    columns: [{
-                                        alignment: 'center'
-                                        , text: [{
-                                                text: page.toString()
-                                                , italics: true
-                                            }
-                                            , ' / '
-                                            , {
-                                                text: pages.toString()
-                                                , italics: true
-                                            }
-                                        ]
-                                    }]
-                                    , margin: [10, 0]
-                                }
-                            });
                         }
-
                     }
                     , {
                         extend: 'excelHtml5'
+                        , footer: true
                         , text: '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>'
                         , titleAttr: 'Archivo Excel'
                         , exportOptions: {
@@ -236,16 +219,14 @@
                         }
                     }
                 ]
-
             }
-
         );
 
         //obtenemos los valores a sumar de la columna que queremos(3), y le pasaamos que con el searh aplicado
         var suma = tablecompras.column(4, {
             search: 'applied'
         }).data().sum();
-        document.getElementById("total_facturas").innerHTML = "Lps. " + suma.toFixed();
+        document.getElementById("total_facturas").innerHTML = "Lps. " + suma.toFixed(2);
 
         setTimeout(() => {
             //detectando el cambio del input del search, para volver a actualizar la suma
@@ -302,6 +283,7 @@
             <th scope="col">Fecha del gasto</th>
             <th scope="col">Nombre del gasto</th>
             <th scope="col">Responsable</th>
+            <th scope="col">Tipo de gasto</th>
             <th scope="col">Total gasto</th>
             <th scope="col">Detalles</th>
 
@@ -314,30 +296,36 @@
             $total = 0;
         @endphp
         @foreach ($gastos as $gas)
-        <tr>
-            <td>{{ $gas->fecha_gasto }}</td>
-            <td>{{ $gas->nombre_gasto }}</td>
-            <td>{{ $gas->responsable_gasto }}</td>
-            <td>Lps. {{ number_format($gas->total_gasto,2) }}</td>
-            <td>
-                <a class="btn-detalles" href="{{route('gasto.mostrar',[ $gas->id ]) }}">
-                    <i class="bi bi-file-text-fill"> Detalles </i>
-                </a>
-            </td>
-        </tr>
-
-        @php
-            $total += $gas->total_gasto ;
-        @endphp
+            <tr>
+                <td>{{ $gas->fecha_gasto }}</td>
+                <td>{{ $gas->nombre_gasto }}</td>
+                <td>{{ $gas->responsable_gasto }}</td>
+                <td>{{ $gas->tipo_gasto }}</td>
+                <td style="text-align: right">{{ number_format($gas->total_gasto,2) }}</td>
+                <td>
+                    <a class="btn-detalles" href="{{route('gasto.mostrar',[ $gas->id ]) }}">
+                        <i class="bi bi-file-text-fill"> Detalles </i>
+                    </a>
+                </td>
+            </tr>
+            @php
+                $total += $gas->total_gasto ;
+            @endphp
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total</b></td>
+             <td  id="total_facturas" style="text-align: right"> {{ number_format($gas->total_gasto,2) }}</td></b>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>
 <br>
-<div style="text-align: right">
-    <b><label for="" style="font-size: 100%">Total gastos:</label></b>&nbsp;&nbsp;
-    <b><label >{{  number_format($total,2) }}</label></b>
 
-</div>
 </div>
 <br>
 

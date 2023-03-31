@@ -113,7 +113,7 @@
         </div>
     </center>
 
-    <h3><b>GARANTÍA POR CAMBIO DE PIEZA EN  REPARACIÓN</b></h3>
+    <h3><b>GARANTÍA POR  REPARACIÓN</b></h3>
 
 
     <p style="text-align:justify" >En nombre de nuestra empresa, nos complace ofrecerle una garantía por el cambio de pieza en su reparación. Nos comprometemos a ofrecerle un servicio de alta calidad y a utilizar piezas de repuesto de la mejor calidad disponibles en el mercado.
