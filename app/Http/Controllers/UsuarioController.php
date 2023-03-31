@@ -1,16 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Permiso;
 use App\Models\Empleado;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
 
 class UsuarioController extends Controller
 {
+
+    public function index(Request $request)
+    {
+
+        Permiso::validarRolSoloAdmin(Auth::user());
+
+        $usuarios = User::all();
+        foreach ($usuarios as $key => $usuario) {
+            if ($usuario->id_empleado) {
+                $usuario->id_empleado = Empleado::find( $usuario->id_empleado)->Nombres.' '.Empleado::find( $usuario->id_empleado)->Apellidos;
+            }
+
+        }
+
+
+        return view('Usuarios.ListadoUsuario')->with('usuarios',$usuarios);
+
+    }
+
+
     public function show(){
 
+        Permiso::validarRolSoloAdmin(Auth::user());
+
         $empleados = Empleado::all();
+
 
         return view('Usuarios.RegistrarUsuario')->with('empleados',$empleados);
     }
@@ -19,11 +47,15 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
 
+        Permiso::validarRolSoloAdmin(Auth::user());
+
         $rules= ([
             'name' => ['required', 'string', 'max:255'],
             'id_empleado' => ['required', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            'password_confirmation' => ['required', 'string', 'min:8','same:password'],
+            'rol_usuario' => ['required'],
         ]);
 
         $message = ([
@@ -33,14 +65,17 @@ class UsuarioController extends Controller
 
             'name.required'=>'El usuario es obligatorio',
 
-            'imail.required'=>'El correo es obligatorio',
-            'imail.unique'=>'El correo ya esta en uso',
+            'email.required'=>'El correo es obligatorio',
+            'email.unique'=>'El correo ya esta en uso',
 
             'password.required'=>'La contraseña es obligatoria',
-            'password.confirmed'=>'Debe confirmar la contraseña',
             'password.min'=>'La contraseña debe tener minimo 8 caracteres',
 
+            'password_confirmation.required'=>'Debe confirmar la contraseña',
+            'password_confirmation.min'=>'La contraseña debe tener minimo 8 caracteres',
+            'password_confirmation.same'=>'La contraseña deben coincidir con al confirmacion',
 
+            'rol_usuario.required'=>'Selecione un rol',
 
         ]);
 
@@ -55,7 +90,13 @@ class UsuarioController extends Controller
             //'color_favo' => $request->input('color_favo'),
         ]);
 
-        return redirect()->route('show.registroUsuarios');
+        $rol = Role::create([
+            'tipo' => $request->input('rol_usuario'),
+            'id_usuario' =>  $user->id,
+        ]);
+
+
+        return redirect()->route('index.usuario')->with('mensaje', 'Se guardó  con  éxito');
     }
 
 
