@@ -102,7 +102,7 @@
     </style>
 </head>
 
-<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%;">
+<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%; zoom: 150%;">
 
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100 row" >
@@ -130,7 +130,7 @@
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input id="password" name="password" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="Contraseña">
+                            <input onkeydown="if(event.keyCode==13) document.getElementById('login').submit()" id="password" name="password" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="Contraseña">
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
