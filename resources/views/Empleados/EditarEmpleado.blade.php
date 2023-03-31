@@ -3,7 +3,7 @@
 
 <style>
 
-/*Los titulos de las letras*/ 
+/*Los titulos de las letras*/
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #000000;
@@ -11,13 +11,13 @@
   font-size: 20xp;
 }
 
-/*Las Cajas de texto*/ 
+/*Las Cajas de texto*/
 .form-control  {
     background-color: transparent;
     border: 1.3px solid #000000;
 }
 
-/*Las etiquetas label*/ 
+/*Las etiquetas label*/
 .input-group-text  {
   background-color: #000000;
   border: 1.3px solid #000000;
@@ -26,20 +26,20 @@
 
 }
 
-/*Los botones*/ 
+/*Los botones*/
 .btn-outline-dark {
   background-color: transparent;
   border: 1.8px solid #000000;
 }
 
-/*El boton cancelar */ 
+/*El boton cancelar */
 a { color: aliceblue;
   outline: none;
   text-decoration: none;
   color: #000000;
 }
 .a:hover{
-    
+
     color: white;
 }
 
@@ -50,11 +50,11 @@ a { color: aliceblue;
 {{-- Mensaje de editar (error)--}}
 <script>
   var errores = []
-  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!};
   if(errores.length > 0){
     errores.forEach(element => {
       alertify.error(element)
-    });   
+    });
   }
 </script>
 
@@ -73,12 +73,12 @@ a { color: aliceblue;
 <div class="row g-3">
   <div class="col">
 
-    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres" 
-     class="form-control" name="Nombres"  placeholder="Nombres" aria-label="First name" 
+    <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"
+     class="form-control" name="Nombres"  placeholder="Nombres" aria-label="First name"
      Value="{{old('Nombres', $modificar->Nombres)}}">
   </div>
   <div class="col">
-    <input type="text" minlength="4" maxlength="25" name="Apellidos" 
+    <input type="text" minlength="4" maxlength="25" name="Apellidos"
     id="Apellidos"  class="form-control" placeholder="Apellidos"  aria-label="First name"
     Value="{{old('Apellidos',$modificar->Apellidos)}}">
 
@@ -89,27 +89,27 @@ a { color: aliceblue;
 {{-- Número de identidad --}}
 <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
 <div class="col" style="padding-left: 7%"  >
-  <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
+  <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span>
   <input type="text"   minlength="13" maxlength="13" name="Numero_identidad" id="Numero_identidad"
     class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
     placeholder="Eje. 0000000000000"
     Value="{{old('Numero_identidad',$modificar->Numero_identidad)}}">
-  </div> 
+  </div>
 
   {{-- Fecha de nacimiento--}}
-  <div class="col" style="padding-left: 4%" > 
+  <div class="col" style="padding-left: 4%" >
   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de nacimiento</span>
-  <input type="date"   name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control" 
-   name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input" 
+  <input type="date"   name="Fecha_nacimiento" id="Fecha_nacimiento" class="form-control"
+   name="Fecha_nacimiento" id="Fecha_nacimiento" aria-label="Sizing example input"
    aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de nacimiento"
   Value="{{old('Fecha_nacimiento',$modificar->Fecha_nacimiento)}}">
 </div>
 
 
 {{-- Numero de teléfono --}}
-<div class="col"style="padding-left: 4%"> 
+<div class="col"style="padding-left: 4%">
   <span class="input-group-text"  id="inputGroup-sizing-sm">Número de teléfono</span>
-  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+  <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
   placeholder="Eje. 00000000" Value="{{old('Numero_telefono',$modificar->Numero_telefono)}}">
 </div>
 </div>
@@ -118,10 +118,11 @@ a { color: aliceblue;
 {{-- Fecha de contrato,Salario --}}
 <div class="input-group">
   <span class="input-group-text">Fecha de contrato</span>
-  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato" 
+  <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato"
   placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}" max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set();>
-  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"  
+  <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"
    placeholder=" Salario Lps."  Value="{{old('Salario',$modificar->Salrio)}}">
+
 </div>
 <br>
 
@@ -129,6 +130,16 @@ a { color: aliceblue;
 <div class="mb-3" style="padding-left: 22%">
   <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea class="form-control" minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion',$modificar->Direccion)}}</textarea>
+</div>
+
+<br>
+<div class="mb-3">
+    <input class="form-check-input" type="checkbox" value="activo" name="activo" @if($modificar->activo)
+            checked
+    @endif>
+    <label class="form-check-label" for="flexCheckDefault">
+      Activo
+    </label>
 </div>
 
 
@@ -146,7 +157,7 @@ a { color: aliceblue;
     <script>
         function confirmar() {
            var formul = document.getElementById("form_editarE");
-           
+
            Swal.fire({
                 title: '¿Está seguro que desea guardar los cambios?',
                 icon: 'question',
