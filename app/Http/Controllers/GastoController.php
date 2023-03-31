@@ -29,16 +29,39 @@ class GastoController extends Controller
 
         // pasamos los string parametros a arreglos
         $rules = ([
-            'nombre_gasto' =>'required',
+            'nombre_gasto' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
             'tipo_gasto' =>'required',
-            'fecha_gasto' =>'required|date',
-            'descripcion_gasto' =>'required|max:150',
-            'total_gasto' => 'required|numeric',
-            'responsable_gasto' =>'',
+            'fecha_gasto' =>'date',
+            'descripcion_gasto' =>'required|max:150|min:5',
+            'total_gasto' => 'required|numeric|min:2',
+            'responsable_gasto'=> 'required',
 
         ]);
+        $mesaje = ([
+            'nombre_gasto.required' => 'El nombre del gasto es requerido',
+            'nombre_gasto.min'=>'El nombre del gasto debe tener minimo 3 letras',
+            'nombre_gasto.max'=>'El nombre del gasto no debe de tener más de 25 letras',
+            'nombre_gasto.regex'=>'El nombre del gasto solo puede tener letras',
 
-        $this->validate($request, $rules);
+            'tipo_gasto.required' => 'El tipo de gasto es requerido',
+
+            'fecha_gasto.required' => 'La fecha del gasto es requerida',
+
+            'descripcion_gasto.required' => 'La descripción del gasto es requerida',
+            'descripcion_gasto.min'=>'La descripción debe tener minimo 5 letras',
+
+            'total_gasto.required' => 'El total del gasto es requerido',
+            'total_gasto.numeric' => 'El total del gasto solo debe contener números',
+            'total_gasto.min'=>'El total del gasto debe contener minimo 2 números',
+            'total_gasto.max'=>'El total del gasto debe contener maximo 5 números',
+
+            'responsable_gasto.required' => 'El responsable del gasto es requerido',
+
+
+
+          ]);
+
+        $this->validate($request, $rules, $mesaje);
 
         $gasto = new Gasto();
         $gasto->nombre_gasto = $request->input('nombre_gasto');
@@ -46,7 +69,7 @@ class GastoController extends Controller
         $gasto->descripcion_gasto = $request->input('descripcion_gasto');
         $gasto->total_gasto = $request->input('total_gasto');
         $gasto->fecha_gasto = $request->input('fecha_gasto');
-        $gasto->responsable_gasto = $request->input('responsable');
+        $gasto->responsable_gasto = $request->input('responsable_gasto');
 
         $gasto->save();
 
@@ -58,7 +81,10 @@ class GastoController extends Controller
     public function index(){
         $gastos = Gasto::all();
         foreach ($gastos as $key => $gasto) {
-            $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
+            if ($gasto->responsable_gasto) {
+                $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
+            }
+
         }
 
         return view('Gastos.Listadodegastos')->with('gastos',$gastos);
