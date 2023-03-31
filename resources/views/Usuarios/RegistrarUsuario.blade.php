@@ -68,12 +68,27 @@
         width: 350px;
         font-weight: bold;
         display: inline-block;
+
+    }
+    .label{
+    
+        font-size: 150%;
+    }
+
+    .input1{
+        background-color: transparent;
+        border: 1.3px solid #000000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        font-size: 150%;
     }
 
     form input[type="text"],
     form input[type="email"],
     form input[type="password"]{
-        width: 350px;
+        width: 550px;
         padding: 3px 10px;
         border: 1px solid #000000;
         border-radius: 3px;
@@ -84,7 +99,7 @@
 
 
     select {
-        width: 400px;
+        width: 500px;
         padding: 3px 10px;
         border: 1px solid #000000;
         border-radius: 3px;
@@ -128,16 +143,18 @@
 
             {{-- Empleados --}}
 
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">Empleados</label></b>&nbsp;&nbsp;
-                <select class="select" name="id_empleado" id="id_empleado" class="buscador-select">
-                    <option value="{{old('id_empleado')}}" [readonly]='true'>Seleccione o busque el empleado</option>
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Empleados</label></b>&nbsp;&nbsp;<br>
+                <select name="id_empleado" id= "id_empleado"  class="select input1" style="background:transparent">
+                    <option  value="" >Seleccione al responsable</option>
+             
                     @foreach ($empleados as $em)
-                    <option @if (old('id_empleado') == $em->id)
-                                checked
-                            @endif value="{{$em->id}}">{{$em->Nombres}}</option>
-                    @endforeach
-                </select>
+                        <option @if(old('id_empleado') == $em->id)
+                            selected
+                        @endif value="{{$em->id}}" >{{ $em->Nombres.' '.$em->Apellidos }}</option>
+                     @endforeach
+            
+                    </select>
                 @error('id_empleado')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -145,12 +162,14 @@
                 @enderror
             </div>
 
+            
+
             <br>
 
             {{-- Nombre del usuario --}}
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">Ingrese el nombre de usuario</label></b>&nbsp;&nbsp;
-                <input type="text" name="name" id="nombre_usuario" class="form-control" value="{{old('name')}}" maxlength="37" placeholder="Ingrese el nombre de usuario">
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Ingrese el nombre de usuario</label></b>&nbsp;&nbsp;
+                <input class="input1" type="text" name="name" id="nombre_usuario" class="form-control" value="{{old('name')}}" maxlength="37" placeholder="Ingrese el nombre de usuario">
                 @error('name')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -161,9 +180,9 @@
             <br>
 
             {{-- Correo del usuario --}}
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">Ingrese el correo</label></b>&nbsp;&nbsp;
-                <input type="email" name="email" id="nombre_usuario" class="form-control" value="{{old('email')}}" maxlength="37" placeholder="Ingrese el correo del usuario">
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Ingrese el correo</label></b>&nbsp;&nbsp;
+                <input class="input1"type="email" name="email" id="nombre_usuario" class="form-control" value="{{old('email')}}" maxlength="37" placeholder="Ingrese el correo del usuario">
 
                 @error('email')
                 <span class="invalid-feedback d-block" role="alert">
@@ -176,9 +195,9 @@
             <br>
 
             {{--contraseña--}}
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">Ingrese la contraseña</label></b>&nbsp;&nbsp;
-                <input type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Ingrese la contraseña</label></b>&nbsp;&nbsp;
+                <input class="input1" type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
                 @error('password')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -189,22 +208,41 @@
             <br>
 
             {{--repetir contraseña--}}
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">Confirmar contraseña</label></b>&nbsp;&nbsp;
-                <input type="password" name="password_confirmation" id="repetir_contrasena" class="form-control" placeholder="Confirme la contraseña">
-               
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Confirmar contraseña</label></b>&nbsp;&nbsp;
+                <input class="input1" type="password" name="password_confirmation" id="repetir_contrasena" class="form-control" placeholder="Confirme la contraseña">
+                @error('password_confirmation')
+                <span class="invalid-feedback d-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
 
             <br>
-           {{--  {{--pregunta 1
-            <div style="width: 50% " class="input-group input-group-sm flex">
-                <b><label style="text-align: left">¿Cual es el nombre de la ciudad que naciste?</label></b>&nbsp;&nbsp;
-                <input type="text" name="ciudad_nacimiento" id="pregunta1" class="form-control" value="{{old('ciudad_nacimiento')}}">
+
+            <div style="width: 60%" class="input-group input-group-sm flex">
+                <b><label class="label" style="text-align: left">Rol</label></b>&nbsp;&nbsp;
+                <select name="rol_usuario" id="rol_usuario" class="input1">
+                    <option value="">Seleccione un rol</option>
+                    @foreach (App\Http\Permiso::$roles as $rol )
+                    <option @if(old('rol_usuario') == $rol)
+                        selected
+                        @endif value="{{ $rol}}">{{ $rol }}</option>
+                    @endforeach
+                </select>
+                @error('rol_usuario')
+                <span class="invalid-feedback d-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
-
+           
+                        
+                    
             <br>
+            
 
-            {{--pregunta 
+            {{--pregunta
             <div style="width: 50%" class="input-group input-group-sm flex">
                 <b><label style="text-align: left">¿Cual es tu color favorito?</label></b>&nbsp;&nbsp;
                 <input type="text" name="color_favo" id="pregunta2" class="form-control" value="{{old('color_favo')}}">
@@ -213,10 +251,9 @@
                 <br><br>
                 {{--Botones --}}
                 <center>
-                    <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>&nbsp;
-                    <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>&nbsp;
-
-                    <button type="button" class="btn btn-outline-dark"><a class="a" href="{{route('show.registroUsuarios')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+                    <button class="btn btn-outline-dark btn-lg" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>&nbsp;
+                    <button type="reset" class="btn btn-outline-dark btn-lg"> <i class="bi bi-eraser-fill"> Limpiar</i></button>&nbsp;
+                    <button type="button" class="btn btn-outline-dark btn-lg"><a class="a" href="{{route('index.usuario')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
 
                 </center>
                 <br>
