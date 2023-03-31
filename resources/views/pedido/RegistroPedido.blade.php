@@ -385,7 +385,7 @@
           }
     }); 
   }
-
+ 
       //Validaciones 
   function ValidaSoloNumeros1() {
         if ((event.keyCode < 48) || (event.keyCode > 57)) 

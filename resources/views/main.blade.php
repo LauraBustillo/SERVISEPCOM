@@ -118,12 +118,14 @@
                             <span class="nav_name">Clientes</span>
                         </a>
 
+                        @if (App\Http\Permiso::traerRol(Auth::user()) == App\Http\Permiso::$roles[0])
                         {{-- Registro empleados --}}
                         <a href="{{ route('empleado.index') }}" class="@if(Request::is('Empleado')) nav_link active @else nav_link @endif">
                             <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
                                 <path d="M4.15 22.3q-1.025 0-1.737-.713-.713-.712-.713-1.737V9.25q0-1.025.713-1.737Q3.125 6.8 4.15 6.8h4.7V3.85q0-.9.625-1.525Q10.1 1.7 11 1.7h2q.9 0 1.525.625.625.625.625 1.525V6.8h4.7q1.025 0 1.737.713.713.712.713 1.737v10.6q0 1.025-.713 1.737-.712.713-1.737.713Zm0-2.15h15.7q.125 0 .212-.088.088-.087.088-.212V9.25q0-.125-.088-.213-.087-.087-.212-.087h-4.7q0 .875-.6 1.512-.6.638-1.5.638h-2.1q-.9 0-1.5-.638-.6-.637-.6-1.512h-4.7q-.125 0-.212.087-.088.088-.088.213v10.6q0 .125.088.212.087.088.212.088Zm1.7-2h6.2v-.425q0-.475-.262-.862-.263-.388-.688-.563-.575-.25-1.112-.362-.538-.113-1.038-.113t-1.037.113q-.538.112-1.113.362-.425.175-.687.563-.263.387-.263.862Zm8.2-1.5h4.3v-1.6h-4.3Zm-5.1-1.6q.65 0 1.1-.45.45-.45.45-1.1 0-.65-.45-1.1-.45-.45-1.1-.45-.65 0-1.1.45-.45.45-.45 1.1 0 .65.45 1.1.45.45 1.1.45Zm5.1-1.25h4.3v-1.65h-4.3ZM11 8.95h2v-5.1h-2Zm1 5.6Z" /></svg>
                             <span class="nav_name">Empleados</span>
                         </a>
+                        @endif
 
                         {{-- Registro proveedor --}}
                         <a href="{{ route('proveedor.index') }}" class="@if(Request::is('Proveedor')) nav_link active @else nav_link @endif">
@@ -178,12 +180,16 @@
                             </div>
                         </li>
 
-                          {{-- rango factura --}}
+                        @if (App\Http\Permiso::traerRol(Auth::user()) == App\Http\Permiso::$roles[0])
+                        {{-- rango factura --}}
                         <a href="{{ route('RangoFactura.index') }}" class="@if(Request::is('rangofactura')) nav_link active @else nav_link @endif">
                             <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
                                 <path d="M3 20q-.825 0-1.412-.587Q1 18.825 1 18q0-.825.588-1.413Q2.175 16 3 16h.263q.112 0 .237.05l4.55-4.55Q8 11.375 8 11.262V11q0-.825.588-1.413Q9.175 9 10 9t1.413.587Q12 10.175 12 11q0 .05-.05.5l2.55 2.55q.125-.05.238-.05h.524q.113 0 .238.05l3.55-3.55q-.05-.125-.05-.238V10q0-.825.587-1.413Q20.175 8 21 8q.825 0 1.413.587Q23 9.175 23 10q0 .825-.587 1.412Q21.825 12 21 12h-.262q-.113 0-.238-.05l-3.55 3.55q.05.125.05.238V16q0 .825-.587 1.413Q15.825 18 15 18q-.825 0-1.412-.587Q13 16.825 13 16v-.262q0-.113.05-.238l-2.55-2.55q-.125.05-.238.05H10q-.05 0-.5-.05L4.95 17.5q.05.125.05.238V18q0 .825-.588 1.413Q3.825 20 3 20ZM4 9.975l-.625-1.35L2.025 8l1.35-.625L4 6.025l.625 1.35L5.975 8l-1.35.625ZM15 9l-.95-2.05L12 6l2.05-.95L15 3l.95 2.05L18 6l-2.05.95Z"/></svg>
                             <span class="nav_name">Rango factura</span>
                         </a>
+                        @endif
+
+
 
                         {{-- ventas--}}
                         <a href="{{ route('Venta.index') }}" class="@if(Request::is('venta')) nav_link active @else nav_link @endif">
@@ -205,11 +211,21 @@
                             <span class="nav_name">Gastos </span>
                         </a>
 
+                        @if (App\Http\Permiso::traerRol(Auth::user()) == App\Http\Permiso::$roles[0])
                         {{-- usuarios --}}
-                        <a href="{{ route('show.registroUsuarios') }}" class="@if(Request::is('usuario')) nav_link active @else nav_link @endif">
-                            <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="28" width="28"><path d="M12.5 11.95q.725-.8 1.113-1.825Q14 9.1 14 8t-.387-2.125Q13.225 4.85 12.5 4.05q1.5.2 2.5 1.325T16 8q0 1.5-1 2.625t-2.5 1.325ZM18 20v-3q0-.9-.4-1.712-.4-.813-1.05-1.438 1.275.45 2.363 1.162Q20 15.725 20 17v3Zm2-7v-2h-2V9h2V7h2v2h2v2h-2v2ZM8 12q-1.65 0-2.825-1.175Q4 9.65 4 8q0-1.65 1.175-2.825Q6.35 4 8 4q1.65 0 2.825 1.175Q12 6.35 12 8q0 1.65-1.175 2.825Q9.65 12 8 12Zm-8 8v-2.8q0-.85.438-1.563.437-.712 1.162-1.087 1.55-.775 3.15-1.163Q6.35 13 8 13t3.25.387q1.6.388 3.15 1.163.725.375 1.162 1.087Q16 16.35 16 17.2V20Z"/></svg>
-                            <span class="nav_name">Usuarios </span>
+                            <a href="{{ route('index.usuario') }}" class="@if(Request::is('usuario')) nav_link active @else nav_link @endif">
+                                <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="28" width="28"><path d="M12.5 11.95q.725-.8 1.113-1.825Q14 9.1 14 8t-.387-2.125Q13.225 4.85 12.5 4.05q1.5.2 2.5 1.325T16 8q0 1.5-1 2.625t-2.5 1.325ZM18 20v-3q0-.9-.4-1.712-.4-.813-1.05-1.438 1.275.45 2.363 1.162Q20 15.725 20 17v3Zm2-7v-2h-2V9h2V7h2v2h2v2h-2v2ZM8 12q-1.65 0-2.825-1.175Q4 9.65 4 8q0-1.65 1.175-2.825Q6.35 4 8 4q1.65 0 2.825 1.175Q12 6.35 12 8q0 1.65-1.175 2.825Q9.65 12 8 12Zm-8 8v-2.8q0-.85.438-1.563.437-.712 1.162-1.087 1.55-.775 3.15-1.163Q6.35 13 8 13t3.25.387q1.6.388 3.15 1.163.725.375 1.162 1.087Q16 16.35 16 17.2V20Z"/></svg>
+                                <span class="nav_name">Usuarios </span>
+                            </a>
+                        {{-- Planilla --}}
+                          <a href="{{ route('index.planilla') }}" class="@if(Request::is('planilla')) nav_link active @else nav_link @endif">
+                            <svg style="fill: white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 96 960 960" width="28"><path d="M640 653q-51 0-84.5-33.5T522 535q0-51 33.5-84.5T640 417q51 0 84.5 33.5T758 535q0 51-33.5 84.5T640 653ZM400 896v-66q0-18.864 9-35.932T433 770q45-32 98.5-47.5T640 707q55 0 108 17t99 46q14 10 23.5 25.5T880 830v66H400Zm55-71v11h370v-11q-39-26-90-42t-95-16q-44 0-95.5 16T455 825Zm185-232q26 0 42-16t16-42q0-26-16-42t-42-16q-26 0-42 16t-16 42q0 26 16 42t42 16Zm0-58Zm0 301ZM120 646v-60h306v60H120Zm0-330v-60h473v60H120Zm349 165H120v-60h380q-11 13-18.727 27.921Q473.545 463.841 469 481Z"/></svg>
+                            <span class="nav_name">Planilla</span>
                         </a>
+                        @endif
+
+
+
 
 
 

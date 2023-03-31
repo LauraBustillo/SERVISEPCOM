@@ -74,7 +74,7 @@
         {{-- Nombre del gasto  --}}
         <div class="col" style="width: 50%">
             <b><label  id="inputGroup-sizing-sm">Nombre del gasto </label></b>
-            <input  type="text" name="nombre_gasto" id="nombre_gasto" class="form-control" value="{{old('nombre_gasto')}}" maxlength="37"
+            <input  type="text" name="nombre_gasto" id="nombre_gasto" class="form-control" value="{{old('nombre_gasto')}}" maxlength="25"
             placeholder="Nombre del gasto">
         </div>
         &nbsp;&nbsp;&nbsp;
@@ -95,14 +95,14 @@
         {{-- Fecha del gasto --}}
         <div class="col" style="width: 50%">
             <b><label id="inputGroup-sizing-sm" >Fecha del gasto</label></b>
-            <input type="date" name="fecha_gasto" id="fecha_gasto" class="form-control" value="{{$fecha_actual}}"
+            <input type="date" name="fecha_gasto" id="fecha_gasto" class="form-control" value="{{$fecha_actual}}" readonly
             placeholder="Fecha del gasto">
         </div>
         &nbsp;&nbsp;&nbsp;
         {{--Descripcion --}}
      <div class="col" style="width: 50%" >
         <b><label id="inputGroup-sizing-sm" >Descripción</label></b>
-          <textarea  maxlength="150"  name="descripcion_gasto" spellcheck="true"  id="descripcion_gasto" class="form-control"
+          <textarea  maxlength="150" name="descripcion_gasto" spellcheck="true"  id="descripcion_gasto" class="form-control"
            rows="1" placeholder=" Descripción " >{{old('descripcion_gasto')}}</textarea>
         </div >
 
@@ -116,18 +116,20 @@
     {{--Total gasto --}}
     <div class="col" style="width: 50%">
         <b><label id="inputGroup-sizing-sm" >Total del gastos</label></b>
-        <input  type="text" name="total_gasto" id="total_gasto" class="form-control" value="{{old('total_gasto')}}" maxlength="37"
+        <input  type="text" name="total_gasto" id="total_gasto" class="form-control" value="{{old('total_gasto')}}" maxlength="5"
         placeholder="Total gasto">
     </div>
     &nbsp;&nbsp; &nbsp;
-     {{-- categorias--}}
+     {{-- Responsable del gasto--}}
      <div class="col" style="width: 50%">
         <b><label id="inputGroup-sizing-sm" for="Categorias" >Responsable del gasto</label></b>
-       <select name="responsable" id= "responsable"  class="form-select form-control" style="background:transparent"  >
-        <option  value="{{null}}" id= "prueba">Seleccione al responsable</option>
-
+       <select name="responsable_gasto" id= "responsable_gasto"  class="form-select form-control" style="background:transparent"  >
+        <option  value="" id="">Seleccione al responsable</option>
+ 
         @foreach ($empleados as $empleado)
-            <option  value="{{$empleado->id}}" id= "prueba">{{ $empleado->Nombres.' '.$empleado->Apellidos }}</option>
+            <option @if(old('responsable_gasto') == $empleado->id)
+                selected
+            @endif value="{{$empleado->id}}" id= "">{{ $empleado->Nombres.' '.$empleado->Apellidos }}</option>
          @endforeach
 
         </select>

@@ -49,7 +49,7 @@
 <br>
 
 <div>
-    <div class="titulo"> Gasto N°: {{ $gastos->id }}</div>
+    <div class="titulo"></div>
     <br>
     <table class="table table-hover">
         <thead>
