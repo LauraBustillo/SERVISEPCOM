@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Permiso;
 use App\Models\RangoFactura;
 use App\Http\Requests\StoreRangoFacturaRequest;
 use App\Http\Requests\UpdateRangoFacturaRequest;
 use App\Rules\FacturaFinalMayorQueInicial;
 use App\Rules\FacturaFinalMayorQueInicialVentas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RangoFacturaController extends Controller
 {
@@ -18,6 +20,8 @@ class RangoFacturaController extends Controller
      */
     public function index()
     {
+        Permiso::validarRolSoloAdmin(Auth::user());
+
         $rangos = RangoFactura::all()->sortByDesc('id');
         $rangoActual = RangoFactura::where('estado', '=', 1)->get();
         return view('rangofactura.lista')->with('rangos', $rangos)
@@ -31,6 +35,8 @@ class RangoFacturaController extends Controller
      */
     public function create()
     {
+        Permiso::validarRolSoloAdmin(Auth::user());
+
         return view('rangofactura.registrorangofactura');
     }
 
@@ -43,6 +49,8 @@ class RangoFacturaController extends Controller
     //Funcion para guadar
     public function store(Request $request)
     {
+
+        Permiso::validarRolSoloAdmin(Auth::user());
 
 
         $rules = ([
@@ -93,6 +101,8 @@ class RangoFacturaController extends Controller
 
     public function storeVentas(Request $request)
     {
+
+        Permiso::validarRolSoloAdmin(Auth::user());
 
         $rules = ([
             'fecha_desde' => 'required|before:fecha_hasta',
@@ -165,7 +175,7 @@ class RangoFacturaController extends Controller
      * @param  \App\Models\RangoFactura  $rangoFactura
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRangoFacturaRequest $request, RangoFactura $rangoFactura)
+    public function update( RangoFactura $rangoFactura)
     {
         //
     }
