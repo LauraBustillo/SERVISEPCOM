@@ -102,7 +102,7 @@
     </style>
 </head>
 
-<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%;">
+<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%;  zoom: 150%;">
 
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100 row" >
@@ -120,7 +120,7 @@
                             <div class="input-group-append" style="margin-bottom: 20px">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input required type="text" id="email" name="email" class="@error('email') is-invalid @enderror form-control input_user" value="{{ $email ?? old('email') }}" placeholder="Email" style="margin-bottom: 20px">
+                            <input required type="text" id="email" name="email" class="@error('email') is-invalid @enderror form-control input_user" value="{{ $email ?? old('email') }}" placeholder="Correo" style="margin-bottom: 20px">
                             @error('email')
                             <span class="invalid-feedback" role="alert" style="position: absolute; margin-top: 42px;">
                                 <strong>{{ $message }}</strong>
@@ -132,7 +132,7 @@
                             <div class="input-group-append" style="margin-bottom: 20px">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input id="password" name="password" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="{{ __('Password') }}" style="margin-bottom: 20px">
+                            <input id="password" name="password" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="{{ __('Contraseña') }}" style="margin-bottom: 20px">
                             @error('password')
                                     <span class="invalid-feedback" role="alert" style="position: absolute; margin-top: 42px;">
                                         <strong>{{ $message }}</strong>
@@ -143,12 +143,12 @@
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input id="password-confirm" name="password_confirmation" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="{{ __('Confirm Password') }}">
+                            <input id="password-confirm" name="password_confirmation" required type="password" class="@error('password') is-invalid @enderror form-control input_pass" value="" placeholder="{{ __('Confirmar Contraseña ') }}">
                         </div>
                     </form>
                 </div>
                 <div class="row" id="div_boton">
-                    <button id="btn_submit" type="submit" name="button" class="btn login_btn btn_login">{{ __('Reset Password') }}</button>
+                    <button id="btn_submit" type="submit" name="button" class="btn login_btn btn_login">{{ __('Restablecer la Contraseña')}}</button>
                 </div>
             </div>
         </div>
