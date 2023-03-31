@@ -104,7 +104,7 @@
           background-color: rgb(184, 234, 249)!important;   
       }
 
-      div.dataTables_wrapper div.dataTables_filter input {
+  div.dataTables_wrapper div.dataTables_filter input {
 
   display: inline-block;
   width: 120% !important;
