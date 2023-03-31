@@ -15,6 +15,8 @@ use App\Http\Controllers\GastoController;
 use App\Models\RangoFactura;
 use App\Http\Controllers\DevolucionVentaController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PlanillaController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -356,6 +358,26 @@ Route::get('/detallegatos/{id}', [GastoController::class, 'mostrarGas'])->name('
 
 Route::get('/registrousuario', [UsuarioController::class, 'show'])->name('show.registroUsuarios');
 Route::post('/store/usuarios', [UsuarioController::class, 'store'])->name('store.registroUsuarios');
+Route::get('/usuarios',[UsuarioController::class, 'index'])->name('index.usuario');
+
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS PARA PLANILLA
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/registroplanilla', [PlanillaController::class, 'show'])->name('show.registroPlanilla');
+Route::get('/listadoplanilla',[PlanillaController::class, 'index'])->name('index.planilla');
+
+
+Route::PUT('/asistencia',[PlanillaController::class, 'restar_horas'])->name('put.planilla.dias');
+Route::PUT('/asistencia/diurna',[PlanillaController::class, 'diurnas_horas'])->name('put.planilla.hora_diurnas');
+Route::PUT('/asistencia/nocturna',[PlanillaController::class, 'nocturnas_horas'])->name('put.planilla.hora_nocturna');
+
+
+Route::delete('/asistencia/eliminar/{id}',[PlanillaController::class, 'eliminar_planilla'])->name('delete.planilla');
+Route::post('/asistencia/guardar/{id}',[PlanillaController::class, 'guardar_planilla'])->name('guardar.planilla');
 
 
 
