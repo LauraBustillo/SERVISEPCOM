@@ -102,7 +102,7 @@
     </style>
 </head>
 
-<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%;">
+<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%;  zoom: 150%;">
 
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100 row" >
@@ -143,6 +143,7 @@
                 </div>
                 <div class="row" id="div_boton">
                     <button id="btn_submit" type="submit" name="button" class="btn login_btn btn_login"> {{ __('Enviar') }}</button>
+
                 </div>
             </div>
         </div>
