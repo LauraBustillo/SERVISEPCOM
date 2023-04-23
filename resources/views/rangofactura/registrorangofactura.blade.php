@@ -8,22 +8,21 @@
         background-color: transparent;
         border: 1.3px solid #000000;
     }
-
-    /*Las label*/
-    .input-group-text {
-        background-color: #000000;
-        border: 1.3px solid #000000;
-        font-family: 'Open Sans';
-        color: #FFFFFF;
+    /*Las label*/ 
+    .input-group-text  {
+    background-color: #4c4d4e;;
+    border: 1.3px solid #4c4d4e;;
+    font-family: 'Open Sans';
+    color: #FFFFFF;
 
     }
-
-    /*Los titulos */
+    /*Los titulos */ 
     .titulo {
-        font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-        color: black;
-        font-family: 'Open Sans';
-        font-size: 20xp;
+    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+    color: #4c4d4e;;
+    
+    font-family: 'Open Sans';
+    font-size: 20xp;
     }
 
     /*Los botones*/
@@ -42,7 +41,43 @@
     .a:hover {
         color: white;
     }
+    .button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+    }
+    .button:active {
+        -webkit-transform: translateY(7px);
+        -moz-transform: translateY(7px);
+        -o-transform: translateY(7px);
+        transform: translateY(7px);
+    }
 
+    .button-blue {
+        background: #4c4d4e;
+        box-shadow: 0 5px 0 #161616,
+                    0 11px 5px hsla(0, 0%, 0%, 0.5);
+    }
+    .button-blue:active {
+        box-shadow: 0 3px 0 #161616,
+                    0 4px 6px hsla(0, 0%, 0%, 0.7);
+    }
+
+    .boton1{
+    border: none;
+    }
 </style>
 
 {{--Mostrar funcion--}}
@@ -57,16 +92,11 @@
 
   </script>
 
-<br>
-<br>
 <form class="form-control" method="POST" id="form_guardarRF" name="form_guardarRF" action="{{ route('store.rangofactura') }}" onsubmit="guardarRango()">
     @csrf
-    <br>
-    <br>
 
     {{-- Título --}}
     <H1 class="titulo" style="text-align: center;">Registrar rango factura</H1>
-    <br>
     <br>
 
 
@@ -74,7 +104,7 @@
         {{-- Fecha Inicio --}}
         <div class="col">
             <span class="input-group-text" id="inputGroup-sizing-sm">Número CAI</span>
-            <input  type="text" name="caiRango" id="caiRango" class="form-control" value="{{old('caiRango')}}" maxlength="37">
+            <input  type="text" name="caiRango" id="caiRango" class="form-control" value="{{old('caiRango')}}" maxlength="37" placeholder="xxxx00-000xx0-0000xx-xxx000-000000-00">
         </div>
     </div>
     <br>
@@ -106,7 +136,7 @@
             <input type="text" name="facturaFinal" id="facturaFinal" class="form-control" value="{{old('facturaFinal')}}" placeholder="Ej.000-000-00-00000000" maxlength="19">
         </div>
     </div>
-    <br><br>
+    <br>
 
     <script>
         var d = new Date();
@@ -178,10 +208,12 @@
 
     {{--Botones --}}
     <center>
-        <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-folder-fill" > Guardar</i></button>
-        <button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
-        <button type="button" class="btn btn-outline-dark"><a class="a" href="{{route('RangoFactura.index')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+        <button class="boton1 button button-blue" type="submit"><i class="bi bi-folder-fill" > Guardar</i></button>
+        <button type="reset" class="boton1 button button-blue"><i class="bi bi-eraser-fill"> Limpiar</i></button>
+        <a class="button button-blue" href="{{route('RangoFactura.index')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a>
     </center>
+    <br>
+    <label for=""></label>
 </form>
 
 

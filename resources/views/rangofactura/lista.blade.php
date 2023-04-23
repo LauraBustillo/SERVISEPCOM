@@ -86,6 +86,50 @@
         border: none !important;
     }
 
+    /*Para las tablas*/ 
+  .bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 5px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+table.dataTable.dataTable_width_auto {
+  width: auto;
+}
+
+ 
+   /*  div.container {
+        width: 80%;
+        height: 30%;
+    } */
+
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 22%;
+  left: 62.5%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+}
+
 </style>
 
 @if (session('mensaje'))
@@ -136,7 +180,9 @@
         var fechasExportReportep = '';
         var tablecompras = $('#tablecompras').DataTable({
                 dom: '<"wrapper"fBlitp>'
+               
                 , language: {
+                    'pageLength': 5,
                     "sProcessing": "Procesando..."
                     , "sLengthMenu": ""
                     , "sZeroRecords": "No se encontraron resultados"
@@ -367,7 +413,7 @@ $dias = floor($diferencia / (60 * 60 * 24)) + 1;
             <input class="form-control" id="max" name="max" value="">
         </div>
         <div><br>&nbsp; &nbsp;
-            <a href="{{ route('RangoFactura.index') }}" class="btn btn-outline-dark"><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;
+            <a href="{{ route('RangoFactura.index') }}" class="btn btn-outline-dark"><i class="bi bi-trash3-fill"></i></a> &nbsp;&nbsp;
 
             <!--
             Se saca el conteo si hay algun rango activo actualmente
@@ -384,40 +430,42 @@ $dias = floor($diferencia / (60 * 60 * 24)) + 1;
                 @endphp
                 @if($dias < 0)
                 <a class="btn btn-outline-dark" style="float:right" href="{{route('create.rangofactura')}}">
-                    <i class="bi bi-calendar-range"> Nuevo Rango Factura</i></a>
+                <i class="bi bi-plus-square-fill"></i></a>
                 @endif
             @else
                 <a class="btn btn-outline-dark" style="float:right" href="{{route('create.rangofactura')}}">
-                    <i class="bi bi-calendar-range"> Nuevo Rango Factura</i></a>
+                <i class="bi bi-plus-square-fill"></i></a>
             @endif
 
 
 
         </div>
 
-    </div>
+    </div> 
+   
 
+   <br>
 
-    <table id='tablecompras' class="table table-hover tablacompras"> <br>
-        <thead>
+    <table class="table table-striped table-hover  border-dark bordeTabla"  id='tablecompras' >
+
+        <thead class="table-dark">
             <tr>
                 <th scope="col">CAI</th>
-                <th scope="col">Fecha Vencimiento</th>
                 <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Final</th>
                 <th scope="col">Factura Inicial</th>
                 <th scope="col">Factura Final</th>
-
-                <th scope="col">Estado</th>
+                <th scope="col" style="text-align: center;">Estado</th>
             </tr>
         </thead>
-
+ 
         <tbody>
 
             @foreach ($rangos as $rango)
             <tr>
                 <td>{{$rango->caiRango}}</td>
-                <td>{{$rango->fechaVencimiento}}</td>
                 <td>{{$rango->fechaInicio}}</td>
+                <td>{{$rango->fechaVencimiento}}</td>
                 <td>{{$rango->facturaInicial}}</td>
                 <td>{{$rango->facturaFinal}}</td>
                 <!-- Condicional que checkea el rango que esta activo actualemente  -->

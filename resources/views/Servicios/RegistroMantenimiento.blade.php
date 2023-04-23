@@ -40,14 +40,7 @@
     right: -8%;
   }
 
-  /*Las label*/ 
-  .input-group-text  {
-    background-color: #000000;
-    border: 1.3px solid #000000;
-    font-family: 'Open Sans';
-    color: #FFFFFF;
 
-  }
 
   /*Los botones*/ 
   .btn-outline-dark {
@@ -118,6 +111,78 @@
   width: 100% !important;
 
   }    
+
+   /* De  Aqui*/ 
+/*Las label*/ 
+.input-group-text  {
+  background-color: #4c4d4e;;
+  border: 1.3px solid #4c4d4e;;
+  font-family: 'Open Sans';
+  color: #FFFFFF;
+
+}
+/*Los titulos */ 
+.titulo {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
+  
+  font-family: 'Open Sans';
+  font-size: 20xp;
+}
+.button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+.button:active {
+    -webkit-transform: translateY(7px);
+    -moz-transform: translateY(7px);
+    -o-transform: translateY(7px);
+    transform: translateY(7px);
+}
+
+.button-blue {
+    background: #4c4d4e;
+    box-shadow: 0 5px 0 #161616,
+                0 11px 5px hsla(0, 0%, 0%, 0.5);
+}
+.button-blue:active {
+    box-shadow: 0 3px 0 #161616,
+                0 4px 6px hsla(0, 0%, 0%, 0.7);
+}
+
+.boton1{
+  border: none;
+}
+
+
+
+/*El boton cancelar */
+a { color: aliceblue;
+  outline: none;
+  text-decoration: none;
+  color: #000000;
+}
+.a:hover{
+
+    color: white;
+}
+.select2{
+    width: 100% !important;
+    height: 30px !important; 
+  }
 
         
 </style>
@@ -217,8 +282,8 @@
 
 <div>
   {{-- mostramos el boton segun la accion (editar o agregar) --}}
-  <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalbuscarcliente()" class="btn btn-outline-dark"  >  <i class="bi bi-search"> Buscar cliente</i></button>
-  <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalagregarcliente()" class="btn btn-outline-dark"><i class="bi bi-plus-circle"> Nuevo cliente</i></button>
+  <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalbuscarcliente()" class="button button-blue " >  <i class="bi bi-search"> Buscar cliente</i></button>
+  <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalagregarcliente()" class="button button-blue "><i class="bi bi-plus-circle"> Nuevo cliente</i></button>
 
   {{-- este checkbox solo se mostrara en  editar --}}
   <div {{$accion == "agregar"?"hidden":""}} class="form-check form-switch">
@@ -291,7 +356,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
   <h5>Detalles mantenimiento</h5> 
   <div style="display: flex">
     <div style="width: 100%">
-    <b>  <label id="inputGroup-sizing-sm" >Categorías</label> </b>
+  
+    <span class="input-group-text"  style="width: 100%">Categoría</span>
+
     {{-- en este select, en cada option se verifica el valor que trae la variable de mantenimiento desde el controlador, 
     para tener seleccionada esa opcion en un inicio --}}
         <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
@@ -306,7 +373,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 
     {{-- Nombre equipo--}}
     <div style="width: 100%">
-      <b> <label  id="inputGroup-sizing-sm">Nombre equipo</label> </b>
+     
+      <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
+
       <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $mantenimiento->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20" 
       type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
     </div>
@@ -317,7 +386,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
   {{-- Marca --}}
   <div style="display: flex">
     <div style="width: 100%">
-      <b><label id="inputGroup-sizing-sm">Marca</label> </b>
+     
+      <span class="input-group-text"  style="width: 100%">Marca</span>
+
       <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$mantenimiento->marca)}}"
        name="marca" id="marca" type="text" 
       aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
@@ -328,7 +399,9 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     
     {{-- Modelo --}}
     <div style="width: 100%">
-      <b>    <label  id="inputGroup-sizing-sm">Modelo</label>     </b>
+     
+      <span class="input-group-text"  style="width: 100%">Modelo</span>
+
       <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $mantenimiento->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
     </div>
   </div>
@@ -338,8 +411,10 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
    {{-- Fecha ingreso  --}}
   <div style="display: flex">
     <div style="width: 100%">
-      <b><label  id="inputGroup-sizing-sm">Fecha ingreso</label> </b>
-      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $mantenimiento->fecha_ingreso)}}"  name="fecha_ingreso"  id="fecha_ingreso" type="date" aria-label="First name" class="form-control" placeholder="Fecha de ingreso">
+     
+      <span class="input-group-text select2"  style="width: 100%">Fecha ingreso</span>
+
+      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $mantenimiento->fecha_ingreso)}}"  name="fecha_ingreso"  id="fecha_ingreso" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de ingreso">
     </div> 
 
     &nbsp;
@@ -348,13 +423,19 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 
       {{-- Fecha entrega  --}}
     <div style="width: 100%">
-      <b><label  id="inputGroup-sizing-sm">Fecha entrega</label> </b>
-      <input  value="{{old('fecha_entrega', $mantenimiento->fecha_entrega)}}"  name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control" placeholder="Fecha de entrega">
+ 
+      <span class="input-group-text select2"  style="width: 100%">Fecha entrega</span>
+
+      <input  value="{{old('fecha_entrega', $mantenimiento->fecha_entrega)}}"  name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de entrega">
     </div> 
   </div> 
+  &nbsp;
+    &nbsp;
 
   <div style="width: 50%">
-    <b><label id="inputGroup-sizing-sm">Descripción</label> </b>
+
+    <span class="input-group-text select2"  style="width: 100%">Descripción</span>
+
     <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"  
     type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
   </div>
@@ -367,10 +448,10 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 {{--Botones --}}
 <center>
   <div class="col" >
-  <button  class="btn btn-outline-dark" type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
-  <button  class="btn btn-outline-dark" type="button" {{$accion == "agregar"?"hidden":""}} onclick="actualizarMantenimiento()"><i class="bi bi-folder-fill"> Actualizar</i></button>
-  <button type="button" class="btn btn-outline-dark">
-  <a class="a"  href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a></button>
+  <button  class="button button-blue " type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
+  <button  class="button button-blue " type="button" {{$accion == "agregar"?"hidden":""}} onclick="actualizarMantenimiento()"><i class="bi bi-folder-fill"> Actualizar</i></button>
+
+  <a class="button button-blue " href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
   </div>
 </center>
 
