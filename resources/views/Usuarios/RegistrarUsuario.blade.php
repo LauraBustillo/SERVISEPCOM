@@ -7,7 +7,6 @@
     .form-control {
         background-color: transparent;
         border: 1.3px solid #000000;
-        width: 60%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -16,87 +15,31 @@
 
     }
 
-    /*Las label*/
-    .input-group-text {
-        background-color: #000000;
-        border: 1.3px solid #000000;
-        font-family: 'Open Sans';
-        color: #FFFFFF;
+    /*Las label*/ 
+    .input-group-text  {
+    background-color: #4c4d4e;;
+    border: 1.3px solid #4c4d4e;;
+    font-family: 'Open Sans';
+    color: #FFFFFF;
 
     }
 
-    /*Los titulos */
+    /*Los titulos */ 
     .titulo {
-        font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-        color: black;
-        font-family: 'Open Sans';
-        font-size: 20xp;
+    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+    color: #4c4d4e;;
+    
+    font-family: 'Open Sans';
+    font-size: 20xp;
     }
 
-    /*Los botones*/
-    .btn-outline-dark {
-        background-color: transparent;
-        border: 1.8px solid #000000;
-    }
-
-    a {
-        color: aliceblue;
-        outline: none;
-        text-decoration: none;
-        color: #000000;
-    }
-
-    .a:hover {
-        color: white;
-    }
+  
 
 
 
     * {
         box-sizing: border-box;
     }
-
-    form {
-        width: 400px;
-        padding: 16px;
-        border-radius: 10px;
-        margin: auto;
-        background-color: #ccc;
-    }
-
-    form label {
-        width: 350px;
-        font-weight: bold;
-        display: inline-block;
-
-    }
-    .label{
-    
-        font-size: 150%;
-    }
-
-    .input1{
-        background-color: transparent;
-        border: 1.3px solid #000000;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        font-size: 150%;
-    }
-
-    form input[type="text"],
-    form input[type="email"],
-    form input[type="password"]{
-        width: 550px;
-        padding: 3px 10px;
-        border: 1px solid #000000;
-        border-radius: 3px;
-        background-color: transparent;
-        margin: 8px 0;
-        display: inline-block;
-    }
-
 
     select {
         width: 500px;
@@ -107,6 +50,45 @@
         margin: 8px 0;
         display: inline-block;
 
+    }
+
+    
+    .button {
+        border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+        text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+        text-decoration: none !important;
+        text-transform: uppercase;
+        color: #fff !important;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 0 3px;
+        position: relative;
+        display: inline-block;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -o-transition: all 0.1s;
+        transition: all 0.1s;
+    }
+    .button:active {
+        -webkit-transform: translateY(7px);
+        -moz-transform: translateY(7px);
+        -o-transform: translateY(7px);
+        transform: translateY(7px);
+    }
+
+    .button-blue {
+        background: #4c4d4e;
+        box-shadow: 0 5px 0 #161616,
+                    0 11px 5px hsla(0, 0%, 0%, 0.5);
+    }
+    .button-blue:active {
+        box-shadow: 0 3px 0 #161616,
+                    0 4px 6px hsla(0, 0%, 0%, 0.7);
+    }
+
+    .boton1{
+    border: none;
     }
 
 </style>
@@ -125,139 +107,110 @@
 
 </script>
 
-<br>
-<br>
-<form class="form-control" method="POST" action="{{ route('store.registroUsuarios') }}" id="form_guardarUsuario" name="form_guardarUsuario" onsubmit="guardarUsuario()">
+
+<form class="form-control" style="text-align: center;" method="POST" action="{{ route('store.registroUsuarios') }}" id="form_guardarUsuario" name="form_guardarUsuario" onsubmit="guardarUsuario()">
     @csrf
-    <br>
-    <br> {{--- --}}
 
     {{-- Título --}}
     <H1 class="titulo" style="text-align: center;">Registro de usuario</H1>
     <br>
-    <br>
 
-    <center>
+   
+            {{-- Nombre , Apellidos --}}
+            <div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
+                <div class="col" style="padding-left: 7% " >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Empleado</span> 
+                    <select name="id_empleado" id= "id_empleado"  class="select form-control" style="background:transparent">
+                        <option  value="" >Seleccione al responsable</option>
+                
+                        @foreach ($empleados as $em)
+                            <option @if(old('id_empleado') == $em->id)
+                                selected
+                            @endif value="{{$em->id}}" >{{ $em->Nombres.' '.$em->Apellidos }}</option>
+                        @endforeach
+                
+                        </select>
+                    @error('id_empleado')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                
+                <div class="col" style="padding-left:2% "  >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Ingrese el nombre de usuario</span>
+                    <input  type="text" name="name" id="nombre_usuario" class="form-control" value="{{old('name')}}" maxlength="37" placeholder="Ingrese el nombre de usuario">
+                    @error('name')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <br>
 
-        <div style="display:flex width: 100% ">
-
-            {{-- Empleados --}}
-
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Empleados</label></b>&nbsp;&nbsp;<br>
-                <select name="id_empleado" id= "id_empleado"  class="select input1" style="background:transparent">
-                    <option  value="" >Seleccione al responsable</option>
-             
-                    @foreach ($empleados as $em)
-                        <option @if(old('id_empleado') == $em->id)
+            <div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
+                <div class="col" style="padding-left: 7% " >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Ingrese el correo</span> 
+                    <input type="email" name="email" id="nombre_usuario" class="form-control" value="{{old('email')}}" maxlength="37" placeholder="Ingrese el correo del usuario">
+                    @error('email')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                
+                <div class="col" style="padding-left:2% "  >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Rol del usuario</span>
+                    <select name="rol_usuario" id="rol_usuario" class="select form-control">
+                        <option value="">Seleccione un rol</option>
+                        @foreach (App\Http\Permiso::$roles as $rol )
+                        <option @if(old('rol_usuario') == $rol)
                             selected
-                        @endif value="{{$em->id}}" >{{ $em->Nombres.' '.$em->Apellidos }}</option>
-                     @endforeach
-            
+                            @endif value="{{ $rol}}">{{ $rol }}</option>
+                        @endforeach
                     </select>
-                @error('id_empleado')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                    @error('rol_usuario')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <br>
+        
+            <div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
+                <div class="col" style="padding-left: 7% " >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Ingrese la contraseña</span> 
+                    <input  type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
+                    @error('password')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                
+                <div class="col" style="padding-left:2% "  >
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Confirmar contraseña</span>
+                    <input type="password" name="password_confirmation" id="repetir_contrasena" class="form-control" placeholder="Confirme la contraseña">
+                    @error('password_confirmation')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
             </div>
 
-            
-
-            <br>
-
-            {{-- Nombre del usuario --}}
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Ingrese el nombre de usuario</label></b>&nbsp;&nbsp;
-                <input class="input1" type="text" name="name" id="nombre_usuario" class="form-control" value="{{old('name')}}" maxlength="37" placeholder="Ingrese el nombre de usuario">
-                @error('name')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-            <br>
-
-            {{-- Correo del usuario --}}
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Ingrese el correo</label></b>&nbsp;&nbsp;
-                <input class="input1"type="email" name="email" id="nombre_usuario" class="form-control" value="{{old('email')}}" maxlength="37" placeholder="Ingrese el correo del usuario">
-
-                @error('email')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-
-            </div>
-
-            <br>
-
-            {{--contraseña--}}
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Ingrese la contraseña</label></b>&nbsp;&nbsp;
-                <input class="input1" type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
-                @error('password')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-            <br>
-
-            {{--repetir contraseña--}}
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Confirmar contraseña</label></b>&nbsp;&nbsp;
-                <input class="input1" type="password" name="password_confirmation" id="repetir_contrasena" class="form-control" placeholder="Confirme la contraseña">
-                @error('password_confirmation')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-            <br>
-
-            <div style="width: 60%" class="input-group input-group-sm flex">
-                <b><label class="label" style="text-align: left">Rol</label></b>&nbsp;&nbsp;
-                <select name="rol_usuario" id="rol_usuario" class="input1">
-                    <option value="">Seleccione un rol</option>
-                    @foreach (App\Http\Permiso::$roles as $rol )
-                    <option @if(old('rol_usuario') == $rol)
-                        selected
-                        @endif value="{{ $rol}}">{{ $rol }}</option>
-                    @endforeach
-                </select>
-                @error('rol_usuario')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-           
-                        
-                    
-            <br>
-            
-
-            {{--pregunta
-            <div style="width: 50%" class="input-group input-group-sm flex">
-                <b><label style="text-align: left">¿Cual es tu color favorito?</label></b>&nbsp;&nbsp;
-                <input type="text" name="color_favo" id="pregunta2" class="form-control" value="{{old('color_favo')}}">
-            </div> --}}
-            <center>
-                <br><br>
+                <br>
                 {{--Botones --}}
                 <center>
-                    <button class="btn btn-outline-dark btn-lg" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>&nbsp;
-                    <button type="reset" class="btn btn-outline-dark btn-lg"> <i class="bi bi-eraser-fill"> Limpiar</i></button>&nbsp;
-                    <button type="button" class="btn btn-outline-dark btn-lg"><a class="a" href="{{route('index.usuario')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+                    <button class="boton1 button button-blue" type="submit"> <i class="bi bi-folder-fill"> Guardar</i></button>&nbsp;
+                    <button type="reset" class="boton1 button button-blue"> <i class="bi bi-eraser-fill"> Limpiar</i></button>&nbsp;
+                    <a class="boton1 button button-blue" href="{{route('index.usuario')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
 
                 </center>
                 <br>
-        </div>
+        
 
 
 </form>
@@ -274,8 +227,8 @@
 {{--mensaje de confirmacion --}}
 @push('alertas')
 <script>
-    function guardarGasto() {
-        var formul = document.getElementById("form_guardarGasto");
+    function guardarUsuario() {
+        var formul = document.getElementById("form_guardarUsuario");
 
         Swal.fire({
             title: '¿Está seguro que desea guardar los datos?'

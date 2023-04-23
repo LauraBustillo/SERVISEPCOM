@@ -11,7 +11,7 @@
     background-color: transparent;
     border: 1.5px solid #000000;
 }
-
+ 
 .table-1{
     width: 100%;
     color: rgb(3, 10, 1);
@@ -61,12 +61,56 @@ width: 120% !important;
 background-color: transparent;
    border: 1.5px solid #000000;
    float: left;
+   margin-bottom: 5%;
 }
 .dataTables_wrapper .dataTables_filter {
   float: left !important ;
   text-align: left !important;
 width: 100% !important;
 
+}
+/*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 5px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+table.dataTable.dataTable_width_auto {
+  width: auto;
+}
+
+ 
+    div.container {
+        width: 80%;
+        height: 30%;
+    }
+
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 20%;
+  left: 62.5%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
 }
 
 </style>
@@ -97,6 +141,7 @@ width: 100% !important;
 
   $().ready(function(){
   $('#myTable').DataTable({
+    'pageLength': 5,
    language:{ "sProcessing": "Procesando...",
         "sLengthMenu": "",
         "sZeroRecords": "No se encontraron resultados",
@@ -138,9 +183,6 @@ width: 100% !important;
 
 
 
-
-
-
 {{-- <div class="alert alert-success d-flex align-items-center" role="alert">
 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
   {{session('mensaje')}}
@@ -148,53 +190,19 @@ width: 100% !important;
 
 {{-- Buscador--}}
 <h1 class="titulo" style="text-align:center">Listado de usuarios</h1>
-{{-- <br>
-<nav class="navbar navbar-nav bg-nav" >
-  <div class="container-fluid" >
-     <form class="d-flex" id="ablescroll" method="POST" action="pedidos">
-    @csrf
-      <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por número de pedido y fecha de pedido" aria-label="Sizing example input">
-      <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-      <a href="{{ route('index.pedido') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
-    </form>
 
-  </div>
-  </nav> --}}
-<br>
 
-<div class="input-group " style="padding-right:4%"  style="width: 100%" ><br>
-{{--   <div >
-  <label for="" class="group-text">Fecha minima de pedido:</label>
-  <input  class="form-control" id="min" name="min">
-  </div>&nbsp; &nbsp;&nbsp;
 
-  <div >
-    <label for="" class="group-text">Fecha  máxima de pedido:</label>
-    <input   class="form-control" id="max" name="max" >
-    </div>
-    <a href="{{ route('index.usuario') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div style="display: flex">  
+<div style="width:100%" id="padre">
 
-    --}}
-    <div><br>&nbsp; &nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a    class="btn btn-outline-dark" style="float:right" href="{{route('show.registroUsuarios')}}" >
-      <i class="bi bi-person-plus-fill"> Nuevo usuario </i></a>
+  
 
-  </div>
 
-  </div>
-  <br>
-<div>
+    <table id='myTable'  class="table table-striped table-hover  border-dark bordeTabla">
 
-    <table id='myTable' class="table table-hover">
-        <thead>
+
+        <thead  class="table-dark">
         <tr>
             <th scope="col">Empleado</th>
             <th scope="col">Nombre de usuario</th>
@@ -221,6 +229,16 @@ width: 100% !important;
 
     </tbody>
     </table>
+
+    </div>
+      <div style="width: 15% " id="uno">
+        <br>
+      
+        <a    class="btn btn-outline-dark" style="float:right" href="{{route('show.registroUsuarios')}}" >
+        <i class="bi bi-plus-square-fill"></i></a>
+
+      </div>
+      </div>
   </div>
 
 

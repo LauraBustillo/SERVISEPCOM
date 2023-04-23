@@ -40,14 +40,7 @@
       right: -8%;
     }
 
-    /*Las label*/
-    .input-group-text  {
-      background-color: #000000;
-      border: 1.3px solid #000000;
-      font-family: 'Open Sans';
-      color: #FFFFFF;
-
-    }
+  
 
     /*Los botones*/
     .btn-outline-dark {
@@ -119,7 +112,10 @@
 
   }
 
-
+  .select2{
+    width: 100% !important;
+    height: 30px !important; 
+  }
 
 
   /* Este elemento debe tener "position: relative" */
@@ -154,6 +150,90 @@
     content: "";
 
   }
+
+  /* De  Aqui*/ 
+/*Las label*/ 
+.input-group-text  {
+  background-color: #4c4d4e;;
+  border: 1.3px solid #4c4d4e;;
+  font-family: 'Open Sans';
+  color: #FFFFFF;
+
+}
+/*Los titulos */ 
+.titulo {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
+  
+  font-family: 'Open Sans';
+  font-size: 20xp;
+}
+
+.tituloo{
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
+  
+  font-family: 'Open Sans';
+  font-size: 30px;
+}
+.button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+.button:active {
+    -webkit-transform: translateY(7px);
+    -moz-transform: translateY(7px);
+    -o-transform: translateY(7px);
+    transform: translateY(7px);
+}
+
+.button-blue {
+    background: #4c4d4e;
+    box-shadow: 0 5px 0 #161616,
+                0 11px 5px hsla(0, 0%, 0%, 0.5);
+}
+.button-blue:active {
+    box-shadow: 0 3px 0 #161616,
+                0 4px 6px hsla(0, 0%, 0%, 0.7);
+}
+
+.boton1{
+  border: none;
+}
+
+
+.titulo {
+   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+   color: black;
+   font-family: 'Open Sans';
+   font-size: 20xp;
+ }
+
+
+
+/*El boton cancelar */
+a { color: aliceblue;
+  outline: none;
+  text-decoration: none;
+  color: #000000;
+}
+.a:hover{
+
+    color: white;
+}
 
 
 </style>
@@ -324,8 +404,8 @@
 
 
     <div>
-      <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalbuscarcliente()" class="btn btn-outline-dark"><i class="bi bi-search"> Buscar cliente</i></button>
-      <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalagregarcliente()" class="btn btn-outline-dark"><i class="bi bi-plus-circle"> Nuevo cliente</i></button>
+      <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalbuscarcliente()" class="button button-blue " ><i class="bi bi-search"> Buscar cliente</i></button>
+      <button {{$accion == "editar" ? "hidden" : "" }} type="button" onclick="openmodalagregarcliente()"class="button button-blue " ><i class="bi bi-plus-circle"> Nuevo cliente</i></button>
 
         {{-- este checkbox solo se mostrara en  editar --}}
       <div {{$accion == "agregar"?"hidden":""}} class="form-check form-switch">
@@ -400,7 +480,11 @@
         <h5>Detalles reparación</h5>
         <div style="display: flex">
           <div style="width: 100%">
-          <b>  <label id="inputGroup-sizing-sm" >Categorías</label> </b>
+
+     
+          <span class="input-group-text"  style="width: 100%">Categorías</span>
+          
+
               <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
                 <option {{  $reparacion->categoria == "" ? "selected" : ""}} value="{{null}}" id= "prueba">Seleccione la categoría</option>
                 <option {{ $reparacion->categoria == "Computadoras" ? "selected" : "" }}  value="Computadoras" {{ old('categoria') == "Computadoras" ? 'selected' : '' }}>Computadoras</option>
@@ -414,7 +498,9 @@
 
           {{-- Nombre equipo--}}
           <div style="width: 100%">
-            <b> <label  id="inputGroup-sizing-sm">Nombre equipo</label> </b>
+          
+            <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
+
             <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20"
             type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
           </div>
@@ -425,7 +511,9 @@
         {{-- Marca --}}
         <div style="display: flex">
           <div style="width: 100%">
-            <b><label id="inputGroup-sizing-sm">Marca</label> </b>
+          
+            <span class="input-group-text"  style="width: 100%">Marca</span>
+      
             <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$reparacion->marca)}}"
              name="marca" id="marca" type="text"
             aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
@@ -436,28 +524,30 @@
 
           {{-- Modelo --}}
           <div style="width: 100%">
-            <b>    <label  id="inputGroup-sizing-sm">Modelo</label>     </b>
+            <span class="input-group-text"  style="width: 100%">Modelo</span>
             <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $reparacion->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
           </div>
         </div>
 
+        &nbsp;
+          &nbsp;
 
         {{-- Descripcion --}}
-        <div style="display: flex">
-         <div style="width: 50%">
-            <b> <label  id="inputGroup-sizing-sm">Descripción</label> </b>
+    <div style="display: flex">
+         <div style="width: 100%">
+            <span class="input-group-text"  style="width: 100%">Descripción</span>
             <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200"
             type="text" aria-label="First name" class="form-control" rows="1"  placeholder="Descripción del equipo">{{old('descripcionr', $reparacion->descripcionr)}}</textarea>
           </div>
 
           &nbsp;
           &nbsp;
+          
 
           {{-- Foto--}}
-          <br><br><br><br>
-          <div style="width: 50%">
-            <b> <label  id="inputGroup-sizing-sm">Fotos</label> </b>
-
+          
+          <div style="width: 100%">
+          <span class="input-group-text"  style="width: 100%">Fotos</span>
             <div id="is-relative" >
 
               <input  class="input form-control" {{$accion == "editar" ? "hidden" : "" }}  class="form-control form-control-lg" id="selectAvatar" type="file" multiple /> &nbsp;
@@ -525,16 +615,22 @@
       <div id="abrirgarantia" class="form-inline" style="display: none">
           <div class="row">
               <div class="col-6">
-                  <label for="">Descripción</label>
+                  
+                  <span class="input-group-text"  style="width: 100%">Descripción</span>
+
                   <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
               </div>
               <div class="col-3">
-                  <label for="">Fecha Inicio</label>
-                  <input class="form-control" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
+              
+                  <span class="input-group-text"  style="width: 100%">Fecha Inicio</span>
+
+                  <input class="form-control select2" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
               </div>
               <div class="col-sm-3">
-                  <label for="">Fecha Final</label>
-                  <input class="form-control" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
+                 
+                  <span class="input-group-text"  style="width: 100%">Fecha Final</span>
+
+                  <input class="form-control select2" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
               </div>
           </div>
       </div>
@@ -546,8 +642,10 @@
 {{-- Fecha ingreso  --}}
 <div style="display: flex">
     <div style="width: 100%">
-        <b><label id="inputGroup-sizing-sm">Fecha ingreso</label> </b>
-        <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}" name="fecha_ingreso" id="fecha_ingreso" type="date" aria-label="First name" class="form-control" placeholder="Fecha de ingreso">
+       
+        <span class="input-group-text"  style="width: 100%">Fecha ingreso</span>
+
+        <input  {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}" name="fecha_ingreso" id="fecha_ingreso" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de ingreso">
     </div>
 
 
@@ -557,8 +655,10 @@
 
     {{-- Fecha entrega  --}}
     <div style="width: 100%">
-        <b><label id="inputGroup-sizing-sm">Fecha entrega</label> </b>
-        <input value="{{old('fecha_entrega', $reparacion->fecha_entrega)}}" name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control" placeholder="Fecha de entrega">
+      
+        <span class="input-group-text"  style="width: 100%">Fecha entrega</span>
+
+        <input  value="{{old('fecha_entrega', $reparacion->fecha_entrega)}}" name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de entrega">
     </div>
 </div>
 
@@ -571,10 +671,10 @@
       {{--Botones --}}
       <center>
         <div class="col" >
-          <button  class="btn btn-outline-dark" type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
-          <button type="submit" class="btn btn-outline-dark"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
-          <button type="button" class="btn btn-outline-dark">
-          <a class="a"  href="{{route('reparacion.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a></button>
+          <button class="button button-blue "  type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
+          <button  class="button button-blue " type="submit"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
+        
+          <a class="button button-blue "  href="{{route('reparacion.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
           </div>
       </center>
 
@@ -628,16 +728,18 @@
  <div class="modal fade "  id="modalagregarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
     <div class="modal-content">
-        <div class="modal-header"><h3 class="titulo1">
+        <div class="modal-header"><h3 class="tituloo">
             Agregar cliente
           </h3></div>
         <div class="modal-body" >
 
-
+  
             <div style="display: flex">
 
               <div style="width: 100%">
-                <label  id="inputGroup-sizing-sm">Nombres</label>
+               
+                <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
+
                 <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"
                 title="Solo debe tener letras"
                 placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
@@ -645,7 +747,9 @@
               &nbsp; &nbsp;
 
               <div style="width: 100%">
-                <label id="inputGroup-sizing-sm">Apellidos</label>
+                
+                <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
+
                 <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"
                 pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras"
                 placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
@@ -653,7 +757,9 @@
 
               &nbsp; &nbsp;
               <div style="width: 100%">
-                <label  id="inputGroup-sizing-sm">Número de identidad</label>
+                
+                <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Número de identidad</span>
+
                 <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                 title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+"
@@ -662,18 +768,22 @@
 
               &nbsp; &nbsp;
               <div style="width: 100%">
-                <label id="inputGroup-sizing-sm">Teléfono fijo o celular</label>
+               
+                <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
+
                 <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                 title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
               </div>
 
             </div>
 
-
+ 
             <br>
 
             <center><div style="width: 60%">
-              <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span>
+            
+              <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Dirección</span>
+
               <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
               rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
             </div></center>
@@ -682,8 +792,8 @@
 
         <!-- Botones -->
         <div class="modal-footer" style="text-align: center">
-          <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalclientes()"><i class="bi bi-x-circle"> Cancelar</i></button>
-          <button type="button" class="btn btn-outline-dark" style="display:block" onclick="guardarClienteBASE()" ><i class="bi bi-bag-plus"> Guardar</i></button>
+          <button  type="button"  class="button button-blue " onclick="cerrarmodalclientes()"><i class="bi bi-x-circle"> Cancelar</i></button>
+          <button type="button" class="button button-blue " style="display:block" onclick="guardarClienteBASE()" ><i class="bi bi-bag-plus"> Guardar</i></button>
         </div>
     </div>
     </div>

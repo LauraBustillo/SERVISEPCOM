@@ -60,22 +60,25 @@
 
     }
 
-    div.dataTables_wrapper div.dataTables_filter input {
-
-        display: inline-block;
-        width: 80% !important;
-        background-color: transparent;
-        border: 1.5px solid #000000;
-        float: left;
-    }
-
-    .dataTables_wrapper .dataTables_filter {
-        float: left !important;
-        text-align: left !important;
-        width: 100% !important;
+ div.dataTables_wrapper div.dataTables_filter input {
 
 
-    }
+width: 80% !important;
+background-color: transparent;
+border: 1.5px solid #000000;
+float: left;
+
+margin-bottom: 5%;
+}
+
+
+
+.dataTables_wrapper .dataTables_filter {
+float: left !important ;
+text-align: left !important;
+width: 100% !important;
+
+}
 
     .dt-buttons {
         padding-left: 85% !important;
@@ -85,6 +88,55 @@
         padding: 0 !important;
         border: none !important;
     }
+
+    
+
+    /*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 1px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+
+ 
+/*     div.container {
+        width: 80%;
+      
+    }
+ */
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 22%;
+  left: 62.5%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+}
+html, body {
+    width: 100% !important;
+}
+
+
+
 
 </style>
 
@@ -111,6 +163,10 @@
 
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
 
+
+
+<link rel="stylesheet" media="only screen and (max-width: 768px)" href="estilos.css">
+
 {{-- Darle forma a los borones de reporte--}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
@@ -135,8 +191,10 @@
         var fechasExportReporte = '';
         var fechasExportReportep = '';
         var tablecompras = $('#tablecompras').DataTable({
+            'pageLength': 5,
                 dom: '<"wrapper"fBlitp>'
                 , language: {
+                    'pageLength': 5,
                     "sProcessing": "Procesando..."
                     , "sLengthMenu": ""
                     , "sZeroRecords": "No se encontraron resultados"
@@ -335,44 +393,48 @@
 <h1 class="titulo" style="text-align:center">Listado de facturas de ventas</h1>
 
 
+  <div class="input-group "  style="display: flex" ><br>
+  <div style="width: 20%" >
+  <label for="" class="group-text">Fecha minima:</label>
+  <input  class="form-control" id="min" name="min" value=""> 
+  </div> &nbsp;&nbsp;
+  
+  <div style="width: 20%">
+    <label for="" class="group-text">Fecha  máxima:</label>
+    <input   class="form-control" id="max" name="max" value="" > 
+  </div> &nbsp;&nbsp; 
 
-<div class="input-group " style="padding-right:4%" style="width: 100%"><br>
-    <div>
-        <label for="" class="group-text">Fecha minima:</label>
-        <input class="form-control" id="min" name="min" value="">
-    </div>&nbsp; &nbsp;&nbsp;
+  <div style="width: 6%"><br>
+  <a href="{{ route('Venta.index') }}" class="btn btn-outline-dark"><i class="bi bi-trash3-fill"></i></a>
+    
+  </div>&nbsp;&nbsp;
 
-    <div>
-        <label for="" class="group-text">Fecha máxima:</label>
-        <input class="form-control" id="max" name="max" value="">
-    </div>
-    <div><br>&nbsp; &nbsp;
-        <a href="{{ route('Venta.index') }}" class="btn btn-outline-dark"><i class="bi bi-x-square"></i></a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div style="width: 49%"><br>
+  <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroventa')}}">
+  <i class="bi bi-plus-square-fill"></i></a>
+  </div>
 
-        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroventa')}}">
-            <i class="bi bi-cart-plus"> Nueva venta</i></a>
-
-
-    </div>
+</div>
+<div > 
 
 </div>
 
 
 
-<table id='tablecompras' class="table table-hover tablacompras"> <br>
-    <thead>
+<table id='tablecompras'class="table table-striped table-hover  border-dark bordeTabla" style="width: 100%" > <br>
+
+
+
+
+    <thead class="table-dark">
         <tr>
             <th scope="col">Número de factura</th>
             <th scope="col">Fecha de facturación</th>
             <th scope="col">Cliente</th>
             <th scope="col">Empleado</th>
             <th scope="col">Total</th>
-            <th scope="col">Detalles</th>
-            <th scope="col">Imprimir</th>
+            <th scope="col" style="text-align: center;">Detalles</th>
+            <th scope="col" style="text-align: center;">Imprimir</th>
 
         </tr>
     </thead>
@@ -386,15 +448,15 @@
             <td>{{ $de->empleadoVentas }}</td>
             <td name="valores">{{ $de->totalFactura }}</td>
             {{-- Botones --}}
-            <td>
-                <a class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}">
-                    <i class="bi bi-file-text-fill"> Detalles </i>
+            <td  style="text-align: center;">
+                <a  class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}">
+                <i class="bi bi-info-circle-fill"></i>
                 </a>
                 
-            </td>
-            <td>
+            </td> 
+            <td  style="text-align: center;">
                 <a class="btn-detalles" href="{{route('Venta.pdf' , ['id' => $de->id]) }}">
-                    <i class="bi bi-file-text-fill"> Imprimir </i>
+                    <i class="bi bi-file-text-fill"></i>
                 </a>
             </td>
         </tr>
@@ -404,7 +466,7 @@
 </table>
 </div>
 <br>
-<div style="padding-left: 78%">
+<div style="padding-left: 72.5%">
     <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
     <b><label id="total_facturas"></label></b>
 
