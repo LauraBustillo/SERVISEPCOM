@@ -77,14 +77,59 @@
 
     }
 
+    /*Alinear los de imprimir*/ 
     .dt-buttons {
-        padding-left: 85% !important;
+        padding-left: 80% !important;
     }
 
     .dt-button {
         padding: 0 !important;
         border: none !important;
     }
+
+    /*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 1px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+
+ 
+   div.container {
+        width: 80%;
+      
+    }
+
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 10%;
+  left: 60%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+}
+html, body {
+    width: 100% !important;
+}
+
  
 </style>
 
@@ -133,8 +178,10 @@
         var fechasExportReporte = '';
         var fechasExportReportep = '';
         var tablecompras = $('#tablecompras').DataTable({
-                dom: '<"wrapper"fBlitp>'
-                , language: {
+                dom: '<"wrapper"fBlitp>',
+                'pageLength': 5,
+                language: {
+                  
                     "sProcessing": "Procesando..."
                     , "sLengthMenu": ""
                     , "sZeroRecords": "No se encontraron resultados"
@@ -261,31 +308,32 @@
 
 <h1 class="titulo" style="text-align:center">Listado de gastos</h1>
 
-
-
-<div class="input-group " style="display: flex" ><br>
-
-    <div style="width: 100%"><br>&nbsp; &nbsp;
+<div style="width: 15% " id="uno">
+    <br>
 
         <a class="btn btn-outline-dark" style="float:right" href="{{route('show.gasto')}}">
-            <i class="bi bi-cart-plus"> Nuevo gasto</i></a>
-
+        <i class="bi bi-plus-square-fill"></i></a>
 
     </div>
 
-</div>
 
 
 
-<table id='tablecompras' class="table table-hover tablacompras"> <br>
-    <thead>
+<div style="display: flex">  
+<div style="width:100%" id="padre">
+
+<table id='tablecompras' class="table table-striped table-hover  border-dark bordeTabla" > <br>
+
+ 
+
+    <thead class="table-dark" >
         <tr>
             <th scope="col">Fecha del gasto</th>
             <th scope="col">Nombre del gasto</th>
             <th scope="col">Responsable</th>
             <th scope="col">Tipo de gasto</th>
             <th scope="col">Total gasto</th>
-            <th scope="col">Detalles</th>
+            <th scope="col" style="text-align: center;">Detalles</th>
 
 
         </tr>
@@ -302,9 +350,9 @@
                 <td>{{ $gas->responsable_gasto }}</td>
                 <td>{{ $gas->tipo_gasto }}</td>
                 <td style="text-align: right">{{ number_format($gas->total_gasto,2) }}</td>
-                <td>
+                <td style="text-align: center;" >
                     <a class="btn-detalles" href="{{route('gasto.mostrar',[ $gas->id ]) }}">
-                        <i class="bi bi-file-text-fill"> Detalles </i>
+                    <i class="bi bi-info-circle-fill"></i>
                     </a>
                 </td>
             </tr>
@@ -324,6 +372,11 @@
         </tr>
     </tfoot>
 </table>
+
+    <div >
+
+ 
+</div>
 <br>
 
 </div>

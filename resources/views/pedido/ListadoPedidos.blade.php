@@ -12,20 +12,6 @@
     border: 1.5px solid #000000;
 }
 
-.table-1{
-    width: 100%;
-    color: rgb(3, 10, 1);
-    border: 1px solid #000000;
-
-}
-
-.table-1 th{
-    background-color: #0319C4;
-    color:white;
-    padding: .2rem;
-    text-align: start;
-}
-
 .btn-info{
     background-color: transparent;
     border: 1px solid #000000;
@@ -54,22 +40,82 @@
     Color: black; 
    
   }
-  div.dataTables_wrapper div.dataTables_filter input {
 
-display: inline-block;
-width: 120% !important;
+
+div.dataTables_wrapper div.dataTables_filter input {
+
+
+width: 80% !important;
 background-color: transparent;
-   border: 1.5px solid #000000;
-   float: left;
+border: 1.5px solid #000000;
+float: left;
+
+margin-bottom: 5%;
 }
+
+
+
 .dataTables_wrapper .dataTables_filter {
-  float: left !important ;
-  text-align: left !important;
+float: left !important ;
+text-align: left !important;
 width: 100% !important;
 
 }
 
+/*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 1px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+
+ 
+    div.container {
+        width: 80%;
+      
+    }
+
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 22%;
+  left: 58 !important ;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+}
+html, body {
+    width: 100% !important;
+}
+
 </style>
+
+
+@if (session('mensaje'))
+  <script>
+    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
+    alertify.success(mensaje);
+  </script> 
+@endif 
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
@@ -88,6 +134,7 @@ width: 100% !important;
 
   $().ready(function(){
   $('#myTable').DataTable({
+    'pageLength': 5,
    language:{ "sProcessing": "Procesando...",
         "sLengthMenu": "",
         "sZeroRecords": "No se encontraron resultados",
@@ -184,62 +231,43 @@ $(document).ready(function() {
 @endif 
 
 
-{{-- <div class="alert alert-success d-flex align-items-center" role="alert">
-<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-  {{session('mensaje')}}
-</div> --}}
-
-{{-- Buscador--}}
-<h1 class="titulo" style="text-align:center">Listado de pedidos</h1> 
-{{-- <br>
-<nav class="navbar navbar-nav bg-nav" >
-  <div class="container-fluid" >
-     <form class="d-flex" id="ablescroll" method="POST" action="pedidos">
-    @csrf
-      <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}" placeholder="Buscar por número de pedido y fecha de pedido" aria-label="Sizing example input">
-      <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-      <a href="{{ route('index.pedido') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a>
-    </form> 
-
-  </div>
-  </nav> --}}
-<br>
-
-<div class="input-group " style="padding-right:4%"  style="width: 100%" ><br>
-  <div >
-  <label for="" class="group-text">Fecha minima de pedido:</label>
-  <input  class="form-control" id="min" name="min"> 
-  </div>&nbsp; &nbsp;&nbsp;
-  
-  <div >
-    <label for="" class="group-text">Fecha  máxima de pedido:</label>
-    <input   class="form-control" id="max" name="max" > 
-    </div>
-    <div><br>&nbsp; &nbsp;
-    <a href="{{ route('index.pedido') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-    <a    class="btn btn-outline-dark" style="float:right" href="{{route('create.pedido')}}" >
-      <i class="bi bi-person-plus-fill"> Nuevo pedido </i></a>
  
+<h1 class="titulo" style="text-align:center">Listado de pedidos</h1> 
+
+<div class="input-group "  style="display: flex" ><br>
+  <div style="width: 20%" >
+  <label for="" class="group-text">Fecha minima:</label>
+  <input  class="form-control" id="min" name="min" value=""> 
+  </div> &nbsp;&nbsp;
+  
+  <div style="width: 20%">
+    <label for="" class="group-text">Fecha  máxima:</label>
+    <input   class="form-control" id="max" name="max" value="" > 
+  </div> &nbsp;&nbsp;
+
+  <div style="width: 6%"><br>
+    <a href="{{ route('index.pedido') }}" class="btn btn-outline-dark" ><i class="bi bi-trash3-fill"></i></a> 
+    
+  </div>&nbsp;&nbsp;
+
+  <div style="width: 49%" id="uno"><br>
+    <a   class="btn btn-outline-dark" style="float: right" href="{{route('create.pedido')}}" >
+    <i class="bi bi-plus-square-fill"></i></a>
   </div>
 
-  </div>   
-  <br>
-<div>    
+</div>
+<div >    
 
-    <table id='myTable' class="table table-hover">
-        <thead>
+<br>
+    <table class="table table-striped table-hover table-bordered border-dark" id='myTable' style="width: 100%">
+        <thead class="table-dark">
         <tr>
             <th scope="col">Número pedido</th>
             <th scope="col">Fecha pedido</th>
             <th scope="col">Fecha recibido</th>
             <th scope="col">Estado</th>
-            <th scope="col">Detalles pedidos</th>
-            <th scope="col">Editar pedido</th>
+            <th  style="text-align: center;"scope="col">Detalles</th>
+            <th style="text-align: center;" scope="col">Editar</th>
         </tr>
         </thead>
 
@@ -250,9 +278,9 @@ $(document).ready(function() {
             <td>{{ $p->fecha_pedido }}</td>
             <td>{{ $p->fecha_recibido == null ? '----------': $p->fecha_recibido}}</td>
             <td>{{  $p->estado == 0 ? 'Pendiente':'Recibido' }}</td>
-            <td><a class="btn-detalles" href="{{route('pedido.mostrar' , ['id' => $p->id]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+            <td  style="text-align: center;"><a  href="{{route('pedido.mostrar' , ['id' => $p->id]) }}"> <i class="bi bi-info-circle-fill"></i></a></td>
 
-            <td><a class="btn-detalles" href="{{route('editar.pedido' , ['id' => $p->id]) }}"> <i class="bi bi-pen-fill"> Editar </i> </a></td>
+            <td  style="text-align: center;"><a href="{{route('editar.pedido' , ['id' => $p->id]) }}">  <i class="bi bi-pen-fill"></i></a></td>
        </tr>
        @empty
        @endforelse

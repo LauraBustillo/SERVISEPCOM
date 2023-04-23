@@ -74,13 +74,58 @@ width: 50% !important;
 }
 
 .dt-buttons{
-  padding-left: 85% !important;
+  padding-left: 80% !important;
 
 
 }
 .dt-button{
   padding: 0 !important;
   border: none !important;
+}
+
+
+/*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 5px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+table.dataTable.dataTable_width_auto {
+  width: auto;
+}
+
+ 
+    div.container {
+        width: 80%;
+        height: 30%;
+    }
+
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
+}
+
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 22%;
+  left: 62.5%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
 }
 
 
@@ -91,7 +136,7 @@ width: 50% !important;
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
-
+ 
 <script  src = 'build/pdfmake.min.js' ></script>
 <script  src = 'build/vfs_fonts.js' ></script>
 
@@ -155,8 +200,11 @@ width: 50% !important;
 
 
  <div>
-     <table id="example" class="table table-hover">
-         <thead>
+     <table id="example"  class="table table-striped table-hover  border-dark bordeTabla">
+
+    
+
+         <thead class="table-dark">
          <tr>
 
          <th scope="col">Nombre del producto</th>
@@ -164,7 +212,7 @@ width: 50% !important;
          <th scope="col">Provedor</th>
          <th scope="col">Cantidad</th>
          <th scope="col">Categoría</th>
-         <th scope="col">Detalles inventario</th>
+         <th scope="col"  style="text-align: center;" >Detalles</th>
          </tr>
          </thead>
 
@@ -179,7 +227,7 @@ width: 50% !important;
          <td>{{ $in->Categoria}}</td>
 
          {{-- Botones --}}
-         <td><a class="btn-detalles" href="{{route('inventario.mostrar' , ['id' => $in->id_producto]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+         <td  style="text-align: center;"><a  href="{{route('inventario.mostrar' , ['id' => $in->id_producto]) }}"><i class="bi bi-info-circle-fill"></i> </a></td>
 
         </tr>
         @empty
@@ -193,10 +241,8 @@ width: 50% !important;
     $().ready(function(){
     $('#example').DataTable({
 
-
-
-
       dom:  '<"wrapper"fBlitp>',
+      'pageLength': 5,
      language:{ "sProcessing": "Procesando...",
           "sLengthMenu": "",
           "sZeroRecords": "No se encontraron resultados",
