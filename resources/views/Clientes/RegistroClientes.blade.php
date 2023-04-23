@@ -12,8 +12,8 @@
 
 /*Las label*/ 
 .input-group-text  {
-  background-color: #000000;
-  border: 1.3px solid #000000;
+  background-color: #4c4d4e;;
+  border: 1.3px solid #4c4d4e;;
   font-family: 'Open Sans';
   color: #FFFFFF;
 
@@ -21,7 +21,8 @@
 /*Los titulos */ 
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-  color: black;
+  color: #4c4d4e;;
+  
   font-family: 'Open Sans';
   font-size: 20xp;
 }
@@ -32,18 +33,59 @@
   border: 1.8px solid #000000;
 }
 
-a { color: aliceblue;
+.a1 { color: aliceblue;
   outline: none;
   text-decoration: none;
   color: #000000;
+  border-top:1px solid #ffffff00;  
+
 }
+a:hover{
+  color:#fff;
+  
+  }
 .a:hover{
     color: white;
 }
 
 
+.button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+.button:active {
+    -webkit-transform: translateY(7px);
+    -moz-transform: translateY(7px);
+    -o-transform: translateY(7px);
+    transform: translateY(7px);
+}
 
+.button-blue {
+    background: #4c4d4e;
+    box-shadow: 0 5px 0 #161616,
+                0 11px 5px hsla(0, 0%, 0%, 0.5);
+}
+.button-blue:active {
+    box-shadow: 0 3px 0 #161616,
+                0 4px 6px hsla(0, 0%, 0%, 0.7);
+}
 
+.boton1{
+  border: none;
+}
 </style>
 
 <script>
@@ -57,50 +99,49 @@ a { color: aliceblue;
 </script>
 
 
-
-<br>
-<br>
 <form class="form-control" id="form_guardarCL" name="form_guardarCL" method="POST" style="text-align: center;" onsubmit="guardarcliente()">
 @csrf
-<br>
-<br>
+
 
 {{-- Título --}}
 <H1 class="titulo" >Registrar cliente</H1>
 <br>
-<br>
+
+
 
 {{-- Nombre , Apellidos --}}
-<div class="row g-3">
-  <div class="col">
+<div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
+  <div class="col" style="padding-left: 7% " >
+    <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span> 
   <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  class="form-control" 
  
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
-  <div class="col">
+  <div class="col" style="padding-left:2% "  >
+    <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span> 
     <input type="text" maxlength="25" id="Apellido" name="Apellido"  
      class="form-control" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
 <br>
-<br>
+
 
 {{--Número de identidad, Número de teléfono --}}
-<div class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 150%" ><br>
-<div class="col" style="padding-left: 7%"  >
-  <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
-  <input type="text" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control" 
-    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-   placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
-  
-</div> 
-  <div class="col" style="padding-left:2%"  > 
-  <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
-  <input type="text" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" 
-  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
-</div>
+<div class="input-group input-group-sm mb-1"style="padding-right:6.5%"  style="width: 100%" ><br>
+      <div class="col" style="padding-left: 7%"  >
+        <span class="input-group-text" id="inputGroup-sizing-sm">Número de identidad</span> 
+        <input type="text" maxlength="13" name="Numero_identidad" id="Numero_identidad" class="form-control" 
+          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+        placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
+        
+      </div> 
+      <div class="col" style="padding-left:2%"  > 
+      <span class="input-group-text" id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
+      <input type="text" maxlength="8" name="Numero_telefono" id="Numero_telefono" class="form-control" 
+      aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+      placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+    </div>
 </div>
 <br>
 
@@ -113,24 +154,19 @@ a { color: aliceblue;
 </div>
 
 {{--Botones --}}
-<button   class="btn btn-outline-dark"  type="submit" ><i class="bi bi-folder-fill"> Guardar</i></button>
-<button type="reset" class="btn btn-outline-dark"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
-<button type="button" class="btn btn-outline-dark">
-<a class="a"  href="{{route('cliente.index')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+<button  class="boton1 button button-blue" type="submit" ><i class="bi bi-folder-fill"> Guardar</i></button>
+<button type="reset" class=" boton1 button button-blue"> <i class="bi bi-eraser-fill"> Limpiar</i></button>
+
+<a    class="button button-blue" href="{{route('cliente.index')}}">
+  <i class="bi bi-x-circle-fill"> Cerrar </i></a>
+<br>
+  <label for=""></label>
 </form>
 
 
+
  <script>
-/*var input = document.getElementById('Nombre');
-input.addEventListener('Nombre', function(evt) {
-  this.setCustomValidity('');
-});
-input.addEventListener('invalid', function(evt) {
-  // Required
-  if (this.validity.valueMissing) {
-    this.setCustomValidity('Por favor complete el nombre!');
-  }
-});*/
+
 
 
       /*Validaciones*/

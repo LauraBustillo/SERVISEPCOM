@@ -1,6 +1,7 @@
 @extends('main')
 @section('extra-content')
 
+
 <style>
 
     /*Cajas de texto*/
@@ -9,14 +10,29 @@
         border: 1.3px solid #000000;
     }
 
-    /*Las label*/
+    /*Las label*/ 
     .input-group-text  {
-    background-color: #000000;
-    border: 1.3px solid #000000;
+    background-color: #4c4d4e;;
+    border: 1.3px solid #4c4d4e;;
     font-family: 'Open Sans';
     color: #FFFFFF;
 
     }
+    /*Los titulos */ 
+    .titulo {
+    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+    color: #4c4d4e; 
+    font-family: 'Open Sans';
+    font-size: 20xp;
+    }
+
+    .titulo1 {
+    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+    color:#4c4d4e;
+    font-family: 'Open Sans';
+    font-size: 30px;
+    text-align: center;
+  }
     .group-text {
     background-color: transparent;
     font-family: 'Open Sans';
@@ -29,19 +45,6 @@
     font-family: 'Open Sans';
     color: #000000;
     font-size: 25px;
-    }
-    /*Los titulos */
-    .titulo {
-    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-    color: black;
-    font-family: 'Open Sans';
-    font-size: 20xp;
-    }
-
-    /*Los botones*/
-    .btn-outline-dark {
-    background-color: transparent;
-    border: 1.8px solid #000000;
     }
 
     a { color: aliceblue;
@@ -86,20 +89,82 @@
         width: 25.8%;
     }
     .box{
-                display:flex;
-            }
+        display:flex;
+    }
 
     .select, option{
         color:rgb(0, 0, 0);
 
     }
-    .select{
-        width: 20%;
-        height: 15%;
-        margin-left:0.3%;
-        border: 1.8px solid #000000;
-       border-radius: 0%;
 
+    div.dataTables_wrapper div.dataTables_filter input {
+
+        display: inline-block;
+        width: 100% !important;
+        background-color: transparent;
+        border: 1.5px solid #000000;
+        float: left;
+        margin-bottom: 5%;
+    }
+
+    /Para las tablas/ 
+    .bordeTabla{
+        border:solid black 1px;                    
+    } 
+
+    table {    
+        border: 5px solid black;
+        right:solid black 5px;   
+    }     
+    th {
+        border-top:solid black 1px;
+    }    
+    td {
+        border-right:solid black 0.1px;
+    } 
+    table.dataTable.dataTable_width_auto {
+        width: auto;
+    }
+    div.container {
+        width: 80%;
+        height: 30%;
+    }  
+    .button {
+        border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+        text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+        text-decoration: none !important;
+        text-transform: uppercase;
+        color: #fff !important;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 0 3px;
+        position: relative;
+        display: inline-block;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -o-transition: all 0.1s;
+        transition: all 0.1s;
+    }
+    .button:active {
+        -webkit-transform: translateY(7px);
+        -moz-transform: translateY(7px);
+        -o-transform: translateY(7px);
+        transform: translateY(7px);
+    }
+
+    .button-blue {
+        background: #4c4d4e;
+        box-shadow: 0 5px 0 #161616,
+                    0 11px 5px hsla(0, 0%, 0%, 0.5);
+    }
+    .button-blue:active {
+        box-shadow: 0 3px 0 #161616,
+                    0 4px 6px hsla(0, 0%, 0%, 0.7);
+    }
+
+    .boton1{
+    border: none;
     }
 
 </style>
@@ -117,12 +182,7 @@
   </script>
 
 
-<br>
-<br>
-
-
-{{-- <form  class="form-control"    name="form_guardarCompra" id="form_guardarCompra" method="POST" onsubmit="guardarcompra()" > --}}
-<form  class="form-control"    name="form_guardarCompra" >
+<form  class="form-control"  name="form_guardarCompra" >
     <br>
        {{-- Título --}}
        <H1 class="titulo" style="text-align: center;">
@@ -131,60 +191,49 @@
         factura de compra</H1>
 
         <br>
+        <div style="display: flex">
+            <div class="col" style="width: 33%" >
+                <b><label >Número de factura</label></b>
+                <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  
+                name="Numero_factura" id="Numero_factura" onkeypress="ValidaSoloNumeros4()"  class="form-control" 
+                placeholder="Ingrese el número de factura" title="Solo debe contener números" 
+                value="{{old('Numero_factura')}}" minlength="11" maxlength="11" >
+            </div> &nbsp;&nbsp;&nbsp;
 
-        {{-- Numero de facturación --}}
+            <div class="col" style="width: 33% ">
+                <b><label >Fecha de facturación</label></b>
+                <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" 
+                name="Fecha_facturacion" id="Fecha_facturacion"  class="form-control" 
+                placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div style="padding-left:0% ">
-        <label class="col-md-2">Número de factura</label>
-        <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  style="display:flex padding-right:50%" name="Numero_factura" id="Numero_factura"  aria-label="Sizing example input" onkeypress="ValidaSoloNumeros4()"
-         aria-describedby="inputGroup-sizing-sm" class="input ancho" required placeholder="Ingrese el número de factura"
-         title="Solo debe contener números" value="{{old('Numero_factura')}}" minlength="11" maxlength="11" >
+            <div class="col" style="width: 33% ">
+                <b> <label  for="Proveedores" >Proveedor</label></b><br>
+                <select class="form-control select" 
+                {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor">
+                <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
+                @foreach ($proveedores as $p)
+                    <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>
+                @endforeach 
+                </select>
+            </div>
+            
         </div>
-
-        <br>
-
-        {{-- Fecha de facturación --}}
-        <div style="padding-left: 5%  display: flex">
-        <label  class="col-md-2" >Fecha de facturación</label>
-        <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" style="display:flex padding-right:50%"
-        name="Fecha_facturacion" id="Fecha_facturacion"
-        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  class="input1 ancho"
-        required  placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
-        </div>
-        <br>
-
-
-
-        {{-- proveedores--}}
-    <div   style="display: flex">
-         <label class="col-md-2" for="Proveedores" >Proveedor</label>
-        <select class="form-control select" style=" width:30%" {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor"
-          class="buscador-select" style="display:flex">
-          <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>
-          @foreach ($proveedores as $p)
-            <option  value="{{$p->id}}" >{{$p->Nombre_empresa}}</option>
-          @endforeach 
-        </select>
-    </div>
-
-
-        <br>
         <br>
 
         {{--Botones --}}
         <div >
-        <button  onclick="openmodal()"  class="btn btn-outline-dark" type="button">
+        <button  onclick="openmodal()"  class="boton1 button button-blue" type="button">
             <i class="bi bi-file-text-fill"> Agregar Detalle </i>
         </button>
         {{-- <button hidden type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="openoriginalmodal"></button> --}}
         </div>
         <br>
         <br>
-
-        <table class="table table-hover"  >
+        <div style="direction: flex">
+        <table  class="table table-striped table-hover  border-dark bordeTabla">
             <thead>
-                <h5 style="display:none" id="leyenda">Agregue datos a la factura</h5>
-                <tr>
+                <tr  class="table-dark">
                     <th>Producto</th>
                     <th>Marca</th>
                     <th>Categoría</th>
@@ -193,167 +242,167 @@
                     <th>Precio de venta</th>
                     <th>Impuesto</th>
                     <th>Total Producto</th>
-
                 </tr>
             </thead>
             <tbody id="body_table_detallesFac">
                 </tbody>
         </table>
-
+        </div>
          {{--Botones guardar y actualizar --}}
         <form action=""  id="form_guardarCo" name="form_guardarCo" method="POST"  onsubmit="confirmar()" >
             <div style="text-align: center">
                 @if ($accion == 'guardar')
-                <button   class="btn btn-outline-dark"  type="button" onclick="guardatFactura()" >
+                <button  class="button button-blue"  type="button" onclick="guardatFactura()" >
                 <i class="bi bi-folder-fill"> Guardar</i>
                 </button>
-                <button class="btn btn-outline-dark"  type="button" >
-                <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-                </button>
+                <a    class="button button-blue"  href="{{route('compra.index')}}">
+                    <i class="bi bi-x-circle-fill"> Cerrar </i></a>
                 @endif
 
                 {{--Botones --}}
                 @if ($accion == 'editar')
-                <button  onclick="actualizarFactura()"  class="btn btn-outline-dark"  type="button" >
+                <button  onclick="actualizarFactura()"  class="button button-blue"  type="button" >
                 <a class="a"  href="{{route('compra.index')}}">
                 <i class="bi bi-folder-fill"> Actualizar</i></a>
                 </button>
-                <button class="btn btn-outline-dark"  type="button" >
-                    <a class="a"  href="{{route('compra.index')}}"><i class="bi bi-x-circle"> Cerrar </i></a>
-                </button>
+                <a    class="button button-blue"  href="{{route('compra.index')}}">
+                    <i class="bi bi-x-circle-fill"> Cerrar </i></a>
                 @endif
+                <br>
+                <label for=""></label>
+                                
             </div>
         </form>
     </form>
 
-          <!-- Modal de dialogo de agregar producto -->
-        <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog  modal-xl" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1  class="group-texto" id="staticBackdropLabel" style="text-align: center">
-                        Agregar producto a la factura #<span id="numfact_form"></span>
-                    </h1>
-                <label >
+   <!-- Modal de dialogo de agregar producto -->
+   <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl" >
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1  class="titulo1" id="staticBackdropLabel" style="text-align: center">
+                Agregar producto a la factura #<span id="numfact_form"></span>
+            </h1>
+        <label >
 
-                <button class="btn btn-outline-dark" onclick="openmodalproduct()" type="button"> <i class="bi bi-bag-plus"></i>Agregar producto</button>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </label>
-                </div>
-            <div class="modal-body" >
-
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value=""
-                            class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
-                        <div class="col"></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            {{-- tabla de buscar producto --}}
-                            <div id="buscar_producto_proveedor">
-                            </div>
-                        </div>
-                        <div class="col">
-                            {{-- tabla de productosAgregados --}}
-                            <div id="body_table_detallesFacModal">
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-                    <!-- Formulario de agregar producto-->
-                    <form action="" >
-
-
-                        <!-- Nombre producto -->
-                        <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
-                        <div class="col" style="padding-left: 3%"  >
-                        <label for="" class="group-text">Nombre producto</label>
-                        <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto">
-                        </div>
-
-                        <!-- Marca producto -->
-                        <div class="col" style="padding-left: 5%"  >
-                        <label for="" class="group-text" >Marca producto</label>
-                        <input disabled type="text" value="" id="Marca" name="Marca">
-                        </div>
-
-                        <!-- Descripcion -->
-                        <div class="col" style="padding-left: 2%"  >
-                        <label for="" class="group-text" style="padding-right: 7%">Descripción</label>
-                        <input disabled type="text" value="" style="padding-right: 2%" id="Descripcion" name="Descripcion">
-                        </div>
-                        </div>
-
-                            <!-- Categorias -->
-                        <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width:150%" ><br>
-                        <div class="col" style="padding-left: 1.5%">
-                        <label for="" class="group-text" style="padding-right: 14%">Categoría</label>
-                        <input disabled type="text" value="" id="Categoria"  style="padding-left:25% width:30%"  name="Categoria">
-                        </div>
-
-
-                        <!-- Cantidad -->
-                        <div class="col" style="padding-left:2%"  >
-                        <label for="" class="group-text" style="padding-right: 14%">Cantidad</label>
-                        <input type="text" value="" id="Cantidad" style=" width:54.5%" name="Cantidad" onkeypress="ValidaSoloNumeros()"
-                        minlength="1" maxlength="4">
-                        </div>
-
-                        <!--  Precio compra -->
-
-                            <div class="col" style="padding-right: 1.5%"  >
-                            <label for="" class="group-text" style="padding-right: 1.5%" >Precio compra</label>
-                            <input type="text" value="" id="Costo" style=" width:55.5%"  name="Costo" onkeypress="ValidaSoloNumeros1()"
-                            minlength="1" maxlength="5">
-                            </div>
-                        </div>
-
-                        <!-- Precio Venta -->
-                        <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width: 150%" ><br>
-                        <div class="col" style="padding-left: 1.5%" >
-                        <label for="" class="group-text" style="padding-right: 8.5%" >Precio venta</label>
-                        <input type="text" value="" id="Precio_venta" style=" width:51%" name="Precio_venta" onkeypress="ValidaSoloNumeros2()"
-                        minlength="1" maxlength="5">
-                        </div>
-
-                        <!-- Impuesto -->
-                        <div class="col"style="padding-right:31%"   >
-                        <label for="" class="group-text" style="padding-right:12.5%" >Impuesto</label>
-                        <input type="text" value="" id="Impuesto" style=" width:51%" name="Impuesto" onkeypress="ValidaSoloNumeros3()"
-                        minlength="1" maxlength="2">
-                        </div>
-                        </div>
-
-
-                        <input type="text" hidden  value="" name="Numero_facturaform" id="Numero_facturaform" >
-                        <input type="text" hidden  value="" name="id_product" id="id_product" >
-                        <input type="text" hidden  value="" name="id_prov" id="id_prov" >
-                        <input type="text" hidden  value="" name="id_detalle" id="id_detalle" >
-                        <input type="text" hidden  value="" name="id_cat" id="id_cat" >
-
-                    </form>
-                </div>
-
-                <!-- Botones -->
-                <div class="modal-footer" style="text-align: center">
-                <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"  href="{{route('compra.index')}}" ><i class="bi bi-x-circle"> Cerrar</i></button>
-                <button id="AgregarDF" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()" ><i class="bi bi-bag-plus"> Agregar</i></button>
-                <button id="AgregarDFC" type="button" class="btn btn-outline-dark" style="display:block" onclick="AgregarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x">Agregar y cerrar</i></button>
-                <button id="ActualizarDF" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()" ><i class="bi bi-bag-plus"> Actualizar</i></button>
-                <button id="ActualizarDFC" type="button" class="btn btn-outline-dark" style="display:none" onclick="ActualizarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x"> Actualizar y cerrar</i></button>
-                </div>
-            </div>
-            </div>
+        <button class="button button-blue" onclick="openmodalproduct()" type="button"> <i class="bi bi-bag-plus"></i> Agregar producto</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </label>
         </div>
+    <div class="modal-body" >
+
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="inputBuscarProveedor" onkeyup="buscarydibujarProductos()" value=""
+                    class="form-control me-2" placeholder="Buscar por nombre del producto"></div>
+                <div class="col"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{-- tabla de buscar producto --}}
+                    <div id="buscar_producto_proveedor">
+                    </div>
+                </div>
+                <div class="col">
+                    {{-- tabla de productosAgregados --}}
+                    <div id="body_table_detallesFacModal">
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Formulario de agregar producto-->
+            <form action="" >
+
+
+                <!-- Nombre producto -->
+                <div class="input-group input-group-sm mb-1" style="padding-right:4%"  style="width: 150%" ><br>
+                <div class="col" style="padding-left: 3%"  >
+                <label for="" class="group-text">Nombre producto</label>
+                <input disabled type="text" value="" id="nombre_producto"  name="nombre_producto">
+                </div>
+
+                <!-- Marca producto -->
+                <div class="col" style="padding-left: 5%"  >
+                <label for="" class="group-text" >Marca producto</label>
+                <input disabled type="text" value="" id="Marca" name="Marca">
+                </div>
+
+                <!-- Descripcion -->
+                <div class="col" style="padding-left: 2%"  >
+                <label for="" class="group-text" style="padding-right: 7%">Descripción</label>
+                <input disabled type="text" value="" style="padding-right: 2%" id="Descripcion" name="Descripcion">
+                </div>
+                </div>
+
+                    <!-- Categorias -->
+                <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width:150%" ><br>
+                <div class="col" style="padding-left: 1.5%">
+                <label for="" class="group-text" style="padding-right: 14%">Categoría</label>
+                <input disabled type="text" value="" id="Categoria"  style="padding-left:25% width:30%"  name="Categoria">
+                </div>
+
+
+                <!-- Cantidad -->
+                <div class="col" style="padding-left:2%"  >
+                <label for="" class="group-text" style="padding-right: 14%">Cantidad</label>
+                <input type="text" value="" id="Cantidad" style=" width:54.5%" name="Cantidad" onkeypress="ValidaSoloNumeros()"
+                minlength="1" maxlength="4">
+                </div>
+
+                <!--  Precio compra -->
+
+                    <div class="col" style="padding-right: 1.5%"  >
+                    <label for="" class="group-text" style="padding-right: 1.5%" >Precio compra</label>
+                    <input type="text" value="" id="Costo" style=" width:55.5%"  name="Costo" onkeypress="ValidaSoloNumeros1()"
+                    minlength="1" maxlength="5">
+                    </div>
+                </div>
+
+                <!-- Precio Venta -->
+                <div class="input-group input-group-sm mb-1" style="padding-left:1.6%"  style="width: 150%" ><br>
+                <div class="col" style="padding-left: 1.5%" >
+                <label for="" class="group-text" style="padding-right: 8.5%" >Precio venta</label>
+                <input type="text" value="" id="Precio_venta" style=" width:51%" name="Precio_venta" onkeypress="ValidaSoloNumeros2()"
+                minlength="1" maxlength="5">
+                </div>
+
+                <!-- Impuesto -->
+                <div class="col"style="padding-right:31%"   >
+                <label for="" class="group-text" style="padding-right:12.5%" >Impuesto</label>
+                <input type="text" value="" id="Impuesto" style=" width:51%" name="Impuesto" onkeypress="ValidaSoloNumeros3()"
+                minlength="1" maxlength="2">
+                </div>
+                </div>
+
+
+                <input type="text" hidden  value="" name="Numero_facturaform" id="Numero_facturaform" >
+                <input type="text" hidden  value="" name="id_product" id="id_product" >
+                <input type="text" hidden  value="" name="id_prov" id="id_prov" >
+                <input type="text" hidden  value="" name="id_detalle" id="id_detalle" >
+                <input type="text" hidden  value="" name="id_cat" id="id_cat" >
+
+            </form>
+        </div>
+
+        <!-- Botones -->
+        <div class="modal-footer" style="text-align: center">
+        <button  type="button" class="button button-blue" data-bs-dismiss="modal"  href="{{route('compra.index')}}" ><i class="bi bi-x-circle"> Cerrar</i></button>
+        <button id="AgregarDF" type="button" class="button button-blue" style="display:block" onclick="AgregarDetalle()" ><i class="bi bi-bag-plus"> Agregar</i></button>
+        <button id="AgregarDFC" type="button" class="button button-blue" style="display:block" onclick="AgregarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x"> Agregar y cerrar</i></button>
+        <button id="ActualizarDF" type="button" class="button button-blue" style="display:none" onclick="ActualizarDetalle()" ><i class="bi bi-bag-plus"> Actualizar</i></button>
+        <button id="ActualizarDFC" type="button" class="button button-blue" style="display:none" onclick="ActualizarDetalle()"  data-bs-dismiss="modal"> <i class="bi bi-bag-x"> Actualizar y cerrar</i></button>
+        </div>
+    </div>
+    </div>
+</div>
 
         <!-- Modal de dialogo de agregar producto -->
         <div class="modal fade"  id="modalagregarproductos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog  modal-xl" >
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header titulo1">
                     Agregar Productos
                 </div>
                 <div class="modal-body" >
@@ -393,8 +442,8 @@
 
                 <!-- Botones -->
                 <div class="modal-footer" style="text-align: center">
-                <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalproductos()"><i class="bi bi-x-circle"> Volver</i></button>
-                <button type="button" class="btn btn-outline-dark" style="display:block" onclick="guardarProductoaBASE()" ><i class="bi bi-bag-plus"> Agregar</i></button>
+                <button  type="button" class="button button-blue" onclick="cerrarmodalproductos()"><i class="bi bi-arrow-left-circle-fill"> Volver</i></button>
+                <button type="button" class="button button-blue" style="display:block" onclick="guardarProductoaBASE()" ><i class="bi bi-bag-plus"> Agregar</i></button>
                     </div>
             </div>
             </div>
@@ -567,7 +616,7 @@
 
             //validaciones
             if (document.getElementById("Numero_factura").value == '') {
-                    alertify.error("El numero de la factura es requerido");
+                    alertify.error("El número de la factura es requerido");
                     return;
             }
             if (document.getElementById("Proveedor").value == '') {
@@ -637,7 +686,7 @@
 
             if(factura != '' && factura != undefined && factura != null){
                 if (factura.length != 11) {
-                    alertify.error("El numero de la factura debe tener 11 caracteres");
+                    alertify.error("El número de la factura debe tener 11 caracteres");
                     return;
                 }
                 if(proveedor != '' && proveedor != undefined && proveedor != null){
@@ -658,12 +707,12 @@
                     document.getElementById("ActualizarDFC").style.display = 'none';
 
                 }else{
-                    alertify.error('Ingrese Proveedor')
+                    alertify.error('Seleccione el proveedor')
                     return;
                 }
 
             }else{
-                alertify.error('Ingrese Factura')
+                alertify.error('Ingrese el número de factura')
                 return;
             }
         }
@@ -673,20 +722,21 @@
 
             // filtrando los productos por proveeddor
             productfiltersBuscador = productfiltersProveedor.filter((x) => x.Nombre_producto.toLowerCase().includes(inputBuscarProveedor.toLowerCase()));
-
+                
             // haciendo la tabla con los productos filtrados anteriormente
-            html = '<table class="table table-hover" style="width: 100%";>';
-            html += '<thead style="width: 100%;table-layout: fixed">';
-            html += '<tr>';
+            html = '<table class="table table-hover" style="width: 100%";">';
+            html += '<thead style="width: 100%; table-layout: fixed">';
+            html += '<tr >';
             html += '<th>Productos</th>';
+           
             html += '</tr>';
             html += '</thead>';
-            html += '<tbody  style="display: inline-block; height:10rem;overflow:auto; width: 100%">';
+            html += '<tbody style="width: 100%;  display: inline-block; height:10rem;overflow:auto;" >';
             productfiltersBuscador.forEach(element => {
-            html += '<tr style="width:100%">';
-            html += '<td>' +element.Nombre_producto+'</td>';
+            html += '<tr style="table-layout: fixed">';
+            html += '<td >' +element.Nombre_producto+'</td>';
             html += '<td>' +element.Marca+'</td>';
-            html += '<td><button class="btn btn-outline-dark" onclick="cargarProducto('+element.id_product+')"><i class="bi bi-bag-plus"> Agregar</i></button></td>';
+            html += '<td><button class="btn btn-outline-dark" style="text-align: center;" onclick="cargarProducto('+element.id_product+')"><i class="bi bi-bag-plus"></i></button></td>';
             html += '</tr>';
             });
 
@@ -880,10 +930,13 @@
             var html = '';
             var htmlagregados = '';
 
+            
+
+
             htmlagregados +='<div style="text-align:center "><strong>Productos agregados</strong></div>';
 
             htmlagregados +='<div>';
-            htmlagregados +='<div class="row" style="font-weight:bold">';
+            htmlagregados +='<div  class="row" style="font-weight:bold">';
             htmlagregados +='<div class="col">Nombre </div>';
             htmlagregados +='<div class="col">Marca </div>';
             htmlagregados +='<div class="col">Cantidad </div>';
@@ -919,7 +972,7 @@
                 html += '</tr>';
                 html += '</div';
 
-                htmlagregados +='<table class="table table-hover">';
+                htmlagregados +='<table class="table table-striped table-hover  border-dark bordeTabla">';
                 htmlagregados +='<div  class="row">';
                 htmlagregados += '<div class="col">'+element.nombre_producto+'</div>';
                 htmlagregados += '<div class="col">'+element.Marca+'</div>';
@@ -943,20 +996,20 @@
                 html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >SubTotal</strong></td>';
-                html += '<td><strong>Lps. '+subtotalFACTURA.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+subtotalFACTURA.toFixed()+'</strong></td>';
                 html += '<tr>';
 
                 html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Impuesto</strong></td>';
-                html += '<td><strong>Lps. '+totalInmpuesto.toFixed()+'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalInmpuesto.toFixed()+'</strong></td>';
                 html += '<tr>';
 
                     totalFACTURA =  (parseFloat(subtotalFACTURA) + parseFloat(totalInmpuesto));
                 html += '<tr>';
                 html += '<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>';
                 html += '<td><strong >Total factura</strong></td>';
-                html += '<td><strong>Lps. '+totalFACTURA.toFixed() +'</strong></td><td></td>';
+                html += '<td><strong>Lps. '+totalFACTURA.toFixed() +'</strong></td>';
                 html += '<tr>';
 
             //inyectando los dos variables a donde correspondan

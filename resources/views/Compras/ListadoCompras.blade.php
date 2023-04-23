@@ -2,87 +2,139 @@
 @section('extra-content')
 
 <style>
-    .input-group-text  {
-   background-color: #B8D7F9;
-   border: 1.5px solid #000000;
- }
- 
- .form-control  {
-     background-color: transparent;
-     border: 1.5px solid #000000;
- }
- 
- .table-1{
-     width: 100%;
-     color: rgb(3, 10, 1);
-   
-     border: 1px solid #000000;
- 
- }
- 
- .table-1 th{
-     background-color: #0319C4;
-     color:white;
-     padding: .2rem;
-     text-align: start;
- }
- 
- .btn-info{
-     background-color: transparent;
-     border: 1px solid #000000;
- }
- 
- /*Los titulos */ 
- .titulo {
-   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-   color: black;
-   font-family: 'Open Sans';
-   font-size: 20xp;
- }
- 
- 
- /*Los botones*/ 
- .btn-outline-dark {
-   background-color: transparent;
-   border: 1.8px solid #000000;
-   text-decoration: none;
-   color: black;
-   
- }
- 
- /*Quitar Subrayado*/ 
-  a:link, a:visited, a:active, a:focus{
-     text-decoration:none;
-     Color: black; 
-    
-   }
+     .input-group-text {
+        background-color: #B8D7F9;
+        border: 1.5px solid #000000;
+    }
 
-  div.dataTables_wrapper div.dataTables_filter input {
+    .form-control {
+        background-color: transparent;
+        border: 1.5px solid #000000;
+    }
 
-  display: inline-block;
-  width: 80% !important;
-  background-color: transparent;
-     border: 1.5px solid #000000;
-     float: left;
+    .table-1 {
+        width: 100%;
+        color: rgb(3, 10, 1);
+
+        border: 1px solid #000000;
+
+    }
+
+    .table-1 th {
+        background-color: #0319C4;
+        color: white;
+        padding: .2rem;
+        text-align: start;
+    }
+
+    .btn-info {
+        background-color: transparent;
+        border: 1px solid #000000;
+    }
+
+    /*Los titulos */
+    .titulo {
+        font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+        color: black;
+        font-family: 'Open Sans';
+        font-size: 20xp;
+    }
+
+
+    /*Los botones*/
+    .btn-outline-dark {
+        background-color: transparent;
+        border: 1.8px solid #000000;
+        text-decoration: none;
+        color: black;
+
+    }
+
+    /*Quitar Subrayado*/
+    a:link,
+    a:visited,
+    a:active,
+    a:focus {
+        text-decoration: none;
+        Color: black;
+
+    }
+
+ div.dataTables_wrapper div.dataTables_filter input {
+
+
+width: 70% !important;
+background-color: transparent;
+border: 1.5px solid #000000;
+float: left;
+
+margin-bottom: 3% !important;
 }
+
+
+
 .dataTables_wrapper .dataTables_filter {
-    float: left !important ;
-    text-align: left !important;
-  width: 100% !important;
-
+float: left !important ;
+text-align: left !important;
+width: 100% !important;
 
 }
 
-.dt-buttons{
-  padding-left: 85% !important;
-}
-.dt-button{
-  padding: 0 !important;
-  border: none !important;  
+    .dt-buttons {
+        padding-left: 85% !important;
+    }
+
+    .dt-button {
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    
+
+    /*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 1px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+
+
+ 
+#padre{
+  position: relative;
+  background-color: transparent;
 }
 
+#uno {
+  position: absolute;
+  background-color: transparent;
+  top: 21%;
+  left: 64.5%;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+}
+html, body {
+    width: 100% !important;
+}
 
  </style>
+
+
+ 
+
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
@@ -116,12 +168,15 @@
 <script>
 
   $().ready(function(){
+ 
 
     // variable para hacer el string de fechas de los reportes
     var fechasExportReporte = '';
     var fechasExportReportep = '';
    var tablecompras  = $('#tablecompras').DataTable({
-    dom:  '<"wrapper"fBlitp>',
+    dom: 'lfrBtip',
+   
+    'pageLength': 5,
    language:{ "sProcessing": "Procesando...",
         "sLengthMenu": "",
         "sZeroRecords": "No se encontraron resultados",
@@ -156,7 +211,7 @@
         text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
         titleAttr: 'Imprimir',
         title:'Reporte de listado factura de compras ',
-        messageTop:'',
+        messageTop:'', 
         messageTop: function () {
     return fechasExportReporte; // where `myVariable` is accessible in this scope and set somewhere else
   },
@@ -305,70 +360,46 @@ customize: function(doc) {
 </script>
 
 
-  <h1 class="titulo" style="text-align:center">Listado de facturas de compras</h1> 
- 
-{{-- Buscador
-  <nav class="navbar navbar-nav bg-nav" >
-    <div class="container-fluid" >
-      <form class="d-flex" id="ablescroll" method="POST" action="Compra">
+  <h3 class="titulo" style="text-align:center">Listado de facturas de compras</h3> 
 
-      @csrf
-        <input type="text" style="width: 500px;"  class="form-control me-2" name="buscar" value="{{$buscar}}"
-         placeholder="Buscar por número de factura, fecha de facuración y proveedor" aria-label="Sizing example input">
-        <button  type="submit" class="btn btn-outline-dark me-2" id="buscar" name="buscador" value=" "><i class="bi bi-search"> </i></button>
-        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> 
-      </form>  </div> 
-    </nav> --}}
-
-      
     
-  
-  <nav class="navbar navbar-nav bg-nav" >
-    <div class="container-fluid" >
-      <form style="display:flex" id="ablescroll" method="POST" action="Compra">
       @csrf
-     
-      <br>
+
+<div class="input-group "  style="display: flex" ><br>
+  <div style="width: 20%" >
+  <label for="" class="group-text">Fecha minima:</label>
+  <input  class="form-control" id="min" name="min" value=""> 
+  </div> &nbsp;&nbsp;
   
-       
-      </form>
-    </div>
-    </nav>
+  <div style="width: 20%">
+    <label for="" class="group-text">Fecha  máxima:</label>
+    <input   class="form-control" id="max" name="max" value="" > 
+  </div> &nbsp;&nbsp;
 
+  <div style="width: 6%"><br>
+  <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-trash3-fill"></i></a>    
+  </div>&nbsp;&nbsp;
 
-    <div class="input-group " style="padding-right:4%"  style="width: 100%" ><br>
-      <div >
-      <label for="" class="group-text">Fecha minima:</label>
-      <input  class="form-control" id="min" name="min" value=""> 
-      </div>&nbsp; &nbsp;&nbsp;
-      
-      <div >
-        <label for="" class="group-text">Fecha  máxima:</label>
-        <input   class="form-control" id="max" name="max" value="" > 
-        </div>
-        <div><br>&nbsp; &nbsp;
-        <a href="{{ route('compra.index') }}" class="btn btn-outline-dark" ><i class="bi bi-x-square"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div style="width: 49%"><br>
+  <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
+  <i class="bi bi-plus-square-fill"></i></a>
+  </div>
 
-        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroCompras')}}" >
-          <i class="bi bi-cart-plus"> Nueva compra  </i></a>
-      </div>
-  
-      </div>  
- 
-      
-    <table id='tablecompras' class="table table-hover tablacompras"> <br>  
-        <thead>
+</div>
+<div > 
+</div>  
+ <br>
+
+    <table class="table table-striped table-hover  border-dark bordeTabla display" id="tablecompras" style="width:100%">
+
+        <thead class="table-dark">
         <tr>
         
         <th scope="col">Número de factura</th>
         <th scope="col">Fecha de facturación</th>
         <th scope="col">Proveedor </th>
         <th scope="col">Total  </th>
-        <th scope="col"> Detalles</th>
+        <th scope="col"  style="text-align: center;"> Detalles</th>
         </tr>
         </thead>
 
@@ -382,7 +413,7 @@ customize: function(doc) {
        <td name="valores">{{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
-      <td><a class="btn-detalles" href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"> <i class="bi bi-file-text-fill"> Detalles </i> </a></td>
+      <td style="text-align: center;"><a href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"><i class="bi bi-info-circle-fill"></i></a></td>
        </tr>
        @empty
        @endforelse
@@ -390,12 +421,12 @@ customize: function(doc) {
     </table>
   </div>
 <br>
-<div style="padding-left: 78%">
+<div style="padding-left: 71.5%">
   <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
   <b><label id="total_facturas" ></label></b>
   
 </div>
-  
+</div>  
 
 @endsection
 @include('common')
