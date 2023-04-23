@@ -20,7 +20,7 @@
 
     .table-1 th {
         background-color: #0319C4;
-        color: white;
+        color: white; 
         padding: .2rem;
         text-align: start;
     }
@@ -80,6 +80,27 @@
     padding: 0 !important;
     border: none !important;
     }
+/*Para las tablas*/ 
+.bordeTabla{
+border:solid black 1px;
+                 
+} 
+
+table {    
+                
+   border: 5px solid black;
+   right:solid black 5px;   
+  }     
+th {
+ border-top:solid black 1px;
+}    
+td {
+ border-right:solid black 0.1px;
+} 
+
+table.dataTable.dataTable_width_auto {
+  width: auto;
+}
 
 
 </style>
@@ -90,7 +111,7 @@
   <script>
     mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
     alertify.success(mensaje);
-  </script> 
+  </script>
 @endif
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
@@ -165,7 +186,9 @@
                         extend:    'print',
                         text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
                         titleAttr: 'Imprimir',
-                        title:'Reporte de listado de planilla '
+                        title:'Reporte de listado de planilla ',
+
+                        exportOptions: { columns: [0, 1, 2] },
                     },
 
 
@@ -227,7 +250,7 @@
 
 <br>
 
-<div class="input-group " style="padding-right:4%" style="width: 100%"><br>
+<div class="input-group "  style="width: 100%"><br>
 
     <div><br>&nbsp; &nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -238,13 +261,28 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroPlanilla')}}">
-            @if($continuar)
-            <i class="bi bi-person-plus-fill"> Continuar planilla </i></a>
-        @else
-        <i class="bi bi-person-plus-fill"> Nueva planila </i></a>
-        @endif
 
+
+
+        @php
+            date_default_timezone_set('America/Tegucigalpa');
+            $currentDay = date('j'); // Obtener el día actual del mes (1-31)
+        @endphp
+
+        @if($currentDay < 28)
+            <!-- Código a mostrar para los primeros 27 días del mes -->
+            <div class="alert alert-warning alert-dismissible fade show" style="float:right; width: 100%" role="alert">
+                 Hay que esperar hasta el final del mes, para realizar la planilla, ya sea  <strong>28, 29, 30 y  31</strong>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+        @else
+            <a class="btn btn-outline-dark" style="float:right" href="{{route('show.registroPlanilla')}}">
+                    <i class="bi bi-person-plus-fill"> Nueva planila </i>
+            </a>
+
+        @endif
+      
+    </a>
 
     </div>
 
@@ -252,8 +290,8 @@
 <br>
 <div>
 
-    <table id='myTable' class="table table-hover">
-        <thead>
+    <table id='myTable'  class="table table-striped table-hover  border-dark bordeTabla">
+        <thead class="table-dark">
             <tr>
                 <th scope="col">Número de planilla</th>
                 <th scope="col">Fecha de la planilla</th>
@@ -268,9 +306,11 @@
                 <td>{{ $planilla->id }}</td>
                 <td>{{ $planilla->fecha_final }}</td>
                 <td>{{ $planilla->total_pagar }}</td>
-                <td>
-                    <a class="btn-detalles" >
-                        <i class="bi bi-file-text-fill"> Ver detalle </i>
+                <td style="text-align:center">
+
+
+                        <a class="btn-detalles" href="{{route('planilla.mostrar' , ['id' => $planilla->id]) }}">
+                        <i class="bi bi-info-circle-fill"></i>
                     </a>
                 </td>
             </tr>
@@ -278,10 +318,6 @@
         </tbody>
     </table>
 </div>
-
-
-
-
 
 
 @endsection

@@ -7,7 +7,6 @@
         border: 1.3px solid #000000;
     }
 
-
     .input-group-text {
         background-color: #000000;
         border: 1.3px solid #000000;
@@ -124,7 +123,7 @@
         text-align: left !important;
         width: 100% !important;
 
-    } 
+    }
 
     .table-bordered {
         border: 1.8px solid #ffffff;
@@ -139,18 +138,39 @@
 </style>
 
 
+
 <script>
-    var errores = []
-  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
-  if(errores.length > 0){
-    errores.forEach(element => {
-      alertify.error(element)
-    });   
-  }
-  </script>
+    const Toast = Swal.mixin({
+        toast: true
+        , position: 'top-end'
+        , showConfirmButton: false
+        , timer: 3000
+        , timerProgressBar: true
+        , didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
+    @if(Session::has('errors'))
+    mensaje = '';
+    @foreach($errors-> all() as $error)
+    mensaje = mensaje + '{{ $error }}';
+    @endforeach
+    Toast.fire({
+        icon: 'error'
+        , title: mensaje
+    });
+    @endif
 
+</script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
@@ -201,11 +221,11 @@
         });
 
 
-
     });
-    
+
 
 </script>
+
 
 
 
@@ -226,14 +246,18 @@
 <div class="row">
     <div class="col-sm-6">
         <div style="padding-left: 5%  display: flex">
-            <b><label class="col-md-3">Fecha Creación</label></b>
-            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla" value="{{ $planilla->fecha_inicio }}">
+            <label class="col-md-3">Fecha Creación</label>
+            <input  id="fecha_inicio" disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla"
+                value="{{ $planilla->fecha_inicio }}">
         </div>
     </div>
     <div class="col-sm-6">
         <div style="padding-left: 5%  display: flex">
-        <b><label class="col-md-4">Fecha Finalización</label></b>
-            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla" value="{{ $planilla->fecha_final }}">
+            <label class="col-md-4">Fecha Finalización</label>
+            <input disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla"
+                value="{{ $planilla->fecha_final }}">
         </div>
     </div>
 </div>
@@ -245,8 +269,8 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <div style="padding-left: 5%  display: flex">
-        <b><label class="col-md-3">Dias Trabajados</label></b>
+        <div hidden style="padding-left: 5%  display: flex">
+            <label hidden class="col-md-3">Días Trabajados</label>
 
             @php
             $dias_trabajado = 0;
@@ -261,17 +285,20 @@
 
             @endphp
 
-            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado }}">
+            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado }}">
         </div>
     </div>
     <div class="col-sm-6">
         <div style="padding-left: 5%  display: flex">
-        <b><label class="col-md-4">Horas Trabajados</label></b>
-            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado*8 }}">
+            <label class="col-md-4">Horas Trabajados</label>
+            <input disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado*8 }}">
         </div>
     </div>
 </div>
 
+{{----}}
 
 <br>
 
@@ -301,7 +328,7 @@
             <th style="text-align: center">Identidad</th>
             <th style="text-align: center">Teléfono</th>
             <th style="text-align: center">Sueldo Base</th>
-            <th style="text-align: center">Dias No Trabajados</th>
+            <th style="text-align: center">Día No Trabajados</th>
             <th style="text-align: center">Horas trabajadas</th>
             <th style="text-align: center">Salario/h</th>
             <th style="text-align: center">Horas</th>
@@ -330,7 +357,7 @@
                         @method('PUT')
                         <input type="text" name="id_detalle" value="{{ $detalle->id }}" hidden>
                         <input type="text" name='no_trabajo'  maxlength="2" class="form-control" style="width: 100px" value="{{ $detalle->no_trabajados }}" onchange="agregar_id('{{ 'formulario'.$detalle->id  }}')">
-                       
+
                     </form>
                 </center>
             </td>
@@ -393,7 +420,14 @@
 {{--Botones --}}
 <br>
 <center class="form-inline">
-    @if($planilla->fecha_final == $planilla->fecha_inicio )
+    @php
+        date_default_timezone_set('America/Tegucigalpa');
+        $currentDay = date('j'); // Obtener el día actual del mes (1-31)
+    @endphp
+
+    @if($currentDay < 28)
+    <!-- Código a mostrar para los primeros 27 días del mes -->
+    @else
         <button class="btn btn-outline-dark" type="submit" onclick="guardar_planilla()"> <i class="bi bi-folder-fill"> Guardar</i></button>
     @endif
     <button type="submit" class="btn btn-outline-dark" onclick="recrear_planilla()"> <i class="bi bi-trash3-fill"> Eliminar planilla</i></button>
@@ -401,28 +435,57 @@
 </center>
 
 
+
+@php
+    date_default_timezone_set('America/Tegucigalpa');
+    $currentDay = date('j'); // Obtener el día actual del mes (1-31)
+@endphp
+
+@if($currentDay < 28)
+<!-- Código a mostrar para los primeros 27 días del mes -->
+@else
+    <form action="{{ route('guardar.planilla', ['id'=>$planilla->id]) }}" method="POST" id="formulario_guardar">
+        @csrf
+        <input type="hidden" name="total_planilla" value="{{ $total_planillas }}">
+    </form>
+@endif
+
 <form action="{{ route('delete.planilla', ['id'=>$planilla->id]) }}" method="POST" id="formulario_elimina">
     @csrf
     @method('DELETE')
 </form>
 
 
-@if($planilla->fecha_final == $planilla->fecha_inicio )
-<form action="{{ route('guardar.planilla', ['id'=>$planilla->id]) }}" method="POST" id="formulario_guardar">
-    @csrf
-    <input type="hidden"  name="total_planilla" value="{{ $total_planillas }}">
-</form>
-@endif
 
+
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+    <!-- Position it -->
+    <div style="position: absolute; top: 0; right: 0;">
+
+        <!-- Then put toasts within -->
+        <div class="toast" role="alert" id='mensajeToast' aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                See? Just like this.
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 @endsection
-@include('common')
+@include('common')\
 
 @push('scripstss')
 <script>
-
     let id_formularios = [];
 
 
@@ -437,9 +500,8 @@
     }
 
     function enviarFormulario() {
-
-       
         event.preventDefault();
+
         id_formularios.map((id) => {
             var form = document.getElementById(id);
             var formData = new FormData(form);
@@ -454,11 +516,19 @@
                     location.reload();
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
+                    var response = xhr.responseJSON;
+                    if (response && response.errors) {
+                        $.each(response.errors, function(field, errors) {
+                            $.each(errors, function(index, error) {
+                                toastr.error(error, 'Error en Dias no Trabajado');
+                            });
+                        });
+                    } else {
+                        toastr.error(xhr.responseText, 'Error');
+                    }
                 }
             });
         });
-
 
     }
 
@@ -472,7 +542,7 @@
         var formul = document.getElementById("formulario_elimina");
 
         Swal.fire({
-            title: '¿Está seguro que desea eliminar los datos de la planilla?'
+            title: '¿Está seguro que desea resetear los datos?'
             , icon: 'question'
             , confirmButtonColor: '#3085d6'
             , showCancelButton: true
@@ -487,26 +557,33 @@
         event.preventDefault()
     }
 
-    @if($planilla-> fecha_final == $planilla-> fecha_inicio)
 
-    function guardar_planilla() {
-        var formul = document.getElementById("formulario_guardar");
+    @php
+        date_default_timezone_set('America/Tegucigalpa');
+        $currentDay = date('j');
+    @endphp
 
-        Swal.fire({
-            title: '¿Está seguro que desea guardar los datos?'
-            , icon: 'question'
-            , confirmButtonColor: '#3085d6'
-            , showCancelButton: true
-            , cancelButtonColor: '#d33'
-            , confirmButtonText: 'Si'
-            , cancelButtonText: 'No'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                formul.submit();
-            }
-        })
-        event.preventDefault()
-    }
+    @if($currentDay < 28)
+
+    @else
+        function guardar_planilla() {
+            var formul = document.getElementById("formulario_guardar");
+
+            Swal.fire({
+                title: '¿Está seguro que desea guardar los datos?'
+                , icon: 'question'
+                , confirmButtonColor: '#3085d6'
+                , showCancelButton: true
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Si'
+                , cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formul.submit();
+                }
+            })
+            event.preventDefault()
+        }
     @endif
 
 </script>

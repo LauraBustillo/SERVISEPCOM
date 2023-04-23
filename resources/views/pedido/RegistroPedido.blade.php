@@ -3,19 +3,31 @@
 
 <style>
 /*Los titulos */ 
-  .titulo {
-    font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-    color: #000000;
-    font-family: 'Open Sans';
-    font-size: 20xp;
-  }
+.select2-container--default .select2-selection--single {
+    background-color: transparent;
+    border:1.3px solid black;
+    border-radius: 4px;
+}
 
   /*Cajas de texto*/ 
   .form-control  {
-      background-color: transparent;
-      border: 1.3px solid #000000;
-      height: fit-content;
+      background-color: transparent !important;
+      border: 1.3px solid #000000 !important;
+      height: fit-content !important;
 
+  }
+    /*seleccionador de producto*/
+  .select{
+    width: 26.5% !important;
+  }
+  .select1{
+    width: 80% !important;
+    height: 30px !important;
+  }
+
+  .select2{
+    width: 85% !important;
+    height: 30px !important; 
   }
   /*Alinear Div*/ 
   .divaling {
@@ -30,20 +42,61 @@
   }
 
   /*Las label*/ 
-  .input-group-text  {
-    background-color: #000000;
-    border: 1.3px solid #000000;
-    font-family: 'Open Sans';
-    color: #FFFFFF;
+.input-group-text  {
+  background-color: #4c4d4e;;
+  border: 1.3px solid #4c4d4e;;
+  font-family: 'Open Sans';
+  color: #FFFFFF;
 
-  }
-
-  /*Los botones*/ 
-  .btn-outline-dark {
+}
+/*Los titulos */ 
+.titulo {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
   
-    background-color: transparent;
-    border: 1.8px solid #000000;
-  }
+  font-family: 'Open Sans';
+  font-size: 20xp;
+}
+.button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+.button:active {
+    -webkit-transform: translateY(7px);
+    -moz-transform: translateY(7px);
+    -o-transform: translateY(7px);
+    transform: translateY(7px);
+}
+
+.button-blue {
+ 
+   
+    background: #4c4d4e;
+    box-shadow: 0 5px 0 #161616,
+                0 11px 5px hsla(0, 0%, 0%, 0.5);
+}
+.button-blue:active {
+    box-shadow: 0 3px 0 #161616,
+                0 4px 6px hsla(0, 0%, 0%, 0.7);
+}
+
+.boton1{
+  border: none;
+}
+
   .btn-outline-dark:hover{
       background-color: rgb(48, 48, 48);
       color: white;
@@ -67,14 +120,16 @@
       /*Los titulos */ 
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-  color:black;
+  color:#4c4d4e;
   font-family: 'Open Sans';
   font-size: 20px;
+
+
 }
 
 .titulo1 {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-  color:black;
+  color:#4c4d4e;
   font-family: 'Open Sans';
   font-size: 40px;
   text-align: center;
@@ -100,6 +155,8 @@
 
 
 
+
+{{-- Mensaje de editar (error)--}}
 <script>
   var errores = []
   errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
@@ -121,31 +178,34 @@
 {{-- encabezado --}}
 <div  class="form-control" >
 
-    <div style="display: flex">
-            <div style="width: 15%">
-              <label >Número del pedido</label> 
-              <input {{$accion == 'editar'?'disabled':''}}  onkeypress="ValidaSoloNumeros1()" id="numero_pedido" type="text" class="form-control" placeholder="ej. xxxxxxxxxxx"   maxlength="5" minlength="1">
-            </div> &nbsp;&nbsp;
-            <div style="width: 15%">
-                <label  >Fecha pedido</label> 
-                <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control" placeholder="Fecha del pedido" 
-                >
-            </div>
-   
 
-        <div style="display: flex; margin-left:auto ">
+    <div  class="input-group " style="width:100%" >
+
+    <div style="padding-left:5%">
+     <span class="input-group-text select1"  id="inputGroup-sizing-sm">Número de pedido</span>
+     <input {{$accion == 'editar'?'disabled':''}}  onkeypress="ValidaSoloNumeros1()" id="numero_pedido" type="text" class="form-control select1" placeholder="ej. xxxxxxxxxxx"   maxlength="5" minlength="1">
+    </div>
+    <div style="padding-left: 2%">
+     <span class="input-group-text select1"  id="inputGroup-sizing-sm">Fecha pedido</span>
+     <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control select1" placeholder="Fecha del pedido">
+    </div>
+          
+   
+  
+     
           &nbsp;
           @if($accion == 'editar')
-            <div style="width: 50%">
-              <label>Fecha Recibido</label> 
-              <input id="fecha_recibido_pedido" type="date" class="form-control" placeholder="Fecha recibido">
+
+          <div style="padding-left: 10%">
+     <span class="input-group-text select2"  id="inputGroup-sizing-sm">Fecha recibido </span>
+              <input id="fecha_recibido_pedido" type="date" class="form-control select2"  placeholder="Fecha recibido">
             </div> <br>&nbsp;&nbsp;
             <div >
               <label  for="estado_recibido">Chequear pedido</label><br>
               <input style="width: 100% "  class="input" type="checkbox" id="estado_recibido"  >
             </div>  
           @endif
-        </div>
+   
     </div>
 
 
@@ -160,40 +220,45 @@
 
   <div class="card-body text-dark">
 
-    <div style="display: flex">
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Proveedor</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <label for="">Encargado</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-      <label for="">Correo</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Télefono</label>
-
-    
-    </div>
-    <div style="display: flex">
+   
+    <div style="display: flex" >
       @if($accion == 'crear')
-        <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background: transparent"> 
+      <div class="col"style="padding-left: -3%">
+        <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background:transparent"> 
             <option value=>Seleccione el proveedor</option>
           @foreach ($proveedores as $pro)              
             <option value="{{$pro->id}}" >{{$pro->Nombre_empresa}}</option>
           @endforeach
         </select> 
-
+        </div>
       @else
-        <input type="text" id="prov_nombre_empresa" placeholder="" disabled>  
+    <div class="col"style="padding-left: 0%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
+     <input type="text" id="prov_nombre_empresa" class="form-control" placeholder="" disabled> 
+    </div>
+      
     
       @endif
 
+      <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre del encargado</span>
+     <input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado">
+    </div>
       
-      &nbsp;<input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado">
-     
-      &nbsp;<input disabled id="prov_correo" type="text" class="form-control" placeholder="Correo electrónico">
-      &nbsp;<input disabled  id="prov_telefono" type="text" class="form-control" placeholder="Teléfono">
+    <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Correo</span>
+     <input disabled id="prov_correo" type="text" class="form-control" placeholder="Correo electrónico">
+    </div>
+    <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Teléfono</span>
+     <input disabled  id="prov_telefono" type="text" class="form-control" placeholder="Teléfono">
+    </div>
+ 
     </div>
     
 
     <br>
-    <div style="width:25%" id="divselectproduct"> 
+    <div  class="select" id="divselectproduct"> 
       
 
     
@@ -212,31 +277,34 @@
   </div>
 
   <div class="card-body text-dark">
+ 
     <div style="display: flex">
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label for="">Producto</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-      <label for="">Marca</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<label for="">Descripción</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;; &nbsp;&nbsp; &nbsp;
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-     <label for="">Cantidad</label> &nbsp; &nbsp; &nbsp; &nbsp; 
-
-    
+    <div class="col"style="padding-left: 0%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre</span>
+     <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required> &nbsp;
     </div>
-    <div style="display: flex">
-      <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required> &nbsp;
-      <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required> &nbsp;
-      <textarea disabled id="producto_descripcion" class="form-control" placeholder="Descripción" rows="1" required></textarea> &nbsp;
-      <input id="producto_cantidad" onkeypress="ValidaSoloNumeros2()"type="text" class="form-control" placeholder="0" maxlength="4" minlength="1"> 
+    <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Marca</span>
+     <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required> &nbsp;
+    </div>
+    <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Descripción</span>
+     <textarea disabled id="producto_descripcion" class="form-control" placeholder="Descripción" rows="1" required></textarea> &nbsp;
+    </div>
+    <div class="col"style="padding-left: 4%">
+     <span class="input-group-text"  id="inputGroup-sizing-sm">Cantidad</span>
+     <input id="producto_cantidad" onkeypress="ValidaSoloNumeros2()"type="text" class="form-control" placeholder="0" maxlength="4" minlength="1"> 
+    </div>
     </div>
 
     <br>
 
     <div style="display: flex">  
       <div style="display: flex" class="mx-auto">  
-        <button type="button" onclick="agregarDetalleProducto()" class="btn btn-outline-dark"><i class="bi bi-folder-fill"> Agregar Producto</i></button> &nbsp;
-        <button {{$accion == 'editar'?'hidden':''}}  type="button" class="btn btn-outline-dark" onclick="guardarPedido()" ><i class="bi bi-folder-fill"> Guardar</i></button> &nbsp;
-        <button {{$accion == 'editar'?'':'hidden'}} type="button" class="btn btn-outline-dark" onclick="actualizarPedido()" ><i class="bi bi-folder-fill"> Actualizar</i></button> &nbsp; 
-        <a class="btn btn-outline-dark" href="{{ route('index.pedido') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
+        <button type="button" onclick="agregarDetalleProducto()" class="button button-blue "><i class="bi bi-folder-fill"> Agregar Producto</i></button> &nbsp;
+        <button {{$accion == 'editar'?'hidden':''}}  type="button" class="button button-blue " onclick="guardarPedido()" ><i class="bi bi-folder-fill"> Guardar</i></button> &nbsp;
+        <button {{$accion == 'editar'?'':'hidden'}} type="button" class="button button-blue " onclick="actualizarPedido()" ><i class="bi bi-folder-fill"> Actualizar</i></button> &nbsp; 
+        <a class="button button-blue "href="{{ route('index.pedido') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
 
       </div>
     </div>
@@ -323,7 +391,7 @@
  function hacerselectproductosproveedor(data){
 
       $("#productosproveedor").remove();
-      document.getElementById("divselectproduct").innerHTML = '<select name="" id="productosproveedor" class="form-control" ><option>Seleccione un producto</option></select>'
+      document.getElementById("divselectproduct").innerHTML='<select" id="productosproveedor" ><option>Seleccione un producto</option></select>'
       $('#productosproveedor').on('select2:select', function (e) {                
         getProductdeDB(e.params.data.id)
       });
@@ -702,7 +770,7 @@
 {{--mensaje de confirmacion--}}
 {{-- @push('alertas')
     <script>
-        function guardarp() {
+        function actualizarPedido() {
            var formul = document.getElementById("form_guardarPD");
            
            Swal.fire({
