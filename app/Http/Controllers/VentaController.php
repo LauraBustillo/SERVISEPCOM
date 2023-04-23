@@ -17,7 +17,7 @@ class VentaController extends Controller
 {
 
     public function index(Request $request)
-    {
+    {  
 
         $ventas = [];
         $buscar = '';
@@ -102,7 +102,7 @@ class VentaController extends Controller
         $detallefactura = [];
         $accion = 'guardar';
 
-        return view('Ventas.RegistroVenta', [
+        return view('Ventas.RegistroVentas', [
             'num_factura' => $num_factura,
             'fecha_actual' => Carbon::now()->setTimezone('America/Tegucigalpa')->format('Y-m-d'),
             'rangoActual' =>  $rangos,

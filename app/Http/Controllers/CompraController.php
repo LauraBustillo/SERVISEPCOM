@@ -17,7 +17,7 @@ class CompraController extends Controller
 /*Funcion para  guardar  */
 public function index(Request $request){
   $compras = [];
-  $buscar = '';
+  $buscar = ''; 
 
 
   if($request->buscar != null && $request->buscar != ''){
@@ -44,7 +44,9 @@ public function index(Request $request){
     // ->andWhere("Fecha_facturacion","<=",$request->fechato)
     // SELECT * FROM compras AS c WHERE c.Fecha_facturacion >= '2022-11-08' AND c.Fecha_facturacion <= '2022-11-09';
 
-    return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar);
+    
+
+    return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar)->with('mensaje', 'Se guardó  con  éxito') ;
   }
 
   /*Funcion para  guardar  */

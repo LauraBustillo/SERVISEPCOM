@@ -29,8 +29,8 @@ class DevolucionVentaController extends Controller
         }
 
 
-        return view('DevolucionesGarantiaVenta.ListadoDevolucionGarantia')
-                ->with('devoluciones',$devoluciones);
+        return view('DevolucionesGarantiaVenta.ListadoDevolucionesGarantia1')
+                ->with('devoluciones',$devoluciones); 
 
     }
 
@@ -61,7 +61,7 @@ class DevolucionVentaController extends Controller
         }
 
 
-        return view('DevolucionesGarantiaVenta.RegistroDevolucionesGarantia')->with('ventas', $ventas)
+        return view('DevolucionesGarantiaVenta.RegistroDevolucionesGarantia1')->with('ventas', $ventas)
                                                                             ->with('buscar', $buscar)
                                                                             ->with( 'fecha_actual', $fecha_actual  );
     }

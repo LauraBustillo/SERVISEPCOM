@@ -43,7 +43,7 @@ class ReparacionController extends Controller
             }
 
 
-        return view('Servicios.ListadoReparacion')->with('reparaciones', $reparaciones)
+        return view('Servicios.ListadoReparacion1')->with('reparaciones', $reparaciones)
                                                   ->with('num_factura', $num_factura);
     }
 

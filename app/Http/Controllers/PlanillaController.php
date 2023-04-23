@@ -22,7 +22,7 @@ class PlanillaController extends Controller
 
         $planilla_existente = Planilla::where('fecha_final', '=', now('America/Tegucigalpa')->endOfMonth()->format('Y-m-d'))->where('estado', '=', 'G')->get();
 
-        if(count($planilla_existente) > 0){
+        if (count($planilla_existente) > 0) {
             return redirect()->route('index.planilla')->with('mensaje', 'Ya hay planilla guardada para este mes');
         }
 
@@ -41,7 +41,7 @@ class PlanillaController extends Controller
                 $planilla->estado = 'N';
                 $planilla->save();
 
-                $empleados = Empleado::where('activo','=',1)->get();
+                $empleados = Empleado::where('activo', '=', 1)->get();
 
                 foreach ($empleados as $key => $value) {
                     $detalle_planilla = new PlanillaDetalle();
@@ -55,12 +55,12 @@ class PlanillaController extends Controller
                 }
             } else {
                 $planilla = Planilla::findOrFail($planilla[0]->id);
-                $deta = PlanillaDetalle::where('planilla_id','=', $planilla->id)->get();
-                $empleados = Empleado::where('activo','=',1)->get();
+                $deta = PlanillaDetalle::where('planilla_id', '=', $planilla->id)->get();
+                $empleados = Empleado::where('activo', '=', 1)->get();
 
-                if(count($empleados) > count($deta)){
+                if (count($empleados) > count($deta)) {
                     foreach ($empleados as $key => $value) {
-                        $de = PlanillaDetalle::where('planilla_id','=', $planilla->id)->where('empleado_id','=', $value->id)->get();
+                        $de = PlanillaDetalle::where('planilla_id', '=', $planilla->id)->where('empleado_id', '=', $value->id)->get();
                         if (count($de) == 0) {
                             $detalle_p = new PlanillaDetalle();
                             $detalle_p->planilla_id =  $planilla->id;
@@ -74,19 +74,16 @@ class PlanillaController extends Controller
                     }
                 }
 
-                if(count($empleados) < count($deta)){
+                if (count($empleados) < count($deta)) {
                     foreach ($deta as $key => $value) {
                         $de = Empleado::findOrFail($value->empleado_id);
                         if ($de->activo == 0) {
-                            DB::delete('delete from planilla_detalles where id = ?',[$value->id]);
+                            DB::delete('delete from planilla_detalles where id = ?', [$value->id]);
                         }
                     }
                 }
 
                 $planilla = Planilla::findOrFail($planilla->id);
-
-
-
             }
             DB::commit();
 
@@ -94,7 +91,7 @@ class PlanillaController extends Controller
             return view('Planilla.RegistroPlanilla', ['planilla' => $planilla]);
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->with('mensaje',$e->getMessage());
+            return back()->with('mensaje', $e->getMessage());
         }
     }
 
@@ -117,7 +114,7 @@ class PlanillaController extends Controller
         }
 
 
-        return view('Planilla.ListadoPlanilla',[ 'continuar' =>  $continuar, 'listaPlanillas' => $listaPlanillas]);
+        return view('Planilla.Listadoplanilla', ['continuar' =>  $continuar, 'listaPlanillas' => $listaPlanillas]);
     }
 
 
@@ -196,11 +193,11 @@ class PlanillaController extends Controller
         return redirect()->back();
     }
 
-     //borrar Planilla
+    //borrar Planilla
     public function eliminar_planilla($id)
     {
 
-        DB::delete('delete from planilla_detalles where planilla_id = ?',[$id]);
+        DB::delete('delete from planilla_detalles where planilla_id = ?', [$id]);
         Planilla::destroy($id);
 
         return redirect()->back();
@@ -216,4 +213,15 @@ class PlanillaController extends Controller
         return redirect()->back();
     }
 
+
+
+
+    // Para mostrar la informacion
+    public function mostrar($id)
+    {
+        $planillaI = Planilla::findOrFail($id);
+        $planillaDetalle = PlanillaDetalle::where("planilla_id","=",$id)->get();
+        
+        return view('Planilla.InformacionPlanilla')->with('planillaI', $planillaI)->with('planillaDetalle', $planillaDetalle);
+    }
 }

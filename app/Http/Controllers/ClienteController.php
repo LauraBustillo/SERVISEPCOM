@@ -5,27 +5,17 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use DB;
 
-class ClienteController extends Controller
+class ClienteController extends Controller  
 {
 
     /*Funcion para el listado de clientes y el buscador*/ 
     public function index(Request $request){
       $cliente = [];
-      $buscar = '';
+     
 
-      if($request->buscar != null && $request->buscar != ''){
-        $buscar = $request->buscar;
-        $cliente =  Cliente::where(DB::raw("LOWER(concat(Nombre,' ',Apellido))"),"like","%".strtolower($request->buscar)."%")
-        ->orwhere('Numero_identidad', 'like','%'.strtolower($request->buscar).'%')
-        ->paginate(10); 
+      $cliente = Cliente::all();
 
-        
-      }else{
-        $buscar = '';
-        $cliente = Cliente::paginate(10);
-      }
-
-      return view('Clientes.ListadoClientes')->with('clientes', $cliente)->with('buscar',$buscar);
+      return view('Clientes.ListadoClientes')->with('clientes', $cliente);
   }
 
           /*Funcion para mostrar mas informacion del cliente */ 

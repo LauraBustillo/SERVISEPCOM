@@ -83,7 +83,7 @@ class EmpleadoController extends Controller
             'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
             'Salrio' => 'required|numeric',
             'Fecha_contrato' => 'required',
-            'Direccion' => 'required',
+            'Direccion' => 'required|min:10|max:150',
         ]);
 
         $mesaje = ([
@@ -119,6 +119,8 @@ class EmpleadoController extends Controller
             'Salrio.numeric' => 'El salario solo debe contener números',
 
             'Direccion.required' => 'La dirección es obligatoria',
+            'Direccion.min' => 'La dirección debe tener minimo 10 caracteres',
+            'Direccion.max' => 'La dirección debe  tener 150 caracteres',
 
 
         ]);

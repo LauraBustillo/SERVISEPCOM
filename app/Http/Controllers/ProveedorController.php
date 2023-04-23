@@ -48,7 +48,7 @@ class ProveedorController extends Controller
      'Nombre_empresa'=>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:50',
      'Correo'=>'required|email|unique:proveedors|max:30',
      'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|max:8',
-     'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/',
+     'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:10|max:150',
      'Nombre_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
      'Apellido_encargado' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
      'Telefono_encargado' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
@@ -63,6 +63,7 @@ class ProveedorController extends Controller
      'Nombre_empresa.regex'=>'El nombre de la empresa solo puede tener letras' ,
 
      'Correo.required'=>'El correo es obligatorio' ,
+     'Correo.email'=>'El correo debe ser ejemplo: sincorreo@gmail.com' ,
      'Correo.unique'=>'El correo ya ha sido usado' ,
      'Correo.max'=>'El correo no debe tener más de 30 caracteres' ,
 
@@ -74,6 +75,8 @@ class ProveedorController extends Controller
      'Telefono_empresa.regex'=>'El teléfono de la empresa solo debe contener números y empezar con 2, 3, 8 o 9',
 
      'Direccion.required'=>'La dirección es obligatoria' ,
+     'Direccion.min'=>'La dirección debe tener minimo 10 caracteres' ,
+     'Direccion.max'=>'La dirección  no debe de tener más de 150 caracteres' ,
 
      'Nombre_encargado.required'=>'El nombre del encargado es obligatorio' ,
      'Nombre_encargado.min'=>'El nombre del encargado  debe tener minimo 3 letras' ,
