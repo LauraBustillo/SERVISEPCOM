@@ -30,7 +30,7 @@ return [
         'array'   => ':attribute debe contener entre :min y :max elementos.',
     ],
     'boolean'              => ' :attribute debe ser verdadero o falso.',
-    'confirmed'            => ' confirmación de :attribute no coincide.',
+    'confirmed'            => ' La confirmación de la contraseña debe coincidir.', //Aqui le cambiamos lo de restrabelcer contrasena
     'date'                 => ' :attribute no corresponde con una fecha válida.',
     'date_equals'          => ' :attribute debe ser una fecha igual a :date.',
     'date_format'          => ' :attribute no corresponde con el formato de fecha :format.',

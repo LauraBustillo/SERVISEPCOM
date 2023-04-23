@@ -24,8 +24,8 @@
 
     <style>
         .user_card {
-            height: 300px;
-            width: 400px;
+            height: 280px;
+            width: 300px;
             margin-top: auto;
             margin-bottom: auto;
             background: #fff;
@@ -43,18 +43,19 @@
 
         .brand_logo_container {
             position: absolute;
-            height: 170px;
-            width: 170px;
-            top: -75px;
+            height: 150px;
+            width: 150px;
+            top: -65px; 
             border-radius: 50%;
             background: #a1a6a6;
             padding: 10px;
             text-align: center;
         }
-
+        
+        {--borde blaco logo--}
         .brand_logo {
-            height: 150px;
-            width: 150px;
+            height: 133px;
+            width: 133px;
             border-radius: 50%;
             border: 2px solid white;
         }
@@ -85,6 +86,7 @@
         .input_pass:focus {
             box-shadow: none !important;
             outline: 0px !important;
+            margin-bottom: 1% !important;
         }
 
         .btn_login {
@@ -92,8 +94,8 @@
             background: #f9f9f9 !important;
             color: #b5a9a9 !important;
             position: absolute;
-            width: 340px;
-            margin-top: 13px;
+            width: 240px;
+            margin-top: 10px;
             z-index: -2;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
@@ -102,7 +104,7 @@
     </style>
 </head>
 
-<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%; zoom: 150%;">
+<body style="background: url('{{ asset('imagenes/light-blue-gradient-blur-background-vector.jpg') }}') center center no-repeat;    background-size:100% 100%; zoom: 100%;">
 
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100 row" >
