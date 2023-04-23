@@ -107,8 +107,8 @@
     <p>Recibi de: _______________<u>{{ $factura->cliente->Nombre. ' '. $factura->cliente->Apellido  }}</u>___________________RTN:_____________<u>{{ $factura->cliente->Numero_identidad }}</u>___________</p>
     <p>La suma neta de:___________<u>{{ $factura->total_numero_texto." lempiras" }}</u>_______________________________________</p>
     <br>
-    <p>Por Concepto de:________________________________________________________________</p>
-    <p><u>{{ $factura->descripcion }}</u></p>
+    <p>Por Concepto de:__<u>{{ $factura->descripcion }}</u>______</p>
+    <br>
     <p>_____<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->format('d') }}</u>____ de:__<u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->formatLocalized('%B') }}</u>__Año <u>{{ Carbon\Carbon::parse( $factura->fecha_factura)->setTimezone('America/Tegucigalpa')->format('Y') }}</u></p>
 
     <div style="width: 100%; text-align: right">

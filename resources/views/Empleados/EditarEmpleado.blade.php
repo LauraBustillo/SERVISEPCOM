@@ -17,20 +17,62 @@
     border: 1.3px solid #000000;
 }
 
-/*Las etiquetas label*/
+ /* De  Aqui*/ 
+/*Las label*/ 
 .input-group-text  {
-  background-color: #000000;
-  border: 1.3px solid #000000;
+  background-color: #4c4d4e;;
+  border: 1.3px solid #4c4d4e;;
   font-family: 'Open Sans';
   color: #FFFFFF;
 
 }
-
-/*Los botones*/
-.btn-outline-dark {
-  background-color: transparent;
-  border: 1.8px solid #000000;
+/*Los titulos */ 
+.titulo {
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
+  
+  font-family: 'Open Sans';
+  font-size: 20xp;
 }
+.button {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+    text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+    text-decoration: none !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 3px;
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+.button:active {
+    -webkit-transform: translateY(7px);
+    -moz-transform: translateY(7px);
+    -o-transform: translateY(7px);
+    transform: translateY(7px);
+}
+
+.button-blue {
+    background: #4c4d4e;
+    box-shadow: 0 5px 0 #161616,
+                0 11px 5px hsla(0, 0%, 0%, 0.5);
+}
+.button-blue:active {
+    box-shadow: 0 3px 0 #161616,
+                0 4px 6px hsla(0, 0%, 0%, 0.7);
+}
+
+.boton1{
+  border: none;
+}
+
+
 
 /*El boton cancelar */
 a { color: aliceblue;
@@ -41,6 +83,22 @@ a { color: aliceblue;
 .a:hover{
 
     color: white;
+}
+
+input[type="checkbox"] + label {
+    font-weight: bold;
+    line-height: 1em;
+    color: #ccc;
+    cursor: pointer;
+    width: 70px;
+	height: 30px;
+
+}
+input[type="checkbox"]:checked + label {
+    color:#1E90FF;
+    width: 70px;
+	height: 30px;
+
 }
 
 
@@ -72,12 +130,14 @@ a { color: aliceblue;
 
 <div class="row g-3">
   <div class="col">
-
+  <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span>
     <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"
      class="form-control" name="Nombres"  placeholder="Nombres" aria-label="First name"
      Value="{{old('Nombres', $modificar->Nombres)}}">
   </div>
   <div class="col">
+  <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span>
+
     <input type="text" minlength="4" maxlength="25" name="Apellidos"
     id="Apellidos"  class="form-control" placeholder="Apellidos"  aria-label="First name"
     Value="{{old('Apellidos',$modificar->Apellidos)}}">
@@ -112,7 +172,7 @@ a { color: aliceblue;
   <input type="text" minlength="8" maxlength="8" name="Numero_telefono" id="Numero_telefono"  class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
   placeholder="Eje. 00000000" Value="{{old('Numero_telefono',$modificar->Numero_telefono)}}">
 </div>
-</div>
+</div> 
 <br>
 
 {{-- Fecha de contrato,Salario --}}
@@ -120,6 +180,10 @@ a { color: aliceblue;
   <span class="input-group-text">Fecha de contrato</span>
   <input type="date" aria-label="First name" class="form-control"  name="Fecha_contrato" id="Fecha_contrato"
   placeholder="Fecha de contrato"  Value="{{$modificar->Fecha_contrato}}" max= "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 months"));?>"   date_default_timezone_set();>
+  
+  &nbsp;&nbsp; &nbsp;
+  <span class="input-group-text">Salario Lps</span>
+
   <input type="number" min="5000" minlength="3" maxlength="5" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" name="Salrio" id="Salrio" aria-label="Last name" class="form-control"  name="Salrio" id="Salrio"
    placeholder=" Salario Lps."  Value="{{old('Salario',$modificar->Salrio)}}">
 
@@ -138,16 +202,19 @@ a { color: aliceblue;
             checked
     @endif>
     <label class="form-check-label" for="flexCheckDefault">
-      Activo
+      Empleado activo
     </label>
 </div>
 
 
+
 {{--Botones --}}
-<button type="submit" class="btn btn-outline-dark" ><i class="bi bi-repeat" > Actualizar</i></button>
-<button type="reset" class="btn btn-outline-dark"><i class="bi bi-arrow-counterclockwise"> Restaurar</i></button>
-<button type="button" class="btn btn-outline-dark">
-  <a class="a"  href="{{route('empleado.index')}}"><i class="bi bi-x-circle"> Cancelar </i> </a></button>
+<button type="submit" class="button button-blue " ><i class="bi bi-repeat" > Actualizar</i></button>
+<button type="reset" class="button button-blue "  ><i class="bi bi-arrow-counterclockwise"> Restaurar</i></button>
+
+  <a class="button button-blue "  href="{{route('empleado.index')}}"><i class="bi bi-x-circle"> Cancelar </i> </a>
+<br>
+<label for=""></label>
 <br>
 </form>
 
