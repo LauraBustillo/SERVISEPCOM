@@ -214,7 +214,7 @@
             </div> &nbsp;&nbsp;
             <div style="width: 100%">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Empleado</span> 
-                <input name='empleadoVentas' id='empleadoVentas' class="form-control" maxlength="30" minlength="1" required>
+                <input name='empleadoVentas' id='empleadoVentas' class="form-control" maxlength="30" minlength="1" readonly value="{{ Auth::user()->name }}">
             </div> &nbsp;&nbsp;
         </div>
         <br>
