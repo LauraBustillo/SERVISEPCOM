@@ -158,7 +158,7 @@ table.dataTable.dataTable_width_auto {
             "sInfoEmpty": "",
             "sInfoFiltered": "",
             "sInfoPostFix": "",
-            "sSearch": "Búsqueda general",
+            "sSearch": '<b>Búsqueda general</b>',
             "sUrl": ".",
             "sInfoThousands": "",
             "sLoadingRecords": "Cargando...",
@@ -248,9 +248,7 @@ table.dataTable.dataTable_width_auto {
 
 <h1 class="titulo" style="text-align:center">Listado de planilla</h1>
 
-<br>
-
-<div class="input-group "  style="width: 100%"><br>
+<div class="input-group "  style="width: 100%">
 
     <div><br>&nbsp; &nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

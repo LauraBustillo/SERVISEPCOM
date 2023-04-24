@@ -135,6 +135,44 @@
         font-family: 'Open Sans';
     }
 
+    .button {
+        border-bottom: 1px solid hsla(0, 0%, 100%, 0);
+        text-shadow: 0 1px 0 hsla(0, 0%, 0%, 0);
+        text-decoration: none !important;
+        text-transform: uppercase;
+        color: #fff !important;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 0 3px;
+        position: relative;
+        display: inline-block;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -o-transition: all 0.1s;
+        transition: all 0.1s;
+    }
+    .button:active {
+        -webkit-transform: translateY(7px);
+        -moz-transform: translateY(7px);
+        -o-transform: translateY(7px);
+        transform: translateY(7px);
+    }
+
+    .button-blue {
+        background: #4c4d4e;
+        box-shadow: 0 5px 0 #161616,
+                    0 11px 5px hsla(0, 0%, 0%, 0.5);
+    }
+    .button-blue:active {
+        box-shadow: 0 3px 0 #161616,
+                    0 4px 6px hsla(0, 0%, 0%, 0.7);
+    }
+
+    .boton1{
+    border: none;
+    }
+
 </style>
 
 
@@ -226,15 +264,6 @@
 
 </script>
 
-
-
-
-
-<br>
-<br>
-
-
-<br>
 {{-- Título --}}
 <H1 class="titulo" style="text-align: center;">Registro de la planilla</H1>
 
@@ -243,72 +272,50 @@
 {{-- Numero de planilla --}}
 
 {{-- Fecha de planilla--}}
-<div class="row">
-    <div class="col-sm-6">
-        <div style="padding-left: 5%  display: flex">
-            <label class="col-md-3">Fecha Creación</label>
-            <input  id="fecha_inicio" disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla"
+<div style="display: flex">
+    <div class="col" style="width: 33%" >
+        <b><label >Fecha Creación</label></b>
+        <input  id="fecha_inicio" disabled type="text"  aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" class="form-control"  placeholder="Fecha de la planilla"
                 value="{{ $planilla->fecha_inicio }}">
-        </div>
+    </div> &nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div class="col" style="width: 25% ">
+        <b><label >Fecha Finalización</label></b>
+        <input disabled type="text"  aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm" class=" form-control" placeholder="Fecha de la planilla"
+        value="{{ $planilla->fecha_final }}">
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <div hidden class="col" style="width: 33% ">
+       
+        @php
+        $dias_trabajado = 0;
+
+        $primer_dia_mes = Carbon\Carbon::now()->setTimezone('America/Tegucigalpa')->startOfMonth();
+        $hoy = Carbon\Carbon::now()->setTimezone('America/Tegucigalpa');
+
+        $filtro = function($date) {
+        return true;
+        };
+        $dias_trabajado = $primer_dia_mes->diffInDaysFiltered($filtro, $hoy);
+
+        @endphp
+
+       
     </div>
-    <div class="col-sm-6">
-        <div style="padding-left: 5%  display: flex">
-            <label class="col-md-4">Fecha Finalización</label>
-            <input disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" placeholder="Fecha de la planilla"
-                value="{{ $planilla->fecha_final }}">
-        </div>
-    </div>
-</div>
 
-
-
-
-<br>
-
-<div class="row">
-    <div class="col-sm-6">
-        <div hidden style="padding-left: 5%  display: flex">
-            <label hidden class="col-md-3">Días Trabajados</label>
-
-            @php
-            $dias_trabajado = 0;
-
-            $primer_dia_mes = Carbon\Carbon::now()->setTimezone('America/Tegucigalpa')->startOfMonth();
-            $hoy = Carbon\Carbon::now()->setTimezone('America/Tegucigalpa');
-
-            $filtro = function($date) {
-            return true;
-            };
-            $dias_trabajado = $primer_dia_mes->diffInDaysFiltered($filtro, $hoy);
-
-            @endphp
-
-            <input type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado }}">
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div style="padding-left: 5%  display: flex">
-            <label class="col-md-4">Horas Trabajados</label>
-            <input disabled type="text" style="display:flex padding-right:50%" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" class="input1 ancho" value="{{ $dias_trabajado*8 }}">
-        </div>
+    <div class="col" style="width: 33% ">
+        <b><label >Horas Trabajados</label></b>
+        <input disabled type="text" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm" class=" form-control" value="{{ $dias_trabajado*8 }}">
     </div>
 </div>
 
-{{----}}
-
 <br>
-
-
-
 <div style="display: flex" >
-
-
-<br><br>
-<div style="width: 80%" >
+<br>
+<div style="width: 75%" >
 <table class="table table-hover table-bordered" id='myTable'>
     <thead>
         <tr>
@@ -408,12 +415,10 @@
 </table>
 </div>
 
-<div style=" width: 20%" >
+<div style=" width: 25%" >
     <form action="" id="formulario_calcular" >
-        <br>
-        <button class="btn btn-outline-dark" type="submit" onclick="enviarFormulario()"><i class="bi bi-calculator-fill"> Calcular planilla</i></button>
+        <button class="button button-blue"  type="submit" onclick="enviarFormulario()"><i class="bi bi-calculator-fill"> Calcular planilla</i></button>
     </form>
-
     </div>
 </div>
 
@@ -428,10 +433,10 @@
     @if($currentDay < 28)
     <!-- Código a mostrar para los primeros 27 días del mes -->
     @else
-        <button class="btn btn-outline-dark" type="submit" onclick="guardar_planilla()"> <i class="bi bi-folder-fill"> Guardar</i></button>
+        <button class="button button-blue"  type="submit" onclick="guardar_planilla()"> <i class="bi bi-folder-fill"> Guardar</i></button>
     @endif
-    <button type="submit" class="btn btn-outline-dark" onclick="recrear_planilla()"> <i class="bi bi-trash3-fill"> Eliminar planilla</i></button>
-    <button type="button" class="btn btn-outline-dark"><a class="a" href="{{route('index.planilla')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a></button>
+    <button type="submit" class="button button-blue" onclick="recrear_planilla()"> <i class="bi bi-trash3-fill"> Eliminar planilla</i></button>
+    <a class=" button button-blue"  href="{{route('index.planilla')}}"><i class="bi bi-x-circle-fill"> Cerrar</i> </a>
 </center>
 
 

@@ -290,7 +290,7 @@ a { color: aliceblue;
             "sInfoEmpty": "",
             "sInfoFiltered": "",
             "sInfoPostFix": "",
-            "sSearch": "Buscar por nombre, identidad, teléfono o dirección",
+            "sSearch": '<b>Buscar por nombre, identidad, teléfono o dirección</b>',
             "sUrl": ".",
             "sInfoThousands": "",
             "sLoadingRecords": "Cargando...",
@@ -685,7 +685,7 @@ a { color: aliceblue;
  <div class="modal fade"  id="modalbuscarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
     <div class="modal-content">
-        <div class="modal-header"><h3 class="titulo1">
+        <div class="modal-header"><h3 class="tituloo">
           Buscar cliente
         </h3></div>
         <div class="modal-body" >
@@ -716,7 +716,7 @@ a { color: aliceblue;
             </table>
 
             <div class="modal-footer" style="text-align: center">
-              <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalbuscarclientes()"><i class="bi bi-x-circle"> Cerrar</i></button>
+              <button  type="button" class="button button-blue " onclick="cerrarmodalbuscarclientes()"><i class="bi bi-x-circle"> Cerrar</i></button>
             </div>
         </div>
 
@@ -804,7 +804,7 @@ a { color: aliceblue;
   <div class="modal-dialog  modal-xl" >
   <div class="modal-content">
       <div class="modal-header">
-        <h3 class="titulo1">Agregar Producto Invantario</h3>
+        <h3 class="titulo">Agregar Producto Invantario</h3>
       </div>
 
       <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>

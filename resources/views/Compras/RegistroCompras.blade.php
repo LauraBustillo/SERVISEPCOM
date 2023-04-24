@@ -9,6 +9,7 @@
         background-color: transparent;
         border: 1.3px solid #000000;
     }
+    
 
     /*Las label*/ 
     .input-group-text  {

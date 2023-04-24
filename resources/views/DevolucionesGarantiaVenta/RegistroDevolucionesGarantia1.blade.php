@@ -243,7 +243,7 @@
                 , "sInfoEmpty": ""
                 , "sInfoFiltered": ""
                 , "sInfoPostFix": ""
-                , "sSearch": "Buscar por número de factura"
+                , "sSearch": '<b>Buscar por número de factura</b>'
                 , "sUrl": "."
                 , "sInfoThousands": ""
                 , "sLoadingRecords": "Cargando..."

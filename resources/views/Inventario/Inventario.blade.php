@@ -251,7 +251,7 @@ table.dataTable.dataTable_width_auto {
           "sInfoEmpty": "",
           "sInfoFiltered": "",
           "sInfoPostFix": "",
-          "sSearch": "Buscar por nombre del producto, marca o categoría",
+          "sSearch": '<b>Buscar por nombre del producto, marca o categoría</b>',
           "sUrl": ".",
           "sInfoThousands": "",
           "sLoadingRecords": "Cargando...",

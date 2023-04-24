@@ -120,8 +120,8 @@ td {
 #uno {
   position: absolute;
   background-color: transparent;
-  top: 10%;
-  left: 60%;
+  top: 23%;
+  left: 80%;
   right: 0;
   margin: 0 auto;
   width: 5px;
@@ -190,7 +190,7 @@ html, body {
                     , "sInfoEmpty": ""
                     , "sInfoFiltered": ""
                     , "sInfoPostFix": ""
-                    , "sSearch": "Buscar por nombre del gasto, responsable, tipo de gasto"
+                    , "sSearch": '<b>Buscar por nombre del gasto, responsable, tipo de gasto</b>'
                     , "sUrl": "."
                     , "sInfoThousands": ""
                     , "sLoadingRecords": "Cargando..."
@@ -310,10 +310,8 @@ html, body {
 
 <div style="width: 15% " id="uno">
     <br>
-
-        <a class="btn btn-outline-dark" style="float:right" href="{{route('show.gasto')}}">
+        <a class="btn btn-outline-dark"  href="{{route('show.gasto')}}">
         <i class="bi bi-plus-square-fill"></i></a>
-
     </div>
 
 

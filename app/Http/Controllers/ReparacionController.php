@@ -127,11 +127,11 @@ class ReparacionController extends Controller
             'garantia',
 
 
-            'fecha_ingreso' => 'required|before:fecha_entrega',
+            'fecha_ingreso' => '',
 
-            'fecha_entrega' => 'required',
-            'inicio_garantia' => 'required|date',
-            'final_garantia' => 'required|date|after:inicio_garantia',
+            'fecha_entrega' => '',
+            'inicio_garantia' => '',
+            'final_garantia' => '',
 
         ]);
         $mesaje = ([

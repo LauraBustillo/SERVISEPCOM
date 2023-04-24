@@ -150,7 +150,7 @@ table.dataTable.dataTable_width_auto {
         "sInfoEmpty": "",
         "sInfoFiltered": "",
         "sInfoPostFix": "",
-        "sSearch": "Búsqueda general",
+        "sSearch": '<b>Búsqueda general</b>',
         "sUrl": ".",
         "sInfoThousands": "",
         "sLoadingRecords": "Cargando...",

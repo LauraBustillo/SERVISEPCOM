@@ -177,7 +177,7 @@ html, body {
                 , "sInfoEmpty": ""
                 , "sInfoFiltered": ""
                 , "sInfoPostFix": ""
-                , "sSearch": "Buscar por número de pedido"
+                , "sSearch": '<b>Buscar por número de pedido</b>'
                 , "sUrl": "."
                 , "sInfoThousands": ""
                 , "sLoadingRecords": "Cargando..."
@@ -261,12 +261,12 @@ html, body {
 
 <div class="input-group "  style="display: flex" ><br>
   <div style="width: 20%" >
-  <label for="" class="group-text">Fecha minima:</label>
+  <b><label for="" class="group-text">Fecha minima:</label></b>
   <input  class="form-control" id="min" name="min" value=""> 
   </div> &nbsp;&nbsp;
   
   <div style="width: 20%">
-    <label for="" class="group-text">Fecha  máxima:</label>
+    <b><label for="" class="group-text">Fecha  máxima:</label></b>
     <input   class="form-control" id="max" name="max" value="" > 
   </div> &nbsp;&nbsp;
 
@@ -281,7 +281,7 @@ html, body {
   </div>
 </div>
 <div > 
-<br> 
+ 
 
 
 

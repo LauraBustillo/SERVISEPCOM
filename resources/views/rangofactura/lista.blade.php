@@ -191,7 +191,7 @@ table.dataTable.dataTable_width_auto {
                     , "sInfoEmpty": ""
                     , "sInfoFiltered": ""
                     , "sInfoPostFix": ""
-                    , "sSearch": "Buscar por CAI y factura (Inicial/Final)"
+                    , "sSearch": '<b>Buscar por CAI y factura (Inicial/Final)</b>'
                     , "sUrl": "."
                     , "sInfoThousands": ""
                     , "sLoadingRecords": "Cargando..."
@@ -404,12 +404,12 @@ $dias = floor($diferencia / (60 * 60 * 24)) + 1;
 
     <div class="input-group " style="padding-right:4%" style="width: 100%"><br>
         <div>
-            <label for="" class="group-text">Fecha minima:</label>
+            <b><label for="" class="group-text">Fecha minima:</label></b>
             <input class="form-control" id="min" name="min" value="">
         </div>&nbsp; &nbsp;&nbsp;
 
         <div>
-            <label for="" class="group-text">Fecha máxima:</label>
+            <b><label for="" class="group-text">Fecha máxima:</label></b>
             <input class="form-control" id="max" name="max" value="">
         </div>
         <div><br>&nbsp; &nbsp;

@@ -224,6 +224,7 @@
     <div style="display: flex" >
       @if($accion == 'crear')
       <div class="col"style="padding-left: -3%">
+        <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
         <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background:transparent"> 
             <option value=>Seleccione el proveedor</option>
           @foreach ($proveedores as $pro)              
@@ -259,9 +260,7 @@
 
     <br>
     <div  class="select" id="divselectproduct"> 
-      
 
-    
     </div>
 
   </div>
@@ -355,7 +354,7 @@
           },
           success: function(data) {
             $("#productosproveedor").remove();
-            document.getElementById("divselectproduct").innerHTML = '<select name="" id="productosproveedor" class="form-control" ></select>'
+            document.getElementById("divselectproduct").innerHTML = '<select name="" id="productosproveedor" class="form-control"></select>'
             
             //se le asigna el metodo que hara cuando se cambie
             $('#productosproveedor').on('select2:select', function (e) {                
@@ -391,7 +390,7 @@
  function hacerselectproductosproveedor(data){
 
       $("#productosproveedor").remove();
-      document.getElementById("divselectproduct").innerHTML='<select" id="productosproveedor" ><option>Seleccione un producto</option></select>'
+      document.getElementById("divselectproduct").innerHTML='<select id="productosproveedor" ><option>Seleccione un producto</option></select>'
       $('#productosproveedor').on('select2:select', function (e) {                
         getProductdeDB(e.params.data.id)
       });

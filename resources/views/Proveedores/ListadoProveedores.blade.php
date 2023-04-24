@@ -171,7 +171,7 @@ table.dataTable.dataTable_width_auto {
         "sInfoEmpty": "",
         "sInfoFiltered": "",
         "sInfoPostFix": "",
-        "sSearch": "Buscar por nombre, apellidos o identidad  ",
+        "sSearch": '<b>Buscar por nombre, apellidos o identidad</b>',
         "sUrl": ".",
         "sInfoThousands": "",
         "sLoadingRecords": "Cargando...",

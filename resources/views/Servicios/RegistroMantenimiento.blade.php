@@ -184,7 +184,13 @@ a { color: aliceblue;
     height: 30px !important; 
   }
 
-        
+  .tituloo{
+  font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
+  color: #4c4d4e;;
+  
+  font-family: 'Open Sans';
+  font-size: 30px;
+}      
 </style>
 
 
@@ -240,7 +246,7 @@ a { color: aliceblue;
           "sInfoEmpty": "",
           "sInfoFiltered": "",
           "sInfoPostFix": "",
-          "sSearch": "Buscar por nombre, identidad, teléfono o dirección",
+          "sSearch": '<b>Buscar por nombre, identidad, teléfono o dirección</b>',
           "sUrl": ".",
           "sInfoThousands": "",
           "sLoadingRecords": "Cargando...",
@@ -467,66 +473,74 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
  <div class="modal fade "  id="modalagregarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-xl" >
   <div class="modal-content">
-      <div class="modal-header"><h3 class="titulo1">
+      <div class="modal-header"><h3 class="tituloo">
           Agregar cliente
         </h3></div>
       <div class="modal-body" >
           
-        
-          <div style="display: flex">
     
-            <div style="width: 100%">
-              <label  id="inputGroup-sizing-sm">Nombres</label> 
-              <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-              title="Solo debe tener letras"
-              placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
-            </div>
-            &nbsp; &nbsp;
-
-            <div style="width: 100%">
-              <label id="inputGroup-sizing-sm">Apellidos</label> 
-              <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  
-              pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
-              placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
-            </div> 
-
-            &nbsp; &nbsp;
-            <div style="width: 100%">
-              <label  id="inputGroup-sizing-sm">Número de identidad</label> 
-              <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control" 
-                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-              title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
-              placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
-            </div>
-
-            &nbsp; &nbsp;
-            <div style="width: 100%">
-              <label id="inputGroup-sizing-sm">Teléfono fijo o celular</label>
-              <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-              title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
-            </div> 
-         
-          </div>
+            
+              <div style="display: flex">
         
-
-          <br>
-       
-          <center><div style="width: 60%"> 
-            <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span> 
-            <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
-            rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
-          </div></center>
-          
+                <div style="width: 100%">
+                 
+                  <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
+    
+                  <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
+                  title="Solo debe tener letras"
+                  placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
+                </div>
+                &nbsp; &nbsp;
+    
+                <div style="width: 100%">
+                  
+                  <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
+    
+                  <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  
+                  pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
+                  placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
+                </div> 
+    
+                &nbsp; &nbsp;
+                <div style="width: 100%">
+                 
+                  <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Número de identidad</span>
+    
+                  <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control" 
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                  title="Debe comenzar con 0 o 1. Debe tener 13 caracteres" pattern="([0-1][0-8][0-2][0-9]{10})"  pattern="[0-9]+" 
+                  placeholder="Eje. 0000000000000" value="{{old('Numero_identidad')}}">
+                </div>
+    
+                &nbsp; &nbsp;
+                <div style="width: 100%">
+                  <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
+    
+                  <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                  title="Solo debe tener numeros"   placeholder="Eje. 00000000" value="{{old('Numero_telefono')}}">
+                </div> 
+             
+              </div>
+            
+    
+              <br>
+           
+              <center><div style="width: 60%"> 
+                <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span> 
+                <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
+                rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
+              </div></center>
+              
+          </div>
+    
+          <!-- Botones -->
+          <div class="modal-footer" style="text-align: center">
+            <button  type="button" class="button button-blue " onclick="cerrarmodalclientes()"><i class="bi bi-x-circle"> Cancelar</i></button>
+            <button type="button" class="button button-blue " style="display:block" onclick="guardarClienteBASE()" ><i class="bi bi-bag-plus"> Guardar</i></button>
+          </div>
       </div>
-
-      <!-- Botones -->
-      <div class="modal-footer" style="text-align: center">
-        <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalclientes()"><i class="bi bi-x-circle"> Cancelar</i></button>
-        <button type="button" class="btn btn-outline-dark" style="display:block" onclick="guardarClienteBASE()" ><i class="bi bi-bag-plus"> Guardar</i></button>
       </div>
-  </div>
-  </div>
-</div>
+    </div>
 
  <!-- Modal de dialogo de Buscar cliente --> 
  {{-- en este dialogo, mostraremos la lista de clientes, incluidos los agregados del modal Anterior
@@ -534,7 +548,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
  <div class="modal fade"  id="modalbuscarcliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-xl" >
   <div class="modal-content">
-      <div class="modal-header"><h3 class="titulo1">
+      <div class="modal-header"><h3 class="tituloo">
         Buscar cliente
       </h3></div>
       <div class="modal-body" >
@@ -565,7 +579,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
           </table> 
 
           <div class="modal-footer" style="text-align: center">
-            <button  type="button" class="btn btn-outline-dark" onclick="cerrarmodalbuscarclientes()"><i class="bi bi-x-circle"> Cerrar</i></button>
+            <button  type="button" class="button button-blue " onclick="cerrarmodalbuscarclientes()"><i class="bi bi-x-circle"> Cerrar</i></button>
           </div>
       </div>
 
