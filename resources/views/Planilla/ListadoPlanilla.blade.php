@@ -294,7 +294,7 @@ table.dataTable.dataTable_width_auto {
                 <th scope="col">Número de planilla</th>
                 <th scope="col">Fecha de la planilla</th>
                 <th scope="col">Total de planilla en general</th>
-                <th scope="col">Detalles de la planilla</th>
+                <th scope="col">Detalle de la planilla</th>
 
             </tr>
         </thead>
