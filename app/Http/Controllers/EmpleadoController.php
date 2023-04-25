@@ -18,20 +18,13 @@ class EmpleadoController extends Controller
 
         Permiso::validarRolSoloAdmin(Auth::user());
 
-
         $empleado = [];
-        $buscar = '';
-        if ($request->buscar != null && $request->buscar != '') {
-            $buscar = $request->buscar;
-            $empleado =  Empleado::where(DB::raw("LOWER(concat(Nombres,'',Apellidos))"), "like", "%" . strtolower($request->buscar) . "%")
-                ->orwhere('Numero_identidad', 'like', '%' . strtolower($request->buscar) . '%')
-                ->paginate(10);
-        } else {
-            $buscar = '';
-            $empleado = Empleado::paginate(10);
-        }
+        $empleado = Empleado::all();
+        
 
-        return view('Empleados.ListadoEmpleados')->with('empleados', $empleado)->with('buscar', $buscar);
+        return view('Empleados.ListadoEmpleados')->with('empleados', $empleado);
+
+      
     }
 
     /*Funcion para mostrar mas informacion del empleado */
