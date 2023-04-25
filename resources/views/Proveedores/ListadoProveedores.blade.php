@@ -123,8 +123,8 @@ table.dataTable.dataTable_width_auto {
 #uno {
   position: absolute;
   background-color: transparent;
-  top: 23%;
-  left: 55%;
+  top: 37%;
+  left: 47%;
   right: 0;
   margin: 0 auto;
   width: 5px;

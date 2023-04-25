@@ -98,7 +98,7 @@ table.dataTable.dataTable_width_auto {
 #uno {
   position: absolute;
   background-color: transparent;
-  top: 21%;
+  top: 32%;
   left: 65%;
   right: 0;
   margin: 0 auto;

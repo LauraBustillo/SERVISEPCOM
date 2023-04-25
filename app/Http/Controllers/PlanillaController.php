@@ -114,7 +114,7 @@ class PlanillaController extends Controller
         }
 
 
-        return view('Planilla.Listadoplanilla', ['continuar' =>  $continuar, 'listaPlanillas' => $listaPlanillas]);
+        return view('Planilla.Listadoplanilla1', ['continuar' =>  $continuar, 'listaPlanillas' => $listaPlanillas]);
     }
 
 

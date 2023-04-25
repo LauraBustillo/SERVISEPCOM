@@ -121,7 +121,7 @@ td {
   position: absolute;
   background-color: transparent;
   top: 23%;
-  left: 80%;
+  left: 77%;
   right: 0;
   margin: 0 auto;
   width: 5px;

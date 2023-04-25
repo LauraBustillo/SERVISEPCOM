@@ -2,20 +2,7 @@
 @section('extra-content')
 
 <style>
-.input-group-text  {
-  background-color: #B8D7F9;
-  border: 1px solid #0319C4;
-}
 
-.form-control  {
-    background-color: transparent;
-    border: 1px solid #0319C4;
-}
-
-.btn-info{
-    background-color: transparent;
-    border: 1px solid #0319C4;
-}
 .dt-buttons{
   padding-left: 100% !important;
 
@@ -313,7 +300,7 @@ H = Horas &nbsp;
   E/D = Extras/Diurna &nbsp;  
 E/N = Extras/Nocturnas</b> 
 </label>
-<br><br><br>
+<br> <br>
     <a class="button button-blue " href="{{ route('index.planilla') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
 
 

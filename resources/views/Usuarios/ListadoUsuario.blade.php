@@ -107,7 +107,7 @@ table.dataTable.dataTable_width_auto {
   position: absolute;
   background-color: transparent;
   top: 20%;
-  left: 62.5%;
+  left: 47%;
   right: 0;
   margin: 0 auto;
   width: 5px;
