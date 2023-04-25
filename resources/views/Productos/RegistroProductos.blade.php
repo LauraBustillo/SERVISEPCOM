@@ -102,7 +102,15 @@ a { color: aliceblue;
     alertify.success(mensaje);
   </script> 
 @endif 
-
+<script>
+  var errores = []
+  errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
+  if(errores.length > 0){
+    errores.forEach(element => {
+      alertify.error(element)
+    });   
+  }
+</script>
 
       <form class="form-control" id="form_guardarPr" name="form_guardarPr"  method="POST" style="text-align: center;" onsubmit="confirmar()">
             @csrf
