@@ -91,6 +91,10 @@
     border: none;
     }
 
+    #viewPassword{
+        cursor:pointer;
+    }
+
 </style>
 
 {{--Mostrar funcion--}}
@@ -183,6 +187,8 @@
                 <div class="col" style="padding-left: 7% " >
                     <span class="input-group-text" id="inputGroup-sizing-sm">Ingrese la contraseña</span> 
                     <input  type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
+                    <a id="viewPassword"><i class="bi bi-eye-fill"></i></a>
+                    
                     @error('password')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>
@@ -215,6 +221,19 @@
 
 </form>
 <script>
+let password = document.getElementById('contrasena');
+let viewPassword = document.getElementById('viewPassword');
+let click = false;
+
+viewPassword.addEventListener('click', (e)=>{
+  if(!click){
+    password.type = 'text'
+    click = true
+  }else if(click){
+    password.type = 'password'
+    click = false
+  }
+}) 
 
 onkeyup="app.inputKeyUpDirect(this);"
 /* Para poner en mayuscula la primer letra*/
