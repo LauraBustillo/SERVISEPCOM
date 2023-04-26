@@ -281,7 +281,7 @@ $(function() {
 
     {{-- Color del menu--}}
     
-    <body class="bo " id="body-pd" style="padding-top: 1rem; background-size:100% 100%; zoom:68%;  background-image: url({{asset('imagenes/fondo2.jpg')}})">
+    <body class="bo " id="body-pd" style="padding-top: 1rem; background-size:100% 100%; zoom:80%;  background-image: url({{asset('imagenes/fondo2.jpg')}})">
 
             <nav class="l-navbar scrollable-content " style="background-image: radial-gradient(circle at 52.46% 56.76%, #635e75 0, #413e5e 50%, #1d2148 100%);" id="nav-bar" >
 
