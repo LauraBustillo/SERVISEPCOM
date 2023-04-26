@@ -95,6 +95,25 @@
         cursor:pointer;
     }
 
+    /* Este elemento debe tener "position: relative" */
+div#is-relative{
+  max-width: 463px;
+  position: relative;
+  background-color: transparent;
+}
+
+/* El icono debe ser "position: absolute"
+ * Ademas le damos un "display: block" y lo posicionamos */
+#icon{
+  position: absolute;
+  display: block;
+  bottom: .5rem;
+  right: 1rem;
+  
+  user-select: none;
+  cursor: pointer;
+}
+
 </style>
 
 {{--Mostrar funcion--}}
@@ -186,9 +205,10 @@
             <div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
                 <div class="col" style="padding-left: 7% " >
                     <span class="input-group-text" id="inputGroup-sizing-sm">Ingrese la contraseña</span> 
+                    <div id="is-relative" >
                     <input  type="password" name="password" id="contrasena" class="form-control" value="{{old('password')}}" placeholder="Ingrese la contraseña">
-                    <a id="viewPassword"><i class="bi bi-eye-fill"></i></a>
-                    
+                    <span id="icon">
+                    <a id="viewPassword"><i class="bi bi-eye-fill"></i></a></span></div>
                     @error('password')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>
