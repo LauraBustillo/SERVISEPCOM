@@ -243,7 +243,7 @@
 
       <div class="col"style="padding-left: 4%">
      <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre del encargado</span>
-     <input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado">
+     <input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado" onkeyup="app.inputKeyUpDirect(this);">   
     </div>
       
     <div class="col"style="padding-left: 4%">
@@ -280,15 +280,15 @@
     <div style="display: flex">
     <div class="col"style="padding-left: 0%">
      <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre</span>
-     <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required> &nbsp;
+     <input disabled id="producto_nombre" type="text" class="form-control " placeholder="Nombre del producto" required  onkeyup="app.inputKeyUpDirect(this);"> &nbsp;
     </div>
     <div class="col"style="padding-left: 4%">
      <span class="input-group-text"  id="inputGroup-sizing-sm">Marca</span>
-     <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required> &nbsp;
+     <input disabled id="producto_marca" type="text" class="form-control" placeholder="Marca del producto" required  onkeyup="app.inputKeyUpDirect(this);"> &nbsp;
     </div>
     <div class="col"style="padding-left: 4%">
      <span class="input-group-text"  id="inputGroup-sizing-sm">Descripción</span>
-     <textarea disabled id="producto_descripcion" class="form-control" placeholder="Descripción" rows="1" required></textarea> &nbsp;
+     <textarea disabled id="producto_descripcion" class="form-control" placeholder="Descripción" rows="1" required   onkeyup="app.inputKeyUpDirect(this);"></textarea> &nbsp;
     </div>
     <div class="col"style="padding-left: 4%">
      <span class="input-group-text"  id="inputGroup-sizing-sm">Cantidad</span>
@@ -761,6 +761,34 @@
           (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       );
   }
+
+
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
 
 </script>
 

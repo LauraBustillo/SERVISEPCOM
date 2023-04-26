@@ -123,7 +123,7 @@ a { color: aliceblue;
             <div class="row g-3"  class="input-group input-group-sm mb-1" style="padding-right:6.5%"  style="width: 100%" >
                   <div class="col" style="padding-left: 7%">
                     <span class="input-group-text"  >Nombre del producto</span>
-                    <input type="text"   maxlength="25" name="Nombre_producto" id="Nombre_producto"  
+                    <input type="text"   maxlength="25" name="Nombre_producto" id="Nombre_producto"  onkeyup="app.inputKeyUpDirect(this);"
 
                     class="form-control" placeholder="Nombre del producto"
                     aria-label="First name" value="{{old('Nombre_producto')}}">
@@ -131,7 +131,7 @@ a { color: aliceblue;
 
                   <div class="col">
                     <span class="input-group-text" >Marca del producto</span>
-                    <input type="text" maxlength="25" name="Marca" id="Marca"  class="form-control" 
+                    <input type="text" maxlength="25" name="Marca" id="Marca"  class="form-control" onkeyup="app.inputKeyUpDirect(this);"
                     placeholder="Marca del producto" aria-label="First name" value="{{old('Marca')}}">
                   </div>
             </div>
@@ -166,7 +166,7 @@ a { color: aliceblue;
             {{-- Descripcion --}}
             <div  class="mb-3" style="padding-left: 22%"> 
               <span class="input-group-text"  style="width: 70%">Descripción del producto</span>
-              <textarea class="form-control" style="width: 70%"  spellcheck="true" maxlength="150" 
+              <textarea class="form-control" style="width: 70%"  spellcheck="true" maxlength="150"  onkeyup="app.inputKeyUpDirect(this);"
               name="Descripcion" id="Descripcion" id="exampleFormControlTextarea1" rows="3" 
               placeholder="Ingrese la descripción del producto">{{old('Descripcion')}}</textarea>
             </div>         
@@ -214,6 +214,39 @@ a { color: aliceblue;
 {{--mensaje de confirmacion --}}
 @push('alertas')
     <script>
+
+ 
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
+
+
+
+
+
         function confirmar() {
            var formul = document.getElementById("form_guardarPr");
            

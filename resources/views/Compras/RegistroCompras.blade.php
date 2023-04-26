@@ -408,13 +408,13 @@
                 </div>
                 <div class="modal-body" >
                     <div style="display: flex">
-                        <input type="text" minlength="3" maxlength="25"  id="Nombre_producto_form" pattern="[A-ZÑ a-zñ0-9]+"
+                        <input type="text" minlength="3" maxlength="25"  id="Nombre_producto_form" pattern="[A-ZÑ a-zñ0-9]+" onkeyup="app.inputKeyUpDirect(this);"
                         class="form-control"  required placeholder="Nombre del producto"> &nbsp;
 
-                        <input type="text" minlength="1" maxlength="25" id="Marca_form" pattern="[A-ZÑ a-zñ]+"  class="form-control" required
+                        <input type="text" minlength="1" maxlength="25" id="Marca_form" pattern="[A-ZÑ a-zñ]+"  class="form-control" required onkeyup="app.inputKeyUpDirect(this);"
                         placeholder="Marca del producto" > &nbsp;
 
-                        <textarea class="form-control" rows="1" pattern="[A-ZÑ a-zñ][0-9]+"
+                        <textarea class="form-control" rows="1" pattern="[A-ZÑ a-zñ][0-9]+" onkeyup="app.inputKeyUpDirect(this);"
                         minlength="5" maxlength="50" id="Descripcion_form" placeholder="Ingrese la descripción del producto" required></textarea>
                     </div>
 
@@ -1229,6 +1229,33 @@
         event.returnValue = false;
         }
 
+
+        
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
 
 
      </script>

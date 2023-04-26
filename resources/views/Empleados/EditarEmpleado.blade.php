@@ -12,7 +12,7 @@
 }
 
 /*Las Cajas de texto*/
-.form-control  {
+.form-control  { 
     background-color: transparent;
     border: 1.3px solid #000000;
 }
@@ -133,14 +133,14 @@ input[type="checkbox"]:checked + label {
   <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span>
     <input type="text"   minlength="3" maxlength="25" name="Nombres" id="Nombres"
      class="form-control" name="Nombres"  placeholder="Nombres" aria-label="First name"
-     Value="{{old('Nombres', $modificar->Nombres)}}">
+     Value="{{old('Nombres', $modificar->Nombres)}}"    onkeyup="app.inputKeyUpDirect(this);">
   </div>
   <div class="col">
   <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span>
 
     <input type="text" minlength="4" maxlength="25" name="Apellidos"
     id="Apellidos"  class="form-control" placeholder="Apellidos"  aria-label="First name"
-    Value="{{old('Apellidos',$modificar->Apellidos)}}">
+    Value="{{old('Apellidos',$modificar->Apellidos)}}"    onkeyup="app.inputKeyUpDirect(this);">
 
   </div>
 </div>
@@ -193,7 +193,10 @@ input[type="checkbox"]:checked + label {
 {{-- Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
   <span class="input-group-text"  style="width: 70%">Dirección</span>
-  <textarea class="form-control" minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion',$modificar->Direccion)}}</textarea>
+  <textarea class="form-control" minlength="10" maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese la dirección exacta del domicilio"
+  onkeyup="app.inputKeyUpDirect(this);">{{old('Direccion',$modificar->Direccion)}}</textarea>
+
+
 </div>
 
 <br>
@@ -217,7 +220,34 @@ input[type="checkbox"]:checked + label {
 <label for=""></label>
 <br>
 </form>
+<script>
+ 
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
 
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
+</script>
 @endsection
 {{--mensaje de confirmacion --}}
 @push('alertas')

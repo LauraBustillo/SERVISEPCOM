@@ -104,7 +104,7 @@
         {{-- Nombre del gasto  --}}
         <div class="col" style="width: 50%">
             <span class="input-group-text" id="inputGroup-sizing-sm">Nombre del gasto</span> 
-            <input  type="text" name="nombre_gasto" id="nombre_gasto" class="form-control" value="{{old('nombre_gasto')}}" maxlength="25"
+            <input    onkeyup="app.inputKeyUpDirect(this);" type="text" name="nombre_gasto" id="nombre_gasto" class="form-control" value="{{old('nombre_gasto')}}" maxlength="25"
             placeholder="Nombre del gasto">
         </div>
         &nbsp;&nbsp;&nbsp;
@@ -132,12 +132,12 @@
         {{--Descripcion --}}
      <div class="col" style="width: 50%" >
         <span class="input-group-text" id="inputGroup-sizing-sm">Descripción</span> 
-          <textarea  maxlength="150" name="descripcion_gasto" spellcheck="true"  id="descripcion_gasto" class="form-control"
+          <textarea   onkeyup="app.inputKeyUpDirect(this);"  maxlength="150" name="descripcion_gasto" spellcheck="true"  id="descripcion_gasto" class="form-control" 
            rows="1" placeholder=" Descripción " >{{old('descripcion_gasto')}}</textarea>
         </div >
 
     </div>
-    <br>
+    <br> 
 
    <div class="input-group input-group-sm flex">
     {{--Total gasto --}}
@@ -186,6 +186,35 @@
     d.setHours(d.getHours() + offset);
     document.getElementById("fecha_gasto").min = d.toISOString().split("T")[0];
     d.setMonth(d.getMonth() - 1);
+
+
+
+ 
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
 </script>
 
 @endsection

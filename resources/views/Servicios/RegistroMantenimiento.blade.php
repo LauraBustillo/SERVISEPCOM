@@ -333,7 +333,7 @@ a { color: aliceblue;
       &nbsp;&nbsp;   
       <div style="width: 100%">
         <label  id="inputGroup-sizing-sm">Descripcion</label> 
-        <textarea  id="descripcion_mantenimiento" type="text" name="descripcion" class="form-control" 
+        <textarea  id="descripcion_mantenimiento" type="text" name="descripcion" class="form-control"  onkeyup="app.inputKeyUpDirect(this);"
         placeholder="Descripcion"  rows="2" value="{{$mantenimiento->descripcion}}">{{$mantenimiento->descripcion}}</textarea>
       </div>        
     </div>
@@ -383,7 +383,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
 
       <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $mantenimiento->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20" 
-      type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
+      onkeyup="app.inputKeyUpDirect(this);" type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
     </div>
   </div>
 
@@ -395,7 +395,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
      
       <span class="input-group-text"  style="width: 100%">Marca</span>
 
-      <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$mantenimiento->marca)}}"
+      <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$mantenimiento->marca)}}" onkeyup="app.inputKeyUpDirect(this);"
        name="marca" id="marca" type="text" 
       aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
     </div>
@@ -408,7 +408,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
      
       <span class="input-group-text"  style="width: 100%">Modelo</span>
 
-      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $mantenimiento->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
+      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $mantenimiento->modelo)}}" name="modelo" onkeyup="app.inputKeyUpDirect(this);"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
     </div>
   </div>
 
@@ -442,7 +442,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 
     <span class="input-group-text select2"  style="width: 100%">Descripción</span>
 
-    <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"  
+    <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"    onkeyup="app.inputKeyUpDirect(this);"
     type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
   </div>
 
@@ -487,7 +487,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                   <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
     
                   <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-                  title="Solo debe tener letras"
+                  onkeyup="app.inputKeyUpDirect(this);"  title="Solo debe tener letras"
                   placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
                 </div>
                 &nbsp; &nbsp;
@@ -496,7 +496,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                   
                   <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
     
-                  <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  
+                  <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  onkeyup="app.inputKeyUpDirect(this);"
                   pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
                   placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
                 </div> 
@@ -527,7 +527,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
            
               <center><div style="width: 60%"> 
                 <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span> 
-                <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
+                <textarea   id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1" onkeyup="app.inputKeyUpDirect(this);"
                 rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
               </div></center>
               
@@ -935,6 +935,32 @@ var fecha1 = new Date();
 document.getElementById("fecha_facturacion").value = fecha1.toJSON().slice(0,10);
 
  
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
 </script>
 
 

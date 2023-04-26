@@ -86,6 +86,8 @@ a:hover{
 .boton1{
   border: none;
 }
+
+
 </style>
 
 <script>
@@ -97,7 +99,7 @@ a:hover{
     });   
   }
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <form class="form-control" id="form_guardarCL" name="form_guardarCL" method="POST" style="text-align: center;" onsubmit="guardarcliente()">
 @csrf
@@ -110,17 +112,16 @@ a:hover{
 
 
 {{-- Nombre , Apellidos --}}
-<div class="input-group input-group-sm mb-1" style="padding-right:6.5%"   >
-  <div class="col" style="padding-left: 7% " >
+<div class="input-group input-group-sm mb-1 " style="padding-right:6.5%"   >
+  <div class="col " style="padding-left: 7% " >
     <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span> 
-  <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  class="form-control" 
- 
+  <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  onkeyup="app.inputKeyUpDirect(this);" class="form-control" 
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
   </div>
-  <div class="col" style="padding-left:2% "  >
-    <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span> 
-    <input type="text" maxlength="25" id="Apellido" name="Apellido"  
-     class="form-control" 
+  <div class="col " style="padding-left:2% "  >
+    <span class="input-group-text " id="inputGroup-sizing-sm">Apellidos</span> 
+    <input type="text" maxlength="25" id="Apellido" name="Apellido"   
+     class="form-control" onkeyup="app.inputKeyUpDirect(this);" 
     placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
   </div>
 </div>
@@ -147,10 +148,10 @@ a:hover{
 
 
 {{--Dirección --}}
-<div class="mb-3" style="padding-left: 22%">
+<div class="mb-3 " style="padding-left: 22%">
 <span class="input-group-text"  style="width: 70%">Dirección</span>
-  <textarea  maxlength="150"  name="Direccion" spellcheck="true"  id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
-   rows="3" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
+  <textarea  maxlength="150"  name="Direccion" spellcheck="true" id="Direccion" class="form-control" style="width: 70%"  id="exampleFormControlTextarea1"
+   rows="3" placeholder="Ingrese la dirección exacta del domicilio" onkeyup="app.inputKeyUpDirect(this);">{{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
@@ -167,8 +168,31 @@ a:hover{
 
  <script>
 
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
 
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
 
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
       /*Validaciones*/
       function confirmar() {
 

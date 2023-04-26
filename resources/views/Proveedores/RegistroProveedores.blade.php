@@ -16,7 +16,7 @@
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #4c4d4e;;
   
-  font-family: 'Open Sans';
+  font-family: 'Open Sans'; 
   font-size: 20xp;
 }
     
@@ -114,8 +114,8 @@
             {{-- Nombre y correo de la empresa --}}
             <div class="row g-3 input-group input-group-sm mb-1" >
               <div class="col">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Nombre de la empresa</span> 
-                <input type="text"   maxlength="25" name="Nombre_empresa" id="Nombre_empresa"   
+                <span class="input-group-text" id="inputGroup-sizing-sm" >Nombre de la empresa</span> 
+                <input type="text"   maxlength="25" name="Nombre_empresa" id="Nombre_empresa"   onkeyup="app.inputKeyUpDirect(this);" 
                 class="form-control" placeholder="Nombre de la empresa" 
                 aria-label="First name" value="{{old('Nombre_empresa')}}">
               </div>
@@ -141,7 +141,7 @@
                 <div class="col"  > 
                     <span class="input-group-text" id="inputGroup-sizing-sm" >Dirección</span>
                     <textarea class="form-control ancho-alto" spellcheck="true"  maxlength="150"
-                     name="Direccion" id="Direccion" id="exampleFormControlTextarea1" 
+                     name="Direccion" id="Direccion" id="exampleFormControlTextarea1" onkeyup="app.inputKeyUpDirect(this);"
                      placeholder="Ingrese la dirección exacta de la empresa">{{old('Direccion')}}</textarea>
                 </div>
             </div>
@@ -152,13 +152,13 @@
             <div class="row g-3 input-group input-group-sm mb-1"  >
                 <div class="col">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Nombre del encargado</span> 
-                <input type="text" maxlength="25" name="Nombre_encargado" id="Nombre_encargado"  class="form-control"  
+                <input type="text" maxlength="25" name="Nombre_encargado" id="Nombre_encargado"  class="form-control"   onkeyup="app.inputKeyUpDirect(this);"
                  placeholder="Nombres del encargado" aria-label="First name" value="{{old('Nombre_encargado')}}">
                 </div>
 
                 <div class="col">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Apellido del encargado</span> 
-                <input type="text" maxlength="25" name="Apellido_encargado" id="Apellido_encargado" class="form-control"  
+                <input type="text" maxlength="25" name="Apellido_encargado" id="Apellido_encargado" class="form-control"   onkeyup="app.inputKeyUpDirect(this);"
                  placeholder="Apellidos del encargado" aria-label="last name" value="{{old('Apellido_encargado')}}">
                 </div>
             </div>
@@ -183,6 +183,33 @@
 
             
     <script>
+
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
         /*Validaciones
       function confirmar() {
       if (document.getElementById("Nombre_empresa").value == '') {

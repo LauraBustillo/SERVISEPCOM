@@ -22,7 +22,7 @@
 .btn-outline-dark {
   background-color: transparent;
   border: 1.8px solid #000000;
-}
+} 
 
 /*El boton cancelar */ 
 a { color: aliceblue;
@@ -164,7 +164,7 @@ input[type="checkbox"]:checked + label {
 
               <span class="input-group-text" id="inputGroup-sizing-sm">Nombre de la empresa</span>
 
-                <input type="text"   maxlength="25" name="Nombre_empresa" id="Nombre_empresa"  
+                <input type="text"   maxlength="25" name="Nombre_empresa" id="Nombre_empresa"    onkeyup="app.inputKeyUpDirect(this);"
                 class="form-control"  placeholder="Nombre de la empresa" 
                 aria-label="First name" value="{{old('Nombre_empresa', $modificar->Nombre_empresa)}}" >
               </div>
@@ -189,7 +189,7 @@ input[type="checkbox"]:checked + label {
                 {{-- Direccion --}}
                 <div class="col" style="padding-left: 6%" > 
                     <span class="input-group-text"  style="width: 109%">Dirección </span>
-                    <textarea class="form-control ancho-alto" spellcheck="true" maxlength="150" 
+                    <textarea class="form-control ancho-alto" spellcheck="true" maxlength="150"   onkeyup="app.inputKeyUpDirect(this);"
                     name="Direccion" id="Direccion" id="exampleFormControlTextarea1" placeholder="Ingrese la dirección exacta de la empresa">{{old('Direccion',$modificar->Direccion)}}</textarea>
                 </div>
                 </div>
@@ -199,14 +199,14 @@ input[type="checkbox"]:checked + label {
                 <div class="col">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Nombres del encargado</span>
 
-                <input type="text"  maxlength="25" name="Nombre_encargado" id="Nombre_encargado" class="form-control" 
+                <input type="text"  maxlength="25" name="Nombre_encargado" id="Nombre_encargado" class="form-control"   onkeyup="app.inputKeyUpDirect(this);"
                 placeholder="Nombres del encargado" aria-label="First name" value="{{old('Nombre_encargado', $modificar->Nombre_encargado)}}">
                 </div>
 
                 <div class="col">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos del encargado</span>
 
-                <input type="text" maxlength="25" name="Apellido_encargado" id="Apellido_encargado" 
+                <input type="text" maxlength="25" name="Apellido_encargado" id="Apellido_encargado"  onkeyup="app.inputKeyUpDirect(this);"
                 class="form-control" placeholder="Apellidos del encargado" aria-label="last name" 
                 value="{{old('Apellido_encargado',$modificar->Apellido_encargado)}}">
                 </div>
@@ -235,6 +235,36 @@ input[type="checkbox"]:checked + label {
             
             <br>
 </form>
+
+
+<script>
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
+</script>
 @endsection 
 
 {{--mensaje de confirmacion --}}

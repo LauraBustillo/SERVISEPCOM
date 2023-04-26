@@ -114,13 +114,13 @@ a { color: aliceblue;
   <div class="col" style="padding-left: 7% " >
     <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span> 
   <input type="text"  maxlength="25"  id="Nombre" name="Nombre"  class="form-control" 
- 
+  onkeyup="app.inputKeyUpDirect(this);"
    placeholder="Nombres" aria-label="First name" value="{{old('Nombre',$modificar->Nombre)}}">
   </div>
   <div class="col" style="padding-left:2% "  >
     <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span> 
     <input type="text" maxlength="25" id="Apellido" name="Apellido"  
-     class="form-control" 
+     class="form-control" onkeyup="app.inputKeyUpDirect(this);"
     placeholder="Apellidos" aria-label="Last name" Value="{{old('Apellido',$modificar->Apellido)}}">
   </div>
 </div>
@@ -151,7 +151,7 @@ a { color: aliceblue;
 {{--Dirección --}}
 <div class="mb-3" style="padding-left: 22%">
   <span class="input-group-text"  style="width: 70%">Dirección</span>
-  <textarea class="form-control" minlength="10" maxlength="150"  name="Direccion"  id="Direccion"
+  <textarea class="form-control" minlength="10" maxlength="150"  name="Direccion"  id="Direccion" onkeyup="app.inputKeyUpDirect(this);"
    style="width: 70%" id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese la dirección exacta del domicilio">
   {{old('Direccion',$modificar->Direccion)}} </textarea>
 </div>
@@ -166,6 +166,36 @@ a { color: aliceblue;
 <label for=""></label>
 </form>
 
+
+<script>
+
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
+</script>
 @endsection 
 {{--mensaje de confirmacion --}}
 @push('alertas')

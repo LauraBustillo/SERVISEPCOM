@@ -26,7 +26,7 @@ class ClienteController extends Controller
 
           /*Funcion para  guardar  */
             public function guardar(){
-               return view('Clientes.RegistroClientes');
+               return view('Clientes.RegistroClientes'); 
           }
 
           /* Validar  guardar  */

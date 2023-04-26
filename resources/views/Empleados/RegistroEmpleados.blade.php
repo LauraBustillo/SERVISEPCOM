@@ -3,7 +3,7 @@
 @section('extra-content')
 <style>
 
-/*Las label*/ 
+/*Las label*/  
 .input-group-text  {
   background-color: #4c4d4e;;
   border: 1.3px solid #4c4d4e;;
@@ -111,13 +111,13 @@ a { color: aliceblue;
   <div class="col">
     <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span> 
     <input type="text" maxlength="25" name="Nombres" id="Nombres"  class="form-control"
-    placeholder="Nombres" aria-label="First name" value="{{old('Nombres')}}">
+    placeholder="Nombres" aria-label="First name" value="{{old('Nombres')}}"  onkeyup="app.inputKeyUpDirect(this);">
   </div>
 
   <div class="col">
         <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span> 
     <input type="text"  maxlength="25" name="Apellidos" id="Apellidos" class="form-control"
-     placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}">
+     placeholder="Apellidos" aria-label="First name" value="{{old('Apellidos')}}"  onkeyup="app.inputKeyUpDirect(this);">
   </div>
 
 </div>
@@ -163,7 +163,7 @@ a { color: aliceblue;
 <span class="input-group-text"  style="width: 70%">Dirección</span>
   <textarea class="form-control" spellcheck="true"
   maxlength="150" name="Direccion" id="Direccion" style="width: 70%"  id="exampleFormControlTextarea1" rows="3"
-   placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
+   placeholder="Ingrese la dirección exacta del domicilio"  onkeyup="app.inputKeyUpDirect(this);">{{old('Direccion')}}</textarea>
 </div>
 
 {{--Botones --}}
@@ -179,6 +179,33 @@ a { color: aliceblue;
 </form>
 
 <script>
+
+/* Para poner en mayuscula la primer letra*/
+var app = app || {};
+        
+        app.toCapitalizeWords = function(text){
+            return text.replace(/\w\S*/g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        app.inputKeyUp = function(e){
+            var value = e.target.value;
+            e.target.value = app.toCapitalizeWords(value);
+        }
+
+        app.inputKeyUpDirect = function(input){
+            input.value = app.toCapitalizeWords(input.value);
+        }
+
+        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
+
+        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
+            const element = inputsToCapitalizeWordsCollection[i];
+            element.addEventListener("keyup", app.inputKeyUp);
+            
+        }
+
   //Funcion para establecer fecha actual en la fecha de contrato
     window.onload = function(){
     var fecha = new Date(); //Fecha actual
