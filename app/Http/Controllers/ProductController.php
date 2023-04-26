@@ -26,19 +26,17 @@ class ProductController extends Controller
    public function agg(Request $request){
 
      $rules= ([
-       'Nombre_producto' =>'required|regex:/^([0-9a-zñA-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:3|max:25',
-       'Marca' => 'required|regex:/^([0-9a-zñA-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:2|max:25',
-       'Descripcion' =>'required',
+       'Nombre_producto' =>'required|regex:/^([0-9a-zñáéíóúñüàè A-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:3|max:25',
+       'Marca' => 'required|regex:/^([0-9a-zñáéíóúñüàè A-ZÑ]+)(\s[0-9a-zñA-ZÑ ]+)*$/|min:2|max:25',
+       'Descripcion' =>"required|min:3|max:150",
        'categoria_id'=>'required',
        'proveedor_id'=>'required',
        'Cantidad',
        'Precio_compra', 
        'Precio_venta',
        'Impuesto',
-
      ]);
      
-
     $mesaje=([
 
     'Nombre_producto.required'=>'El nombre del producto es obligatorio' ,
@@ -48,8 +46,10 @@ class ProductController extends Controller
     'Marca.required'=>'La marca del producto es obligatoria' ,
     'Marca.min'=>'La marca debe tener minimo 2 letras' ,
     'Marca.max'=>'La marca no debe de tener más de 25 letras' ,
-   
-    'Descripcion.required'=>'La descripción es obligatoria ', 
+
+    'Descripcion.required'=>'La descripción del producto es obligatoria' ,
+    'Descripcion.min'=>'La descripción debe tener minimo 3 letras' ,
+    'Descripcion.max'=>'La descripción no debe tener más de 150 caracteres' ,
 
     'categoria_id.required'=>'La categoría es obligatorio', 
     

@@ -74,16 +74,14 @@ class MantenimientoController extends Controller
     {
 
         $rules = ([
-
             'cliente_id' => 'required',
             'categoria' => 'required',
-            'nombre_equipo' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:20',
-            'marca' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:2|max:20',
-            'modelo' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
-            'descripcionm' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:100',
+            'nombre_equipo' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:20',
+            'marca' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:2|max:20',
+            'modelo' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
+            'descripcionm' => 'required|min:4|max:100',
             'fecha_ingreso' => 'required',
             'fecha_entrega' => 'required',
-
         ]);
         $mesaje = ([
 

@@ -69,8 +69,8 @@ class EmpleadoController extends Controller
         Permiso::validarRolSoloAdmin(Auth::user());
 
         $rules = ([
-            'Nombres' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
-            'Apellidos' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+            'Nombres' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+            'Apellidos' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
             'Numero_identidad' => 'required|unique:empleados|regex:([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})|min:13',
             'Fecha_nacimiento' => 'required',
             'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
@@ -154,8 +154,8 @@ class EmpleadoController extends Controller
     {
         Permiso::validarRolSoloAdmin(Auth::user());
         $rules = ([
-            'Nombres' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
-            'Apellidos' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+            'Nombres' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+            'Apellidos' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
             'Numero_identidad' => "required|regex:([0-1][0-8][0-2][0-9]{10})|min:13|unique:empleados,Numero_identidad, $id",
             'Fecha_nacimiento' => 'required',
             'Numero_telefono' => "required|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8|unique:empleados,Numero_telefono, $id",

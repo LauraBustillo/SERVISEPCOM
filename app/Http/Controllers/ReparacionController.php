@@ -113,10 +113,10 @@ class ReparacionController extends Controller
 
             'cliente_id' => 'required',
             'categoria' => 'required',
-            'nombre_equipo' => 'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:20',
-            'marca' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:2|max:20',
-            'modelo' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
-            'descripcionr' => 'required|regex:/^([a-zñA-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:200',
+            'nombre_equipo' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:20',
+            'marca' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:2|max:20',
+            'modelo' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
+            'descripcionr' => 'required|min:4|max:200',
 
             'foto' => 'required',
             'foto1',
