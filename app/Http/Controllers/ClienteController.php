@@ -26,18 +26,18 @@ class ClienteController extends Controller
 
           /*Funcion para  guardar  */
             public function guardar(){
-               return view('Clientes.RegistroClientes'); 
+               return view('Clientes.RegistroClientes');
           }
 
           /* Validar  guardar  */
           public function agg(Request $request){
 
             $rules= ([
-              'Nombre' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
-              'Apellido' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
+              'Nombre' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñ A-ZÑ]+)*$/|min:3|max:25',
+              'Apellido' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
               'Numero_identidad' =>'required|unique:clientes|regex:([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})|min:13',
               'Numero_telefono' => 'required|unique:clientes|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
-              'Direccion' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+              'Direccion' =>'required|min:3|max:150',
 
             ]);
             
@@ -72,8 +72,7 @@ class ClienteController extends Controller
 
           'Direccion.required'=>'La dirección del cliente es obligatoria' ,
           'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
-          'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
-          'Direccion.regex'=>'La dirección solo puede tener letras' ,
+          'Direccion.max'=>'La dirección no debe de tener más de 150 letras' ,
           ]);
 
           $this->validate($request, $rules, $mesaje);
@@ -106,11 +105,11 @@ public function actu (Request $request, $id){
 
 
   $rules= ([
-    'Nombre' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25",
-    'Apellido' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25",
+    'Nombre' =>"required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25",
+    'Apellido' =>"required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25",
     'Numero_identidad' =>"required|regex:([0-1][0-8][0-2][0-9]{10})|min:13|unique:clientes,Numero_identidad, $id",
     'Numero_telefono' => "required|regex:([9,8,3,2]{1}[0-9]{7})|max:8|unique:clientes,Numero_telefono, $id",
-    'Direccion' =>"required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25",
+    'Direccion' =>"required|min:3|max:150",
 
   ]);
 
@@ -143,8 +142,8 @@ public function actu (Request $request, $id){
 
     'Direccion.required'=>'La dirección del cliente es obligatoria' ,
     'Direccion.min'=>'La dirección debe tener minimo 3 letras' ,
-    'Direccion.max'=>'La dirección no debe de tener más de 25 letras' ,
-    'Direccion.regex'=>'La dirección solo puede tener letras' ,
+    'Direccion.max'=>'La dirección no debe tener más de 150 caracteres' ,
+
     ]);
 
     $this->validate($request, $rules, $mesaje);

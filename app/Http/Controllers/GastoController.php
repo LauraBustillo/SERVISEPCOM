@@ -11,18 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class GastoController extends Controller
 {
-           //Para mostrar el listado
-           public function index(){
-            $gastos = Gasto::all();
-            foreach ($gastos as $key => $gasto) {
-                if ($gasto->responsable_gasto) {
-                    $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
-                }
-    
-            }
-    
-            return view('Gastos.Listadodegastos')->with('gastos',$gastos);
-        }
+    //
 
 
         //Para mostrar el registro
@@ -40,7 +29,7 @@ class GastoController extends Controller
 
         // pasamos los string parametros a arreglos
         $rules = ([
-            'nombre_gasto' =>'required|regex:/^([a-zñA-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
+            'nombre_gasto' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
             'tipo_gasto' =>'required',
             'fecha_gasto' =>'date',
             'descripcion_gasto' =>'required|max:150|min:5',
@@ -88,7 +77,18 @@ class GastoController extends Controller
 
     }
 
-   
+          //Para mostrar el listado
+    public function index(){
+        $gastos = Gasto::all();
+        foreach ($gastos as $key => $gasto) {
+            if ($gasto->responsable_gasto) {
+                $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
+            }
+
+        }
+
+        return view('Gastos.Listadodegastos')->with('gastos',$gastos);
+    }
 
         //Para mostrar la informacion de detalle del listado
         public function mostrarGas($id){

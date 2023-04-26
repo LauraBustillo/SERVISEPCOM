@@ -333,7 +333,7 @@ a { color: aliceblue;
       &nbsp;&nbsp;   
       <div style="width: 100%">
         <label  id="inputGroup-sizing-sm">Descripcion</label> 
-        <textarea  id="descripcion_mantenimiento" type="text" name="descripcion" class="form-control"  onkeyup="app.inputKeyUpDirect(this);"
+        <textarea  id="descripcion_mantenimiento" type="text" name="descripcion" class="form-control" 
         placeholder="Descripcion"  rows="2" value="{{$mantenimiento->descripcion}}">{{$mantenimiento->descripcion}}</textarea>
       </div>        
     </div>
@@ -383,7 +383,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
 
       <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $mantenimiento->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20" 
-      onkeyup="app.inputKeyUpDirect(this);" type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
+      type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
     </div>
   </div>
 
@@ -395,7 +395,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
      
       <span class="input-group-text"  style="width: 100%">Marca</span>
 
-      <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$mantenimiento->marca)}}" onkeyup="app.inputKeyUpDirect(this);"
+      <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$mantenimiento->marca)}}"
        name="marca" id="marca" type="text" 
       aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
     </div>
@@ -408,7 +408,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
      
       <span class="input-group-text"  style="width: 100%">Modelo</span>
 
-      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $mantenimiento->modelo)}}" name="modelo" onkeyup="app.inputKeyUpDirect(this);"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
+      <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $mantenimiento->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
     </div>
   </div>
 
@@ -442,7 +442,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 
     <span class="input-group-text select2"  style="width: 100%">Descripción</span>
 
-    <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"    onkeyup="app.inputKeyUpDirect(this);"
+    <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"  
     type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
   </div>
 
@@ -487,7 +487,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                   <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
     
                   <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control" 
-                  onkeyup="app.inputKeyUpDirect(this);"  title="Solo debe tener letras"
+                  title="Solo debe tener letras"
                   placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
                 </div>
                 &nbsp; &nbsp;
@@ -496,7 +496,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
                   
                   <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
     
-                  <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  onkeyup="app.inputKeyUpDirect(this);"
+                  <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  
                   pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras" 
                   placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
                 </div> 
@@ -527,7 +527,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
            
               <center><div style="width: 60%"> 
                 <span class="input-group-text" id="inputGroup-sizing-sm">Dirección</span> 
-                <textarea   id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1" onkeyup="app.inputKeyUpDirect(this);"
+                <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
                 rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
               </div></center>
               
@@ -679,8 +679,8 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     });
     
     // hacer las validaciones
-    var re = /^[a-zA-Z0-9 ]+$/;
-    var letra= /[A-ZÑ a-zñ]/;
+    var re = /^[a-zñáéíóúñüàè A-ZÑ]+$/;
+    var letra= /[a-zñáéíóúñüàè A-ZÑ]/;
     var identidad= /([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})/;
    var telefono= /([9,8,3,2]{1}[0-9]{7})/;
     // Validar Nombre
@@ -751,11 +751,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
               alertify.error("La dirección del cliente es requerido");
               return;
     } 
-    else if (!re.test(direccion_cliente)) {
-                alertify.error("La dirección no acepta signos especiales");
-                return;
-    }
-    
+
     // armamos el json, con los datos obtenimdos de los campos anteriores
     //  para mandarlo a la ruta con el metodo tipo post
     let datoscliente = {
@@ -935,32 +931,6 @@ var fecha1 = new Date();
 document.getElementById("fecha_facturacion").value = fecha1.toJSON().slice(0,10);
 
  
-
-/* Para poner en mayuscula la primer letra*/
-var app = app || {};
-        
-        app.toCapitalizeWords = function(text){
-            return text.replace(/\w\S*/g, function(txt){
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
-        }
-
-        app.inputKeyUp = function(e){
-            var value = e.target.value;
-            e.target.value = app.toCapitalizeWords(value);
-        }
-
-        app.inputKeyUpDirect = function(input){
-            input.value = app.toCapitalizeWords(input.value);
-        }
-
-        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
-
-        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
-            const element = inputsToCapitalizeWordsCollection[i];
-            element.addEventListener("keyup", app.inputKeyUp);
-            
-        }
 </script>
 
 

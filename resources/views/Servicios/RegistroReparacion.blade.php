@@ -446,8 +446,7 @@ a { color: aliceblue;
       &nbsp;&nbsp;
       <div style="width: 100%">
         <label  id="inputGroup-sizing-sm">Descripción</label>
-        <textarea  id="descripcion_rep" type="text" name="descripcion_rep" class="form-control" 
-onkeyup="app.inputKeyUpDirect(this);"
+        <textarea  id="descripcion_rep" type="text" name="descripcion_rep" class="form-control"
         placeholder="Descripción"  rows="2" value="{{$reparacion->descripcion}}">{{$reparacion->descripcion}}</textarea>
       </div>
     </div>
@@ -502,8 +501,7 @@ onkeyup="app.inputKeyUpDirect(this);"
           
             <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
 
-            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20"  onkeyup="app.inputKeyUpDirect(this);"
-
+            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20"
             type="text" aria-label="First name" class="form-control" placeholder="Nombre del equipo">
           </div>
         </div>
@@ -516,8 +514,7 @@ onkeyup="app.inputKeyUpDirect(this);"
           
             <span class="input-group-text"  style="width: 100%">Marca</span>
       
-            <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$reparacion->marca)}}"   onkeyup="app.inputKeyUpDirect(this);"
-
+            <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$reparacion->marca)}}"
              name="marca" id="marca" type="text"
             aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
           </div>
@@ -528,7 +525,7 @@ onkeyup="app.inputKeyUpDirect(this);"
           {{-- Modelo --}}
           <div style="width: 100%">
             <span class="input-group-text"  style="width: 100%">Modelo</span>
-            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $reparacion->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo"  onkeyup="app.inputKeyUpDirect(this);">
+            <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('modelo', $reparacion->modelo)}}" name="modelo"  id="modelo"  maxlength="20" type="text" aria-label="Last name" class="form-control" placeholder="Modelo">
           </div>
         </div>
 
@@ -539,8 +536,7 @@ onkeyup="app.inputKeyUpDirect(this);"
     <div style="display: flex">
          <div style="width: 100%">
             <span class="input-group-text"  style="width: 100%">Descripción</span>
-            <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200" 
-onkeyup="app.inputKeyUpDirect(this);"
+            <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionr" id="descripcionr"  maxlength="200"
             type="text" aria-label="First name" class="form-control" rows="1"  placeholder="Descripción del equipo">{{old('descripcionr', $reparacion->descripcionr)}}</textarea>
           </div>
 
@@ -622,7 +618,7 @@ onkeyup="app.inputKeyUpDirect(this);"
                   
                   <span class="input-group-text"  style="width: 100%">Descripción</span>
 
-                  <input  onkeyup="app.inputKeyUpDirect(this);class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
+                  <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
               </div>
               <div class="col-3">
               
@@ -744,7 +740,7 @@ onkeyup="app.inputKeyUpDirect(this);"
                
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
 
-                <input onkeyup="app.inputKeyUpDirect(this);" id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"
+                <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"
                 title="Solo debe tener letras"
                 placeholder="Nombres" aria-label="First name" value="{{old('Nombre')}}">
               </div>
@@ -754,7 +750,7 @@ onkeyup="app.inputKeyUpDirect(this);"
                 
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
 
-                <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"  onkeyup="app.inputKeyUpDirect(this);"
+                <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"
                 pattern="[A-ZÑ a-zñ]+" class="form-control" title="Solo debe tener letras"
                 placeholder="Apellidos" aria-label="Last name" value="{{old('Apellido')}}">
               </div>
@@ -788,8 +784,7 @@ onkeyup="app.inputKeyUpDirect(this);"
             
               <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Dirección</span>
 
-              <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1" 
-onkeyup="app.inputKeyUpDirect(this);"
+              <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
               rows="1" placeholder="Ingrese la dirección exacta del domicilio">{{old('Direccion')}}</textarea>
             </div></center>
 
@@ -848,34 +843,6 @@ onkeyup="app.inputKeyUpDirect(this);"
 
 
 <script>
-  
-
-/* Para poner en mayuscula la primer letra*/
-var app = app || {};
-        
-        app.toCapitalizeWords = function(text){
-            return text.replace(/\w\S*/g, function(txt){
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
-        }
-
-        app.inputKeyUp = function(e){
-            var value = e.target.value;
-            e.target.value = app.toCapitalizeWords(value);
-        }
-
-        app.inputKeyUpDirect = function(input){
-            input.value = app.toCapitalizeWords(input.value);
-        }
-
-        var inputsToCapitalizeWordsCollection = document.getElementsByClassName("toCapitalizeWords");
-
-        for (let i = 0; i < inputsToCapitalizeWordsCollection.length; i++) {
-            const element = inputsToCapitalizeWordsCollection[i];
-            element.addEventListener("keyup", app.inputKeyUp);
-            
-        }
-
 
     let piezas = @json(old('datelles_piezas')?json_decode(old('datelles_piezas')):$piezas);
 
@@ -1240,8 +1207,8 @@ if(accion == "editar"){
     let direccion_cliente = document.getElementById("direccion_cliente").value;
 
     // hacer las validaciones
-    var re = /^[A-ZÑ a-zñ]+$/;
-    var letra= /[A-ZÑ a-zñ]/;
+    var re = /^[a-zñáéíóúñüàè A-ZÑ]+$/;
+    var letra= /[a-zñáéíóúñüàè A-ZÑ]/;
     var identidad= /([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})/;
    var telefono= /([9,8,3,2]{1}[0-9]{7})/;
     // Validar Nombre
@@ -1252,11 +1219,11 @@ if(accion == "editar"){
 
 
     else if (!re.test(nombre_cliente)) {
-                alertify.error("No se aceptan signos especiales y números");
+                alertify.error("El nombre No acepta signos especiales y números");
                 return;
     }
     else if (!letra.test(nombre_cliente)) {
-                alertify.error("No se aceptan números");
+                alertify.error("El nombre noaceptan números");
                 return;
     }
 
@@ -1266,11 +1233,11 @@ if(accion == "editar"){
                 return;
     }
     else if (!re.test(apellido_cliente)) {
-                alertify.error("No se aceptan signos especiales y números");
+                alertify.error("El apellido No aceptan signos especiales y números");
                 return;
     }
     else if (!letra.test(apellido_cliente)) {
-                alertify.error("No se aceptan números");
+                alertify.error("El apellido no aceptan números");
                 return;
     }
 
@@ -1287,12 +1254,6 @@ if(accion == "editar"){
                 alertify.error("El número de identidad del cliente no debe ser cero");
                 return;
     }
-
-
-
-
-
-
 
     // Validar número télefono
     if (telefono_cliente== '') {
@@ -1326,9 +1287,6 @@ if(accion == "editar"){
       alertify.error("El telefono ya existe");
       return;
     }
-
-
-
 
     //Validar direccion
     if (direccion_cliente == '') {
@@ -1454,6 +1412,7 @@ if(accion == "editar"){
 
 var fecha1 = new Date();
 document.getElementById("fecha_facturacion_rep").value = fecha1.toJSON().slice(0,10);
+
 
 </script>
 
