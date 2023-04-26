@@ -341,7 +341,7 @@ html, body {
         @php
             $total = 0;
         @endphp
-        @foreach ($gastos as $gas)
+        @forelse ($gastos as $gas)
             <tr>
                 <td>{{ $gas->fecha_gasto }}</td>
                 <td>{{ $gas->nombre_gasto }}</td>
@@ -357,15 +357,17 @@ html, body {
             @php
                 $total += $gas->total_gasto ;
             @endphp
-        @endforeach
+            @empty
+        @endforelse
     </tbody>
+
     <tfoot>
         <tr>
             <td></td>
             <td></td>
             <td></td>
             <td><b>Total</b></td>
-             <td  id="total_facturas" style="text-align: right"> {{ number_format($gas->total_gasto,2) }}</td></b>
+             <td  id="total_facturas" style="text-align: right"> {{ number_format($total,2) }}</td></b>
             <td></td>
         </tr>
     </tfoot>

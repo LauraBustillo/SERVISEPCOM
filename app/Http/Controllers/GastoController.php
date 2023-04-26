@@ -11,7 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class GastoController extends Controller
 {
-    //
+           //Para mostrar el listado
+           public function index(){
+            $gastos = Gasto::all();
+            foreach ($gastos as $key => $gasto) {
+                if ($gasto->responsable_gasto) {
+                    $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
+                }
+    
+            }
+    
+            return view('Gastos.Listadodegastos')->with('gastos',$gastos);
+        }
 
 
         //Para mostrar el registro
@@ -77,18 +88,7 @@ class GastoController extends Controller
 
     }
 
-          //Para mostrar el listado
-    public function index(){
-        $gastos = Gasto::all();
-        foreach ($gastos as $key => $gasto) {
-            if ($gasto->responsable_gasto) {
-                $gasto->responsable_gasto = Empleado::find( $gasto->responsable_gasto)->Nombres.' '.Empleado::find( $gasto->responsable_gasto)->Apellidos;
-            }
-
-        }
-
-        return view('Gastos.Listadodegastos')->with('gastos',$gastos);
-    }
+   
 
         //Para mostrar la informacion de detalle del listado
         public function mostrarGas($id){
