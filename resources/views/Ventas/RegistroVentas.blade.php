@@ -188,9 +188,13 @@
         width: auto;
     }
     div.container {
-        width: 80%;
-        height: 30%;
-    } 
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
+
+
  
 </style>
 

@@ -167,7 +167,12 @@
     .boton1{
     border: none;
     }
+    div.container {
 
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 </style>
 
 
@@ -194,7 +199,7 @@
         <br>
         <div style="display: flex">
             <div class="col" style="width: 33%" >
-                <b><label >Número de factura</label></b>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Número de factura</span>
                 <input  {{ $accion == 'guardar' ? '' : 'disabled' }} onkeyup="cargarNumeroFactura()" type="text"  
                 name="Numero_factura" id="Numero_factura" onkeypress="ValidaSoloNumeros4()"  class="form-control" 
                 placeholder="Ingrese el número de factura" title="Solo debe contener números" 
@@ -202,14 +207,16 @@
             </div> &nbsp;&nbsp;&nbsp;
 
             <div class="col" style="width: 33% ">
-                <b><label >Fecha de facturación</label></b>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de facturación</span>
+
                 <input {{ $accion == 'guardar' ? '' : 'disabled' }} type="date" 
                 name="Fecha_facturacion" id="Fecha_facturacion"  class="form-control" 
                 placeholder="Fecha de facturacion" value="{{old('Fecha_facturacion')}}">
             </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
             <div class="col" style="width: 33% ">
-                <b> <label  for="Proveedores" >Proveedor</label></b><br>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Proveedor</span>
+
                 <select class="form-control select" 
                 {{ $accion == 'guardar' ? '' : 'disabled' }}  name="Proveedor" id="Proveedor">
                 <option  value="" required [readonly]='true'>Seleccione o busque el proveedor</option>

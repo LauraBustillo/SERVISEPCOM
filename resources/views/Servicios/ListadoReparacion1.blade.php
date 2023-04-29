@@ -250,12 +250,11 @@ td {
 } 
 
 
- 
-    div.container {
-        width: 80%;
-      
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
     }
-
  
 #padre{
   position: relative;
@@ -266,7 +265,7 @@ td {
   position: absolute;
   background-color: transparent;
   top: 23%  !important;
-  left: 62.5%;
+  left: 64%;
   right: 0;
   margin: 0 auto;
   width: 5px; 

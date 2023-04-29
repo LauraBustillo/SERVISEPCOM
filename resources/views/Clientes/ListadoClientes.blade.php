@@ -42,8 +42,6 @@
   margin-bottom: 5%;
 }
 
-
-
 .dataTables_wrapper .dataTables_filter {
   float: left !important ;
   text-align: left !important;
@@ -90,7 +88,7 @@ table.dataTable.dataTable_width_auto {
   position: absolute;
   background-color: transparent;
   top: 30%;
-  left: 65%;
+  left: 50%;
   right: 0;
   margin: 0 auto;
   width: 5px;
@@ -116,10 +114,6 @@ table.dataTable.dataTable_width_auto {
     #barra_lateral{
         display:none;
     }
-}
-#contenedor {
-    width: 90%;
-    max-width: 1024px;
 }
 
 @media screen and (min-width: 600px) {

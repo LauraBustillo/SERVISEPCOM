@@ -74,7 +74,7 @@ width: 50% !important;
 }
 
 .dt-buttons{
-  padding-left: 80% !important;
+  padding-left: 84% !important;
 
 
 }
@@ -107,11 +107,12 @@ table.dataTable.dataTable_width_auto {
 }
 
  
-    div.container {
-        width: 80%;
-        height: 30%;
-    }
 
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
+    }
  
 #padre{
   position: relative;

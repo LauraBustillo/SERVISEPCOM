@@ -101,7 +101,13 @@ td {
 table.dataTable.dataTable_width_auto {
   width: auto;
 }
+ 
 
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
+    }
 
 </style>
 

@@ -172,7 +172,9 @@
     .boton1{
     border: none;
     }
-
+    .botonc{
+ padding-left: 20% !important;
+    }
 </style>
 
 
@@ -415,8 +417,8 @@
 </table>
 </div>
 
-<div style=" width: 25%" >
-    <form action="" id="formulario_calcular" >
+<div style="width:25%" >
+    <form action="" id="formulario_calcular"  >
         <button class="button button-blue"  type="submit" onclick="enviarFormulario()"><i class="bi bi-calculator-fill"> Calcular planilla</i></button>
     </form>
     </div>

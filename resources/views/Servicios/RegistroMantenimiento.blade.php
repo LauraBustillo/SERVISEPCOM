@@ -190,7 +190,14 @@ a { color: aliceblue;
   
   font-family: 'Open Sans';
   font-size: 30px;
-}      
+}
+
+div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 </style>
 
 

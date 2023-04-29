@@ -106,12 +106,12 @@ td {
 } 
 
 
- 
-   div.container {
-        width: 80%;
-      
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
     }
-
+ 
 #padre{
   position: relative;
   background-color: transparent;
@@ -120,8 +120,8 @@ td {
 #uno {
   position: absolute;
   background-color: transparent;
-  top: 23%;
-  left: 77%;
+  top: 22.5%;
+  left: 76%;
   right: 0;
   margin: 0 auto;
   width: 5px;
@@ -307,7 +307,7 @@ html, body {
 </script>
 
 <h1 class="titulo" style="text-align:center">Listado de gastos</h1>
-
+<br><br>
 <div style="width: 15% " id="uno">
     <br>
         <a class="btn btn-outline-dark"  href="{{route('show.gasto')}}">

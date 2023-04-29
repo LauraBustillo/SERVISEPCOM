@@ -184,6 +184,13 @@
     .boton1{
     border: none;
     }
+
+    div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>

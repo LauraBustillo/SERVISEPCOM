@@ -87,6 +87,14 @@ p {
   width: 200px;
   height: 60px;
 }
+
+
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
+    }
+
 </style>
 
 @if (session('denegar'))

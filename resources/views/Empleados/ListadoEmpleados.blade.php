@@ -83,12 +83,11 @@ table.dataTable.dataTable_width_auto {
   width: auto;
 }
 
- 
-    div.container {
-        width: 80% !important;
-     
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
     }
-
  
 #padre{
   position: relative;
@@ -98,8 +97,8 @@ table.dataTable.dataTable_width_auto {
 #uno {
   position: absolute;
   background-color: transparent;
-  top: 32%;
-  left: 65%;
+  top: 25%;
+  left: 61%;
   right: 0;
   margin: 0 auto;
   width: 5px;

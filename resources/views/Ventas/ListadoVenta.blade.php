@@ -110,12 +110,12 @@ td {
 } 
 
 
- 
-/*     div.container {
-        width: 80%;
-      
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
     }
- */
+ 
  
 #padre{
   position: relative;
