@@ -124,11 +124,14 @@ td {
   left: 64.5%;
   right: 0;
   margin: 0 auto;
-  width: 5px;
+  width: 5px; 
 }
-html, body {
-    width: 100% !important;
-}
+ 
+div.container {
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 10% !important;
+    }
 
  </style>
 
