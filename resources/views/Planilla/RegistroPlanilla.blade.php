@@ -2,19 +2,20 @@
 @section('extra-content')
 
 <style>
-    .form-control {
+    .form-control  {
         background-color: transparent;
         border: 1.3px solid #000000;
     }
+    
 
-    .input-group-text {
-        background-color: #000000;
-        border: 1.3px solid #000000;
-        font-family: 'Open Sans';
-        color: #FFFFFF;
+    /*Las label*/ 
+    .input-group-text  {
+    background-color: #4c4d4e;;
+    border: 1.3px solid #4c4d4e;;
+    font-family: 'Open Sans';
+    color: #FFFFFF;
 
     }
-
     .group-text {
         background-color: transparent;
         font-family: 'Open Sans';
@@ -33,7 +34,7 @@
     /*Los titulos */
     .titulo {
         font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
-        color: black;
+        color: #4c4d4e;
         font-family: 'Open Sans';
         font-size: 20xp;
     }
@@ -238,7 +239,7 @@
                 , "sInfoEmpty": ""
                 , "sInfoFiltered": ""
                 , "sInfoPostFix": ""
-                , "sSearch": "Buscar por nombre de empleado o número de identidad"
+                , "sSearch": '<b>Buscar por nombre de empleado o número de identidad</b>'
                 , "sUrl": "."
                 , "sInfoThousands": ""
                 , "sLoadingRecords": "Cargando..."
@@ -276,14 +277,14 @@
 {{-- Fecha de planilla--}}
 <div style="display: flex">
     <div class="col" style="width: 33%" >
-        <b><label >Fecha Creación</label></b>
+    <span class="input-group-text" id="inputGroup-sizing-sm">Fecha Creación</span>
         <input  id="fecha_inicio" disabled type="text"  aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-sm" class="form-control"  placeholder="Fecha de la planilla"
                 value="{{ $planilla->fecha_inicio }}">
     </div> &nbsp;&nbsp;&nbsp;&nbsp;
 
     <div class="col" style="width: 25% ">
-        <b><label >Fecha Finalización</label></b>
+    <span class="input-group-text" id="inputGroup-sizing-sm">Fecha Finalización</span>
         <input disabled type="text"  aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-sm" class=" form-control" placeholder="Fecha de la planilla"
         value="{{ $planilla->fecha_final }}">
@@ -308,7 +309,8 @@
     </div>
 
     <div class="col" style="width: 33% ">
-        <b><label >Horas Trabajados</label></b>
+        
+        <span class="input-group-text" id="inputGroup-sizing-sm">Horas Trabajadas</span>
         <input disabled type="text" aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-sm" class=" form-control" value="{{ $dias_trabajado*8 }}">
     </div>
