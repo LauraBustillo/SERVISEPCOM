@@ -195,7 +195,7 @@ padding-left: 10% !important;
     </div>
     <div style="padding-left: 2%">
      <span class="input-group-text select1"  id="inputGroup-sizing-sm">Fecha pedido</span>
-     <input {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control select1" placeholder="Fecha del pedido">
+     <input readonly {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control select1" placeholder="Fecha del pedido">
     </div>
           
    
@@ -206,7 +206,7 @@ padding-left: 10% !important;
 
           <div style="padding-left: 10%">
      <span class="input-group-text select2"  id="inputGroup-sizing-sm">Fecha recibido </span>
-              <input id="fecha_recibido_pedido" type="date" class="form-control select2"  placeholder="Fecha recibido">
+              <input   id="fecha_recibido_pedido" type="date" class="form-control select2"  placeholder="Fecha recibido">
             </div> <br>&nbsp;&nbsp;
             <div >
               <label  for="estado_recibido">Chequear pedido</label><br>
@@ -317,14 +317,14 @@ padding-left: 10% !important;
     </div>
 
   </div>
+</div >
+{{-- tabla de productos agregados --}}
+<div  id="tabladetallespedido"></div>
 
 </div>
 
 <br>
 
-</div>
-{{-- tabla de productos agregados --}}
-<div id="tabladetallespedido"></div>
 
 
 <script>
@@ -593,7 +593,7 @@ padding-left: 10% !important;
         html += '<tr>'
         html += '<td>'+element.Nombre_producto+'</td>'
         html += '<td>'+element.Marca+'</td>'
-        html += '<td>'+element.Descripcion+'</td>'
+        html += '<td  nowrap>'+element.Descripcion+'</td>'
         html += '<td>'+element.Cantidad+'</td>'
         html += `<td><button class="btn btn-outline-dark" onclick="eliminardetalleproducto('`+element.id_detallepedido+`')"><i class="bi bi-trash"></i></button></td>`
         html += '</tr>'      

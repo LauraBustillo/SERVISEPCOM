@@ -52,7 +52,7 @@ class GastoController extends Controller
 
             'total_gasto.required' => 'El total del gasto es requerido',
             'total_gasto.numeric' => 'El total del gasto solo debe contener números',
-            'total_gasto.min'=>'El total del gasto debe contener minimo 2 números',
+            'total_gasto.min'=>'El total del gasto debe contener minimo 2 números y no acepta números negativos',
             'total_gasto.max'=>'El total del gasto debe contener maximo 5 números',
 
             'responsable_gasto.required' => 'El responsable del gasto es requerido',

@@ -74,7 +74,7 @@ class EmpleadoController extends Controller
             'Numero_identidad' => 'required|unique:empleados|regex:([0-1]{1}[0-8]{1}[0-2]{1}[0-9]{1}[1-2]{1}[0-9]{8})|min:13',
             'Fecha_nacimiento' => 'required',
             'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
-            'Salrio' => 'required|numeric',
+            'Salrio' => 'required|numeric|max:25000|min:5000',
             'Fecha_contrato' => 'required',
             'Direccion' => 'required|min:10|max:150',
         ]);
@@ -110,6 +110,10 @@ class EmpleadoController extends Controller
 
             'Salrio.required' => 'El salario es obligatorio',
             'Salrio.numeric' => 'El salario solo debe contener números',
+            'Salrio.max' => 'El salario no debe ser mayor a 25,000 Lps.',
+            'Salrio.min' => 'El salario  debe ser mayor a 5,000 Lps.',
+
+
 
             'Direccion.required' => 'La dirección es obligatoria',
             'Direccion.min' => 'La dirección debe tener minimo 10 caracteres',

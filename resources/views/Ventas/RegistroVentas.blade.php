@@ -13,7 +13,7 @@
     /*Cajas de texto*/
     .form-control {
         background-color: transparent;
-        border: 1.3px solid #000000;
+        border: 1.3px solid #000000; 
         height: fit-content;
 
     }
@@ -195,7 +195,43 @@ padding-left: 10% !important;
 }
 
 
+@media screen and (max-width: 920px) {
+    table {
+        width: 100%;
+    }
  
+    /* Ocultar edad */
+    table tr th:nth-child(4),
+    table tr td:nth-child(4) {
+        display: none;
+    }
+ 
+    /* Ocultar email */
+    table tr th:nth-child(3),
+    table tr td:nth-child(3) {
+        display: none;
+    }
+ 
+    /* Ocultar impuestos */
+    table tr th:nth-child(9),
+    table tr td:nth-child(9) {
+        display: none;
+    }
+}
+ 
+@media screen and (max-width: 767px) {
+    /* Ocultar apellidos */
+    table tr th:nth-child(2),
+    table tr td:nth-child(2) {
+        display: none;
+    }
+ 
+    /* Ocultar nómina */
+    table tr th:nth-child(5),
+    table tr td:nth-child(5) {
+        display: none;
+    }
+}
 </style>
 
 
@@ -370,21 +406,15 @@ padding-left: 10% !important;
                             <input type="text" value="" id="Impuesto" name="Impuesto" onkeypress="ValidaSoloNumeros3()" minlength="1" maxlength="2">
                         </div>
 
-                         <!-- Descripcion -->
-                        <div style="width: 20%">
-                            <label for="" class="group-text">Descripción</label>
-                            <input disabled type="text" value="" id="Descripcion" name="Descripcion">
-                        </div>
-                    </div>
-
                     <div style="display: flex">
                         <!--  Descuento -->
                         <div style="width: 20%">
                             <label for="" class="group-text"></label>
                             <input type="text" value="" hidden id="Costo" name="Costo" onkeypress="ValidaSoloNumeros1()" minlength="1" maxlength="5">
                         </div>
-                    </div>
 
+                           
+                    </div>
 
 
 
@@ -403,6 +433,11 @@ padding-left: 10% !important;
                 </form>
 
             </div>
+            <!--  Descripcion --> 
+            <div style="display: flex" style="width: 20%">
+            <label for=""  style="width: 100%"class="group-text" >Descripción</label>
+                </div>
+                <textarea  style="width: 56.5%" rows="2" disabled type="text" value="" id="Descripcion" name="Descripcion" ></textarea>
 
 
             <!-- Botones -->
