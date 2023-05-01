@@ -258,7 +258,7 @@ div.container {
           "sLoadingRecords": "Cargando...",
           "oPaginate": {
               "sFirst": "Primero",
-              "sLast": "Último",
+              "sLast": "Último", 
               "sNext": "Siguiente",
               "sPrevious": "Anterior"
           },
@@ -278,9 +278,18 @@ div.container {
 
        {
         extend:    'print',
+        
         text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
         titleAttr: 'Imprimir',
         title:'Reporte de listado de inventario ',
+
+        customize: function ( win ) {
+                        $(win.document.body).find('h1').css('text-align', 'center');
+                        $(win.document.body).css( 'font-size', '15px' ) .css( 'font-weight', 'bolder' ) .css('color',  '2f3287');
+                        $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+},
 
 
 
@@ -330,14 +339,7 @@ div.container {
         }
 },
 
-{
-extend:    'excelHtml5',
-text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
-titleAttr: 'Archivo Excel',
-exportOptions: { columns: [0, 1, 2, 3,4] }
 
-
-},
 
 ]
 

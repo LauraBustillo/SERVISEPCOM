@@ -226,7 +226,15 @@ html, body {
                         }
                         , exportOptions: {
                             columns: [0, 1, 2, 3, 4]
-                        }
+                        },
+
+                        customize: function ( win ) {
+                        $(win.document.body).find('h1').css('text-align', 'center');
+                        $(win.document.body).css( 'font-size', '15px' ) .css( 'font-weight', 'bolder' ) .css('color',  '2f3287');
+                        $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+},
                     },
                     {
                         extend: 'pdfHtml5',
@@ -256,15 +264,7 @@ html, body {
                             console.log( doc);
                         }
                     }
-                    , {
-                        extend: 'excelHtml5'
-                        , footer: true
-                        , text: '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>'
-                        , titleAttr: 'Archivo Excel'
-                        , exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
-                        }
-                    }
+                    , 
                 ]
             }
         );

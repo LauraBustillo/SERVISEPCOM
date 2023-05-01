@@ -98,7 +98,7 @@ padding-left: 10% !important;
       });
     }
 
-  </script>
+  </script> 
 
 <form class="form-control" method="POST" action="{{ route('store.gasto') }}"id="form_guardarGasto" name="form_guardarGasto"  onsubmit="guardarGasto()">
     @csrf

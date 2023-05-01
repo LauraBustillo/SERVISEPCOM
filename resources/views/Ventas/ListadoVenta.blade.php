@@ -222,9 +222,14 @@ html, body {
                         , "colvis": "Visibilidad"
                     }
                 },
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
 
                 buttons: [{
-                        extend: 'print'
+                        extend: 'print',
+                        footer: true
                         , text: '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>'
                         , titleAttr: 'Imprimir'
                         , title: 'Reporte de listado factura de venta '
@@ -234,13 +239,22 @@ html, body {
                         }
                         , exportOptions: {
                             columns: [0, 1, 2, 3, 4]
-                        }
+                        },
+                        customize: function ( win ) {
+                        $(win.document.body).find('h1').css('text-align', 'center');
+                        $(win.document.body).css( 'font-size', '15px' ) .css( 'font-weight', 'bolder' ) .css('color',  '2f3287');
+                        $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                    
+                        .css( 'font-size', 'inherit' );
+},
                     },
 
 
 
                     {
-                        extend: 'pdfHtml5'
+                        extend: 'pdfHtml5',
+                        footer: true
                         , messageTop: function() {
                             return fechasExportReportep; // where `myVariable` is accessible in this scope and set somewhere else
                         }
@@ -285,14 +299,7 @@ html, body {
                         }
 
                     }
-                    , {
-                        extend: 'excelHtml5'
-                        , text: '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>'
-                        , titleAttr: 'Archivo Excel'
-                        , exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
-                        }
-                    }
+                   
                 ]
 
             }
@@ -428,11 +435,11 @@ html, body {
 
     <thead class="table-dark">
         <tr>
-            <th scope="col">Número de factura</th>
-            <th scope="col">Fecha de facturación</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Empleado</th>
-            <th scope="col">Total</th>
+            <th scope="col" style="text-align: center;">Número de factura</th>
+            <th scope="col" style="text-align: center;">Fecha de facturación</th>
+            <th scope="col" style="text-align: center;">Cliente</th>
+            <th scope="col" style="text-align: center;">Empleado</th>
+            <th scope="col" style="text-align: center;">Total</th>
             <th scope="col" style="text-align: center;">Detalles</th>
             <th scope="col" style="text-align: center;">Imprimir</th>
 
@@ -440,13 +447,16 @@ html, body {
     </thead>
 
     <tbody>
+        @php
+            $total = 0;
+        @endphp
         @forelse($ventas as $de)
         <tr>
             <td scope="row">{{ $de->numeroFactura}}</td>
             <td>{{ $de->fechaFactura }}</td>
             <td>{{ $de->clienteFactura}}</td>
             <td>{{ $de->empleadoVentas }}</td>
-            <td name="valores">{{ $de->totalFactura }}</td>
+            <td name="valores" style="text-align: right">{{ $de->totalFactura }}</td>
             {{-- Botones --}}
             <td  style="text-align: center;">
                 <a  class="btn-detalles" href="{{route('venta.mostrar' , ['id' => $de->id]) }}">
@@ -460,17 +470,28 @@ html, body {
                 </a>
             </td>
         </tr>
+        @php
+                $total += $de->totalFactura ;
+        @endphp
         @empty
         @endforelse
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total</b></td>
+             <td  id="total_facturas" style="text-align: right"> {{ number_format($total,2) }}</td></b>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>
 </div>
 <br>
-<div style="padding-left: 72.5%">
-    <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
-    <b><label id="total_facturas"></label></b>
 
-</div>
+
 
 @endsection
 @include('common')
