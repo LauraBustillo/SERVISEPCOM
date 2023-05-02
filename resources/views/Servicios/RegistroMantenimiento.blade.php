@@ -200,8 +200,7 @@ padding-left: 10% !important;
 }
 </style>
 
-
-{{-- alertas de errores desde controlador --}}
+{{-- Mensaje de editar (error)--}}
 <script>
   var errores = []
   errores = {!! json_encode($errors->all(), JSON_HEX_TAG) !!}; 
@@ -211,6 +210,7 @@ padding-left: 10% !important;
     });   
   }
 </script>
+
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
@@ -450,7 +450,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     <span class="input-group-text select2"  style="width: 100%">Descripción</span>
 
     <textarea {{$accion == "editar" ? "disabled" : "" }}  name="descripcionm" id="descripcionm"  maxlength="100"  
-    type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo">{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
+    type="text" rows="1"  aria-label="First name" class="form-control" placeholder="Descripción del equipo" >{{old('descripcionm', $mantenimiento->descripcionm)}}</textarea>
   </div>
 
 </div>
@@ -461,17 +461,14 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
 {{--Botones --}}
 <center>
   <div class="col" >
-  <button  class="button button-blue " type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
-  <button  class="button button-blue " type="button" {{$accion == "agregar"?"hidden":""}} onclick="actualizarMantenimiento()"><i class="bi bi-folder-fill"> Actualizar</i></button>
+  <button  class="button button-blue " type="submit" {{$accion == "editar"?"hidden":""}} ><i class="bi bi-folder-fill"> Guardar</i></button>
+  <button  class="button button-blue " type="button" {{$accion == "editar"?"":"hidden"}} onclick="actualizarMantenimiento();"><i class="bi bi-folder-fill"> Actualizar</i></button>
 
   <a class="button button-blue " href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
   </div>
 </center>
 
 </form>
-
-  
-
 
 
  <!-- Modal de dialogo de agregar cliente --> 
@@ -484,9 +481,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
           Agregar cliente
         </h3></div>
       <div class="modal-body" >
-          
-    
-            
+   
               <div style="display: flex">
         
                 <div style="width: 100%">
@@ -810,17 +805,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     document.getElementById("direccion_cliente").value = "";
   }
 
-  
-  function fecha(){
-    var fechaingreso = document.getElementById("fecha_ingreso").value 
-    var fechaentrega = document.getElementById("fecha_entrega").value 
 
-  
-    if (fechaentrega < fechaingreso ) {
-      alertify.error("La fecha de entrega no debe ser menor a la de ingreso");
-      return;
-    }
-  }
 
 
   function actualizarMantenimiento(){
@@ -882,7 +867,7 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
     }
 
     // armamos el jason, que mandaremos en la ruta
-    var datosMantenimiento = {      
+    let datosMantenimiento = {      
       // este id es el que nos retorna la consulta de la base de datos al abrir la vista de editar
       "id":mantenimiento.id,
       "estado": stringestado,
@@ -890,21 +875,17 @@ y solo se podra modificar la fecha de entrega en la accion de editar --}}
       "numero_factura": numero_factura,
       "fecha_facturacion": fecha_facturacion,
       "precio_mantenimiento": precio_mantenimiento,
-      "descripcion_mantenimiento":descripcion_mantenimiento,
+      "descripcion_mantenimiento":document.getElementById("descripcion_mantenimiento").value,
 
+      "descripcionm": document.getElementById("descripcionm").value,  
       "categoria": document.getElementById("categoria").value,
       "nombre_equipo": document.getElementById("nombre_equipo").value,
       "marca": document.getElementById("marca").value,
       "modelo": document.getElementById("modelo").value,
       "fecha_ingreso": document.getElementById("fecha_ingreso").value,
       "fecha_entrega": document.getElementById("fecha_entrega").value, 
-
-      "descripcionm": document.getElementById("descripcionm").value,   
-     
     }
-   
-
-
+    
     $.ajax({
         type: "POST",
         url: '/actualizarMantenimiento',
@@ -942,27 +923,30 @@ document.getElementById("fecha_facturacion").value = fecha1.toJSON().slice(0,10)
 
 
 @endsection
-    {{--mensaje de confirmacion --}}
-    @push('alertas')
-     <script>
-        function guardarmantenimiento() {
-           var formul = document.getElementById("form_guardarM");
-           
-           Swal.fire({
-                title: '¿Está seguro que desea guardar los datos?',
-                icon: 'question',
-                confirmButtonColor: '#3085d6',
-                showCancelButton: true,
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si',
-                cancelButtonText: 'No'
-            }).then((result)=>{
-                if (result.isConfirmed) {
-                    formul.submit();
-                }
-            })
-            event.preventDefault()
-        }
-    </script> 
+{{--mensaje de confirmacion --}}
+ @push('alertas')
+ <script>
+    function guardarmantenimiento() {
+
+       var formul = document.getElementById("form_guardarM");
+
+       Swal.fire({
+            title: "{{($accion=='editar') ? '¿Está seguro que desea Actualizar los datos?' : '¿Está seguro que desea guardar los datos?'}}",
+            icon: 'question',
+            confirmButtonColor: '#3085d6',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                formul.submit();
+            }
+        })
+        event.preventDefault()
+    }
+</script>
     @endpush
+
+   
 @include('common')

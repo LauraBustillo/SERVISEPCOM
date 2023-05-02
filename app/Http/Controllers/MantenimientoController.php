@@ -82,9 +82,6 @@ class MantenimientoController extends Controller
             'descripcionm' => 'required|min:4|max:100',
             'fecha_ingreso' => 'required|before:fecha_entrega',
             'fecha_entrega' => 'required',
-
-
-
         ]);
         $mesaje = ([
 
@@ -110,8 +107,7 @@ class MantenimientoController extends Controller
             'descripcionm.regex' => 'La descripción solo puede tener letras y números',
 
             'fecha_ingreso.required' => 'La fecha de ingreso es requerida',
-            'fecha_ingreso.before' => 'La fecha ingreso debe de ser menor a la fecha de entrega',
-
+            'fecha_ingreso.before' => 'La fecha de entrega no debe ser menor a la de ingreso',
 
             'fecha_entrega.required' => 'La fecha de entrega es requerida',
 
@@ -139,28 +135,25 @@ class MantenimientoController extends Controller
 
     public function actualizarMantenimiento(Request $request)
     {
+
         $actu = Mantenimiento::find($request->data['id']);
         $actu->estado = $request->data['estado'];
         $actu->numero_factura = $request->data['numero_factura'];
         $actu->fecha_facturacion = $request->data['fecha_facturacion'];
         $actu->precio = $request->data['precio_mantenimiento'];
-
         $actu->descripcion = $request->data['descripcion_mantenimiento'];
         $actu->categoria = $request->data['categoria'];
         $actu->nombre_equipo = $request->data['nombre_equipo'];
         $actu->marca = $request->data['marca'];
         $actu->modelo = $request->data['modelo'];
-        $actu->descripcionm = $request->input('descripcionm');
+        $actu->descripcionm = $request->data['descripcionm'];
         $actu->fecha_ingreso = $request->data['fecha_ingreso'];
         $actu->fecha_entrega = $request->data['fecha_entrega'];
         $agregar = $actu->save();
+      
+        return redirect()->route('mantenimiento.index')->with('mensajes', 'Se actualizo con éxito');
+ 
 
-        $mantenimientos = [];
-
-        $mantenimientos =  Mantenimiento::select('mantenimientos.*', 'clientes.Nombre', 'clientes.Apellido')
-            ->join('clientes', 'clientes.id', '=', 'mantenimientos.cliente_id')->get();
-
-        return view('Servicios.ListadoMantenimiento')->with('mantenimientos', $mantenimientos)->with('mensaje', 'Se actualizo con éxito');
         // return redirect()->route('mantenimiento.index')->with('mensaje', 'Se actualizo con éxito');
 
 

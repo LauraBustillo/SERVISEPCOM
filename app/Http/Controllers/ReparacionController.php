@@ -244,14 +244,8 @@ class ReparacionController extends Controller
 
     public function actualizarReparacion(Request $request, $id)
     {
-
-
         $piezas = json_decode($request->input('datelles_piezas'));
-
-
         $agregar = Reparacion::find($id);
-
-
 
         if ($request->switchestado_rep) {
             $agregar->estado = "Finalizado";
@@ -310,7 +304,7 @@ class ReparacionController extends Controller
 
 
 
-        return redirect()->route('reparacion.index');
+        return redirect()->route('reparacion.index')->with('mensajes', 'Se actualizo con éxito');
     }
 
 

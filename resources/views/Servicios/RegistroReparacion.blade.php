@@ -892,14 +892,6 @@ padding-left: 10% !important;
 
     }
 
-
-
-
-
-
-
-
-
     //ocultar y esconder, boton de inventario
     var switchCambioPieza = document.querySelector('#switchCambioPieza');
     if(switchCambioPieza.checked){
@@ -1050,20 +1042,6 @@ switchestado.addEventListener('change', function(element) {
     var fecha = new Date();
     document.getElementById("fecha_ingreso").value = fecha.toJSON().slice(0,10);
   }
-
-
-//function fecha(){
-    //var fechaingreso = document.getElementById("fecha_ingreso").value
-    //var fechaentrega = document.getElementById("fecha_entrega").value
-
-
-    //if (fechaentrega < fechaingreso ) {
-     // alertify.error("La fecha de entrega no debe ser menor a la de ingreso");
-      //return;
-    //}
-
-
-  //}
 
 
   function clickactualizarReparacion(){
