@@ -195,7 +195,7 @@ padding-left: 10% !important;
 }
 
 
-@media screen and (max-width: 920px) {
+ @media screen and (max-width: 920px) {
     table {
         width: 100%;
     }
@@ -293,8 +293,8 @@ padding-left: 10% !important;
         </div>
     </div>
     <br>
-    <div style="display: flex">
-        <table class="table table-striped table-hover  border-dark bordeTabla">
+    <div style="display: flex" class="col-md-12 table-responsive">
+        <table class="table table-striped table-hover  border-dark bordeTabla  ">
             <thead class="table-dark">
                 <tr>
                     <th>Producto</th>
