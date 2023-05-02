@@ -80,8 +80,11 @@ class MantenimientoController extends Controller
             'marca' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:2|max:20',
             'modelo' => 'required|regex:/^([a-zñáéíóúñüàè A-ZÑ0-9]+)(\s[a-zñA-ZÑ0-9]+)*$/|min:4|max:20',
             'descripcionm' => 'required|min:4|max:100',
-            'fecha_ingreso' => 'required',
+            'fecha_ingreso' => 'required|before:fecha_entrega',
             'fecha_entrega' => 'required',
+
+
+
         ]);
         $mesaje = ([
 
@@ -107,6 +110,8 @@ class MantenimientoController extends Controller
             'descripcionm.regex' => 'La descripción solo puede tener letras y números',
 
             'fecha_ingreso.required' => 'La fecha de ingreso es requerida',
+            'fecha_ingreso.before' => 'La fecha ingreso debe de ser menor a la fecha de entrega',
+
 
             'fecha_entrega.required' => 'La fecha de entrega es requerida',
 
@@ -155,7 +160,7 @@ class MantenimientoController extends Controller
         $mantenimientos =  Mantenimiento::select('mantenimientos.*', 'clientes.Nombre', 'clientes.Apellido')
             ->join('clientes', 'clientes.id', '=', 'mantenimientos.cliente_id')->get();
 
-        return view('Servicios.ListadoMantenimiento')->with('mantenimientos', $mantenimientos);
+        return view('Servicios.ListadoMantenimiento')->with('mantenimientos', $mantenimientos)->with('mensaje', 'Se actualizo con éxito');
         // return redirect()->route('mantenimiento.index')->with('mensaje', 'Se actualizo con éxito');
 
 
