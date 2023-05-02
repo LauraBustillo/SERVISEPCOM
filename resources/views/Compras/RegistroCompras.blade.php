@@ -173,6 +173,44 @@ width: 100% !important;
 height: 100% !important;
 padding-left: 10% !important;
 }
+
+@media screen and (max-width: 920px) {
+    table {
+        width: 100%;
+    }
+ 
+    /* Ocultar edad */
+    table tr th:nth-child(4),
+    table tr td:nth-child(4) {
+        display: none;
+    }
+ 
+    /* Ocultar email */
+    table tr th:nth-child(3),
+    table tr td:nth-child(3) {
+        display: none;
+    }
+ 
+    /* Ocultar impuestos */
+    table tr th:nth-child(9),
+    table tr td:nth-child(9) {
+        display: none;
+    }
+}
+ 
+@media screen and (max-width: 767px) {
+    /* Ocultar apellidos */
+    table tr th:nth-child(2),
+    table tr td:nth-child(2) {
+        display: none;
+    }
+ 
+    /* Ocultar nómina */
+    table tr th:nth-child(5),
+    table tr td:nth-child(5) {
+        display: none;
+    }
+}
 </style>
 
 
