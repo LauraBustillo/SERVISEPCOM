@@ -221,17 +221,6 @@ $(document).ready(function() {
 
 </script>
 
-
-
-
-@if (session('mensaje'))
-  <script>
-    mensaje = {!! json_encode(session('mensaje'), JSON_HEX_TAG) !!};
-    alertify.success(mensaje);
-  </script> 
-@endif 
-
-
  
 <h1 class="titulo" style="text-align:center">Listado de pedidos</h1> 
 

@@ -24,6 +24,12 @@
 
     }
 
+    div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
     /*Letra del titulo del modal */
     .group-texto {
         background-color: transparent;

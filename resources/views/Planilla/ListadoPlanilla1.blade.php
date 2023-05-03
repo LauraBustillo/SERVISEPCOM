@@ -195,6 +195,14 @@ div.container {
                         title:'Reporte de listado de planilla ',
 
                         exportOptions: { columns: [0, 1, 2] },
+
+                        customize: function ( win ) {
+                        $(win.document.body).find('h1').css('text-align', 'center');
+                        $(win.document.body).css( 'font-size', '15px' ) .css( 'font-weight', 'bolder' ) .css('color',  '2f3287');
+                        $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+},
                     },
 
 
@@ -232,13 +240,7 @@ div.container {
                         }
                     },
 
-                    {
-                    extend:    'excelHtml5',
-                    text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
-                    titleAttr: 'Archivo Excel',
-                    exportOptions: { columns: [0, 1, 2] }
-
-                    },
+            
 
             ]
 

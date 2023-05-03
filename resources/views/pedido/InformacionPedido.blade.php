@@ -78,6 +78,14 @@ padding-left: 10% !important;
 .boton1{
   border: none;
 }
+
+
+div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 </style>
 
 <h1 class="titulo1">Información del pedido</h1>

@@ -16,6 +16,12 @@
     background-color: transparent;
     border: 1.3px solid #000000;
 }
+div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 
  /* De  Aqui*/ 
 /*Las label*/ 

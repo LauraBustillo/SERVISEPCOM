@@ -176,16 +176,16 @@ padding-left: 10% !important;
 </script>
 
 
+
+
+{{-- encabezado --}}
+<div  class="form-control" >
 {{-- titiulo --}}
 <div style="display: flex">
   <h1 class="titulo1 mx-auto">Pedido de productos</h1>
 </div>
 
 <br>
-
-{{-- encabezado --}}
-<div  class="form-control" >
-
 
     <div  class="input-group " style="width:100%" >
 
@@ -599,7 +599,7 @@ padding-left: 10% !important;
         html += '<tr>'
         html += '<td>'+element.Nombre_producto+'</td>'
         html += '<td>'+element.Marca+'</td>'
-        html += '<td class="col-md-12 table-responsive">'+element.Descripcion+'</td>'
+        html += '<td>'+element.Descripcion+'</td>'
         html += '<td>'+element.Cantidad+'</td>'
         html += `<td><button class="btn btn-outline-dark" onclick="eliminardetalleproducto('`+element.id_detallepedido+`')"><i class="bi bi-trash"></i></button></td>`
         html += '</tr>'      
