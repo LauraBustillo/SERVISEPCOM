@@ -287,7 +287,8 @@ $(function() {
 
                 <div  style="background-color: transparent" >
                     <div class="nav_logo ">
-                        <img id="" height="24" width="24" src="imagenes/Sepcom-logo.png" alt="" srcset="">
+                      {{-- src="imagenes/Sepcom-logo.png" --}}
+                        <img id="" height="24" width="24" src="{{ asset('imagenes/Sepcom-logo.png') }}" alt="" srcset="">
                         <div class="nav_logo-name">
                             <a href="{{ route('dashboard') }}" class="blanco" > SEPCOM</a>
                           
