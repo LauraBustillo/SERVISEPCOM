@@ -195,7 +195,7 @@ padding-left: 10% !important;
     </div>
     <div style="padding-left: 2%">
      <span class="input-group-text select1"  id="inputGroup-sizing-sm">Fecha pedido</span>
-     <input readonly {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control select1" placeholder="Fecha del pedido">
+     <input  readonly {{$accion == 'editar'?'disabled':''}} id="fecha_pedido" type="date" class="form-control select1" placeholder="Fecha del pedido">
     </div>
           
    
@@ -206,7 +206,7 @@ padding-left: 10% !important;
 
           <div style="padding-left: 10%">
      <span class="input-group-text select2"  id="inputGroup-sizing-sm">Fecha recibido </span>
-              <input   id="fecha_recibido_pedido" type="date" class="form-control select2"  placeholder="Fecha recibido">
+              <input id="fecha_recibido_pedido" type="date" class="form-control select2"  placeholder="Fecha recibido">
             </div> <br>&nbsp;&nbsp;
             <div >
               <label  for="estado_recibido">Chequear pedido</label><br>
@@ -226,46 +226,41 @@ padding-left: 10% !important;
     <h6 class="mx-auto letra titulo" >Datos del proveedor</h6>
   </div>
 
-  <div class="card-body text-dark">
+    <div class="card-body text-dark">
+      <div style="display: flex" >
+        @if($accion == 'crear')
+          <div class="col"style="padding-left: -3%">
+            <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
+            <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background:transparent"> 
+                <option value=>Seleccione el proveedor</option>
+              @foreach ($proveedores as $pro)              
+                <option value="{{$pro->id}}" >{{$pro->Nombre_empresa}}</option>
+              @endforeach
+            </select> 
+          </div>
+        @else
+          <div class="col"style="padding-left: 0%">
+          <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
+          <input type="text" id="prov_nombre_empresa" class="form-control" placeholder="" disabled> 
+          </div>
+        @endif
 
-   
-    <div style="display: flex" >
-      @if($accion == 'crear')
-      <div class="col"style="padding-left: -3%">
-        <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
-        <select id="selectProveedorPedido" class="form-control" onchange="getProductosProv()" style="background:transparent"> 
-            <option value=>Seleccione el proveedor</option>
-          @foreach ($proveedores as $pro)              
-            <option value="{{$pro->id}}" >{{$pro->Nombre_empresa}}</option>
-          @endforeach
-        </select> 
+          <div class="col"style="padding-left: 4%">
+        <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre del encargado</span>
+        <input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado" onkeyup="app.inputKeyUpDirect(this);">   
         </div>
-      @else
-    <div class="col"style="padding-left: 0%">
-     <span class="input-group-text"  id="inputGroup-sizing-sm">Proveedor</span>
-     <input type="text" id="prov_nombre_empresa" class="form-control" placeholder="" disabled> 
-    </div>
       
+        <div class="col"style="padding-left: 4%">
+        <span class="input-group-text"  id="inputGroup-sizing-sm">Correo</span>
+        <input disabled id="prov_correo" type="text" class="form-control" placeholder="Correo electrónico">
+        </div>
+        <div class="col"style="padding-left: 4%">
+        <span class="input-group-text"  id="inputGroup-sizing-sm">Teléfono</span>
+        <input disabled  id="prov_telefono" type="text" class="form-control" placeholder="Teléfono">
+        </div>
+      </div>
     
-      @endif
-
-      <div class="col"style="padding-left: 4%">
-     <span class="input-group-text"  id="inputGroup-sizing-sm">Nombre del encargado</span>
-     <input disabled id="prov_nombre_encargado" type="text" class="form-control" placeholder="Nombre del encargado" onkeyup="app.inputKeyUpDirect(this);">   
-    </div>
-      
-    <div class="col"style="padding-left: 4%">
-     <span class="input-group-text"  id="inputGroup-sizing-sm">Correo</span>
-     <input disabled id="prov_correo" type="text" class="form-control" placeholder="Correo electrónico">
-    </div>
-    <div class="col"style="padding-left: 4%">
-     <span class="input-group-text"  id="inputGroup-sizing-sm">Teléfono</span>
-     <input disabled  id="prov_telefono" type="text" class="form-control" placeholder="Teléfono">
-    </div>
- 
-    </div>
     
-
     <br>
     <div  class="select" id="divselectproduct"> 
 
@@ -317,13 +312,29 @@ padding-left: 10% !important;
     </div>
 
   </div>
-</div >
-{{-- tabla de productos agregados --}}
-<div  id="tabladetallespedido"></div>
 
 </div>
 
 <br>
+
+{{-- tabla de productos agregados --}}
+
+
+<div style="direction: flex" class="col-md-12 table-responsive">
+  <table  class="table table-striped table-hover  border-dark bordeTabla">
+      <thead>
+          <tr  class="table-dark">
+              <th>Nombre producto</th>
+              <th>Marca</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Eliminar</th>
+          </tr>
+      </thead>
+      <tbody id="tabladetallespedido">
+          </tbody>
+  </table>
+  </div>
 
 
 
@@ -581,28 +592,23 @@ padding-left: 10% !important;
   function dibujarTablaDetalles(){
 
     let html = ''
-    html += '<table class="table table-hover" style="width: 100%";>'
-    html += '<thead>'
-    html += '<tr>'
-    html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripción</th> <th>Cantidad</th> <th>Eliminar</th>'
-    html += '</tr>'
-    html += '</thead>'
-    html += '<tbody>'
+   
     if(detalles_pedido.length > 0){
       detalles_pedido.forEach(element => {
+        html += '<div class= "box">';
         html += '<tr>'
         html += '<td>'+element.Nombre_producto+'</td>'
         html += '<td>'+element.Marca+'</td>'
-        html += '<td  nowrap>'+element.Descripcion+'</td>'
+        html += '<td class="col-md-12 table-responsive">'+element.Descripcion+'</td>'
         html += '<td>'+element.Cantidad+'</td>'
         html += `<td><button class="btn btn-outline-dark" onclick="eliminardetalleproducto('`+element.id_detallepedido+`')"><i class="bi bi-trash"></i></button></td>`
         html += '</tr>'      
       });
     }else{
-      html += '<tr><td colspan="5" style="text-align:center">No hay productos agregados</td></tr>'     
+      html += '<tr><td colspan="5" style="text-align:center">No hay productos agregados</td></tr>'   
+      html += '</div';  
     }
-    html += '</tbody>'
-    html += '</table>'
+    
 
     document.getElementById('tabladetallespedido').innerHTML = html;
   }

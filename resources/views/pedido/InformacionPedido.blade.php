@@ -2,6 +2,12 @@
 @section('extra-content')
 
 <style>
+    div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
 .input-group-text  {
   background-color: #B8D7F9;
   border: 1px solid #0319C4;
@@ -133,14 +139,26 @@
 
         </tbody>
     </table>
+
   </div>
   <br>
 
-<table class="table table-hover"  >
 
-    <tbody id="tabladetallespedido">
-        </tbody>
-  </table>
+
+        <div style="direction: flex" class="col-md-12 table-responsive">
+            <table  class="table">
+                <thead>
+                    <tr >
+                        <th>Nombre producto</th>
+                        <th>Marca</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody id="tabladetallespedido">
+                    </tbody>
+            </table>
+            </div>
   <br>
   <a class="button button-blue " href="{{ route('index.pedido') }}"> <i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
   <a class="button button-blue " href="{{route('editar.pedido' , ['id' => $pedido->id]) }}"> <i class="bi bi-pen-fill"> Editar </i> </a>
@@ -152,13 +170,7 @@
  dibujarTablaDetalles();
 function dibujarTablaDetalles(){
         let html = ''
-        html += '<table class="table table-hover" style="width: 100%";>'
-        html += '<thead>'
-        html += '<tr>'
-        html += '<th>Nombre producto</th> <th>Marca</th> <th>Descripción</th> <th>Cantidad</th> <th></th>'
-        html += '</tr>'
-        html += '</thead>'
-        html += '<tbody>'
+       
         if(detalles_pedido.length > 0){
         detalles_pedido.forEach(element => {
             html += '<tr>'
@@ -169,8 +181,7 @@ function dibujarTablaDetalles(){
             html += '</tr>'      
         });
         }
-        html += '</tbody>'
-        html += '</table>'
+       
 
         document.getElementById('tabladetallespedido').innerHTML = html;
 }
