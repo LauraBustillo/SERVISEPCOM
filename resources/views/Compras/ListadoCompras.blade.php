@@ -7,6 +7,7 @@
         border: 1.5px solid #000000;
     }
 
+
     .form-control {
         background-color: transparent;
         border: 1.5px solid #000000;
@@ -207,10 +208,15 @@ div.container {
             "colvis": "Visibilidad"
         }
     },
+    fixedHeader: {
+                    header: true,
+                    footer: true
+                },
 
     buttons: [
       {
         extend: 'print',
+        footer: true,
         text:  '<button class ="btn btn-secondary" > <i class="fa fa-print" ></i></button>',
         titleAttr: 'Imprimir',
         title:'Reporte de listado factura de compras ',
@@ -218,13 +224,22 @@ div.container {
         messageTop: function () {
     return fechasExportReporte; // where `myVariable` is accessible in this scope and set somewhere else
   },
-        exportOptions: { columns: [0, 1, 2, 3] }
+        exportOptions: { columns: [0, 1, 2, 3] },
+
+        customize: function ( win ) {
+                        $(win.document.body).find('h1').css('text-align', 'center');
+                        $(win.document.body).css( 'font-size', '15px' ) .css( 'font-weight', 'bolder' ) .css('color',  '2f3287');
+                        $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+},
       },
            
   
 
       {
    extend: 'pdfHtml5',
+   footer: true,
   messageTop: function () {
     return fechasExportReportep; // where `myVariable` is accessible in this scope and set somewhere else
   },
@@ -264,12 +279,7 @@ customize: function(doc) {
 }
 
   },
-      {
-      extend:    'excelHtml5',
-      text:       '<button class ="btn btn-success" > <i class="fa fa-file-excel-o"></i></button>',
-      titleAttr: 'Archivo Excel',
-      exportOptions: { columns: [0, 1, 2, 3] } 
-      }
+      
     ]
 
   } 
@@ -332,15 +342,21 @@ customize: function(doc) {
     });
 
       //obtenemos los valores a sumar de la columna que queremos(3), y le pasaamos que con el searh aplicado
-      var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
-      document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
+
+      var suma = tablecompras.column(3, {
+            search: 'applied'
+        }).data().sum();
+        document.getElementById("total_facturas").innerHTML = "Lps. " + suma.toFixed(2);
     
     setTimeout(() => {
+      
       //detectando el cambio del input del search, para volver a actualizar la suma
       $('input[aria-controls=tablecompras]').on('input', function() {
-        var suma = tablecompras.column(3,{search: 'applied'}).data().sum();      
-        document.getElementById("total_facturas").innerHTML = "Lps. "+suma.toFixed(2);
-      });     
+                var suma = tablecompras.column(3, {
+                    search: 'applied'
+                }).data().sum();
+                document.getElementById("total_facturas").innerHTML = "Lps. " + suma.toFixed();
+            });
 
       //detectando el cambio del input del max fecha, para volver a actualizar la suma
       $("#max").change(function(){
@@ -398,37 +414,49 @@ customize: function(doc) {
         <thead class="table-dark">
         <tr>
         
-        <th scope="col">Número de factura</th>
-        <th scope="col">Fecha de facturación</th>
-        <th scope="col">Proveedor </th>
-        <th scope="col">Total  </th>
+        <th scope="col" style="text-align: center;">Número de factura</th>
+        <th scope="col" style="text-align: center;">Fecha de facturación</th>
+        <th scope="col" style="text-align: center;">Proveedor </th>
+        <th scope="col" style="text-align: center;">Total  </th>
         <th scope="col"  style="text-align: center;"> Detalles</th>
         </tr>
         </thead>
 
      <tbody>   
+      @php
+            $total1 = 0;
+        @endphp
         @forelse($compras as $de)
 
         <tr>
        <td scope="row">{{ $de->Numero_factura}}</td>
         <td>{{ $de->Fecha_facturacion }}</td>
         <td>{{ $de->Nombre_empresa}}</td>
-       <td name="valores">{{ $de->Total_factura }}</td>
+       <td name="valores" style="text-align: right">{{ $de->Total_factura }}</td>
         
         {{-- Botones --}}
-      <td style="text-align: center;"><a href="{{route('compra.mostrar' , ['id' => $de->compras]) }}"><i class="bi bi-info-circle-fill"></i></a></td>
+      <td style="text-align: center;"><a href="{{route('compra.mostrar' , ['id'=>$de->compras]) }}">
+        <i class="bi bi-info-circle-fill"></i></a></td>
        </tr>
+       @php
+       $total1 += $de->Total_factura;
+   @endphp
        @empty
        @endforelse
     </tbody>
+    <tfoot>
+      <tr>
+          <td></td>
+          <td></td>
+          <td><b>Total</b></td>
+           <td  id="total_facturas" style="text-align: right"> {{ number_format($total1,2) }}</td></b>
+          <td></td>
+      </tr>
+  </tfoot>
     </table>
   </div>
 <br>
-<div style="padding-left: 71.5%">
-  <b><label for="" style="font-size: 100%">Total facturas</label></b>&nbsp;
-  <b><label id="total_facturas" ></label></b>
-  
-</div>
+
 </div>  
 
 @endsection

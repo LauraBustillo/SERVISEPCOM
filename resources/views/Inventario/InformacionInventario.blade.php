@@ -2,6 +2,13 @@
 @section('extra-content')
 
 <style>
+    div.container {
+
+width: 100% !important;
+height: 100% !important;
+padding-left: 10% !important;
+}
+
 .input-group-text  {
   background-color: #B8D7F9;
   border: 1px solid #0319C4;
@@ -17,7 +24,17 @@
     border: 1px solid #0319C4;
 }
  
+.modal-body {
+        background-color: rgb(142, 220, 243) !important;
+    }
 
+    .modal-header {
+        background-color: rgb(184, 234, 249) !important;
+    }
+
+    .modal-content {
+        background-color: rgb(184, 234, 249) !important;
+    }
 
 /*Los titulos */ 
 .titulo {
@@ -138,7 +155,7 @@
 <div class="modal fade"  id="modalHistorial" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl" >
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header titulo1">
                 <h1  class="group-texto titulo1 mx-auto" id="staticBackdropLabel" style="text-align: center">
                     <br>
                     Historial de precios
@@ -178,7 +195,7 @@
 
             <!-- Botones -->
             <div class="modal-footer" style="text-align: center">
-                <button  type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" ><i class="bi bi-x-circle"> Cerrar</i></button>
+                <button  type="button" class="button button-blue" data-bs-dismiss="modal" ><i class="bi bi-x-circle"> Cerrar</i></button>
             </div>
 
         </div>

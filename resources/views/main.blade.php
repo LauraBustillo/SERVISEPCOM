@@ -467,6 +467,7 @@ $(function() {
                                     </li>
                                 </ul>
                             </li>
+                            
         
                             @if (App\Http\Permiso::traerRol(Auth::user()) == App\Http\Permiso::$roles[0])
                             <li>
@@ -629,7 +630,7 @@ $(function() {
         <!--IMAGEN DE FONDO AZUL-->
         <!--Container Main start-->
         <!-- background-image: url('imagenes/compu.png') -->
-        <div class="bo" style="padding-top: 1rem; background-image: url({{asset('imagenes/fondo2.jpg')}})">
+        <div class="bo" style="padding-top: 1rem; ">
 
             @yield('main-content')
         </div>
