@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class detalle_de_gastos extends TestCase
+class DetalleGastoTest extends TestCase
 {
     /** @test */
-    public function n1_validar_seguridad_ruta_ver_detalle_de_gasto()
+    public function test_n1_validar_seguridad_ruta_ver_detalle_de_gasto()
     {
 
         DB::delete('delete from gastos where nombre_gasto = "Deudas"');
@@ -42,7 +42,7 @@ class detalle_de_gastos extends TestCase
     }
 
     /** @test */
-    public function n2_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto()
+    public function test_n2_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -67,7 +67,7 @@ class detalle_de_gastos extends TestCase
     }
 
     /** @test */
-    public function n3_validar_id_solo_numeros_ver_detalle_de_gasto()
+    public function test_n3_validar_id_solo_numeros_ver_detalle_de_gasto()
     {
         $user = User::find(1);
 
@@ -78,7 +78,7 @@ class detalle_de_gastos extends TestCase
     }
 
     /** @test */
-    public function n4_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_nombre_gasto_correcto()
+    public function test_n4_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_nombre_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -103,7 +103,7 @@ class detalle_de_gastos extends TestCase
     }
 
     /** @test */
-    public function n5_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_tipo_gasto_correcto()
+    public function test_n5_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_tipo_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -127,7 +127,7 @@ class detalle_de_gastos extends TestCase
         $response->assertSeeText('Fijo');
     }
     /** @test */
-    public function n6_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_fecha_gasto_correcto()
+    public function test_n6_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_fecha_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -151,7 +151,7 @@ class detalle_de_gastos extends TestCase
         $response->assertSeeText(Carbon::now()->setTimezone('America/Tegucigalpa')->format('Y-m-d'));
     }
     /** @test */
-    public function n7_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_descripcion_gasto_correcto()
+    public function test_n7_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_descripcion_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -175,7 +175,7 @@ class detalle_de_gastos extends TestCase
         $response->assertSeeText('Por deuda');
     }
     /** @test */
-    public function n8_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_total_gasto_correcto()
+    public function test_n8_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_total_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -199,7 +199,7 @@ class detalle_de_gastos extends TestCase
         $response->assertSeeText('1000');
     }
     /** @test */
-    public function n9_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_responsable_gasto_correcto()
+    public function test_n9_validar_acceso_a_ruta_con_usuario_administrador_ver_detalle_de_gasto_texto_responsable_gasto_correcto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -224,3 +224,4 @@ class detalle_de_gastos extends TestCase
         $response->assertSeeText($responsable->Nombres . ' ' . $responsable->Apellidos);
     }
 }
+

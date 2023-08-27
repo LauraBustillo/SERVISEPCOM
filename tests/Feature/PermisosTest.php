@@ -8,11 +8,11 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
-class permisos extends TestCase
+class PermisosTest extends TestCase
 {
 
     /** @test */
-    public function n11_validar_ruta_usuario_sin_privilegios_empleado_vista_nuevo()
+    public function test_n11_validar_ruta_usuario_sin_privilegios_empleado_vista_nuevo()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -26,7 +26,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n12_validar_ruta_usuario_sin_privilegios_empleado_registrar()
+    public function test_n12_validar_ruta_usuario_sin_privilegios_empleado_registrar()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -39,7 +39,7 @@ class permisos extends TestCase
         $response->assertRedirect(route('dashboard'));
     }
     /** @test */
-    public function n13_validar_ruta_usuario_sin_privilegios_empleado_lista()
+    public function test_n13_validar_ruta_usuario_sin_privilegios_empleado_lista()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -52,7 +52,7 @@ class permisos extends TestCase
         $response->assertRedirect(route('dashboard'));
     }
     /** @test */
-    public function n14_validar_ruta_usuario_sin_privilegios_empleado_lista_post()
+    public function test_n14_validar_ruta_usuario_sin_privilegios_empleado_lista_post()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -65,7 +65,7 @@ class permisos extends TestCase
         $response->assertRedirect(route('dashboard'));
     }
     /** @test */
-    public function n15_validar_ruta_usuario_sin_privilegios_empleado_ver()
+    public function test_n15_validar_ruta_usuario_sin_privilegios_empleado_ver()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -78,7 +78,7 @@ class permisos extends TestCase
         $response->assertRedirect(route('dashboard'));
     }
     /** @test */
-    public function n16_validar_ruta_usuario_sin_privilegios_empleado_ver_actualizar()
+    public function test_n16_validar_ruta_usuario_sin_privilegios_empleado_ver_actualizar()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -91,7 +91,7 @@ class permisos extends TestCase
         $response->assertRedirect(route('dashboard'));
     }
     /** @test */
-    public function n17_validar_ruta_usuario_sin_privilegios_empleado_actualizar()
+    public function test_n17_validar_ruta_usuario_sin_privilegios_empleado_actualizar()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -105,7 +105,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n18_validar_ruta_planilla_sin_privilegios_empleado_planilla_registrar()
+    public function test_n18_validar_ruta_planilla_sin_privilegios_empleado_planilla_registrar()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -119,7 +119,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n19_validar_ruta_planilla_sin_privilegios_empleado_planilla_listado()
+    public function test_n19_validar_ruta_planilla_sin_privilegios_empleado_planilla_listado()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -133,7 +133,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n20_validar_ruta_planilla_sin_privilegios_empleado_planilla_restar_horas()
+    public function test_n20_validar_ruta_planilla_sin_privilegios_empleado_planilla_restar_horas()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -147,7 +147,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n21_validar_ruta_planilla_sin_privilegios_empleado_planilla_horas_diurnas()
+    public function test_n21_validar_ruta_planilla_sin_privilegios_empleado_planilla_horas_diurnas()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -161,7 +161,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n22_validar_ruta_planilla_sin_privilegios_empleado_planilla_nocturnas_horas()
+    public function test_n22_validar_ruta_planilla_sin_privilegios_empleado_planilla_nocturnas_horas()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -175,7 +175,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n23_validar_ruta_planilla_sin_privilegios_empleado_planilla_borrar()
+    public function test_n23_validar_ruta_planilla_sin_privilegios_empleado_planilla_borrar()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -189,7 +189,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n24_validar_ruta_planilla_sin_privilegios_empleado_planilla_guardar_planilla()
+    public function test_n24_validar_ruta_planilla_sin_privilegios_empleado_planilla_guardar_planilla()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -203,7 +203,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n25_validar_ruta_planilla_sin_privilegios_empleado_planilla_mostrar_planilla()
+    public function test_n25_validar_ruta_planilla_sin_privilegios_empleado_planilla_mostrar_planilla()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -217,7 +217,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n26_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_lista_rangos()
+    public function test_n26_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_lista_rangos()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -231,7 +231,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n27_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_nuevo_rango_factura()
+    public function test_n27_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_nuevo_rango_factura()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -245,7 +245,7 @@ class permisos extends TestCase
     }
 
     /** @test */
-    public function n28_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_registro_nuevo_rango_factura()
+    public function test_n28_validar_ruta_rango_factura_sin_privilegios_empleado_mostrar_registro_nuevo_rango_factura()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 

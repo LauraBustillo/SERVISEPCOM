@@ -9,11 +9,10 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
-class detalle_planilla extends TestCase
+class DetallePlanillaTest extends TestCase
 {
-
     /** @test */
-    public function n7_modificar_detalle_planilla_dias_sin_logueo()
+    public function test_n7_modificar_detalle_planilla_dias_sin_logueo()
     {
 
         $newP = PlanillaDetalle::orderBy('id', 'desc')->first();
@@ -30,7 +29,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n8_modificar_detalle_planilla_dias_con_usuario_administrador()
+    public function test_n8_modificar_detalle_planilla_dias_con_usuario_administrador()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -51,7 +50,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n9_validar_detalle_planilla_id_detalle_vacios()
+    public function test_n9_validar_detalle_planilla_id_detalle_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -70,7 +69,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n10_validar_detalle_planilla_id_detalle_vacios_mensaje_validacion()
+    public function test_n10_validar_detalle_planilla_id_detalle_vacios_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -91,7 +90,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n11_validar_detalle_planilla_dias_no_trabajados_vacios()
+    public function test_n11_validar_detalle_planilla_dias_no_trabajados_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -110,7 +109,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n12_validar_detalle_planilla_dias_no_trabajados_vacios_mensaje_validacion()
+    public function test_n12_validar_detalle_planilla_dias_no_trabajados_vacios_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -131,7 +130,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n13_validar_detalle_planilla_dias_no_trabajados_solo_numeros_enteros()
+    public function test_n13_validar_detalle_planilla_dias_no_trabajados_solo_numeros_enteros()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -150,7 +149,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n14_validar_detalle_planilla_dias_no_trabajados_solo_numeros_enteros_mensaje_validacion()
+    public function test_n14_validar_detalle_planilla_dias_no_trabajados_solo_numeros_enteros_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -171,7 +170,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n15_validar_detalle_planilla_dias_no_trabajados_numero_no_mayor_al_mes()
+    public function test_n15_validar_detalle_planilla_dias_no_trabajados_numero_no_mayor_al_mes()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -190,7 +189,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n16_validar_detalle_planilla_dias_no_trabajados_numero_no_mayor_al_mes_mensaje_validacion()
+    public function test_n16_validar_detalle_planilla_dias_no_trabajados_numero_no_mayor_al_mes_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -211,7 +210,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n17_validar_detalle_planilla_dias_no_trabajados_numero_negativos()
+    public function test_n17_validar_detalle_planilla_dias_no_trabajados_numero_negativos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -230,7 +229,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n18_validar_detalle_planilla_dias_no_trabajados_numero_negativos_mensaje_validacion()
+    public function test_n18_validar_detalle_planilla_dias_no_trabajados_numero_negativos_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -252,7 +251,7 @@ class detalle_planilla extends TestCase
 
 
     /** @test */
-    public function n19_validar_detalle_planilla_horas_diurnas_id_detalle_vacios()
+    public function test_n19_validar_detalle_planilla_horas_diurnas_id_detalle_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -271,7 +270,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n20_validar_detalle_planilla_horas_diurnas_id_detalle_vacios_mensaje_validacion()
+    public function test_n20_validar_detalle_planilla_horas_diurnas_id_detalle_vacios_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -292,7 +291,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n21_validar_detalle_planilla_horas_diurnas_vacios()
+    public function test_n21_validar_detalle_planilla_horas_diurnas_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -311,7 +310,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n22_validar_detalle_planilla_horas_diurnas_mensaje_validacion()
+    public function test_n22_validar_detalle_planilla_horas_diurnas_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -332,7 +331,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n23_validar_detalle_planilla_horas_diurnas_solo_numeros_enteros()
+    public function test_n23_validar_detalle_planilla_horas_diurnas_solo_numeros_enteros()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -351,7 +350,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n24_validar_detalle_planilla_horas_diurnas_solo_numeros_enteros_mensaje_validacion()
+    public function test_n24_validar_detalle_planilla_horas_diurnas_solo_numeros_enteros_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -373,7 +372,7 @@ class detalle_planilla extends TestCase
 
 
     /** @test */
-    public function n25_validar_detalle_planilla_horas_diurnas_numero_negativos()
+    public function test_n25_validar_detalle_planilla_horas_diurnas_numero_negativos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -392,7 +391,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n26_validar_detalle_planilla_horas_diurnas_numero_negativos_mensaje_validacion()
+    public function test_n26_validar_detalle_planilla_horas_diurnas_numero_negativos_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -414,7 +413,7 @@ class detalle_planilla extends TestCase
 
 
     /** @test */
-    public function n27_validar_detalle_planilla_nocturnas_horas_id_detalle_vacios()
+    public function test_n27_validar_detalle_planilla_nocturnas_horas_id_detalle_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -433,7 +432,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n28_validar_detalle_planilla_nocturnas_horas_id_detalle_vacios_mensaje_validacion()
+    public function test_n28_validar_detalle_planilla_nocturnas_horas_id_detalle_vacios_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -454,7 +453,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n28_validar_detalle_planilla_nocturnas_horas_vacios()
+    public function test_n28_validar_detalle_planilla_nocturnas_horas_vacios()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -473,7 +472,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n29_validar_detalle_planilla_nocturnas_horas_vacios_mensaje_validacion()
+    public function test_n29_validar_detalle_planilla_nocturnas_horas_vacios_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -494,7 +493,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n30_validar_detalle_planilla_nocturnas_horas_solo_numeros_enteros()
+    public function test_n30_validar_detalle_planilla_nocturnas_horas_solo_numeros_enteros()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -513,7 +512,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n31_validar_detalle_planilla_nocturnas_horas_solo_numeros_enteros_mensaje_validacion()
+    public function test_n31_validar_detalle_planilla_nocturnas_horas_solo_numeros_enteros_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -534,7 +533,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n32_validar_detalle_planilla_nocturnas_horas_numero_negativos()
+    public function test_n32_validar_detalle_planilla_nocturnas_horas_numero_negativos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -553,7 +552,7 @@ class detalle_planilla extends TestCase
     }
 
     /** @test */
-    public function n33_validar_detalle_planilla_nocturnas_horas_numero_negativos_mensaje_validacion()
+    public function test_n33_validar_detalle_planilla_nocturnas_horas_numero_negativos_mensaje_validacion()
     {
         $user = User::find(1);
         Auth::login($user);

@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class registrar_usuario extends TestCase
+class RegistrarUsuarioTest extends TestCase
 {
 
     /** @test */
-    public function n3_validar_seguridad_ruta_nuevo_registro_de_usuarios()
+    public function test_n3_validar_seguridad_ruta_nuevo_registro_de_usuarios()
     {
         $response = $this->get(route('show.registroUsuarios'));
         $response->assertRedirect(route('login'));
     }
 
     /** @test */
-    public function n4_validar_acceso_a_ruta_con_usuario_administrador_nuevo_registro_de_usuarios()
+    public function test_n4_validar_acceso_a_ruta_con_usuario_administrador_nuevo_registro_de_usuarios()
     {
 
         $user = User::find(1);
@@ -29,7 +29,7 @@ class registrar_usuario extends TestCase
         $response->assertStatus(200);
     }
 
-    public function n5_validar_seguridad_al_registrar_nuevo_registro_de_usuarios()
+    public function test_n5_validar_seguridad_al_registrar_nuevo_registro_de_usuarios()
     {
         $response = $this->post(
             route('store.gasto'),
@@ -46,7 +46,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n6_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos()
+    public function test_n6_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -75,7 +75,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n7_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos_con_usuario_sin_privilegios()
+    public function test_n7_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos_con_usuario_sin_privilegios()
     {
         $newuser = User::where('name', '=', 'usuario123')->get();
 
@@ -103,7 +103,7 @@ class registrar_usuario extends TestCase
     // 'name.required' => 'El usuario es obligatorio',
     // 'name.string'=>'El nombre debe ser una cadena de texto.',
     // 'name.max'=>'El nombre no puede tener más de 100 caracteres.',
-    public function n8_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_vacio()
+    public function test_n8_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -126,7 +126,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n9_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_debe_ser_cadena_texto()
+    public function test_n9_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_debe_ser_cadena_texto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -149,7 +149,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n10_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_minimo_de_caracteres()
+    public function test_n10_validar_al_registrar_nuevo_registro_de_usuarios_campo_nombre_minimo_de_caracteres()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -174,7 +174,7 @@ class registrar_usuario extends TestCase
     // 'id_empleado.required'=>'Selecione un empleado',
     // 'id_empleado.unique'=>'El empleado ya está registrado',
     /** @test */
-    public function n11_validar_al_registrar_nuevo_registro_de_usuarios_campo_id_empleado_vacio()
+    public function test_n11_validar_al_registrar_nuevo_registro_de_usuarios_campo_id_empleado_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -196,7 +196,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n12_validar_al_registrar_nuevo_registro_de_usuarios_campo_id_empleado_vacio()
+    public function test_n12_validar_al_registrar_nuevo_registro_de_usuarios_campo_id_empleado_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -224,7 +224,7 @@ class registrar_usuario extends TestCase
     // 'email.string' => 'El correo debe ser una cadena de texto.',
     // 'email.email' => 'El formato del correo no es válido.',
     // 'email.max' => 'El correo no puede tener más de 100 caracteres.',
-    public function n13_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_vacio()
+    public function test_n13_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -246,7 +246,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n14_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_unico()
+    public function test_n14_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_unico()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -269,7 +269,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n15_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_debe_ser_cadena_texto()
+    public function test_n15_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_debe_ser_cadena_texto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -291,7 +291,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n16_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_formato_correo_invalido()
+    public function test_n16_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_formato_correo_invalido()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -313,7 +313,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n17_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_maximo_caracteres()
+    public function test_n17_validar_al_registrar_nuevo_registro_de_usuarios_campo_email_maximo_caracteres()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -338,7 +338,7 @@ class registrar_usuario extends TestCase
     /** @test */
     // 'password.required'=>'La contraseña es obligatoria',
     // 'password.min'=>'La contraseña debe tener minimo 8 caracteres',
-    public function n18_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_vacio()
+    public function test_n18_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -360,7 +360,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n19_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_minimo_carateres()
+    public function test_n19_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_minimo_carateres()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -386,7 +386,7 @@ class registrar_usuario extends TestCase
     // 'password_confirmation.required'=>'Debe confirmar la contraseña',
     // 'password_confirmation.min'=>'La contraseña debe tener minimo 8 caracteres',
     // 'password_confirmation.same'=>'La contraseña deben coincidir con al confirmacion',
-    public function n20_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_vacio()
+    public function test_n20_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -409,7 +409,7 @@ class registrar_usuario extends TestCase
     }
 
     /** @test */
-    public function n21_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_minimo_caracteres()
+    public function test_n21_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_minimo_caracteres()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -431,7 +431,7 @@ class registrar_usuario extends TestCase
         ]);
     }
     /** @test */
-    public function n22_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_coincidencia_con_password()
+    public function test_n22_validar_al_registrar_nuevo_registro_de_usuarios_campo_password_confirmation_coincidencia_con_password()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -455,7 +455,7 @@ class registrar_usuario extends TestCase
 
     /** @test */
     //'rol_usuario.required'=>'Selecione un rol',
-    public function n23_validar_al_registrar_nuevo_registro_de_usuarios_campo_rol_usuario_vacio()
+    public function test_n23_validar_al_registrar_nuevo_registro_de_usuarios_campo_rol_usuario_vacio()
     {
         $user = User::find(1);
         Auth::login($user);

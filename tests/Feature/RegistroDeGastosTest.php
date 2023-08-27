@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class registro_de_gastos extends TestCase
+class RegistroDeGastosTest extends TestCase
 {
     /** @test */
-    public function n3_validar_seguridad_ruta_nuevo_registro_de_gastos()
+    public function test_n3_validar_seguridad_ruta_nuevo_registro_de_gastos()
     {
         $response = $this->get(route('show.gasto'));
         $response->assertRedirect(route('login'));
     }
 
     /** @test */
-    public function n4_validar_acceso_a_ruta_con_usuario_administrador_nuevo_registro_de_gastos()
+    public function test_n4_validar_acceso_a_ruta_con_usuario_administrador_nuevo_registro_de_gastos()
     {
         $user = User::find(1);
 
@@ -30,7 +30,7 @@ class registro_de_gastos extends TestCase
     }
 
 
-    public function n5_validar_seguridad_al_registrar_nuevo_registro_de_gastos()
+    public function test_n5_validar_seguridad_al_registrar_nuevo_registro_de_gastos()
     {
         DB::delete('delete from gastos where nombre_gasto = "Perdida"');
 
@@ -48,7 +48,7 @@ class registro_de_gastos extends TestCase
         $response->assertRedirect(route('login'));
     }
     /** @test */
-    public function n6_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos()
+    public function test_n6_validar_mensaje_de_exito_al_registrar_nuevo_registro_de_gastos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -75,7 +75,7 @@ class registro_de_gastos extends TestCase
     //'nombre_gasto.min'=>'El nombre del gasto debe tener minimo 3 letras',
     //'nombre_gasto.max'=>'El nombre del gasto no debe de tener más de 25 letras',
     //'nombre_gasto.regex'=>'El nombre del gasto solo puede tener letras',
-    public function n7_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_vacio()
+    public function test_n7_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -98,7 +98,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n8_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_minimos()
+    public function test_n8_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_minimos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -121,7 +121,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n9_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_maximos()
+    public function test_n9_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_maximos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -144,7 +144,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n10_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_solo_texto()
+    public function test_n10_validar_al_registrar_nuevo_registro_de_gastos_campo_nombre_caracteres_solo_texto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -170,7 +170,7 @@ class registro_de_gastos extends TestCase
     //   'tipo_gasto.required' => 'El tipo de gasto es requerido',
     //   'tipo_gasto.regex' => 'El tipo de gasto solo puede tener letras',
     /** @test */
-    public function n11_validar_al_registrar_nuevo_registro_de_gastos_campo_tipo_gasto_vacio()
+    public function test_n11_validar_al_registrar_nuevo_registro_de_gastos_campo_tipo_gasto_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -193,7 +193,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n12_validar_al_registrar_nuevo_registro_de_gastos_campo_tipo_gasto_solo_texto()
+    public function test_n12_validar_al_registrar_nuevo_registro_de_gastos_campo_tipo_gasto_solo_texto()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -219,7 +219,7 @@ class registro_de_gastos extends TestCase
     /** @test */
     //'fecha_gasto.required' => 'La fecha del gasto es requerida',
     //'fecha_gasto.date' =>'La fecha debe tener un valor valido en formato Y-m-d',
-    public function n13_validar_al_registrar_nuevo_registro_de_gastos_campo_fecha_gasto_vacio()
+    public function test_n13_validar_al_registrar_nuevo_registro_de_gastos_campo_fecha_gasto_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -242,7 +242,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n14_validar_al_registrar_nuevo_registro_de_gastos_campo_fecha_gasto_solo_formato_date()
+    public function test_n14_validar_al_registrar_nuevo_registro_de_gastos_campo_fecha_gasto_solo_formato_date()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -268,7 +268,7 @@ class registro_de_gastos extends TestCase
     /** @test */
     // 'descripcion_gasto.required' => 'La descripción del gasto es requerida',
     // 'descripcion_gasto.min'=>'La descripción debe tener minimo 5 letras',
-    public function n15_validar_al_registrar_nuevo_registro_de_gastos_campo_descripcion_gasto_vacio()
+    public function test_n15_validar_al_registrar_nuevo_registro_de_gastos_campo_descripcion_gasto_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -291,7 +291,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n16_validar_al_registrar_nuevo_registro_de_gastos_campo_descripcion_gasto_carateres_minimos()
+    public function test_n16_validar_al_registrar_nuevo_registro_de_gastos_campo_descripcion_gasto_carateres_minimos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -318,7 +318,7 @@ class registro_de_gastos extends TestCase
     // 'total_gasto.numeric' => 'El total del gasto solo debe contener números',
     // 'total_gasto.min'=>'El total del gasto debe contener minimo 2 números y no acepta números negativos',
     // 'total_gasto.max'=>'El total del gasto debe contener maximo 5 números',
-    public function n17_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_vacio()
+    public function test_n17_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_vacio()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -341,7 +341,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n18_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_solo_valores_numericos()
+    public function test_n18_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_solo_valores_numericos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -364,7 +364,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n19_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_solo_numero_positivos()
+    public function test_n19_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_solo_numero_positivos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -387,7 +387,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n20_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_ingresar_cero()
+    public function test_n20_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_ingresar_cero()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -411,7 +411,7 @@ class registro_de_gastos extends TestCase
     }
 
     /** @test */
-    public function n21_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_ingresar_valores_inmensos()
+    public function test_n21_validar_al_registrar_nuevo_registro_de_gastos_campo_total_gasto_ingresar_valores_inmensos()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -437,7 +437,7 @@ class registro_de_gastos extends TestCase
     /** @test */
     //'responsable_gasto.required' => 'El responsable del gasto es requerido',
     //'responsable_gasto.integer' => 'El id responsable del gasto es un numero entero',
-    public function n22_validar_al_registrar_nuevo_registro_de_gastos_campo_responsable_gasto_es_requerido()
+    public function test_n22_validar_al_registrar_nuevo_registro_de_gastos_campo_responsable_gasto_es_requerido()
     {
         $user = User::find(1);
         Auth::login($user);
@@ -460,7 +460,7 @@ class registro_de_gastos extends TestCase
         ]);
     }
     /** @test */
-    public function n23_validar_al_registrar_nuevo_registro_de_gastos_campo_responsable_gasto_es_un_numero_entero()
+    public function test_n23_validar_al_registrar_nuevo_registro_de_gastos_campo_responsable_gasto_es_un_numero_entero()
     {
         $user = User::find(1);
         Auth::login($user);
