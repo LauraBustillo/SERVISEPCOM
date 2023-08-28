@@ -626,7 +626,7 @@ a { color: aliceblue;
                     &nbsp;&nbsp;
                     <div style="width: 100%">
                     <span class="input-group-text select2"  style="width: 100%">Descripción</span>
-                        <textarea id="descripcion_mantenimiento" type="text" name="descripcion_mantenimiento" class="form-control" placeholder="Descripción de lo que se realizó en el mantenimiento" rows="1">{{old('descripcion_mantenimiento')}}</textarea>
+                        <textarea id="descripcion_mantenimiento" type="text" name="descripcion_mantenimiento" class="form-control" maxlength="150" placeholder="Descripción de lo que se realizó en el mantenimiento" rows="1">{{old('descripcion_mantenimiento')}}</textarea>
                     </div>
                 </div>
 
@@ -723,6 +723,10 @@ a { color: aliceblue;
         // Descripcion
         if (document.getElementById("descripcion_mantenimiento").value == '') {
             alertify.error("La descripción es requerida");
+            return;
+        }
+        else if (descripcion_mantenimiento.length > 150) {
+            alertify.error('La descripción no debe de tener más de 150 letras')
             return;
         }
 

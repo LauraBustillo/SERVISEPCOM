@@ -152,6 +152,8 @@ class ReparacionController extends Controller
 
             'modelo.required' => 'El modelo es requerido',
             'modelo.regex' => 'El modelo solo puede tener letras y números',
+            'modelo.min' => 'El modelo debe tener mínimo 4 letras',
+            'modelo.max' => 'El modelo no debe de tener más de 20 letras',
 
 
             'descripcionr.required' => 'La descripción es requerido',
