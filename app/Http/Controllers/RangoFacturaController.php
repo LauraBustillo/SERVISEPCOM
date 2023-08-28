@@ -57,8 +57,8 @@ class RangoFacturaController extends Controller
             'caiRango' => 'required|unique:rango_facturas|regex:^\b([0-9A-Fa-f]{6}-){5}[0-9A-Fa-f]{2}\b^|max:37',
             'fechaInicio' => 'required|before:fechaVencimiento',
             'fechaVencimiento' => 'required',
-            'facturaInicial' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19',
-            'facturaFinal' => ['required','regex:^[0-9]-\d{3}-\d{2}-\d{8}$^','max:19',new FacturaFinalMayorQueInicial()],
+            'facturaInicial' => 'required|regex:^[0-9]-\d{3}-\d{2}-\d{8}$^|max:19|string|numeric',
+            'facturaFinal' => ['required','regex:^[0-9]-\d{3}-\d{2}-\d{8}$^','max:19',new FacturaFinalMayorQueInicial(),'string','numeric'],
 
         ]);
         $mesaje = ([
@@ -71,6 +71,12 @@ class RangoFacturaController extends Controller
             'fechaVencimiento.required' => 'La fecha final es obligatoria',
             'facturaInicial.required' => 'La factura inicial es obligatoria',
             'facturaFinal.required' => 'La factura final es obligatoria',
+
+            'facturaInicial.string' => 'La Factura Inicial debe ser un cadena de caracteres',
+            'facturaFinal.string' => 'La Factura Final debe ser un cadena de caracteres',
+
+            'facturaInicial.numeric' => 'La factura inicial debe contener numeros y caracteres',
+            'facturaFinal.numeric' => 'La factura final debe contener numeros y caracteres',
         ]);
 
 

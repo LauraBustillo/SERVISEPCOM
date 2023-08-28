@@ -69,7 +69,7 @@ class DevolucionVentaController extends Controller
     public function store(Request $request)
     {
         $rules = ([
-            'id_producto_devolucion' =>'required',
+            'id_producto_devolucion' =>'required|integer|exists:products,id',
             'id_detalle_venta' =>'required',
             'fechaDev' =>'required|date',
             'des_devolucion' =>'required|max:255',
@@ -78,6 +78,9 @@ class DevolucionVentaController extends Controller
 
         $mesaje=([
             'id_producto_devolucion.required'=>'El producto es obligatorio' ,
+            'id_producto_devolucion.integer' => 'El campo ID de producto de devolución debe ser un número entero.',
+            'id_producto_devolucion.exists' => 'El producto de devolución no existe en la tabla de productos.',
+
             'id_detalle_venta.required'=>'El id_detalle_venta es obligatorio' ,
             'fechaDev.required'=>'La fecha de la devolucion es obligatoria' ,
             'fechaDev.date'=>'La fecha de la devolucion debe ser una fecha' ,

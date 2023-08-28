@@ -121,7 +121,7 @@ class PlanillaController extends Controller
     //Horas no trabajadas
     public function restar_horas(Request $request)
     {
-
+        Permiso::validarRolSoloAdmin(Auth::user());
         $rules = ([
             'id_detalle' => 'required',
             'no_trabajo' => ['required', 'integer', new MaxDaysOfMonth, 'min:0'],
@@ -131,6 +131,7 @@ class PlanillaController extends Controller
         $mesaje = ([
             'id_detalle.required' => 'El id del detalle es obligatorio',
             'no_trabajo.required' => 'Los dias son obligatorios',
+            'no_trabajo.integer' => 'Los dias son numeros enteros',
             'no_trabajo.min' => 'Los dias no pueden ser negativos',
         ]);
 
@@ -146,7 +147,7 @@ class PlanillaController extends Controller
     //Horas no trabajadas
     public function diurnas_horas(Request $request)
     {
-
+        Permiso::validarRolSoloAdmin(Auth::user());
         $rules = ([
             'id_detalle' => 'required',
             'no_trabajo' => ['required', 'integer', 'min:0'],
@@ -156,6 +157,7 @@ class PlanillaController extends Controller
         $mesaje = ([
             'id_detalle.required' => 'El id del detalle es obligatorio',
             'no_trabajo.required' => 'Las horas son obligatorios',
+            'no_trabajo.integer' => 'Las horas son numeros enteros',
             'no_trabajo.min' => 'Las horas no pueden ser negativos',
         ]);
 
@@ -171,7 +173,7 @@ class PlanillaController extends Controller
     //Horas no trabajadas
     public function nocturnas_horas(Request $request)
     {
-
+        Permiso::validarRolSoloAdmin(Auth::user());
         $rules = ([
             'id_detalle' => 'required',
             'no_trabajo' => ['required', 'integer', 'min:0'],
@@ -181,6 +183,7 @@ class PlanillaController extends Controller
         $mesaje = ([
             'id_detalle.required' => 'El id del detalle es obligatorio',
             'no_trabajo.required' => 'Las horas son obligatorios',
+            'no_trabajo.integer' => 'Las horas son numeros enteros',
             'no_trabajo.min' => 'Las horas no pueden ser negativos',
         ]);
 
@@ -196,7 +199,7 @@ class PlanillaController extends Controller
     //borrar Planilla
     public function eliminar_planilla($id)
     {
-
+        //Permiso::validarRolSoloAdmin(Auth::user());
         DB::delete('delete from planilla_detalles where planilla_id = ?', [$id]);
         Planilla::destroy($id);
 
@@ -205,6 +208,7 @@ class PlanillaController extends Controller
 
     public function guardar_planilla(Request $request, $id)
     {
+        Permiso::validarRolSoloAdmin(Auth::user());
         $planilla = Planilla::find($id);
         $planilla->estado = 'G';
         $planilla->total_pagar = $request->input('total_planilla');
@@ -213,15 +217,13 @@ class PlanillaController extends Controller
         return redirect()->back();
     }
 
-
-
-
     // Para mostrar la informacion
     public function mostrar($id)
     {
+        Permiso::validarRolSoloAdmin(Auth::user());
         $planillaI = Planilla::findOrFail($id);
         $planillaDetalle = PlanillaDetalle::where("planilla_id","=",$id)->get();
-        
+
         return view('Planilla.InformacionPlanilla')->with('planillaI', $planillaI)->with('planillaDetalle', $planillaDetalle);
     }
 }
