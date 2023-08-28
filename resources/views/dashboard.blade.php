@@ -341,7 +341,7 @@ div.container {
 <div  class="row row-cols-1 row-cols-md-5 g-3">
   
 <div class="card border-primary mb-3" style="max-width: 14rem;">
-  <div class="card-header" style="text-align: center; font-weight:bolder">Devolución por garantia</div>
+  <div class="card-header" style="text-align: center; font-weight:bolder">Devolución por garantía</div>
   <div class="card-body text-secondary"   style="text-align: center;">
  <a href="{{ route('devolucion.index') }}"><button type="button" class="btn btn-outline-primary"  > <img src="imagenes/devolucion.gif" alt="" style="max-width: 7rem;"></button></a>
     <p class="card-text">Permite realizar y detallar devoluciones de ciertos productos.</p>

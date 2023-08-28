@@ -103,7 +103,7 @@ class MantenimientoController extends Controller
 
             'descripcionm.required' => 'La descripción es requerido',
             'descripcionm.min' => 'La descripción debe tener como mínimo 4 letras',
-            'descripcionm.max' => 'La descripción debede tener más de 100 letras',
+            'descripcionm.max' => 'La descripción debe de tener más de 100 letras',
             'descripcionm.regex' => 'La descripción solo puede tener letras y números',
 
             'fecha_ingreso.required' => 'La fecha de ingreso es requerida',
