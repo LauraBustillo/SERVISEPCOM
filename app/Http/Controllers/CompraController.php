@@ -8,16 +8,15 @@ use App\Models\Product;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
-use DB;
-
-
-class CompraController extends Controller 
+class CompraController extends Controller
 {
 /*Funcion para  guardar  */
 public function index(Request $request){
   $compras = [];
-  $buscar = ''; 
+  $buscar = '';
 
 
   if($request->buscar != null && $request->buscar != ''){
@@ -44,7 +43,7 @@ public function index(Request $request){
     // ->andWhere("Fecha_facturacion","<=",$request->fechato)
     // SELECT * FROM compras AS c WHERE c.Fecha_facturacion >= '2022-11-08' AND c.Fecha_facturacion <= '2022-11-09';
 
-    
+
 
     return view('Compras.ListadoCompras' )->with('compras', $compras)->with('buscar', $buscar)->with('mensaje', 'Se guardó  con  éxito') ;
   }
@@ -83,11 +82,33 @@ public function show(){
 
 public function guardarFactura($arrayFac,$arrayDet){
 
-
-
   // pasamos los string parametros a arreglos
   $jsonFactura =  json_decode($arrayFac);
   $arrayDetallesFac =  json_decode($arrayDet);
+
+    $rules = [
+        'Numero_factura' => 'required|regex:/^\d{3}-\d{3}-\d{2}-\d{8}$/|unique:compras,Numero_factura',
+        'empleadoVentas' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'Fecha_facturacion' => 'required|date',
+        'Proveedor' => 'required|regex:/^[a-zA-Z\s]+$/',
+        'Total_factura' => 'required|numeric',
+    ];
+
+    // Definir mensajes personalizados
+    $messages = [
+        
+    ];
+
+
+$validator = Validator::make((array) $jsonFactura, $rules, $messages);
+
+if ($validator->fails()) {
+    return redirect()->back()
+        ->withErrors($validator)
+        ->withInput();
+}
+
+
 
   $agregar = new Compra();
   $agregar -> Fecha_facturacion = $jsonFactura -> Fecha_facturacion;

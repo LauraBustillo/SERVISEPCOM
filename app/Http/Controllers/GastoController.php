@@ -30,12 +30,15 @@ class GastoController extends Controller
         // pasamos los string parametros a arreglos
         $rules = ([
             'nombre_gasto' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
-            'tipo_gasto' =>'required',
-            'fecha_gasto' =>'date',
+            //'tipo_gasto' =>'required',
+'tipo_gasto' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/',
+            //'fecha_gasto' =>'date',
+'fecha_gasto' =>'required|date',
             'descripcion_gasto' =>'required|max:150|min:5',
-            'total_gasto' => 'required|numeric|min:2',
-            'responsable_gasto'=> 'required',
-
+            //'total_gasto' => 'required|numeric|min:2',
+'total_gasto' => 'required|numeric|min:2|max:99999',
+            //'responsable_gasto'=> 'required',
+'responsable_gasto'=> 'required|integer',
         ]);
         $mesaje = ([
             'nombre_gasto.required' => 'El nombre del gasto es requerido',
@@ -44,8 +47,10 @@ class GastoController extends Controller
             'nombre_gasto.regex'=>'El nombre del gasto solo puede tener letras',
 
             'tipo_gasto.required' => 'El tipo de gasto es requerido',
+'tipo_gasto.regex'=>'El tipo de gasto solo puede tener letras',
 
             'fecha_gasto.required' => 'La fecha del gasto es requerida',
+'fecha_gasto.date' =>'La fecha debe tener un valor valido en formato Y-m-d',
 
             'descripcion_gasto.required' => 'La descripción del gasto es requerida',
             'descripcion_gasto.min'=>'La descripción debe tener minimo 5 letras',
@@ -56,7 +61,7 @@ class GastoController extends Controller
             'total_gasto.max'=>'El total del gasto debe contener maximo 5 números',
 
             'responsable_gasto.required' => 'El responsable del gasto es requerido',
-
+'responsable_gasto.integer' => 'El id responsable del gasto es un numero entero',
 
 
           ]);

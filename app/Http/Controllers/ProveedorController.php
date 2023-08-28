@@ -47,11 +47,11 @@ class ProveedorController extends Controller
      $rules = ([
      'Nombre_empresa'=>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:50',
      'Correo'=>'required|email|unique:proveedors|max:30',
-     'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|max:8',
+     'Telefono_empresa' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
      'Direccion' =>'required|min:10|max:150',
      'Nombre_encargado' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:3|max:25',
      'Apellido_encargado' =>'required|regex:/^([a-zñáéíóúñüàè A-ZÑ]+)(\s[a-zñA-ZÑ]+)*$/|min:4|max:25',
-     'Telefono_encargado' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7}) |max:8',
+     'Telefono_encargado' => 'required|unique:proveedors|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
       
    ]); 
 
@@ -86,7 +86,7 @@ class ProveedorController extends Controller
      'Apellido_encargado.required'=>'El apellido del encargado es obligatorio' ,
      'Apellido_encargado.min'=>'El apellido debe tener minimo 4 letras' ,
      'Apellido_encargado.max'=>'El apellido  no debe de tener más de 25 letras' ,
-     'Apellido_encargado.regex'=>'El apellido del encargado solo puede teener letras' ,
+     'Apellido_encargado.regex'=>'El apellido del encargado solo puede tener letras' ,
 
  
      'Telefono_encargado.required'=>'El número de teléfono del encargado es obligatorio' ,
