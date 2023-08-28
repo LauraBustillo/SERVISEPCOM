@@ -40,7 +40,7 @@
       right: -8%;
     }
 
-  
+
 
     /*Los botones*/
     .btn-outline-dark {
@@ -114,7 +114,7 @@
 
   .select2{
     width: 100% !important;
-    height: 30px !important; 
+    height: 30px !important;
   }
 
 
@@ -151,8 +151,8 @@
 
   }
 
-  /* De  Aqui*/ 
-/*Las label*/ 
+  /* De  Aqui*/
+/*Las label*/
 .input-group-text  {
   background-color: #4c4d4e;;
   border: 1.3px solid #4c4d4e;;
@@ -160,11 +160,11 @@
   color: #FFFFFF;
 
 }
-/*Los titulos */ 
+/*Los titulos */
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #4c4d4e;;
-  
+
   font-family: 'Open Sans';
   font-size: 20xp;
 }
@@ -172,7 +172,7 @@
 .tituloo{
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #4c4d4e;;
-  
+
   font-family: 'Open Sans';
   font-size: 30px;
 }
@@ -486,9 +486,9 @@ padding-left: 10% !important;
         <div style="display: flex">
           <div style="width: 100%">
 
-     
+
           <span class="input-group-text"  style="width: 100%">Categorías</span>
-          
+
 
               <select class="form-select form-control"  name="categoria" id="categoria" {{$accion == "editar" ? "disabled" : "" }} >
                 <option {{  $reparacion->categoria == "" ? "selected" : ""}} value="{{null}}" id= "prueba">Seleccione la categoría</option>
@@ -503,7 +503,7 @@ padding-left: 10% !important;
 
           {{-- Nombre equipo--}}
           <div style="width: 100%">
-          
+
             <span class="input-group-text"  style="width: 100%">Nombre equipo</span>
 
             <input {{$accion == "editar" ? "disabled" : "" }} value="{{old('nombre_equipo', $reparacion->nombre_equipo)}}" name="nombre_equipo" id="nombre_equipo"  maxlength="20"
@@ -516,9 +516,9 @@ padding-left: 10% !important;
         {{-- Marca --}}
         <div style="display: flex">
           <div style="width: 100%">
-          
+
             <span class="input-group-text"  style="width: 100%">Marca</span>
-      
+
             <input {{$accion == "editar" ? "disabled" : "" }}  value="{{old('marca',$reparacion->marca)}}"
              name="marca" id="marca" type="text"
             aria-label="First name" class="form-control" placeholder="Marca" maxlength="20" >
@@ -547,10 +547,10 @@ padding-left: 10% !important;
 
           &nbsp;
           &nbsp;
-          
+
 
           {{-- Foto--}}
-          
+
           <div style="width: 100%">
           <span class="input-group-text"  style="width: 100%">Fotos</span>
             <div id="is-relative" >
@@ -620,19 +620,19 @@ padding-left: 10% !important;
       <div id="abrirgarantia" class="form-inline" style="display: none">
           <div class="row">
               <div class="col-6">
-                  
+
                   <span class="input-group-text"  style="width: 100%">Descripción</span>
 
                   <input class="form-control" type="text" id="desc_garantia" name="desc_garantia" value="{{ old('desc_garantia',isset($reparacion->garantiass[0]['descripcion'])?$reparacion->garantiass[0]['descripcion']:'') }}">
               </div>
               <div class="col-3">
-              
+
                   <span class="input-group-text"  style="width: 100%">Fecha Inicio</span>
 
                   <input class="form-control select2" type="date" id="inicio_garantia" name="inicio_garantia" value="{{ old('inicio_garantia',isset($reparacion->garantiass[0]['fecha_inicio'])?$reparacion->garantiass[0]['fecha_inicio']:'') }}">
               </div>
               <div class="col-sm-3">
-                 
+
                   <span class="input-group-text"  style="width: 100%">Fecha Final</span>
 
                   <input class="form-control select2" type="date" id="final_garantia" name="final_garantia" value="{{ old('final_garantia',isset($reparacion->garantiass[0]['fecha_finalizacion'])?$reparacion->garantiass[0]['fecha_finalizacion']:'') }}">
@@ -647,7 +647,7 @@ padding-left: 10% !important;
 {{-- Fecha ingreso  --}}
 <div style="display: flex">
     <div style="width: 100%">
-       
+
         <span class="input-group-text"  style="width: 100%">Fecha ingreso</span>
 
         <input  {{$accion == "editar" ? "disabled" : "" }} value="{{old('fecha_ingreso', $reparacion->fecha_ingreso)}}" name="fecha_ingreso" id="fecha_ingreso" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de ingreso">
@@ -660,7 +660,7 @@ padding-left: 10% !important;
 
     {{-- Fecha entrega  --}}
     <div style="width: 100%">
-      
+
         <span class="input-group-text"  style="width: 100%">Fecha entrega</span>
 
         <input  value="{{old('fecha_entrega', $reparacion->fecha_entrega)}}" name="fecha_entrega" id="fecha_entrega" type="date" aria-label="First name" class="form-control select2" placeholder="Fecha de entrega">
@@ -678,7 +678,7 @@ padding-left: 10% !important;
         <div class="col" >
           <button class="button button-blue "  type="submit" {{$accion == "editar"?"hidden":""}} onclick="fecha();"><i class="bi bi-folder-fill"> Guardar</i></button>
           <button  class="button button-blue " type="submit"  {{$accion == "editar"?"":"hidden"}} ><i class="bi bi-folder-fill"> Actualizar</i></button>
-        
+
           <a class="button button-blue "  href="{{route('reparacion.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
           </div>
       </center>
@@ -738,11 +738,11 @@ padding-left: 10% !important;
           </h3></div>
         <div class="modal-body" >
 
-  
+
             <div style="display: flex">
 
               <div style="width: 100%">
-               
+
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Nombres</span>
 
                 <input  id="nombre_cliente" type="text" minlength="3" maxlength="25" name="Nombre" pattern="[A-ZÑ a-zñ]+" class="form-control"
@@ -752,7 +752,7 @@ padding-left: 10% !important;
               &nbsp; &nbsp;
 
               <div style="width: 100%">
-                
+
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Apellidos</span>
 
                 <input id="apellido_cliente" type="text" minlength="4" maxlength="25" name="Apellido"
@@ -762,7 +762,7 @@ padding-left: 10% !important;
 
               &nbsp; &nbsp;
               <div style="width: 100%">
-                
+
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Número de identidad</span>
 
                 <input uniqued id="identidad_cliente" type="text"  minlength="13" maxlength="13" name="Numero_identidad"class="form-control"
@@ -773,7 +773,7 @@ padding-left: 10% !important;
 
               &nbsp; &nbsp;
               <div style="width: 100%">
-               
+
                 <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Teléfono fijo o celular</span>
 
                 <input uniqued id="telefono_cliente"  type="text" pattern="([9,8,3,2]{1}[0-9]{7})" pattern="[0-9]+"   maxlength="8" minlength="8" name="Numero_telefono" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
@@ -782,11 +782,11 @@ padding-left: 10% !important;
 
             </div>
 
- 
+
             <br>
 
             <center><div style="width: 60%">
-            
+
               <span class="input-group-text" style="width: 100%"  id="inputGroup-sizing-sm">Dirección</span>
 
               <textarea id="direccion_cliente"  minlength="10" maxlength="150"  name="Direccion" spellcheck="true"class="form-control" style="width: 100%"  id="exampleFormControlTextarea1"
@@ -809,9 +809,9 @@ padding-left: 10% !important;
   <div class="modal-dialog  modal-xl" >
   <div class="modal-content">
       <div class="modal-header">
-        <h3 class="titulo">Agregar Producto Invantario</h3>
+        <h3 class="titulo">Agregar Producto Inventario</h3>
       </div>
-
+      <input type="text" value="Agregar Producto Inventario" hidden>
       <table id="tablebuscarinventario" class="table table-hover tablacompras"> <br>
         <thead>
           <tr>
