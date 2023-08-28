@@ -20,11 +20,11 @@ class EmpleadoController extends Controller
 
         $empleado = [];
         $empleado = Empleado::all();
-        
+
 
         return view('Empleados.ListadoEmpleados')->with('empleados', $empleado);
 
-      
+
     }
 
     /*Funcion para mostrar mas informacion del empleado */
@@ -75,7 +75,7 @@ class EmpleadoController extends Controller
             'Fecha_nacimiento' => 'required',
             'Numero_telefono' => 'required|unique:empleados|regex:([9,8,3,2]{1}[0-9]{7})|min:8|max:8',
             'Salrio' => 'required|numeric|max:25000|min:5000',
-            'Fecha_contrato' => 'required',
+            'Fecha_contrato' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
             'Direccion' => 'required|min:10|max:150',
         ]);
 
@@ -107,13 +107,13 @@ class EmpleadoController extends Controller
             'Numero_telefono.regex' => 'El teléfono solo debe contener números y empezar con 2, 3, 8 o 9',
 
             'Fecha_contrato.required' => 'La fecha de contrato es obligatoria',
+            'Fecha_contrato.date' => 'La fecha de contrato deber ser una fecha',
+            'Fecha_contrato.after_or_equal' => 'La fecha de contrato debe ser despues de la fecha actual',
 
             'Salrio.required' => 'El salario es obligatorio',
             'Salrio.numeric' => 'El salario solo debe contener números',
             'Salrio.max' => 'El salario no debe ser mayor a 25,000 Lps.',
-            'Salrio.min' => 'El salario  debe ser mayor a 5,000 Lps.',
-
-
+            'Salrio.min' => 'El salario  debe ser mayor a 5,000 Lps no permite números negativos.',
 
             'Direccion.required' => 'La dirección es obligatoria',
             'Direccion.min' => 'La dirección debe tener minimo 10 caracteres',

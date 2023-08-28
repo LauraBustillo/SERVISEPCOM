@@ -16,7 +16,7 @@
     background-color: transparent;
     border: 1px solid #0319C4;
 }
- 
+
 
 div.container {
 
@@ -25,14 +25,14 @@ height: 100% !important;
 padding-left: 10% !important;
 }
 
-/*Los titulos */ 
+/*Los titulos */
 .titulo {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #4c4d4e;
   font-family: 'Open Sans';
   font-size: 20px;
 }
-/*Los titulos */ 
+/*Los titulos */
 .titulo1 {
   font: italic normal bold normal 3em/1 Helvetica, Arial, sans-serif;
   color: #4c4d4e;
@@ -78,12 +78,20 @@ padding-left: 10% !important;
 .boton1{
   border: none;
 }
-</style>
- 
 
-<h1 class="titulo1">Información del matenimiento</h1>
+  .transparent-textarea {
+    background-color: transparent;
+    height: 100px;
+    border: none;
+    width: 90%;
+    resize: none;
+  }
+</style>
+
+
+<h1 class="titulo1">Información del mantenimiento</h1>
 <br>
-<div>    
+<div>
     <div class="titulo" >Mantenimiento: {{ $detalle->Nombre }} {{$detalle->Apellido}}</div>
 <br>
     <table class="table table-hover">
@@ -98,26 +106,26 @@ padding-left: 10% !important;
             <tr>
                 <td>Número de identidad</td>
                 <td>{{$detalle->Identidad}}</td>
-            </tr> 
+            </tr>
 
             <tr>
                 <td>Teléfono</td>
-                <td>{{$detalle->Telefono}}</td> 
-            </tr> 
+                <td>{{$detalle->Telefono}}</td>
+            </tr>
 
             <tr>
                 <td>Dirección</td>
                 <td>{{$detalle->Direccion}}</td>
-            </tr> 
+            </tr>
 
             <tr>
                 <td>Categoría</td>
                 <td>{{$detalle->categoria}}</td>
-            </tr> 
+            </tr>
             <tr>
                 <td>Nombre equipo</td>
                 <td>{{$detalle->nombre_equipo}}</td>
-            </tr> 
+            </tr>
 
             <tr>
                 <td>Marca</td>
@@ -130,7 +138,9 @@ padding-left: 10% !important;
 
             <tr>
                 <td>Descripción</td>
-                <td>{{$detalle->descripcionm}}</td>
+                <td>
+                    <textarea class="transparent-textarea" readonly>{{$detalle->descripcionm}}</textarea>
+               </td>
             </tr>
             <tr>
                 <td>Fecha ingreso</td>
@@ -140,14 +150,14 @@ padding-left: 10% !important;
                 <td>Fecha entrega</td>
                 <td>{{$detalle->fecha_entrega}}</td>
             </tr>
-            
+
         </tbody>
     </table>
   </div>
-  
+
   {{--Botones --}}
   <a class="button button-blue "  href="{{route('mantenimiento.mostrar' , ['id' => $detalle->id]) }}"> <i class="bi bi-pen-fill"> Editar </i></a>
   <a class="button button-blue " href="{{route('mantenimiento.index')}}" ><i class="bi bi-arrow-left-circle-fill"> Volver </i></a>
-  
+
 @endsection
 @include('common')
