@@ -31,19 +31,21 @@ class ProductController extends Controller
        'Descripcion' =>"required|min:3|max:150",
        'categoria_id'=>'required',
        'proveedor_id'=>'required',
-       'Cantidad',
-       'Precio_compra', 
-       'Precio_venta',
-       'Impuesto',
+       'Cantidad' => 'nullable',
+       'Precio_compra' => 'nullable', 
+       'Precio_venta' => 'nullable',
+       'Impuesto' => 'nullable',
      ]);
      
     $mesaje=([
 
     'Nombre_producto.required'=>'El nombre del producto es obligatorio' ,
+    'Nombre_producto.regex' => 'El nombre del producto solo puede tener letras',
     'Nombre_producto.min'=>'El nombre del producto debe tener minimo 3 letras' ,
     'Nombre_producto.max'=>'El nombre del producto no debe de tener más de 25 letras' ,
 
     'Marca.required'=>'La marca del producto es obligatoria' ,
+    'Marca.regex' => 'La marca solo puede tener letras',
     'Marca.min'=>'La marca debe tener minimo 2 letras' ,
     'Marca.max'=>'La marca no debe de tener más de 25 letras' ,
 
