@@ -40,48 +40,34 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-
         Permiso::validarRolSoloAdmin(Auth::user());
-
         $rules= ([
-            //'name' => ['required', 'string', 'max:255'],
-'name' => ['required', 'string', 'max:100'],
-            'id_empleado' => ['required', 'unique:users'],
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
             'password_confirmation' => ['required', 'string', 'min:8','same:password'],
+            'id_empleado' => ['required', 'unique:users'],
             'rol_usuario' => ['required'],
         ]);
-
         $message = ([
-
-            'id_empleado.required'=>'Selecione un empleado',
-            'id_empleado.unique'=>'El empleado ya está registrado',
-
-            'name.required'=>'El usuario es obligatorio',
-'name.string'=>'El nombre debe ser una cadena de texto.',
-'name.max'=>'El nombre no puede tener más de 100 caracteres.',
-
-            'email.required'=>'El correo es obligatorio',
-            'email.unique'=>'El correo ya esta en uso',
-'email.string' => 'El correo debe ser una cadena de texto.',
-'email.email' => 'El formato del correo no es válido.',
-'email.max' => 'El correo no puede tener más de 100 caracteres.',
-
             'password.required'=>'La contraseña es obligatoria',
             'password.min'=>'La contraseña debe tener minimo 8 caracteres',
-
             'password_confirmation.required'=>'Debe confirmar la contraseña',
             'password_confirmation.min'=>'La contraseña debe tener minimo 8 caracteres',
             'password_confirmation.same'=>'La contraseña deben coincidir con al confirmacion',
-
+            'email.required'=>'El correo es obligatorio',
+            'email.unique'=>'El correo ya esta en uso',
+            'email.string' => 'El correo debe ser una cadena de texto.',
+            'email.email' => 'El formato del correo no es válido.',
+            'email.max' => 'El correo no puede tener más de 100 caracteres.',
+            'name.required'=>'El usuario es obligatorio',
+            'name.string'=>'El nombre debe ser una cadena de texto.',
+            'name.max'=>'El nombre no puede tener más de 100 caracteres.',
+            'id_empleado.required'=>'Selecione un empleado',
+            'id_empleado.unique'=>'El empleado ya está registrado',
             'rol_usuario.required'=>'Selecione un rol',
-
         ]);
-
         $this->validate($request, $rules, $message);
-
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
