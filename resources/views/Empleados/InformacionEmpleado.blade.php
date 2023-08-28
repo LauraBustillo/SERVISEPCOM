@@ -89,7 +89,7 @@ padding-left: 10% !important;
 </div>
 @endif 
 
-<H1 class="titulo1">Infromación del empleado</H1>
+<H1 class="titulo1">Información del empleado</H1>
 <br>
 <div >     
     <div class="titulo" >Empleado: {{ $ver->Nombres }} {{ $ver->Apellidos}} </div>

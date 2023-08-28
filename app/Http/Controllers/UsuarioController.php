@@ -1,5 +1,5 @@
 <?php
-  
+
 namespace App\Http\Controllers;
 
 use App\Http\Permiso;
@@ -16,20 +16,14 @@ class UsuarioController extends Controller
 
     public function index(Request $request)
     {
-
         Permiso::validarRolSoloAdmin(Auth::user());
-
         $usuarios = User::all();
         foreach ($usuarios as $key => $usuario) {
             if ($usuario->id_empleado) {
                 $usuario->id_empleado = Empleado::find( $usuario->id_empleado)->Nombres.' '.Empleado::find( $usuario->id_empleado)->Apellidos;
             }
-
         }
-
-
         return view('Usuarios.ListadoUsuario')->with('usuarios',$usuarios);
-
     }
 
 
@@ -50,9 +44,11 @@ class UsuarioController extends Controller
         Permiso::validarRolSoloAdmin(Auth::user());
 
         $rules= ([
-            'name' => ['required', 'string', 'max:255'],
+            //'name' => ['required', 'string', 'max:255'],
+'name' => ['required', 'string', 'max:100'],
             'id_empleado' => ['required', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
             'password_confirmation' => ['required', 'string', 'min:8','same:password'],
             'rol_usuario' => ['required'],
@@ -64,9 +60,14 @@ class UsuarioController extends Controller
             'id_empleado.unique'=>'El empleado ya está registrado',
 
             'name.required'=>'El usuario es obligatorio',
+'name.string'=>'El nombre debe ser una cadena de texto.',
+'name.max'=>'El nombre no puede tener más de 100 caracteres.',
 
             'email.required'=>'El correo es obligatorio',
             'email.unique'=>'El correo ya esta en uso',
+'email.string' => 'El correo debe ser una cadena de texto.',
+'email.email' => 'El formato del correo no es válido.',
+'email.max' => 'El correo no puede tener más de 100 caracteres.',
 
             'password.required'=>'La contraseña es obligatoria',
             'password.min'=>'La contraseña debe tener minimo 8 caracteres',

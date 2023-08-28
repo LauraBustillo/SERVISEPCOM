@@ -80,9 +80,15 @@ public function show(){
     ->with('factura',$factura);
 }
 
+
+
+/* La prueba no estaba comprobando la ruta correctamente, pero de igual manera tomamos en cuenta agregar algunas validacionesa en la
+ función guardarFactura de compras, la función del test actúadirectamente con la base de datos y no pasara por las validaciones de
+  la ruta (POST) creada para guardar la compra */
+
 public function guardarFactura($arrayFac,$arrayDet){
 
-  // pasamos los string parametros a arreglos
+  // pasamos los string parametros a arreglos 
   $jsonFactura =  json_decode($arrayFac);
   $arrayDetallesFac =  json_decode($arrayDet);
 
@@ -96,6 +102,21 @@ public function guardarFactura($arrayFac,$arrayDet){
 
     // Definir mensajes personalizados
     $messages = [
+      'Numero_factura.required' => 'El número de factura es requerido.',
+        'Numero_factura.regex' => 'El número de factura debe tener el formato 000-000-00-00000000.',
+        'Numero_factura.unique' => 'El número de factura ya está en uso.',
+
+        'empleadoVentas.required' => 'El empleado de compras es requerido.',
+        'empleadoVentas.regex' => 'El formato del empleado de compras no es válido.',
+
+        'Fecha_facturacion.required' => 'La fecha de factura es requerida.',
+        'Fecha_facturacion.date' => 'La fecha de factura debe ser una fecha válida.',
+
+        'Proveedor.required' => 'El proveedor de la factura es requerido.',
+        'Proveedor.regex' => 'El formato del proveedor no es válido.',
+
+        'Total_factura.required' => 'El total de factura es requerido.',
+        'Total_factura.numeric' => 'El total de factura debe ser un número.',
         
     ];
 
